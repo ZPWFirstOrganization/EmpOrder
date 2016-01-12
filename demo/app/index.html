@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="demo_app" lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- CSS -->
+	<link rel="stylesheet" href="framework/foundation/css/foundation.min.css">
+	<link rel="stylesheet" href="framework/foundation/css/app.css" />
+	<!-- JS -->
+	<script src="framework/foundation/js/vendor/jquery.min.js"></script>
+	<!-- // <script src="framework/foundation/js/vendor/what-input.min.js"></script> -->
+	<script src="framework/foundation/js/foundation.min.js"></script>
+    <script src="framework/foundation/js/app.js"></script>
+	<script src="framework/angular/angular.js"></script>
+	<script src="framework/angular/angular-route.js"></script>
+	<script src="framework/angular/angular-resource.js"></script>
+	<script src="framework/angular/angular-cookies.js"></script>
+	<script src="framework/angular/angular-ui-router.min.js"></script>
+
+	<script src="js/app.js"></script>
+	<script src="js/controllers/home.js"></script>
+	<script src="js/controllers/page1.js"></script>
+	<script src="js/controllers/page2.js"></script>
+	<script src="js/controllers/page3.js"></script>
+	<script src="js/services/httpServices.js"></script>
+	<title>DEMO</title>
+</head>
+<!-- <body style="background-color:red">
+	<div ui-view>Hello World！
+	</div>
+
+</body> -->
+<body>
+<!--     <h2>下拉菜单触发条件</h2>
+<a href="#" data-dropdown="id01" data-options="is_hover:true" class="button dropdown">鼠标移动到我这</a>
+<ul id="id01" data-dropdown-content class="f-dropdown">
+  <li><a href="#">Link 1</a></li>
+  <li><a href="#">Link 2</a></li>
+  <li><a href="#">Link 3</a></li>
+</ul> -->
+    <div ui-view>Hello World！
+    </div>
+</body>
+<script>
+$(document).ready(function() {
+    $(document).foundation();
+})
+</script>
+</html>
