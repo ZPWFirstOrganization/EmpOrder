@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="order_app" lang="zh-cn">
+<html ng-app="orderApp" lang="zh-cn">
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta charset="utf-8">
@@ -34,14 +34,15 @@
 <script src="angular/angular-ui-router.min.js"></script>
 
 <script src="ctrljs/app.js"></script>
+<script src="ctrljs/tips.js"></script>
 <script src="ctrljs/controllers/home.js"></script>
 <script src="ctrljs/services/httpServices.js"></script>
 
 </head>
 
 <body>
-	<div ui-view>加载中...
-    </div>
+	<div ui-view>加载中...</div>
+	<div ui-view="tips"></div>
 </body>
 
 </html>
