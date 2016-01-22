@@ -1,0 +1,78 @@
+/*	--------------------------------------------------
+	Reveal Modals
+	-------------------------------------------------- */
+
+.reveal-modal-bg {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	background: #000;
+	background: rgba(0,0,0,.8);
+	z-index: 1000;
+	display: none;
+	top: 0;
+	left: 0;
+	}
+
+.reveal-modal {
+	display:none;
+	top: 100px;
+	left: 50%;
+	margin-left: -200px;
+	width: 400px;
+	background: #fff ;
+	position: absolute;
+	z-index: 1001;
+	padding:20px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,.4);
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,.4);
+	-box-shadow: 0 0 10px rgba(0,0,0,.4);
+	}
+
+.reveal-modal.small 		{ width: 200px; margin-left: -140px;}
+.reveal-modal.medium 		{ width: 400px; margin-left: -240px;}
+.reveal-modal.large 		{ width: 600px; margin-left: -340px;}
+.reveal-modal.xlarge 		{ width: 800px; margin-left: -440px;}
+
+.reveal-modal .close-reveal-modal {
+	width:25px; 
+	line-height:25px!important;
+	text-align:center;
+	background-color:#000000;
+	border-radius:50%;
+	border:2px solid #fff;
+	box-shadow:0px 1px 2px #333;
+	font-size: 24px;
+	line-height: .5;
+	position: absolute;
+	top: -15px;
+	right: -15px;
+	color: #fff;
+	text-shadow: 0 -1px 1px rbga(0,0,0,.6);
+	font-weight: bold;
+	cursor: pointer;
+	}
+
+
+@media screen and (max-width: 800px) { 
+.reveal-modal {
+	display:none;
+	top: 100px;
+	left: 50%;
+	width:80%; margin-left:-45%;
+	background-color:#fff;
+	position: absolute;
+	z-index: 1001;
+	padding:20px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,.4);
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,.4);
+	-box-shadow: 0 0 10px rgba(0,0,0,.4);
+	}
+
+}

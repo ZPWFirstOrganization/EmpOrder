@@ -1,0 +1,93 @@
+.autocompleter {
+    width: 100%;
+    background: #fff;
+    position: absolute;
+    top: 35px;
+    left: 0;
+    z-index: 100;
+	
+}
+
+.autocompleter,
+.autocompleter-hint {
+    position: absolute;
+}
+
+.autocompleter-list {
+    box-shadow: inset 0px 0px 6px rgba(0,0,0,0.1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+	
+}
+
+.autocompleter-item-selected {
+    background: #ffffff;
+}
+
+.autocompleter-item {
+    padding: 6px 12px;
+    color: #444444;   
+    cursor: pointer;
+}
+
+.autocompleter-item:hover {
+    background: #eee;
+}
+
+.autocompleter-item strong {
+    background: #f9de8f;
+    text-shadow: 0 1px 0 #ffffff;
+}
+
+.autocompleter-item span {
+    color: #bbbbbb;
+}
+
+.autocompleter-hint {
+    color: #ccc;
+    text-align: left;
+    top: -56px;
+    font-weight: 400;
+    left: 0;
+    width: 100%;
+    padding: 12px 12px 12px 13px;
+    font-size: 24px;
+    display: none;
+}
+
+.autocompleter-hint span {
+    color: transparent;
+}
+
+.autocompleter-hint-show {
+    display: block;
+}
+
+.autocompleter-closed {
+    display: none;
+}
+
+@media screen and (max-width: 800px) { 
+.autocompleter {
+    width: 100%;
+    background: #fff;
+    position: absolute;
+    top: 42px;
+    left: 0;
+    z-index: 250;
+	
+}
+.autocompleter-item {
+    padding: 20px 12px;
+    color: #444444;   
+    cursor: pointer;
+	border-bottom:1px solid #eee;
+}
+
+
+
+}

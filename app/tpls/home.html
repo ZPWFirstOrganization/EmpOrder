@@ -1,0 +1,487 @@
+<script>
+//显示Toast提示 替换alert
+function showModal(obj){
+   var fadeInTime = obj.fadeInTime ? obj.fadeInTime : 500; //黑块淡进
+   var delayTime = obj.delayTime ? obj.delayTime : 2000; //停留时间
+   var fadeOutTime = obj.fadeOutTime ? obj.fadeOutTime : 200; //淡出时间
+   var callbackTime  = obj.callbackTime ? obj.callbackTime : 3000; //回调延迟
+
+
+   if($(".showModal").length==0){
+      $("body").append('<div class="showModal" style="display:none">'+obj.msg+'</div>');
+   }
+
+   $(".showModal").fadeIn(fadeInTime).delay(delayTime).animate({"top":"60%","opacity":0},fadeOutTime).fadeOut(0);
+
+   //回调
+   if(obj.end){
+     setTimeout(function () {
+    obj.end();
+
+     }, callbackTime);
+   }
+   //移除黑块
+   setTimeout(function () {
+
+  $(".showModal").remove();
+   }, fadeInTime+delayTime+fadeOutTime);
+
+}
+
+//显示置顶按钮
+function showTopBtn(){
+
+  if($(".to-top").length==0){
+    $("body").prepend('<div class="to-top"></div>');
+  };
+
+  $('.to-top').on('click',function(){
+
+    $("html,body").animate({ scrollTop: 0 }, 0);
+  });
+  $(".to-top").fadeIn(200);
+
+}
+function hideTopBtn(){
+  $(".to-top").fadeOut(200);
+
+}
+
+//显示弹窗 依赖jquery.reveal.js
+function showConfirm(obj){
+   var msg = obj.msg ? obj.msg : "确定要执行操作嘛？"; //黑块淡进
+   
+
+  $("[popup='confirm']").reveal({
+    dismissJqObject:$("[popup='confirm']").find("[action=cancel]")  
+  });
+  $("[popup='confirm']").find("[action=msg]").html(msg);
+  $("[popup='confirm']").find("[action=confirm]")[0].onclick=function(){  
+    if(obj.confirmed){obj.confirmed()};
+    $("[popup='confirm']").closeModal();
+    return true;
+  };
+  $("[popup='confirm']").find("[action=cancel]")[0].onclick=function(){
+    if(obj.cancel){obj.cancel()};
+    $("[popup='confirm']").closeModal();
+    return false;
+  };
+}
+
+
+//显示弹窗alert 依赖jquery.reveal.js
+function showAlert(obj){
+   var msg = obj.msg ? obj.msg : "弹窗提示！"; //黑块淡进
+   
+
+  $("[popup='alert']").reveal({
+    closeonbackgroundclick:false
+  });
+  $("[popup='alert']").find("[action=msg]").html(msg);
+  
+  if(obj.btn==false){
+    $("[popup='alert']").find(".form-row,.split-dot").hide(0);  
+  }else{
+    $("[popup='alert']").find(".form-row,.split-dot").show(0);
+  } 
+  
+  $("[popup='alert']").find("[action=alert]")[0].onclick=function(){  
+    if(obj.alerted){obj.alerted()};
+    $("[popup='alert']").closeModal();
+    return true;
+  };
+
+}
+
+
+
+//显示加载菊花
+jQuery.fn.showLoading = function(top) {
+      if(!top){top=0}
+    if(this.css("position")!="relative"){
+      this.css("position","relative");
+    };
+
+    w=$(window).width();
+    h=$(window).height();
+
+    if(!$(".loading-Bg")[0]){
+        var bg='';
+
+    }else{
+      var bg="";
+    }
+
+
+      if(this.find(".loading").length==0){
+      this.prepend('<div class="loading"></div>'+bg);
+    };
+
+    $(window).resize(function(e) {
+      w=$(window).width();
+        h=$(window).height();
+            $(".loading-Bg").css({"width":w+"px","height":h+"px"});
+        });
+    //屏幕太长时调整位置
+
+      topPx=this.height()/2;
+      this.find(".loading").css("top",topPx+top);
+
+    this.find(".loading").fadeIn(200);
+
+};
+//隐藏加载菊花
+jQuery.fn.hideLoading = function() {
+
+    this.find(".loading").fadeOut(200);
+    this.find(".loading-bg").remove();
+       setTimeout(function () {
+       $(this).remove(".loading");
+    }, 200);
+};
+
+
+
+//判断ajax返回类型 兼容ie7
+function ajaxType(val){
+  if(typeof(val)=='string'){
+    return JSON.parse(val);
+  }else{
+    return val;
+  }
+}
+
+
+$(document).ready(function(e) {
+  
+  
+     
+   //pc and mobile js--------------------------------------------------
+   
+   //自动完成搜索api   https://github.com/ArtemFitiskin/jquery-autocompleter
+  var data = [
+    { "value": "1", "label": "1" },
+    { "value": "1-1", "label": "1-1" },
+    { "value": "2", "label": "2" },
+    { "value": "3", "label": "3" }
+  ];
+
+  $('.search').autocompleter({ 
+    highlightMatches: true,
+
+        // abort source if empty field
+        empty: false,
+        // max results
+        limit: 5,
+    source: data
+   });
+
+
+
+   //ajax全局阻止重复提交
+   window.ys={};
+   window.ys.ajax={};
+   window.ys.ajax.urlMap= new Array();
+
+  $.ajaxSetup({
+    beforeSend:function(xhr){
+      //console.log(this.url);
+      if(ys.ajax.urlMap[this.url] && ys.ajax.urlMap[this.url] == 'lock'){
+        return false;
+      } else {
+        ys.ajax.urlMap[this.url] = 'lock';
+      }
+    },
+    complete:function(){
+      ys.ajax.urlMap[this.url] = 'unlock';
+      delete ys.ajax.urlMap[this.url];
+    },
+    error: function(xhr, status, err){
+      if(xhr.status  == "200" || xhr.status == 200){
+        return;
+      }
+      if(xhr.status  == "510" || xhr.status == 510){
+        showModal({
+          msg:"请先登录再操作",
+          callbackTime:1000,
+          end:function(){
+            avalon.vmodels.header.showLogin();
+          }
+        })
+      } else if(xhr.status  == "511" || xhr.status == 511){
+        showModal({
+          msg:"用户还未通过验证"
+        })
+      } else if(xhr.status  == "512" || xhr.status == 512){
+        showModal({
+          msg:"用户已经被冻结"
+        })
+      } else if(xhr.status  == "513" || xhr.status == 513){
+        showAlert({
+          msg:"您已被列入黑名单!<br/>请联系左木[微信635636]"
+        })
+      }
+      hideLoading();
+    }
+  });
+  
+  //pc and mobile js--------------------------------------------------
+  
+/*  showConfirm({
+    msg:"confirm效果？",
+    confirmed:function(){
+      alert("确定回调");
+
+    },
+    cancel:function(){
+
+
+    }
+  });
+  
+  showAlert({msg:"alert效果"});*/
+  
+  //秀/藏菊花
+  $("body").showLoading(-150);
+  $("body").hideLoading();
+
+});
+
+
+</script>
+
+
+<div>
+<!--  confirm box -->
+<div popup="confirm" class="reveal-modal" >
+  <a class="close-reveal-modal" action="closeModal">&#215;</a>
+    <div class="confirm-inner">
+            <img src="assets/img/icon_orange_question.png" />
+      <span action="msg">确定要这么做么？</span>
+    </div>
+
+    <div class="split-dot mb20 text-center"></div>
+    <div class="form-row">
+      <a action="cancel" class=" button button-gray w35 fl"   >取消</a>
+        <a action="confirm" class=" button button-pink w35 fr"   >确定</a>
+        
+        <div class="clr"></div>
+    </div>
+
+</div>
+
+
+<!--  alert -->
+<div popup="alert" class="reveal-modal" >
+
+    <div class="confirm-inner">
+            <img src="assets/img/icon_orange_exclamation.png" />
+      <span action="msg">确定要这么做么？</span>
+    </div>
+
+    <div class="split-dot mb20 text-center"></div>
+    <div class="form-row">
+        <a action="alert" class=" button button-pink w90 " >确定</a>
+
+        <div class="clr"></div>
+    </div>
+
+</div>
+
+
+<!--pc头-->
+
+<div class="pc-header-wrapper pc-only" ng-controller='pcHeaderController'>
+   <div class="header">
+     <div class="header-inner page-width">
+        <div class="logo-wrapper">
+          <a class="logo" href="#">
+            
+            </a>
+          <div class=" title">
+            员工内购系统
+            </div> 
+            
+            <div class="onsale" action="pc-select-onsale">
+            <span>优惠价</span>
+                <div class="pc-onsale-list-wrapper">
+                    <div class="pc-onsale-list">
+                 
+                    <a class="list">6折</a>
+                
+                    </div>
+                </div>  
+            </div>          
+        
+        </div>
+        
+        <div class="search-wrapper">
+          <input type="text" class="search"  placeholder="产品名称 或 货号" />
+            <a class="search-btn "></a>
+        </div>
+        
+        <div class="my-wrapper">
+        
+        <a class="button-s button-pink" href="#">收藏</a>
+        <a class="button-s button-gray" href="#">我的</a>
+        
+        
+        </div>
+        <div class="clr"></div>
+     
+     </div>
+   </div>
+   <div class="nav" ng-controller='pcNavController'>
+     <div class="nav-inner page-width">
+      <li class="menu" ng-repeat="Division in categories" ng-mouseenter="showList=!showList" ng-mouseleave="showList=!showList" ng-click='divisionClicked(Division)'>
+        <a>{{Division.Name}}</a>
+        <div class="submenu-wrapper" ng-show="showList" >
+            <div class="submenu-inner" ng-repeat="Group in Division.Class2" ng-click='groupClicked(Group);$event.stopPropagation();'>
+                <a class="submenu">{{Group.Name}}</a>
+            </div>
+        </div>
+      </li>
+      <a class="notice">公告</a>
+      <div class="clr"></div>
+     </div>
+   </div>   
+</div>
+
+<a class="cart animated">
+  <div class="cart-inner">
+    <div class="number" id="numbercircle">12</div>
+    余额：</br>
+    5000.00
+  </div>
+</a>
+
+<!--mobile头-->
+<div class="mobile-header-wrapper mobile-only" ng-controller='mbHeaderController'>
+    <div class="header">
+    <div class="mobile-onsale-wrap  fl w20" action="mobile-select-onsale" >
+
+        <div class="mobile-onsale-content">优惠价</div>
+        <div class="mobile-onsale-arrow"></div>
+    </div>    
+
+    <a class="my" action="my"></a>
+    <a class="fav"></a> 
+    </div>
+    
+    <div class="my-list">
+      <a class="list">当月订单</a>
+      <a class="list">历史订单</a>
+      <a class="list">个人信息</a>
+      <a class="list">公告</a>
+    </div>
+    
+    <div class="mobile-onsale-list">
+    <a class="list">优惠价</a>
+    <a class="list">6折</a>
+
+    </div>    
+    <div class="search-wrapper">
+      <!--<a class="button-s button-gray myFav" href="#">收藏（99）</a>-->
+        
+        <input type="text" class="search"  placeholder="产品名称 或 货号" />
+        <a class="search-btn "></a>
+    </div>
+</div>
+
+
+<!--主体-->
+
+<!--pc面包屑-->
+<div class="layout page-width pc-only">
+  <div class="bread-crumb">
+    <a>优惠价</a>
+    <a>&gt;</a>
+    <a href="#">护肤</a>
+    <a>&gt;</a>
+    <a href="#">臻时粹颜系列</a></div>
+    <div class="tips">可下单日期为每月1到17日，您当前日期不可下单</div>
+    <div class="clr"></div>
+</div>
+
+<!--mobile分类选择-->
+<div class="category-wrapper mobile-only" ng-controller='mbNavController' >
+
+    <div class="select-wrap  fl" action="left_select" cname="category" >
+
+        <div class="select-content">{{DivisionName}}</div>
+        <div class="select-arrow"></div>
+        <div class="option-list" id="DivisionList" >
+          <a class="list" ng-repeat="Division in categories" ng-click="divisionItemClicked(Division)">{{Division.Name}}</a>
+        </div>
+    </div>
+    
+    <div class="select-wrap  fr" action="right_select" cname="sku">
+
+      <div class="select-content">{{GroupName}}</div>
+      <div class="select-arrow"></div>
+      <div class="option-list" id="GroupList">
+        <a class="list" ng-repeat="Class in Group" ng-click="groupItemClicked(Class)">{{Class.Name}}</a>
+      </div>
+    </div> 
+    
+    <div class="clr"></div>  
+    
+    
+    <div class="option-list" ng-show=false>
+      <a class="list">当月订单</a>
+      <a class="list">历史订单</a>
+      <a class="list">个人信息</a>
+      <a class="list">公告</a>
+    </div>
+     
+</div>
+
+
+<!--pc mobile产品列表-->
+<div class="layout page-width" ng-controller='prductListController'>
+
+  <div class="content-wrapper">
+    <div class="product-wrapper" ng-repeat="Product in pdList.products" ng-init="Product.productStatus=='1'?btnClass = 'button-s button-gray add-cart':btnClass = 'button-s button-gray button-disable add-cart';Product.productStatus=='1'?btnText = '加入当月订单':btnText = '不可下订单'">
+      <div class="product-photo">
+        <img src="assets/resource/photo_s.jpg" ng-click="imgClicked()"/>
+      </div>
+      <div class="product-info" ng-init="">
+        <a ng-class="{true:'cancelfavorite',false:'favorite'}[Product.isFavorite]" ng-click="favoriteClicked(Product)">收藏</a>
+        <a class="product-name" >{{Product.productName}}</a>
+        <div class="product-no">{{Product.productCode}}</div>
+        <div class="product-price"><span class="new-price">￥{{Product.productRealPrice}}</span></div>
+        <div class="product-action">
+          <a class="button-s button-border-gray disable" >-</a>
+          <input type="text" class="number"  placeholder="数量"  value="1" maxlength="3" />
+          <a class="button-s button-border-gray" >+</a>
+          <a class="{{btnClass}}}" ng-click="addCartClicked(Product)">{{btnText}}</a>
+        </div>
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+    
+  <!--pc分页-->    
+  <div class="paginate-wrap pc-only">
+    <div class="dataTables_paginate " >
+      <span class="current">1</span>
+      <a class="num" href="/index.php/Back/Product/showList/p/2.html">2</a>
+      <a class="num" href="/index.php/Back/Product/showList/p/3.html">3</a>
+      <a class="num" href="/index.php/Back/Product/showList/p/4.html">4</a>
+      <a class="num" href="/index.php/Back/Product/showList/p/5.html">5</a> 
+      <a class="next" href="/index.php/Back/Product/showList/p/2.html">>></a> 
+      <div class="clr"></div>
+    </div>      
+  </div>  
+
+</div>
+
+<!--底部-->
+<div class="footer-wrapper pc-only">
+©2007-2013 Mary Kay Inc. 沪ICP备10024290号
+</div>
+
+</div>
+  
+    
