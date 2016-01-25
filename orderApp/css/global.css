@@ -35,7 +35,7 @@ body{ background-color: #f3f3f3; color:#000; font-family:Arial, "微软雅黑"; 
 .pc-header-wrapper .nav .nav-inner .menu{ line-height:40px; width:10%; text-align:center; display:block; float:left; list-style:none; position:relative; cursor:pointer}
 .pc-header-wrapper .nav .nav-inner .menu:hover{ background-color:#c5775a; }
 .pc-header-wrapper .nav .nav-inner .menu:hover a{color:#fff!important}
-.pc-header-wrapper .nav .nav-inner .menu .submenu-wrapper{ position:absolute; top:40px; left:0px;padding-top:10px; background-color:#fff;min-width:150%; display:none; z-index:10 ; }
+.pc-header-wrapper .nav .nav-inner .menu .submenu-wrapper{ position:absolute; top:40px; left:0px;padding-top:10px; background-color:#fff;min-width:150%; display:block; z-index:10 ; }
 .pc-header-wrapper .nav .nav-inner .menu .submenu-wrapper .submenu-inner{background-color:#fff; padding:2px; border-radius:3px; border:1px solid #ccc;box-shadow:1px 1px 2px #eee;}
 .pc-header-wrapper .nav .nav-inner .menu .submenu-wrapper .submenu{ display:block; padding:0px; color:#c5775a!important;white-space:nowrap; }
 .pc-header-wrapper .nav .nav-inner .menu .submenu-wrapper .submenu:hover{ background-color:#c5775a;color:#fff!important;}

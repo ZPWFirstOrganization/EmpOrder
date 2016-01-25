@@ -18,20 +18,20 @@
           <a class="search-btn "></a>
         </div>
         <div class="my-wrapper">
-          <a class="button-s button-pink" href="#">收藏</a>
-          <a class="button-s button-gray" href="#">我的</a>
+          <a class="button-s button-gray icon-fav" href="#">收藏</a>
+          <a class="button-s button-gray icon-my" href="#">我的</a>
         </div>
         <div class="clr"></div>
      </div>
    </div>
 
-   <div class="nav" ng-controller='pcNavController'>
+   <div class="nav">
      <div class="nav-inner page-width">
       <li class="menu" ng-repeat="Division in categories" ng-mouseenter="showList=!showList" ng-mouseleave="showList=!showList" ng-click='divisionClicked(Division)'>
         <a>{{Division.name}}</a>
         <div class="submenu-wrapper" ng-show="showList" >
-            <div class="submenu-inner" ng-repeat="Group in Division.class2" ng-click='groupClicked(Group);$event.stopPropagation();'>
-                <a class="submenu">{{Group.name}}</a>
+            <div class="submenu-inner" >
+                <a class="submenu" ng-repeat="Group in Division.class2" ng-click='groupClicked(Group);$event.stopPropagation();'>{{Group.name}}</a>
             </div>
         </div>
       </li>
