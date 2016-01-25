@@ -1,0 +1,62 @@
+<div ng-controller='prductListController'>
+<!--pc面包屑-->
+<div class="layout page-width pc-only">
+  <div class="bread-crumb">
+    <a>优惠价</a>
+    <a>&gt;</a>
+    <a href="#">护肤</a>
+    <a>&gt;</a>
+    <a href="#">臻时粹颜系列</a></div>
+    <div class="tips">可下单日期为每月1到17日，您当前日期不可下单</div>
+    <div class="clr"></div>
+</div>
+
+
+
+<div class="layout page-width">
+  <div class="tips mobile-only">可下单日期为每月1到17日，您当前日期不可下单</div>
+  <div class="content-wrapper">
+    <div class="product-wrapper" ng-repeat="Product in pdList.products" ng-init="Product.productStatus=='1'?btnClass = 'button-s button-gray add-cart':btnClass = 'button-s button-gray button-disable add-cart';Product.productStatus=='1'?btnText = '加入当月订单':btnText = '不可下订单'">
+      <div class="product-photo">
+        <div class="no-product"></div>
+        <img src="res/photo_s.jpg"/>
+      </div>
+      <div class="product-info">
+        <a ng-class="{true:'cancelfavorite',false:'favorite'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>
+        <a class="product-name" >{{Product.productName}}</a>
+        <div class="row2">
+          <span class="new-price">￥{{Product.productRealPrice}}</span>
+          <div class="product-no">{{Product.productCode}}</div>
+        </div>
+        <div class="product-action">
+          <a class="btn subtract" ></a>
+          <input type="tel" class="number"  placeholder="数量"  value="1" maxlength="3" />
+          <a class="btn add" ></a>
+          <a class="{{btnClass}}}" ng-click="orderBtnClicked(Product,1)">{{btnText}}</a>
+        </div>
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+    
+  <!--pc分页-->    
+  <div class="paginate-wrap pc-only">
+    <div class="dataTables_paginate">
+      <span ng-class="{true:'current',false:'num'}[currentPage==page]" ng-repeat="page in pages" ng-click="pageNumClicked(page)">{{page}}</span>
+      <a class="num" ng-click="pageNumClicked('next')"> >> </a>
+      <div class="clr"></div>
+    </div>
+  </div>
+
+</div>
+
+<a class="cart animated">
+  <div class="cart-inner">
+  <div class="number" id="numbercircle">12</div>
+  余额：</br>
+  5000.00
+  </div>
+</a>
+
+</div>
