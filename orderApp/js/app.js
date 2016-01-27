@@ -1,4 +1,4 @@
-var orderApp = angular.module('orderApp', [ "ui.router", "homeModule"]);
+var orderApp = angular.module('orderApp', [ "ui.router", "homeModule", "controllersModule"]);
 
 orderApp.config(function($stateProvider,$urlRouterProvider){
 	$urlRouterProvider.when("","/home/productClass={productClass}&productCode={productCode}&page={page}");
@@ -35,6 +35,9 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 		}).state('index.currentOrder',{
 			url:'/currentOrder',
 			templateUrl:'tpls/currentOrder.html'
+		}).state('index.product',{
+			url:'/product/productCode={productCode}',
+			templateUrl:'tpls/product.html'
 		})
 })
 

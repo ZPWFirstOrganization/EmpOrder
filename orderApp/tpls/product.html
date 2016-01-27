@@ -1,0 +1,428 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+<title>
+</title>
+
+
+<link href="../css/global.css" rel="stylesheet" type="text/css">
+<link href="../css/product.css" rel="stylesheet" type="text/css">
+<link href="../css/element.css" rel="stylesheet" type="text/css">
+<link href="../css/select2.css" rel="stylesheet" type="text/css">
+<link href="../css/animate.css" rel="stylesheet" type="text/css">
+<link href="../css/jquery.autocompleter.css" rel="stylesheet" type="text/css">
+<link href="../css/reveal.css" rel="stylesheet" type="text/css">
+</head>
+<!-- 全局 JavaScript 文件 -->
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery/jquery.redirect.js"></script>
+<script src="../lib/jquery/jquery.reveal.js"></script>
+<script src="../lib/jquery/jquery.Qvalidate.js"></script>
+<script src="../lib/jquery/select2.min.js"></script>
+<script src="../js/global.js"></script>
+<script src="../lib/jquery/jquery.autocompleter.js"></script>
+<script src="../lib/jquery/jquery.transit.min.js"></script>
+<script>
+
+
+
+
+$(document).ready(function(e) {
+	
+	//pc and mobile js-------------------------------------------------------------------
+	
+/*	showConfirm({
+		msg:"confirm效果？",
+		confirmed:function(){
+			alert("确定回调");
+
+		},
+		cancel:function(){
+
+
+		}
+	});
+	
+	showAlert({msg:"alert效果"});*/
+	
+	//秀/藏菊花
+	$("body").showLoading(-150);
+	$("body").hideLoading();
+			
+	//键入input时全选
+	$(".number").focusin(function(){
+		$(this)[0].focus();
+		$(this)[0].select();
+	});
+	$(".number").mouseup(function(event){
+		event.preventDefault();
+	});
+
+
+
+
+	//加入当月订单
+	$('[action="addCart"]').click(function(){
+		//加入购物车动画效果
+/*		var x=$(".cart").offset().left - $(this).parents(".product-wrapper").offset().left -180;
+		var y=$(".cart").offset().top - $(this).parents(".product-wrapper").offset().top - 65;
+		var clone=$(this).parents(".product-wrapper").clone();
+		$(clone).css({"position":"absolute","left":$(this).parents(".product-wrapper").offset().left,"top":$(this).parents(".product-wrapper").offset().top})
+		$(clone).insertAfter($(this).parents(".product-wrapper"));
+		$(clone).transition({ x: x, y: y ,scale: 0});*/
+		
+		showModal({msg:"已加当月订单"});
+		$(".cart").find(".number").transition({ scale: 2});
+		setTimeout(function(){
+			//$(clone).remove();
+			$(".cart").find(".number").transition({ scale: 1});
+		},500)
+		
+		
+	});
+
+    //添加取消收藏
+	$('[action="fav"]').click(function(){
+		if($(this).hasClass("favorite")){
+			$(this).removeClass("favorite");
+			$(this).addClass("cancelfavorite");	
+			showModal({msg:"添加到我的收藏"});
+			
+		}else{
+			 //取消收藏
+			$(this).removeClass("cancelfavorite");
+			$(this).addClass("favorite");
+			
+			showModal({msg:"已取消收藏"});	
+				
+		}
+
+			
+		
+	});
+	
+				    
+    //pc js-----------------------------------------------------------------------------------------
+
+
+
+
+	//当月订单响应屏幕位置
+	window.onload = window.onresize =  function(){		
+	
+		  if($(window).width()>1300){
+			r=(parseInt($(window).width())-1000)/2 -180;
+			$(".cart").css({"right":r})       
+		  }else{
+			$(".cart").css({"right":10})     
+			  
+		  }
+	
+
+	};
+
+	 
+	 
+	 
+	 //mobile js	------------------------------------------------------------------------------
+
+
+
+		
+	 
+	 
+	 
+});
+
+
+</script>
+<body>
+
+<div ng-controller='prductController'>
+<!--  confirm box -->
+<div popup="confirm" class="reveal-modal" >
+	<a class="close-reveal-modal" action="closeModal">&#215;</a>
+    <div class="confirm-inner">
+            <img src="../img/icon_orange_question.png" />
+			<span action="msg">确定要这么做么？</span>
+    </div>
+
+    <div class="split-dot mb20 text-center"></div>
+    <div class="form-row">
+   		<a action="cancel" class=" button button-gray w35 secondary"   >再看看</a>
+        <a action="confirm" class=" button button-pink w35 primary"   >去意已决</a>
+        
+        <div class="clr"></div>
+    </div>
+
+</div>
+
+
+<!--  alert -->
+<div popup="alert" class="reveal-modal" >
+
+    <div class="confirm-inner">
+            <img src="../img/icon_orange_exclamation.png" />
+			<span action="msg">确定要这么做么？</span>
+    </div>
+
+    <div class="split-dot mb20 text-center"></div>
+    <div class="form-row">
+        <a action="alert" class=" button button-pink w90 " >确定</a>
+
+        <div class="clr"></div>
+    </div>
+
+</div>
+
+
+<!--pc头-->
+
+<div class="pc-header-wrapper pc-only">
+   <div class="header">
+   	 <div class="header-inner page-width">
+        <div class="logo-wrapper">
+        	<a class="logo" href="#">
+            
+            </a>
+         	<div class=" title">
+            员工内购系统
+            </div> 
+            
+            <div class="onsale" action="pc-select-onsale">
+            <span>优惠价</span>
+                <div class="pc-onsale-list-wrapper">
+                    <div class="pc-onsale-list">
+                 
+                    <a class="list">6折</a>
+                
+                    </div>
+                </div>  
+            </div>          
+        
+        </div>
+        
+        <div class="search-wrapper">
+        	<input type="text" class="search"  placeholder="产品名称 或 货号" />
+            <a class="search-btn "></a>
+        </div>
+        
+        <div class="my-wrapper">
+        
+            <a class="button-s button-gray icon-fav" href="#">收藏</a>
+            <a class="button-s button-gray icon-my" href="#">我的</a>        
+        
+        </div>
+        <div class="clr"></div>
+     
+     </div>
+   </div>
+   <div class="nav">
+  	 <div class="nav-inner page-width">
+     	<li class="menu"><a>护肤</a>
+        <div class="submenu-wrapper">
+            <div class="submenu-inner">
+                <a class="submenu" href="#">臻时粹颜系列</a>
+                <a class="submenu" href="#">经典护肤系列</a>
+                <a class="submenu" href="#">补充性保养护肤</a>
+                <a class="submenu" href="#">骄阳防晒霜SPF30/PA+++</a>
+            </div>
+        </div>
+        
+        </li>
+        <li class="menu"><a>菜单</a>
+        <div class="submenu-wrapper">
+            <div class="submenu-inner">
+                <a class="submenu" href="#">菜单</a>
+                <a class="submenu" href="#">菜单</a>
+                <a class="submenu" href="#">菜单</a>
+                <a class="submenu" href="#">菜单</a>
+            </div>
+
+        </div>        
+        </li>
+        
+        
+        <a class="notice">公告</a>
+        <div class="clr"></div>
+     </div>
+   </div>   
+</div>
+
+<a class="cart animated" href="order.html">
+<div class="cart-inner">
+<div class="number">12</div>
+剩余额度<br>
+5000.00
+</div>
+
+</a>
+
+<!--mobile头-->
+<div class="mobile-header-wrapper mobile-only">
+    <div class="header">
+    <div class="mobile-onsale-wrap  fl w20" action="mobile-select-onsale" >
+
+        <div class="mobile-onsale-content">优惠价</div>
+        <div class="mobile-onsale-arrow"></div>
+    </div>    
+
+    <a class="my" action="my"></a>
+    <a class="fav"></a>	
+    </div>
+    
+    <div class="my-list">
+    <a class="list">当月订单</a>
+    <a class="list">历史订单</a>
+    <a class="list">个人信息</a>
+    <a class="list">公告</a>
+    </div>
+    
+    <div class="mobile-onsale-list">
+    <a class="list">优惠价</a>
+    <a class="list">6折</a>
+
+    </div>    
+
+</div>
+
+
+<!--主体-->
+
+<!--pc面包屑-->
+<div class="layout page-width pc-only">
+	<div class="bread-crumb"><a>首页</a><a>&gt;</a><a href="#">护肤</a><a>&gt;</a><a href="#">臻时粹颜系列</a><a>&gt;</a><a>玫琳凯臻时粹颜™精华乳</a></div>
+    
+    <div class="clr"></div>
+</div>
+
+
+
+
+<!--pc mobile产品列表-->
+<div class="layout page-width">
+  	
+    <div class="content-wrapper">
+    
+        <div class="bread-crumb mobile-only"><a onClick="history.back()" class="back"><b>&lt;</b> 首页</a><div class="title">商品详情</div></div>
+        <div class="content-inner">
+            <div class="mobile-only mobile-product-name">
+            {{Production.productName}}
+            <a action="fav" class="cancelfavorite mobile-only"></a>
+            </div>
+            <div class="product-wrapper">
+                <div class="product-photo">
+                 <div class="no-product"></div>
+                <img src="../res/photo_s.jpg"/>
+                </div>
+                
+                <div class="product-info">
+                   <a action="fav" class="cancelfavorite pc-only"></a>
+                   <a class="product-name pc-only" >玫琳凯臻时粹颜™精华乳</a>
+                   <div class="row2">               
+                    <div class="form-row">
+                      <div class="field-key  ">零售价：</div>
+                      <div class="field-value ">￥1980.00</div>
+                      <div class="clr"> </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="field-key  ">规　格：</div>
+                      <div class="field-value ">15ml</div>
+                      <div class="clr"> </div>
+                    </div>                                      
+                    <div class="form-row">
+                      <div class="field-key  ">货　号：</div>
+                      <div class="field-value ">100231615</div>
+                      <div class="clr"> </div>
+                    </div> 
+                    <!-- div class="form-row">
+                      <div class="field-key  ">库　存：</div>
+                      <div class="field-value ">无货</div>
+                      <div class="clr"> </div>
+                    </div -->                     
+                    <div class="form-row">
+                      <div class="field-key  ">功　效：</div>
+                      <div class="field-value ">紧致提示，修复滋润</div>
+                      <div class="clr"> </div>
+                    </div> 
+                   </div>
+    
+                   <div class="product-action pc-only">
+                   <a class="btn subtract disable" ></a>
+                   <input type="tel" class="number"  placeholder="数量"  value="1" maxlength="3" />
+                   <a class="btn add" ></a>
+                   <a class="button-s button-gray button-disable add-cart" >加入当月订单</a>
+                   </div>
+                </div>            
+                
+              
+                <div class="clr"></div>
+            </div>
+            
+            <div class="intro-title">商品介绍</div>
+            <div class="intro-content">
+                产品功能
+                
+                干性肌肤适用。乳霜状的洁面乳添加植物复合成分和亚麻籽提取物，温和去除面部彩妆及污垢的同时不会带走任何营养成分，令你的肌肤清爽柔润更健康。
+                
+                主要成分
+                
+                水飞蓟果提取物，罗汉果提取物，柳珊瑚提取物，亚麻籽提取物，水解藻胶。
+                
+                使用及注意事项
+                
+                取适量洗面乳在湿润的脸部及颈部由下向上充分按摩，避开眼周，再以温水冲洗或温湿美容巾擦拭干净。        
+            
+            </div> 
+            
+            
+        
+            
+    
+            
+
+    </div>
+    
+
+        
+    </div>
+
+    
+
+
+</div>
+
+<div class="mobile-action-wrapper mobile-only">
+   
+    <div class="row1">
+    <div class="left">
+       <a class="btn subtract disable" ></a>
+       <input type="tel" class="number"  placeholder="数量"  value="1" maxlength="3" />
+       <a class="btn add" ></a>
+    </div>
+    <div class="right">
+        <a  class=" button button-gray w100 button-disable"   >加入当月订单</a>
+       
+    </div> 
+    <div class="clr"></div>
+    </div>   
+
+</div> 
+
+<!--底部-->
+<div class="footer-wrapper pc-only">
+©2007-2013 Mary Kay Inc. 沪ICP备10024290号
+</div>
+</div>  
+    
+</body>
+
+</html>
