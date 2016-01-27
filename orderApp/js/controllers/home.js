@@ -291,6 +291,10 @@ homeModule.controller('prductListController',
 			$scope.inputTexts[id] = parseInt($scope.inputTexts[id]) + 1;
 	}
 
+	$scope.cartClicked = function() {
+		$state.go("index.currentOrder");
+	}
+
 });
 
 homeModule.controller('pcHeaderController', function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
