@@ -1,40 +1,8 @@
 'use strict';
 var httpService = angular.module('httpService', ['ngResource'], function($httpProvider) {
-	$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-	var param = function(obj) {
-		var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
-		for(name in obj) {
-			value = obj[name];
-		    
-			if(value instanceof Array) {
-			    for(i=0; i<value.length; ++i) {
-					subValue = value[i];
-					fullSubName = name + '[' + i + ']';
-					innerObj = {};
-					innerObj[fullSubName] = subValue;
-					query += param(innerObj) + '&';
-			    }
-			}else if(value instanceof Object) {
-			    for(subName in value) {
-					subValue = value[subName];
-					fullSubName = name + '[' + subName + ']';
-					innerObj = {};
-					innerObj[fullSubName] = subValue;
-					query += param(innerObj) + '&';
-			    }
-			}else if(value !== undefined && value !== null){
-			    query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
-			}
-		}
-		return query.length ? query.substr(0, query.length - 1) : query;
-	};
-
-	$httpProvider.defaults.transformRequest = [function(data) {
-		return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
-	}];
 });
 
-httpService.factory('ApiService',['$resource',function($resource){
+httpService.factory('ApiService',function($resource){
 	var baseUrl = 'http://182.92.110.219:8090/MLK/'
 	return $resource(
 		baseUrl,
@@ -71,7 +39,14 @@ httpService.factory('ApiService',['$resource',function($resource){
 				}
 			},
 			getBalance:{
-				url:baseUrl+'2/Role',
+				url:baseUrl+'2/User',
+				method:'GET',
+				params:{
+					myBalanceAccount:'@myBalanceAccount'
+				}
+			},
+			getOrderCount:{
+				url:baseUrl+'2/Order',
 				method:'GET',
 				params:{
 					userAccount:'@userAccount'
@@ -90,7 +65,23 @@ httpService.factory('ApiService',['$resource',function($resource){
 					productCode:'@productCode',
 					count:'@count'
 				}
-			}
+			},
+			postFav:{
+				url:baseUrl+'2/Favorite',
+		      	method:'POST',
+		      	data:{
+		          userAccount:'@userAccount',
+		          productCode:'@productCode'
+		        }
+		    },
+		    deleteFav:{
+		    	url:baseUrl+'2/Favorite',
+		    	method:'DELETE',
+		    	data:{
+		    		userAccount:'@userAccount',
+		         	productCode:'@productCode'
+		    	}
+		    }
 		}
 	);
-}]);
+});

@@ -2,7 +2,7 @@ var orderApp = angular.module('orderApp', [ "ui.router", "homeModule", "controll
 
 orderApp.config(function($stateProvider,$urlRouterProvider){
 	$urlRouterProvider.when("","/home/productClass={productClass}&productCode={productCode}&page={page}");
-	$urlRouterProvider.otherwise("/home/productClass={productClass}&productCode={productCode}&page={page}");
+	// $urlRouterProvider.otherwise("/home/productClass=1&productCode=1&page=1");
 	$stateProvider.state('index',{
 			url:'/home',
 			templateUrl:'tpls/home.html',
