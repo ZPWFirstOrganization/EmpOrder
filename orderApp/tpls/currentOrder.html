@@ -1,1 +1,111 @@
-fghjklghjkl;ghjkl
+<div ng-controller="currentOrderCtrl">
+  <!--pc面包屑-->
+<div class="layout page-width pc-only">
+  <div class="bread-crumb"><a href="index.html">首页</a><a>&gt;</a><a href="#">当月订单</a></div>
+
+    <div class="clr"></div>
+</div>
+
+
+
+
+<!--pc mobile产品列表-->
+<div class="layout page-width">
+    <div class="content-wrapper">
+        <div class="left">
+            <div class="sider-menu-wrapper">
+            <a class="sider-menu active">当月订单</a>
+            <a class="sider-menu">历史订单</a>
+            <a class="sider-menu">个人信息</a>
+            </div>
+        
+        </div>
+        <div class="bread-crumb mobile-only"><a onClick="history.back()" class="back">&lt; 首页</a><div class="title">当月订单</div></div>
+        <div class="right">
+            
+            
+          <div class="order-top-wrapper">
+              <div class="order-tips">您的订单{{{true: '将', false: '已'}[isCanShop]}}在本月{{lastData}}日自动提交</div>
+            </div>
+            
+            <div class="order-mid-wrapper">
+            
+                <!--<div class="empty"></div>-->
+                <div class="order-product-wrapper" ng-repeat="product in currentOrderData.product">
+                    <div class="order-product-photo">
+                   
+                    <img src="assets/resource/photo_s.jpg"/>
+                    </div>
+                    <div class="order-product-info">
+                       
+                       <div class="row1"> 
+                           <a class="order-product-name" >{{product.productName}}</a>
+                           <div class="order-product-no pc-only">{{product.productCode}}</div> 
+                       </div>
+                       <div class="row2">               
+                           <span class="order-new-price">￥{{product.productRetailPrice}}</span>
+                           <div class="order-product-no mobile-only">{{product.productCode}}</div>               
+                       </div>
+        
+                       <div class="order-product-action">
+                           <div  class="order-number-label">数量：</div>
+                           <input type="tel" class="order-number"  placeholder="数量"  ng-model="product.requestQTY" maxlength="3" ng-blur="countBlur(product.requestQTY,$index)" ng-focus="countFocus(product.requestQTY)" style="display:{{{true: '',false:'none'}[isCanShop]}}" ng-keypress="enter($event)" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"/> 
+                           <div class="order-number-label" style="display:{{{false: '',true:'none'}[isCanShop]}}">{{this.product.requestQTY}}</div>
+                           <a action="del" class="order-action trush" ng-click="deleteProduct($index)" style="display:{{{true: '',false:'none'}[isCanShop]}}"></a>                       
+                           <a action="fav" ng-class="{true: 'order-action order-favorite', false: 'order-action order-cancelfavorite'}[!product.isFavorite]" ng-click="favClick($index)"></a>
+                           <div class="clr"></div>                
+                       </div>
+                       <div class="clr"></div>
+                    </div>
+                    <div class="clr"></div>
+                </div>        
+            </div>
+
+            <div class="order-bottom-wrapper pc-only">
+                <div class="row1">
+                您的季度余额还剩:<font class="pink06">￥{{this.$parent.resAmount}}</font>  共 <font class="pink06">{{currentOrderData.product.length}}</font> 件商品，实付金额:<font class="pink06">￥{{this.$parent.payAmount}}</font>
+                </div> 
+                <div class="row2">
+                我同意以上金额从我当月薪资中扣除<br>
+                我已了解，根据公司政策要求，员工不得以任何形式、价格转卖公司产品<br>
+                部门秘书：{{this.$parent.userName}} {{this.$parent.userPhone}}<br>
+                </div>            
+
+            </div>
+            <div class="order-action-wrapper pc-only">
+                <a action="cancel" class=" button button-gray w15 secondary"   style="display:{{{true: '',false:'none'}[isCanShop]}}" ng-click="orderCancel()">取消订单</a>
+                <a action="confirm" class=" button button-pink w15 primary"   style="display:{{{true: '',false:'none'}[isCanShop]}}" ng-click ="countinueShop()">继续购物</a>       
+
+            </div>            
+            
+        
+        </div>
+        
+        <div class="clr"></div> 
+        
+    
+    </div>
+</div>
+
+
+<div class="mobile-action-wrapper mobile-only">
+    <div class="row1">
+        我同意以上金额从我当月薪资中扣除<br>
+        我已了解，根据公司政策要求，员工不得以任何形式、价格转卖公司产品<br>
+        部门秘书：{{this.$parent.userName}} {{this.$parent.userPhone}}<br>    
+    
+    </div>
+    <div class="row2">
+    <div class="left w50">
+        <div style="font-size:16px">实付金额:￥{{this.$parent.payAmount}} </div>
+        <div style="font-size:12px">季度余额:￥{{this.$parent.resAmount}} </div>
+    </div>
+    <div class="right w50">
+        <a action="cancel" class=" button button-gray w45 secondary"   style="display:{{{true: '',false:'none'}[isCanShop]}} " ng-click="orderCancel()">取消订单</a>
+        <a action="confirm" class=" button button-pink w45 primary"   style="display:{{{true: '',false:'none'}[isCanShop]}}" ng-click ="countinueShop()">继续购物</a>   
+    </div> 
+    <div class="clr"></div>
+    </div>   
+
+</div> 
+</div>
