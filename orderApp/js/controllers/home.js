@@ -109,17 +109,6 @@ homeModule.factory('apiCaller',function($stateParams,$http,ApiService,scopeData)
 				}
 			});
 		},
-		getBalance:function(callbackFn) {
-			return $http({
-				url:'http://182.92.110.219:8090/MLK/2/User',
-				method:'GET',
-				params:{
-					myBalanceAccount:'123123'
-				}
-				}).success(function(response){
-				// balance = response;
-			})
-		},
 		getOrderCount:function(callbackFn) {
 			return ApiService.getOrderCount({
 				userAccount:'123123'
@@ -303,7 +292,7 @@ homeModule.controller('pcHeaderController', function($scope,$stateParams,$state,
 	$scope.categories=apiCaller.getCategories(function(){
 		if($stateParams.productClass == "" || $stateParams.productCode == "" || $stateParams.page == ""){
 			scopeMethod.changeState("1",$scope.categories[0].code,"1");
-		}else{
+		}else if($stateParams.productClass && $stateParams.productCode && $stateParams.page){
 			scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$stateParams.page);
 		}
 	});
