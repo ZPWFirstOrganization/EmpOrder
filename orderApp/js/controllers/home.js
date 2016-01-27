@@ -4,14 +4,38 @@ homeModule.factory('scopeData',function() {
 	return{
 		noticePageRevert     :false,
 		ProductionList       :{},
-		currentProductClass  :'1',
-		currentProductCode   :'',
-		currentPage          :1
+		currentProductClass  :'1',         //当前产品列表显示的是大类为1，小类为2
+		currentProductCode   :'',          //当前大类或小类的code
+		currentDivisionName  :'护肤',      //当前大类的名称(用于面包屑)
+		currenGroupName      :'',          //当前小类的名称，未显示小类时为空(用于面包屑)
+		currentPage          :'1'          //当前页数
 	}
 });
 
-homeModule.factory('apiCaller',['ApiService','scopeData',function(ApiService,scopeData) {
+homeModule.service('scopeMethod',function($state,scopeData,apiCaller) {
 	return{
+
+		changeState:function(ProductClass,ProductCode,Page) {
+			scopeData.currentProductClass = ProductClass;
+			scopeData.currentProductCode = ProductCode;
+			scopeData.currentPage = Page;
+			$state.go('index.productList',{productClass:scopeData.currentProductClass,productCode:scopeData.currentProductCode,page:scopeData.currentPage});
+			apiCaller.getProductListByStates();
+		}
+	}
+})
+
+homeModule.factory('apiCaller',function($stateParams,ApiService,scopeData) {
+	return{
+		getProductListByStates:function(){
+			scopeData.ProductionList = ApiService.getProductList(
+			{
+				code:scopeData.currentProductCode,//大类传大类的id,小类传小类的CONFIG_VALUE
+				productClass:scopeData.currentProductClass,//大类为1，小类为2
+				pageNum:scopeData.currentPage,
+				userAccount:'123123'
+			})
+		},
 		getProductListByDivision:function(Division,callbackFn){
 			scopeData.ProductionList = ApiService.getProductList(
 			{
@@ -61,7 +85,6 @@ homeModule.factory('apiCaller',['ApiService','scopeData',function(ApiService,sco
 			function(response){
 				scopeData.ProductionList = response;
 				scopeData.currentPage = page;
-				// $location.url() = scopeData.currentProductClass + scopeData.currentProductCode + scopeData.currentPage;
 				if (callbackFn) {
 					callbackFn();
 				}
@@ -88,27 +111,36 @@ homeModule.factory('apiCaller',['ApiService','scopeData',function(ApiService,sco
 			});
 		}
 	}
-}]);
+});
 
-homeModule.controller('prductListController',['$scope','$location','scopeData','apiCaller',function($scope,$location,scopeData,apiCaller) {
+homeModule.controller('prductListController',function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
+	$scope.currentDivisionName;
+	$scope.currenGroupName = '';
+	$scope.balance = 0;
 	$scope.pdList = {};
 	$scope.pages = [];
-	$scope.currentPage=1;
-	console.log($location.url())
+	$scope.currentPage=$stateParams.page;
 	var monitorData = setInterval(function() {
 		if (scopeData.ProductionList != $scope.pdList){
 			$scope.pdList = scopeData.ProductionList;
-			console.log("sssssss",$scope.pdList)
 		}
 		if(scopeData.noticePageRevert){
 			$scope.pages = [];
-			$scope.currentPage=1;
 			scopeData.noticePageRevert=false;
 		}
 		if(!($scope.pages[0])){
 			for (var i = 0; i < $scope.pdList.pageNumCount; i++) {
 				$scope.pages.push(i+1)
 			};
+			$scope.$apply();
+		}
+		if($scope.currentDivisionName != scopeData.currentDivisionName){
+			$scope.currentDivisionName = scopeData.currentDivisionName;
+			$scope.$apply();
+		}
+		if($scope.currenGroupName != scopeData.currenGroupName){
+			$scope.currenGroupName = scopeData.currenGroupName;
+			$scope.isGroupNameShow = ($scope.currenGroupName != '');
 			$scope.$apply();
 		}
 	},100)
@@ -123,7 +155,7 @@ homeModule.controller('prductListController',['$scope','$location','scopeData','
 		}
 		if('next' == page){
 			if($scope.currentPage < $scope.pdList.pageNumCount){
-				$scope.currentPage = $scope.currentPage + 1;
+				$scope.currentPage = parseInt($scope.currentPage) + 1;
 			}else{
 				showModal({msg:"已经是最后一页了"});
 				return;
@@ -131,16 +163,17 @@ homeModule.controller('prductListController',['$scope','$location','scopeData','
 		}else{
 			$scope.currentPage = page;
 		}
-		apiCaller.getProductListByPage($scope.currentPage,function() {
-			$scope.pdList = scopeData.ProductionList;
-		},function() {
-			$scope.currentPage = $scope.currentPage - 1;
-		});
+
+		scopeMethod.changeState(scopeData.currentProductClass,scopeData.currentProductCode,$scope.currentPage);
 	}
 
     $scope.orderBtnClicked = function(Product,count) {
     	var result = apiCaller.postOrderedProduct(Product,count,function(){
     		showModal({msg:"已加当月订单"});
+    		$(".cart").find(".number").transition({scale:2});
+			setTimeout(function(){
+				$(".cart").find(".number").transition({scale:1});
+			},500)
     	});
     }
 
@@ -152,7 +185,6 @@ homeModule.controller('prductListController',['$scope','$location','scopeData','
     		Product.isFavorite = false
     		showModal({msg:"已取消收藏"}); 
     	}
-    	// favClass=(isFavorite=='false'?'cancelfavorite':'favorite')
     }
 
     $scope.addCartClicked = function(Product) {
@@ -166,21 +198,43 @@ homeModule.controller('prductListController',['$scope','$location','scopeData','
 	$('.layout,.mobile-header-wrapper').click(function(){
 	    $(".option-list").fadeOut(200); 
 	});
-}]);
 
-homeModule.controller('pcHeaderController', ['$scope','apiCaller',function($scope,apiCaller) {
-	//pc js-------------------------------------------------- 
+	$scope.numberClicked = function(id) {
+		// var id = product.productCode
+		$("#"+id).focus();
+		$("#"+id).select();
+	}
+
+	// //键入input时全选
+	// $(".number").click(function(){
+	// 	$(".number").focus();
+	// 	$(".number").select();
+	// });
+	// $(".number").mouseup(function(event){
+	// 	event.preventDefault();
+	// });
+});
+
+homeModule.controller('pcHeaderController', function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
+	
 	$scope.showList=false
-
+	console.log('111111111',$stateParams)
 	$scope.categories=apiCaller.getCategories(function(){
-		apiCaller.getProductListByDivision($scope.categories[0])
+		if($stateParams.productClass == "" || $stateParams.productCode == "" || $stateParams.page == ""){
+			scopeMethod.changeState("1",$scope.categories[0].code,"1");
+		}else{
+			scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$stateParams.page);
+		}
 	});
 	
 	$scope.divisionClicked=function(Division) {
-		apiCaller.getProductListByDivision(Division);
+		scopeData.currentDivisionName = Division.name;
+		scopeData.currenGroupName = '';
+        scopeMethod.changeState("1",Division.code,"1");
 	}
 	$scope.groupClicked=function(Group) {
-		apiCaller.getProductListByGroup(Group);
+		scopeData.currenGroupName = Group.name;
+        scopeMethod.changeState("2",Group.code,"1");
 	}
 
 	//展开/闭合优惠价
@@ -193,48 +247,47 @@ homeModule.controller('pcHeaderController', ['$scope','apiCaller',function($scop
 		  $(".pc-onsale-list-wrapper").fadeOut(200);  
 		}
 	});
-}]);
+});
 
-homeModule.controller('mbNavController',['$scope','apiCaller',function($scope,apiCaller) {
+homeModule.controller('mbNavController',function($scope,apiCaller,scopeMethod) {
 	$scope.lit2Show=''
-	$scope.categories = {};
 	$scope.categories=apiCaller.getCategories(function () {
-		$scope.Division = $scope.categories[0];
-		$scope.Group = $scope.categories[0].Class2;
-		$scope.DivisionName = $scope.categories[0].Name;
+		$scope.Division = $scope.categories[0];//显示在大类类列表中的系列
+		$scope.Group = $scope.categories[0].class2;//显示在小类中各个系列
+		$scope.DivisionName = $scope.categories[0].name;//显示在大类选择上的文字
 		$scope.GroupName = '系列';
 	});
 
 	$scope.divisionItemClicked = function(Division) {
-		$scope.DivisionName = Division.Name;
-		$scope.Group = Division.Class2;
+		$scope.DivisionName = Division.name;//显示在大类类列表上的文字
+		$scope.Group = Division.class2;//显示在小类中各个系列
 		$scope.GroupName = '系列';
-		apiCaller.getProductListByDivision(Division);
+		scopeMethod.changeState("1",Division.code,"1");
 	}
 	$scope.groupItemClicked = function(Group) {
-		$scope.GroupName = Group.Name;
-		apiCaller.getProductListByGroup(Group);
+		$scope.GroupName = Group.name;
+		scopeMethod.changeState("2",Group.code,"1");
 	}
 	//选择大类 小类 
 	$('[action="left_select"]').click(function(){
 		if($("#DivisionList").css("display")=="none"){
-			$("#DivisionList").fadeIn(200); 
-			$("#GroupList").fadeOut(200);    
+			$("#DivisionList").fadeIn(200);
+			$("#GroupList").fadeOut(200);
 		}else{
-			$("#DivisionList").fadeOut(200); 
+			$("#DivisionList").fadeOut(200);
 		}
 	});
 	$('[action="right_select"]').click(function(){
 		if($("#GroupList").css("display")=="none"){
-			$("#GroupList").fadeIn(200); 
-			$("#DivisionList").fadeOut(200);     
+			$("#GroupList").fadeIn(200);
+			$("#DivisionList").fadeOut(200);
 		}else{
-			$("#GroupList").fadeOut(200); 
+			$("#GroupList").fadeOut(200);
 		}
 	});
-}]);
+});
 
-homeModule.controller('mbHeaderController', ['$scope',function ($scope) {
+homeModule.controller('mbHeaderController',function ($scope) {
 	//mobile js--------------------------------------------------
 	//展开我的
 	$('[action="my"]').click(function(){    
@@ -274,4 +327,4 @@ homeModule.controller('mbHeaderController', ['$scope',function ($scope) {
 	  }
 
 	});
-}]);
+});

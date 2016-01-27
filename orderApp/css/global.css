@@ -1,7 +1,7 @@
 /*导入外部css*/
 @import url('element.css');
 @import url('animate.css');
-*{ margin:0px; padding:0px;font-family:Arial, "微软雅黑"; font-size:14px;transition:background-color  1s;}
+*{ margin:0px; padding:0px;font-family:Arial, "微软雅黑"; font-size:14px;transition:background-color  1s;-webkit-appearance: none;}
 a{text-decoration:none;color:#000;}
 
 
@@ -26,9 +26,9 @@ body{ background-color: #f3f3f3; color:#000; font-family:Arial, "微软雅黑"; 
 .pc-header-wrapper .header .header-inner .search-wrapper .search{ height:32px; border:none; border-radius:3px; width:100%; text-indent:10px;}
 .pc-header-wrapper .header .header-inner .search-wrapper .search-btn{ width:25px; height:25px; display:inline-block; position:absolute; right:5px; top:3px; background-image:url(../img/pc_icon_search.png); background-repeat:no-repeat; background-position:50% 50%; cursor:pointer}
 .pc-header-wrapper .header .header-inner .my-wrapper{ width:25%; float:left; margin-top:20px; margin-left:5%}
-.pc-header-wrapper .header .header-inner .my-wrapper .button-s{ width:34%; color:#facab8; background-color:#333; border:1px solid #333;background-size:auto 100%; background-repeat:no-repeat; background-position:5px 50%; text-indent:10px;}
-.pc-header-wrapper .header .header-inner .my-wrapper .icon-fav{ background-image:url(../img/icon_fav.png); }
-.pc-header-wrapper .header .header-inner .my-wrapper .icon-my{ background-image:url(../img/icon_my.png); }
+.pc-header-wrapper .header .header-inner .my-wrapper .button-s{ width:34%; color:#fff; background-color:#333; border:1px solid #333;background-size:auto 100%; background-repeat:no-repeat; background-position:5px 50%; text-indent:10px;}
+.pc-header-wrapper .header .header-inner .my-wrapper .icon-fav{ background-image:url(../img/m_icon_fav.png); }
+.pc-header-wrapper .header .header-inner .my-wrapper .icon-my{ background-image:url(../img/m_icon_menu.png); }
 .pc-header-wrapper .nav{ background-color:#facab8; }
 
 .pc-header-wrapper .nav .nav-inner{ height:40px;}
@@ -219,7 +219,7 @@ body{ background-color: #fff; color:#000; font-family:Arial, "微软雅黑"; mar
 
 .bread-crumb{ height:40px; border-bottom:1px solid #eee; background-color:#f9f9f9;}
 .bread-crumb .back{ line-height:40px; width:30% ; display:inline-block; padding-left:10px; font-size:16px;}
-.bread-crumb .title{ line-height:40px; width:40%; display:inline-block; text-align:center; font-size:16px;}
+.bread-crumb .title{ line-height:40px; width:40%; display:inline-block; text-align:center; font-size:16px; font-weight:bold;}
 /*按钮 输入框*/
 
 .button{ padding:0px 0px;line-height:28px; background:#27bbbA;border-radius: 3px;height:28px; text-align: center; border: none; outline:none; cursor:pointer; font-size:16px;display:inline-block; *position: relative; *top: 14px;}

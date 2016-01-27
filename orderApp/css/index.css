@@ -16,10 +16,10 @@
 .product-wrapper .product-info .row2 .new-price{color:#000; font-size:16px; display:inline-block; width:129px;}
 .product-wrapper .product-info .row2 .product-no{font-size:12px;margin-top:0px; display:inline-block}
 .product-wrapper .product-info .product-action{margin-top:8px}
-.product-wrapper .product-info .product-action .btn{width:40px; height:30px; border:1px solid #eee; display:inline-block ; float:left; cursor:pointer; background-size:auto 80%;background-position:50% 50%; background-repeat:no-repeat;  }
+.product-wrapper .product-info .product-action .btn{width:30px; height:30px; border:1px solid #eee; display:inline-block ; float:left; cursor:pointer; background-size:auto 80%;background-position:50% 50%; background-repeat:no-repeat;  }
 .product-wrapper .product-info .product-action .subtract{ background-image:url(../img/icon_subtract.png); border-radius:3px 0px 0px 3px; }
 .product-wrapper .product-info .product-action .add{background-image:url(../img/icon_add.png);border-radius:0px 3px 3px 0px; }
-.product-wrapper .product-info .product-action .number{ width:40px; height:30px; margin:0px -1px;  text-align:center; border:1px solid #eee;float:left}
+.product-wrapper .product-info .product-action .number{ width:40px; height:30px;font-size:16px; margin:0px -1px;  text-align:center; border:1px solid #eee;float:left}
 .product-wrapper .product-info .product-action .disable{ cursor:text; opacity:0.5;}
 .product-wrapper .product-info .product-action .add-cart{ margin-left:10px}
 }
@@ -32,7 +32,7 @@
 .select-wrap .select-content{ overflow:hidden;  word-break:no-wrap; text-align:left; text-indent:10px;white-space:nowrap; line-height:45px; text-align:center; font-size:16px}	
 .select-wrap .select-arrow{ position:absolute; width:20px; height:97%; background-color:#fff; right:10px; top:0; bottom:0; background-image:url(../img/arrow_down_pink.png); background-repeat:no-repeat; background-position:50% 50%; background-size:70% auto;}	
 
-.tips{  padding-left:40px; padding-top:9px; padding-bottom:9px; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 8px; background-size: 7% auto ; border-bottom:1px solid #eee; }
+.tips{  padding-left:40px; padding-top:12px; padding-bottom:12px; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 50%; background-size: 7% auto ; border-bottom:1px solid #eee; }
 
 
 .category-wrapper{ height:45px; border-bottom:1px solid #eee;position:fixed; width:100%; z-index:50; top:86px; background-color:#fff }
@@ -43,22 +43,22 @@
 .option-list .list:last-child{ border-bottom:none;}
 .option-list .list:active{ background-color:#eee}
 
-.product-wrapper{ width:100%;  border-bottom:1px solid #ddd; padding:5px 0px }
+.product-wrapper{ width:100%;  border-bottom:1px solid #ddd; padding:10px 0px }
 .product-wrapper .product-photo{ width:30%; height:110px; float:left;text-align:center;position:relative;}
-.product-wrapper .product-photo .no-product{ position:absolute; left:-10px; top:-5px; width:30px; height:30px; background-image:url(../img/icon_no_product.png);background-position:50% 50%; background-size:100% ; }
+.product-wrapper .product-photo .no-product{ position:absolute; left:-5px; top:-10px; width:30px; height:30px; background-image:url(../img/icon_no_product.png);background-position:50% 50%; background-size:100% ; }
 .product-wrapper .product-photo img{  height:100%}
 .product-wrapper .product-info{ float:right; width:70%; position:relative; overflow:hidden}
 .product-wrapper .product-info .favorite{background-image:url(../img/icon_fav_border.png); background-repeat:no-repeat; background-position:50% 50%; background-size:100% 100%; position:absolute; right:10px; top:-5px;width:35px; height:35px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff; text-indent:-9999px; overflow:hidden; z-index:10}
 .product-wrapper .product-info .cancelfavorite{background-image:url(../img/icon_fav.png); background-repeat:no-repeat; background-position:50% 50%;background-size:100% 100%; position:absolute; right:10px; top:-5px;width:35px; height:35px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff; text-indent:-9999px; overflow:hidden; z-index:10}
-.product-wrapper .product-info .product-name{ font-size:16px; margin-top:0px; height:45px; width:83%; display:block; color:#000; overflow:hidden;}
-.product-wrapper .product-info .row2{}
+.product-wrapper .product-info .product-name{ font-size:16px; margin-top:0px; height:40px; width:83%; display:block; color:#000; overflow:hidden;}
+.product-wrapper .product-info .row2{ margin-top:5px;}
 .product-wrapper .product-info .row2 .new-price{color:#000; font-size:16px; display:inline-block; width:125px;}
 .product-wrapper .product-info .row2 .product-no{font-size:12px;margin-top:0px; display:inline-block;color:#666}
 .product-wrapper .product-info .product-action{margin-top:8px; margin-right:-100px;}
-.product-wrapper .product-info .product-action .btn{width:40px; height:30px; border:1px solid #eee; display:inline-block ; float:left; cursor:pointer; background-size:auto 80%;background-position:50% 50%; background-repeat:no-repeat;  }
+.product-wrapper .product-info .product-action .btn{width:30px; height:30px; border:1px solid #eee; display:inline-block ; float:left; cursor:pointer; background-size:auto 80%;background-position:50% 50%; background-repeat:no-repeat;  }
 .product-wrapper .product-info .product-action .subtract{ background-image:url(../img/icon_subtract.png); border-radius:3px 0px 0px 3px; }
 .product-wrapper .product-info .product-action .add{background-image:url(../img/icon_add.png);border-radius:0px 3px 3px 0px; }
-.product-wrapper .product-info .product-action .number{ width:40px; height:30px; margin:0px -1px;  text-align:center; border:1px solid #eee;float:left}
+.product-wrapper .product-info .product-action .number{ width:40px; height:30px; margin:0px -1px;font-size:16px;  text-align:center; border:1px solid #eee;float:left; border-radius:0px}
 
 
 .product-wrapper .product-info .product-action .disable{ cursor:text; opacity:0.5;}

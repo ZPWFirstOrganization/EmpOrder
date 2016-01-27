@@ -1,8 +1,8 @@
 var orderApp = angular.module('orderApp', [ "ui.router", "homeModule"]);
 
 orderApp.config(function($stateProvider,$urlRouterProvider){
-	$urlRouterProvider.when("","/home/productClass={productClass:[1,2]{0,1}}&productCode={productCode:[0,9]*}&page={page:[0,9]{0,2}}");
-	$urlRouterProvider.otherwise("/home/productClass={productClass:[1,2]{0,1}}&productCode={productCode:[0,9]*}&page={page:[0,9]{0,2}}");
+	$urlRouterProvider.when("","/home/productClass={productClass}&productCode={productCode}&page={page}");
+	$urlRouterProvider.otherwise("/home/productClass={productClass}&productCode={productCode}&page={page}");
 	$stateProvider.state('index',{
 			url:'/home',
 			templateUrl:'tpls/home.html',
@@ -30,7 +30,7 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 	            }
 			}
 		}).state('index.productList',{
-			url:'/productClass={productClass:[1,2]{0,1}}&productCode={productCode:[0,9]*}&page={page:[0,9]{0,2}}',
+			url:"/productClass={productClass}&productCode={productCode}&page={page}",
 			templateUrl: 'tpls/productList.html'
 		}).state('index.currentOrder',{
 			url:'/currentOrder',
