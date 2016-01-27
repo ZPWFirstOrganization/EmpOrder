@@ -14,7 +14,6 @@ homeModule.factory('scopeData',function() {
 
 homeModule.service('scopeMethod',function($state,scopeData,apiCaller) {
 	return{
-
 		changeState:function(ProductClass,ProductCode,Page) {
 			scopeData.currentProductClass = ProductClass;
 			scopeData.currentProductCode = ProductCode;
@@ -25,7 +24,7 @@ homeModule.service('scopeMethod',function($state,scopeData,apiCaller) {
 	}
 })
 
-homeModule.factory('apiCaller',function($stateParams,ApiService,scopeData) {
+homeModule.factory('apiCaller',function($stateParams,$http,ApiService,scopeData) {
 	return{
 		getProductListByStates:function(){
 			scopeData.ProductionList = ApiService.getProductList(
@@ -109,18 +108,80 @@ homeModule.factory('apiCaller',function($stateParams,ApiService,scopeData) {
 					callbackFn();
 				}
 			});
+		},
+		getBalance:function(callbackFn) {
+			return $http({
+				url:'http://182.92.110.219:8090/MLK/2/User',
+				method:'GET',
+				params:{
+					myBalanceAccount:'123123'
+				}
+				}).success(function(response){
+				// balance = response;
+			})
+		},
+		getOrderCount:function(callbackFn) {
+			return ApiService.getOrderCount({
+				userAccount:'123123'
+			},
+			function(response) {
+				if (callbackFn) {
+					callbackFn();
+				}
+			});
+		},
+		postFav:function(Product,callbackFn) {
+			return ApiService.postFav({
+				userAccount:'123123',
+				productCode:Product.productCode,
+			},
+			function(response){
+				if (callbackFn) {
+					callbackFn();
+				}
+			});
+		},
+		deleteFav:function(Product,callbackFn) {
+			return ApiService.deleteFav({
+				userAccount:'123123',
+				productCode:'10000699'
+			},
+			function(response){
+				if (callbackFn) {
+					callbackFn();
+				}
+			});
 		}
 	}
 });
 
-homeModule.controller('prductListController',function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
+homeModule.controller('prductListController',
+	function($scope,$stateParams,$state,$http,scopeData,scopeMethod,apiCaller) {
 	$scope.currentDivisionName;
 	$scope.currenGroupName = '';
-	$scope.balance = 0;
+	// $scope.balance = apiCaller.getBalance();
+	// $scope.orderCount = apiCaller.getOrderCount();
+	$http.get("http://182.92.110.219:8090/MLK/2/User?myBalanceAccount=123123").success(function(response){
+		$scope.balance = response;
+	});
+	$http.get("http://182.92.110.219:8090/MLK/2/Order?userAccount=123123").success(function(response){
+		$scope.orderCount = response;
+	});
 	$scope.pdList = {};
+	$scope.inputTexts = [];
 	$scope.pages = [];
 	$scope.currentPage=$stateParams.page;
+
+	// apiCaller.deleteFav();
+	var isEmptyObject = function( obj ) {
+	    for ( var name in obj ) {
+	        return false;
+	    }
+	    return true;
+	}
+
 	var monitorData = setInterval(function() {
+		
 		if (scopeData.ProductionList != $scope.pdList){
 			$scope.pdList = scopeData.ProductionList;
 		}
@@ -128,7 +189,7 @@ homeModule.controller('prductListController',function($scope,$stateParams,$state
 			$scope.pages = [];
 			scopeData.noticePageRevert=false;
 		}
-		if(!($scope.pages[0])){
+		if(isEmptyObject($scope.pages)){
 			for (var i = 0; i < $scope.pdList.pageNumCount; i++) {
 				$scope.pages.push(i+1)
 			};
@@ -141,6 +202,15 @@ homeModule.controller('prductListController',function($scope,$stateParams,$state
 		if($scope.currenGroupName != scopeData.currenGroupName){
 			$scope.currenGroupName = scopeData.currenGroupName;
 			$scope.isGroupNameShow = ($scope.currenGroupName != '');
+			$scope.$apply();
+		}
+		if(isEmptyObject($scope.inputTexts)){
+			var i = 0;
+			var tmpArr = [];
+			for (Product in scopeData.ProductionList.products) {
+				$scope.inputTexts[scopeData.ProductionList.products[i].productCode] = '1'
+				i++;
+			};
 			$scope.$apply();
 		}
 	},100)
@@ -167,28 +237,32 @@ homeModule.controller('prductListController',function($scope,$stateParams,$state
 		scopeMethod.changeState(scopeData.currentProductClass,scopeData.currentProductCode,$scope.currentPage);
 	}
 
-    $scope.orderBtnClicked = function(Product,count) {
-    	var result = apiCaller.postOrderedProduct(Product,count,function(){
+    $scope.addCartClicked = function(Product) {
+    	var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
     		showModal({msg:"已加当月订单"});
     		$(".cart").find(".number").transition({scale:2});
 			setTimeout(function(){
 				$(".cart").find(".number").transition({scale:1});
 			},500)
+			$http.get("http://182.92.110.219:8090/MLK/2/User?myBalanceAccount=123123").success(function(response){
+				$scope.balance = response;
+			});
+			$http.get("http://182.92.110.219:8090/MLK/2/Order?userAccount=123123").success(function(response){
+				$scope.orderCount = response;
+			});
     	});
     }
 
     $scope.favoriteClicked = function(Product) {
     	if(!Product.isFavorite){
     		Product.isFavorite = true
-    		showModal({msg:"添加到我的收藏"});
+    		apiCaller.postFav(Product,function() {
+    			showModal({msg:"添加到我的收藏"});
+    		})
     	}else{
     		Product.isFavorite = false
     		showModal({msg:"已取消收藏"}); 
     	}
-    }
-
-    $scope.addCartClicked = function(Product) {
-		showModal({msg:"已加当月订单"});
     }
 
     $(document).on("click",".list",function(){
@@ -199,26 +273,29 @@ homeModule.controller('prductListController',function($scope,$stateParams,$state
 	    $(".option-list").fadeOut(200); 
 	});
 
-	$scope.numberClicked = function(id) {
-		// var id = product.productCode
+	$scope.numberClicked = function(Product) {
+		var id = Product.productCode;
 		$("#"+id).focus();
 		$("#"+id).select();
 	}
 
-	// //键入input时全选
-	// $(".number").click(function(){
-	// 	$(".number").focus();
-	// 	$(".number").select();
-	// });
-	// $(".number").mouseup(function(event){
-	// 	event.preventDefault();
-	// });
+	$scope.countSubtracted = function(Product){
+		var id = Product.productCode;
+		if($scope.inputTexts[id] > 1)
+			$scope.inputTexts[id] = parseInt($scope.inputTexts[id]) - 1;
+	}
+
+	$scope.countAdded = function(Product){
+		var id = Product.productCode;
+		if($scope.inputTexts[id] < 999)
+			$scope.inputTexts[id] = parseInt($scope.inputTexts[id]) + 1;
+	}
+
 });
 
 homeModule.controller('pcHeaderController', function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
 	
 	$scope.showList=false
-	console.log('111111111',$stateParams)
 	$scope.categories=apiCaller.getCategories(function(){
 		if($stateParams.productClass == "" || $stateParams.productCode == "" || $stateParams.page == ""){
 			scopeMethod.changeState("1",$scope.categories[0].code,"1");
@@ -318,7 +395,6 @@ homeModule.controller('mbHeaderController',function ($scope) {
 	});
 	//闭合优惠价
 	$("body").click(function(event){
-	console.log(event.target)
 	if(event.target!=$('.mobile-onsale-content')[0] && event.target!=$('.mobile-onsale-arrow')[0]){
 	  
 	  if($(".mobile-onsale-list").css("display")=="block"){

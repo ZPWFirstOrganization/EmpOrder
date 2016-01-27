@@ -21,7 +21,7 @@
     <div class="content-inner">
     <div class="product-wrapper" ng-repeat="Product in pdList.products" ng-init="Product.productStatus=='1'?btnClass = 'button-s button-gray add-cart':btnClass = 'button-s button-gray button-disable add-cart'";>
       <div class="product-photo">
-        <div class="no-product"></div>
+        <div class="no-product" ng-show="!Product.productStatus"></div>
         <img ng-src="{{Product.iconUrl}}" src="res/null_icon.jpg"/>
       </div>
       <div class="product-info">
@@ -31,11 +31,11 @@
           <span class="new-price">￥{{Product.productRealPrice}}</span>
           <div class="product-no">{{Product.productCode}}</div>
         </div>
-        <div class="product-action">
-          <a class="btn subtract" ></a>
-          <input type="tel" class="number" id="{{$index}}" ng-click="numberClicked($index)"  placeholder="数量"  value="1" maxlength="3" />
-          <a class="btn add" ></a>
-          <a class="{{btnClass}}}" ng-click="orderBtnClicked(Product,1)">加入当月订单</a>
+        <div class="product-action" ng-init="falg = Product.productCode">
+          <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
+          <input type="tel" class="number" id="{{Product.productCode}}" ng-click="numberClicked(Product)"  placeholder="数量" maxlength="3" ng-model="inputTexts[Product.productCode]" ></input>
+          <a class="btn add" ng-click="countAdded(Product)"></a>
+          <a class="{{btnClass}}}" ng-click="addCartClicked(Product)">加入当月订单</a>
         </div>
       </div>
       <div class="clr"></div>
@@ -56,9 +56,9 @@
 
 <a class="cart animated">
   <div class="cart-inner">
-  <div class="number" id="numbercircle">12</div>
+  <div class="number" id="numbercircle">{{orderCount}}</div>
     余额：</br>
-    5000.00
+    {{balance}}
   </div>
 </a>
 
