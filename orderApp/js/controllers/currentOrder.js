@@ -1,4 +1,5 @@
 orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
+//  http://wzdcbdeo01/mlk/2/
 orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,common,currentOrderServ,deleteServ,utils){
 	// $rootScope.userName = "Tom"
 	// $rootScope.userPhone = "11012012315"
@@ -14,6 +15,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
 	$scope.currentOrderData = {};
 	$scope.lastData = 1
 	//获取下单日期范围
+	$("body").showLoading(-150);
 	currentOrderServ.getDateGate({kind: 'Order'},function(response){
 	    var arry = response.orderDate.split("-")
 	    $scope.isCanShop = response.allowOrder
@@ -46,14 +48,14 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
 		// },100)
   	})
   	//获取当月订单详细内容
-	currentOrderServ.getCurrentOrder({kind:'Order',userAccount:'123123',orderDate:'2016-01'},function(response){
+	currentOrderServ.getCurrentOrder({kind:'Order',userAccount:'123123',orderDate:''},function(response){
 	    
 	    $scope.currentOrderData = response[0];
-	    console.log($scope.currentOrderData)
-	    // console.log($scope.currentOrderData.product[0]);
+	    console.log($scope.currentOrderData.product[0]);
 	    if (angular.isUndefined($scope.currentOrderData)){
 	    	$scope.currentOrderData = {}
 	    }
+	    $("body").hideLoading();
   	})
 	var oldCount;
     $scope.countFocus = function(prodCount,id){
@@ -140,7 +142,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
 				},
 				function(response){
 					console.log(response)
-					showModal({msg:"删除失败！"});
+					// showModal({msg:"删除失败！"});
 				})
 				// deleteServ.deleteOneProd(2,"Order",123123,10008679,
 				// function(response){
