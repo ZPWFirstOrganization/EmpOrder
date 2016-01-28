@@ -1,152 +1,5 @@
-<!doctype html>
-<html>
-<head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
 
-<title>
-</title>
-
-
-<link href="../css/global.css" rel="stylesheet" type="text/css">
-<link href="../css/product.css" rel="stylesheet" type="text/css">
-<link href="../css/element.css" rel="stylesheet" type="text/css">
-<link href="../css/select2.css" rel="stylesheet" type="text/css">
-<link href="../css/animate.css" rel="stylesheet" type="text/css">
-<link href="../css/jquery.autocompleter.css" rel="stylesheet" type="text/css">
-<link href="../css/reveal.css" rel="stylesheet" type="text/css">
-</head>
-<!-- 全局 JavaScript 文件 -->
-<script src="../lib/jquery/jquery.min.js"></script>
-<script src="../lib/jquery/jquery.redirect.js"></script>
-<script src="../lib/jquery/jquery.reveal.js"></script>
-<script src="../lib/jquery/jquery.Qvalidate.js"></script>
-<script src="../lib/jquery/select2.min.js"></script>
-<script src="../js/global.js"></script>
-<script src="../lib/jquery/jquery.autocompleter.js"></script>
-<script src="../lib/jquery/jquery.transit.min.js"></script>
-<script>
-
-
-
-
-$(document).ready(function(e) {
-	
-	//pc and mobile js-------------------------------------------------------------------
-	
-/*	showConfirm({
-		msg:"confirm效果？",
-		confirmed:function(){
-			alert("确定回调");
-
-		},
-		cancel:function(){
-
-
-		}
-	});
-	
-	showAlert({msg:"alert效果"});*/
-	
-	//秀/藏菊花
-	$("body").showLoading(-150);
-	$("body").hideLoading();
-			
-	//键入input时全选
-	$(".number").focusin(function(){
-		$(this)[0].focus();
-		$(this)[0].select();
-	});
-	$(".number").mouseup(function(event){
-		event.preventDefault();
-	});
-
-
-
-
-	//加入当月订单
-	$('[action="addCart"]').click(function(){
-		//加入购物车动画效果
-/*		var x=$(".cart").offset().left - $(this).parents(".product-wrapper").offset().left -180;
-		var y=$(".cart").offset().top - $(this).parents(".product-wrapper").offset().top - 65;
-		var clone=$(this).parents(".product-wrapper").clone();
-		$(clone).css({"position":"absolute","left":$(this).parents(".product-wrapper").offset().left,"top":$(this).parents(".product-wrapper").offset().top})
-		$(clone).insertAfter($(this).parents(".product-wrapper"));
-		$(clone).transition({ x: x, y: y ,scale: 0});*/
-		
-		showModal({msg:"已加当月订单"});
-		$(".cart").find(".number").transition({ scale: 2});
-		setTimeout(function(){
-			//$(clone).remove();
-			$(".cart").find(".number").transition({ scale: 1});
-		},500)
-		
-		
-	});
-
-    //添加取消收藏
-	$('[action="fav"]').click(function(){
-		if($(this).hasClass("favorite")){
-			$(this).removeClass("favorite");
-			$(this).addClass("cancelfavorite");	
-			showModal({msg:"添加到我的收藏"});
-			
-		}else{
-			 //取消收藏
-			$(this).removeClass("cancelfavorite");
-			$(this).addClass("favorite");
-			
-			showModal({msg:"已取消收藏"});	
-				
-		}
-
-			
-		
-	});
-	
-				    
-    //pc js-----------------------------------------------------------------------------------------
-
-
-
-
-	//当月订单响应屏幕位置
-	window.onload = window.onresize =  function(){		
-	
-		  if($(window).width()>1300){
-			r=(parseInt($(window).width())-1000)/2 -180;
-			$(".cart").css({"right":r})       
-		  }else{
-			$(".cart").css({"right":10})     
-			  
-		  }
-	
-
-	};
-
-	 
-	 
-	 
-	 //mobile js	------------------------------------------------------------------------------
-
-
-
-		
-	 
-	 
-	 
-});
-
-
-</script>
-<body>
-
-<div ng-controller='prductController'>
+<div ng-controller='productCtrl'>
 <!--  confirm box -->
 <div popup="confirm" class="reveal-modal" >
 	<a class="close-reveal-modal" action="closeModal">&#215;</a>
@@ -156,7 +9,7 @@ $(document).ready(function(e) {
     </div>
 
     <div class="split-dot mb20 text-center"></div>
-    <div class="form-row">
+    <div class="proddtl-proddtl-form-row">
    		<a action="cancel" class=" button button-gray w35 secondary"   >再看看</a>
         <a action="confirm" class=" button button-pink w35 primary"   >去意已决</a>
         
@@ -175,7 +28,7 @@ $(document).ready(function(e) {
     </div>
 
     <div class="split-dot mb20 text-center"></div>
-    <div class="form-row">
+    <div class="proddtl-form-row">
         <a action="alert" class=" button button-pink w90 " >确定</a>
 
         <div class="clr"></div>
@@ -310,45 +163,45 @@ $(document).ready(function(e) {
 <!--pc mobile产品列表-->
 <div class="layout page-width">
   	
-    <div class="content-wrapper">
+    <div class="proddtl-content-wrapper">
     
         <div class="bread-crumb mobile-only"><a onClick="history.back()" class="back"><b>&lt;</b> 首页</a><div class="title">商品详情</div></div>
-        <div class="content-inner">
-            <div class="mobile-only mobile-product-name">
+        <div class="proddtl-content-inner">
+            <div class="mobile-only proddtl-mobile-product-name">
             {{Production.productName}}
             <a action="fav" class="cancelfavorite mobile-only"></a>
             </div>
-            <div class="product-wrapper">
-                <div class="product-photo">
-                 <div class="no-product"></div>
+            <div class="proddtl-wrapper">
+                <div class="proddtl-photo">
+                 <div class="no-prod"></div>
                 <img src="../res/photo_s.jpg"/>
                 </div>
                 
-                <div class="product-info">
+                <div class="proddtl-info">
                    <a action="fav" class="cancelfavorite pc-only"></a>
                    <a class="product-name pc-only" >玫琳凯臻时粹颜™精华乳</a>
                    <div class="row2">               
-                    <div class="form-row">
+                    <div class="proddtl-form-row">
                       <div class="field-key  ">零售价：</div>
                       <div class="field-value ">￥1980.00</div>
                       <div class="clr"> </div>
                     </div>
-                    <div class="form-row">
+                    <div class="proddtl-form-row">
                       <div class="field-key  ">规　格：</div>
                       <div class="field-value ">15ml</div>
                       <div class="clr"> </div>
                     </div>                                      
-                    <div class="form-row">
+                    <div class="proddtl-form-row">
                       <div class="field-key  ">货　号：</div>
                       <div class="field-value ">100231615</div>
                       <div class="clr"> </div>
                     </div> 
-                    <!-- div class="form-row">
+                    <!-- div class="proddtl-form-row">
                       <div class="field-key  ">库　存：</div>
                       <div class="field-value ">无货</div>
                       <div class="clr"> </div>
                     </div -->                     
-                    <div class="form-row">
+                    <div class="proddtl-form-row">
                       <div class="field-key  ">功　效：</div>
                       <div class="field-value ">紧致提示，修复滋润</div>
                       <div class="clr"> </div>
@@ -367,8 +220,8 @@ $(document).ready(function(e) {
                 <div class="clr"></div>
             </div>
             
-            <div class="intro-title">商品介绍</div>
-            <div class="intro-content">
+            <div class="proddtl-intro-title">商品介绍</div>
+            <div class="proddtl-intro-content">
                 产品功能
                 
                 干性肌肤适用。乳霜状的洁面乳添加植物复合成分和亚麻籽提取物，温和去除面部彩妆及污垢的同时不会带走任何营养成分，令你的肌肤清爽柔润更健康。
@@ -400,7 +253,7 @@ $(document).ready(function(e) {
 
 </div>
 
-<div class="mobile-action-wrapper mobile-only">
+<div class="proddtl-mobile-action-wrapper mobile-only">
    
     <div class="row1">
     <div class="left">
@@ -422,7 +275,3 @@ $(document).ready(function(e) {
 ©2007-2013 Mary Kay Inc. 沪ICP备10024290号
 </div>
 </div>  
-    
-</body>
-
-</html>
