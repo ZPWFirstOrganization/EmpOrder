@@ -22,11 +22,11 @@
 .order-product-wrapper .order-product-info .row2 .order-new-price{color:#000; font-size:16px; display:inline-block; width:129px;}
 
 .order-product-wrapper .order-product-info .order-product-action{padding-top:40px;float:left;width:35%}
-.order-product-wrapper .order-product-info .order-product-action .order-number-label{ line-height:32px; float:left; color:#000; }
+.order-product-wrapper .order-product-info .order-product-action .order-number-label{ line-height:32px; float:left; color:#000;font-size: 16px }
 .order-product-wrapper .order-product-info .order-product-action .order-number{ width:40px; height:30px; margin:0px -1px;  text-align:center; border:1px solid #eee;float:left;font-size:16px;line-height:normal;line-height: 22px\9;}
 .order-product-wrapper .order-product-info .order-product-action .order-action{ display:inline-block; width:30px; height:30px; background-image:url(../img/icon_fav_border.png); background-size:100%;background-position:50% 50%; background-repeat:no-repeat;   color:#e5a086; cursor:pointer; background-color:#fff}
-.order-product-wrapper .order-product-info .order-product-action .order-favorite{  background-image:url(../img/icon_fav_border.png); float:right;margin-left:15%;margin-right: 10px }
-.order-product-wrapper .order-product-info .order-product-action .order-cancelfavorite{ background-image:url(../img/icon_fav.png);float:right;margin-left:15%;margin-right: 10px }
+.order-product-wrapper .order-product-info .order-product-action .order-favorite{  background-image:url(../img/icon_fav_border.png); float:right;margin-right: 10px }
+.order-product-wrapper .order-product-info .order-product-action .order-cancelfavorite{ background-image:url(../img/icon_fav.png);float:right;margin-right: 10px }
 .order-product-wrapper .order-product-info .order-product-action .trush{  background-image:url(../img/icon_trush.png);float:left; margin-left:15%; }
 
 .order-bottom-wrapper{ padding:10px; background-color:#f9f9f9;  border-bottom:1px solid #eee; }
@@ -46,7 +46,7 @@
 .option-list .list:active{ background-color:#eee}
 
 .order-top-wrapper{ height:40px; background-color:#fff;  border-bottom:1px solid #eee; }
-.order-top-wrapper .order-tips{  padding-left:40px; padding-top:9px; padding-bottom:9px; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 8px; background-size: 7% auto ;  }
+.order-top-wrapper .order-tips{  padding-left:40px; padding-top:12px; padding-bottom:12px; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 50%; background-size: 7% auto ;  }
 
 
 .order-product-wrapper{ width:100%;  border-bottom:1px solid #ddd; padding:5px 0px }
@@ -61,11 +61,11 @@
 .order-product-wrapper .order-product-info .row2 .order-new-price{color:#000; font-size:16px; display:inline-block; width:125px;}
 
 .order-product-wrapper .order-product-info .order-product-action{margin-top:8px; }
-.order-product-wrapper .order-product-info .order-product-action .order-number-label{ line-height:32px; float:left; color:#000; }
+.order-product-wrapper .order-product-info .order-product-action .order-number-label{ line-height:32px; float:left; color:#000; font-size: 16px}
 .order-product-wrapper .order-product-info .order-product-action .order-number{ width:40px; height:30px; margin:0px -1px;  text-align:center; border:1px solid #eee;float:left;font-size: 16px}
 .order-product-wrapper .order-product-info .order-product-action .order-action{ display:inline-block; width:30px; height:30px; background-image:url(../img/icon_fav_border.png); background-size:100%;background-position:50% 50%; background-repeat:no-repeat;   color:#e5a086; cursor:pointer; background-color:#fff}
-.order-product-wrapper .order-product-info .order-product-action .order-favorite{  background-image:url(../img/icon_fav_border.png); float:right;margin-left:15%; }
-.order-product-wrapper .order-product-info .order-product-action .order-cancelfavorite{ background-image:url(../img/icon_fav.png);float:right;margin-left:15%;}
+.order-product-wrapper .order-product-info .order-product-action .order-favorite{  background-image:url(../img/icon_fav_border.png); float:right; }
+.order-product-wrapper .order-product-info .order-product-action .order-cancelfavorite{ background-image:url(../img/icon_fav.png);float:right;}
 .order-product-wrapper .order-product-info .order-product-action .trush{  background-image:url(../img/icon_trush.png);float:right; margin-left:10%; margin-right:5% }
 
 .order-bottom-wrapper{ padding:10px; background-color:#f9f9f9;  border-bottom:1px solid #eee; }

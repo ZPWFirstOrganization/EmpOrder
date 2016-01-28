@@ -1,42 +1,64 @@
 orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
-orderApp.controller('currentOrderCtrl',function($q,$scope,$rootScope,common,currentOrderServ,deleteServ){
-	$rootScope.userName = "Tom"
-	$rootScope.userPhone = "11012012315"
+orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,common,currentOrderServ,deleteServ,utils){
+	// $rootScope.userName = "Tom"
+	// $rootScope.userPhone = "11012012315"
+	// alert(new Date().toUTCString());
+	// $.ajax({type:"OPTIONS",url:"/",complete:function(x){console.log(x.getResponseHeader("Date"))}})
+	// alert(date.getYear())
+	// alert(date)
+	$rootScope.secretary = {userName:"",userPhone:""}
+	$rootScope.count = 0
 	$rootScope.resAmount = 0
 	$rootScope.payAmount = (common.get('type')==2) ? 5000 : 2000
-	$scope.isCanShop = true
+	$scope.isCanShop = false
 	$scope.currentOrderData = {};
 	$scope.lastData = 1
 	//获取下单日期范围
 	currentOrderServ.getDateGate({kind: 'Order'},function(response){
 	    var arry = response.orderDate.split("-")
+	    $scope.isCanShop = response.allowOrder
+	    $scope.isCanShop = true
 	    $scope.lastData = parseInt(arry[1])
-		if(parseInt(arry[1]) > new Date().getDate()){
-			//可下单范围
-			$scope.isCanShop = true
-		}else{
-			//不可下单范围
-			$scope.isCanShop = true
-		}
+		// if(parseInt(arry[1]) > new Date().getDate()){
+		// 	//可下单范围
+		// 	$scope.isCanShop = true
+		// }else{
+		// 	//不可下单范围
+		// 	$scope.isCanShop = true
+		// }
   	})
   	//初始化余额
   	currentOrderServ.getResAmount({kind: 'User',myBalanceAccount:'123123'},function(response){
-  		console.log(response)
-  		$rootScope.resAmount = 1111
+  		$rootScope.resAmount = response.myBalance
   		$rootScope.payAmount = (common.get('type')==2) ? (5000-$rootScope.resAmount) : (2000-$rootScope.resAmount)
+  	})
+  	//初始化商品数量
+  	currentOrderServ.getCount({kind: 'Order',userAccount:'123123'},function(response){
+  		$rootScope.count = response.productCount
   	})
   	//获取秘书
 	currentOrderServ.getSecretary({kind: 'User',userAccount:'123123'},function(response){
-  		console.log(response)
+		// setTimeout(function(){
+		// 	$scope.$apply(function(){
+		  		$rootScope.secretary.userName = response[0].userName
+		  		$rootScope.secretary.userPhone = response[0].userPhone
+	 //  		})
+		// },100)
   	})
   	//获取当月订单详细内容
 	currentOrderServ.getCurrentOrder({kind:'Order',userAccount:'123123',orderDate:'2016-01'},function(response){
+	    
 	    $scope.currentOrderData = response[0];
-	    console.log($scope.currentOrderData.product[1]);
+	    console.log($scope.currentOrderData)
+	    // console.log($scope.currentOrderData.product[0]);
+	    if (angular.isUndefined($scope.currentOrderData)){
+	    	$scope.currentOrderData = {}
+	    }
   	})
 	var oldCount;
-    $scope.countFocus = function(prodCount){
+    $scope.countFocus = function(prodCount,id){
 		oldCount = parseInt(prodCount)
+		$("#"+id).select();
 	};
 	$scope.countBlur = function(prodCount,index){
 		if (prodCount == "" || parseInt(prodCount) <= 0){
@@ -44,6 +66,9 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$rootScope,common,curr
 			return
 		};
 		if (parseInt(prodCount) != oldCount){
+			$("body").showLoading(-150);
+			
+
 			currentOrderServ.putProduct(
 				{	
 					kind: 'Order',
@@ -53,14 +78,18 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$rootScope,common,curr
 				},
 				//success
 				function(response){
-			    	console.log("put count success!");
+			    	console.log("put count success!",response);
+			    	$rootScope.resAmount = response.myBalance
+  					$rootScope.payAmount = (common.get('type')==2) ? (5000-$rootScope.resAmount) : (2000-$rootScope.resAmount)
+  					$rootScope.count = response.productCount
+  					$("body").hideLoading();
 		  		},
 		  		//error
 		  		function(response){
 		  			console.log("put count error!");
 		  			$scope.currentOrderData.product[index].requestQTY = oldCount
 		  			if (response.status == 404){
-		  				alert("商品未找到！")
+		  				showModal({msg:"商品未找到"});
 		  			}
 		  		}
 		  	);
@@ -77,12 +106,14 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$rootScope,common,curr
 			},function(){
 
 			})
+			showModal({msg:"添加到我的收藏"});
 		}else{
 			deleteServ("Favorite",{userAccount:123123,productCode:$scope.currentOrderData.product[index].productCode},
 			function(response){
 			},
 			function(response){
 			});
+			showModal({msg:"已取消收藏"});
 		}
 		$scope.currentOrderData.product[index].isFavorite = !$scope.currentOrderData.product[index].isFavorite
 	}
@@ -101,12 +132,15 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$rootScope,common,curr
 				function(response){
 					console.log(response)
 					$scope.$apply(function () {
+						$rootScope.resAmount = response.myBalance
+  						$rootScope.payAmount = (common.get('type')==2) ? (5000-$rootScope.resAmount) : (2000-$rootScope.resAmount)
+  						$rootScope.count = response.productCount
 						$scope.currentOrderData.product.splice(index,1)
 					});
 				},
 				function(response){
 					console.log(response)
-					alert("删除失败！")
+					showModal({msg:"删除失败！"});
 				})
 				// deleteServ.deleteOneProd(2,"Order",123123,10008679,
 				// function(response){
@@ -137,12 +171,15 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$rootScope,common,curr
 				function(response){
 					console.log(response)
 					$scope.$apply(function () {
+						$rootScope.resAmount = response.myBalance
+  						$rootScope.payAmount = (common.get('type')==2) ? (5000-$rootScope.resAmount) : (2000-$rootScope.resAmount)
+  						$rootScope.count = response.productCount
 						$scope.currentOrderData.product = {}
 					});
 				},
 				function(response){
 					console.log(response)
-					alert("删除失败！")
+					// showModal({msg:"删除失败！"});
 				})
 			},
 			cancel:function(){
@@ -151,7 +188,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$rootScope,common,curr
 		});
 	}
 	$scope.countinueShop = function(){
-		
+		$state.go("index.productList",{productClass:1,productCode:1,page:1})
 	}
 });
 
@@ -203,6 +240,12 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl){
           userAccount:'@userAccount'
         },
         isArray:true
+      },
+      getCount:{
+      	method:'GET',
+      	params:{
+          userAccount:'@userAccount'
+        }
       }
     }
   );
@@ -268,5 +311,9 @@ orderApp.factory('common', function(){
 	this.get = function (k){
 		return this[k]
 	}
+	return this
+})
+
+orderApp.factory('utils',function(){
 	return this
 })
