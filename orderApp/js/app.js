@@ -13,14 +13,11 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 				'tips@index':{
 					templateUrl: 'tpls/tips.html'
 				},
-				'mobileHeader@index': {
-	                templateUrl: 'tpls/mobileHeader.html'
-	            },
-	            'mobileNav@index': {
-	                templateUrl: 'tpls/mobileNav.html'
-	            },
 	            'pcHeader@index': {
 	                templateUrl: 'tpls/pcHeader.html'
+	            },
+	            'mobileHeader@index': {
+	                templateUrl: 'tpls/mobileHeader.html'
 	            },
 				'container@index':{
 					templateUrl: 'tpls/container.html'
@@ -31,7 +28,15 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 			}
 		}).state('index.productList',{
 			url:"/productClass={productClass}&productCode={productCode}&page={page}",
-			templateUrl: 'tpls/productList.html'
+			templateUrl: 'tpls/productList.html',
+			views:{
+				'':{
+					templateUrl: 'tpls/productList.html'
+				},
+	            'mobileNav@index': {
+	                templateUrl: 'tpls/mobileNav.html'
+	            },
+			}
 		}).state('index.currentOrder',{
 			url:'/currentOrder',
 			templateUrl:'tpls/currentOrder.html'

@@ -5,6 +5,10 @@ homeModule.factory('scopeData',function() {
 		noticePageRevert     :false,
 		ProductionList       :{},
 		currentProductClass  :'1',         //当前产品列表显示的是大类为1，小类为2
+		homeDivisionName     :'',
+		homeDivisionCode     :'',
+		divisionCode         :'',
+		groupCode            :'',
 		currentProductCode   :'',          //当前大类或小类的code
 		currentDivisionName  :'护肤',      //当前大类的名称(用于面包屑)
 		currenGroupName      :'',          //当前小类的名称，未显示小类时为空(用于面包屑)
@@ -24,7 +28,7 @@ homeModule.service('scopeMethod',function($state,scopeData,apiCaller) {
 	}
 })
 
-homeModule.factory('apiCaller',function($stateParams,$http,ApiService,scopeData) {
+homeModule.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,scopeData) {
 	return{
 		getProductListByStates:function(){
 			scopeData.ProductionList = ApiService.getProductList(
@@ -109,20 +113,22 @@ homeModule.factory('apiCaller',function($stateParams,$http,ApiService,scopeData)
 				}
 			});
 		},
-		getOrderCount:function(callbackFn) {
+		getOrderCount:function(successFn) {
 			return ApiService.getOrderCount({
 				userAccount:'123123'
 			},
-			function(response) {
-				if (callbackFn) {
-					callbackFn();
+			function (response) {
+				console.log('getOrderCount',response)
+				if (successFn) {
+					successFn();
 				}
-			});
+			}
+			);
 		},
 		postFav:function(Product,callbackFn) {
 			return ApiService.postFav({
 				userAccount:'123123',
-				productCode:Product.productCode,
+				productCode:Product.productCode
 			},
 			function(response){
 				if (callbackFn) {
@@ -130,15 +136,19 @@ homeModule.factory('apiCaller',function($stateParams,$http,ApiService,scopeData)
 				}
 			});
 		},
-		deleteFav:function(Product,callbackFn) {
-			return ApiService.deleteFav({
-				userAccount:'123123',
-				productCode:'10000699'
-			},
-			function(response){
-				if (callbackFn) {
-					callbackFn();
-				}
+		deleteFav:function(Product,suc,err) {
+			ajaxService.deleteFav(Product,suc,err)
+		},
+		getBalance:function(callbackFn) {
+			return ApiService.getBalance(
+				{
+					myBalanceAccount:'123123'
+				},
+				function(response){
+					console.log('getBalance',response)
+					if (callbackFn) {
+						callbackFn();
+					}
 			});
 		}
 	}
@@ -148,20 +158,14 @@ homeModule.controller('prductListController',
 	function($scope,$stateParams,$state,$http,scopeData,scopeMethod,apiCaller) {
 	$scope.currentDivisionName;
 	$scope.currenGroupName = '';
-	// $scope.balance = apiCaller.getBalance();
-	// $scope.orderCount = apiCaller.getOrderCount();
-	$http.get("http://182.92.110.219:8090/MLK/2/User?myBalanceAccount=123123").success(function(response){
-		$scope.balance = response;
-	});
-	$http.get("http://182.92.110.219:8090/MLK/2/Order?userAccount=123123").success(function(response){
-		$scope.orderCount = response;
-	});
+	$scope.orderCount = 0;
+	$scope.balance = apiCaller.getBalance();
+	$scope.orderCount = apiCaller.getOrderCount();
 	$scope.pdList = {};
 	$scope.inputTexts = [];
 	$scope.pages = [];
 	$scope.currentPage=$stateParams.page;
 
-	// apiCaller.deleteFav();
 	var isEmptyObject = function( obj ) {
 	    for ( var name in obj ) {
 	        return false;
@@ -233,24 +237,22 @@ homeModule.controller('prductListController',
 			setTimeout(function(){
 				$(".cart").find(".number").transition({scale:1});
 			},500)
-			$http.get("http://182.92.110.219:8090/MLK/2/User?myBalanceAccount=123123").success(function(response){
-				$scope.balance = response;
-			});
-			$http.get("http://182.92.110.219:8090/MLK/2/Order?userAccount=123123").success(function(response){
-				$scope.orderCount = response;
-			});
+			$scope.balance = apiCaller.getBalance();
+			$scope.orderCount = apiCaller.getOrderCount();
     	});
     }
 
     $scope.favoriteClicked = function(Product) {
     	if(!Product.isFavorite){
-    		Product.isFavorite = true
     		apiCaller.postFav(Product,function() {
     			showModal({msg:"添加到我的收藏"});
+    			Product.isFavorite = true
     		})
     	}else{
-    		Product.isFavorite = false
-    		showModal({msg:"已取消收藏"}); 
+			Product.isFavorite = false;
+    		apiCaller.deleteFav(Product,function() {
+    			showModal({msg:"已取消收藏"});
+    		})
     	}
     }
 
@@ -280,31 +282,54 @@ homeModule.controller('prductListController',
 			$scope.inputTexts[id] = parseInt($scope.inputTexts[id]) + 1;
 	}
 
-	$scope.cartClicked = function() {
-		$state.go("index.currentOrder");
+	$scope.nav1Clicked = function () {
+		scopeMethod.changeState('1',scopeData.homeDivisionCode,'1');
+		scopeData.currentDivisionName = scopeData.homeDivisionName;
+		scopeData.currenGroupName = '';
 	}
 
+	$scope.nav2Clicked = function () {
+		scopeMethod.changeState('1',scopeData.divisionCode,'1');
+		scopeData.currenGroupName = '';
+	}
+
+	$scope.nav3Clicked = function () {
+		scopeMethod.changeState(scopeData.currentProductClass,scopeData.groupCode,'1');
+	}
 });
 
 homeModule.controller('pcHeaderController', function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
 	
-	$scope.showList=false
+	$scope.showList = false;
+	
 	$scope.categories=apiCaller.getCategories(function(){
+		scopeData.homeDivisionName = $scope.categories[0].name;
+		scopeData.homeDivisionCode = $scope.categories[0].code;
 		if($stateParams.productClass == "" || $stateParams.productCode == "" || $stateParams.page == ""){
 			scopeMethod.changeState("1",$scope.categories[0].code,"1");
 		}else if($stateParams.productClass && $stateParams.productCode && $stateParams.page){
 			scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$stateParams.page);
 		}
 	});
-	
+
 	$scope.divisionClicked=function(Division) {
 		scopeData.currentDivisionName = Division.name;
+		scopeData.divisionCode = Division.code;
 		scopeData.currenGroupName = '';
         scopeMethod.changeState("1",Division.code,"1");
 	}
-	$scope.groupClicked=function(Group) {
+	$scope.groupClicked=function(Group,Division) {
+		scopeData.currentDivisionName = Division.name;
+		scopeData.divisionCode = Division.code;
 		scopeData.currenGroupName = Group.name;
+		scopeData.groupCode = Group.code;
         scopeMethod.changeState("2",Group.code,"1");
+	}
+
+	$scope.logoClicked = function() {
+		scopeMethod.changeState("1","1","1");
+		scopeData.currentDivisionName = $scope.categories[0].name;
+		scopeData.currenGroupName = '';
 	}
 
 	//展开/闭合优惠价
@@ -357,8 +382,17 @@ homeModule.controller('mbNavController',function($scope,apiCaller,scopeMethod) {
 	});
 });
 
-homeModule.controller('mbHeaderController',function ($scope) {
-	//mobile js--------------------------------------------------
+homeModule.controller('mbHeaderController',function ($scope,$state) {
+
+	$scope.showSearch = true;
+	setInterval(function () {
+		if($state.current.name == 'index.productList'){
+			$scope.showSearch = true;
+		}else{
+			$scope.showSearch = false;
+		}
+	},100)
+
 	//展开我的
 	$('[action="my"]').click(function(){    
 		if($(".my-list").css("display")=="none"){
@@ -367,17 +401,17 @@ homeModule.controller('mbHeaderController',function ($scope) {
 		  	$(".my-list").fadeOut(200); 
 		} 
 
-		});
+	});
 
-		//闭合我的
-		$("body").click(function(event){
-
+	//闭合我的
+	$("body").click(function(event){
 		if(event.target!=$('[action="my"]')[0]){
 		  	if($(".my-list").css("display")=="block"){
 		    	$(".my-list").fadeOut(200); 
 		  	}
 		}
-	});   
+	});
+
 	//展开优惠价
 	$('[action="mobile-select-onsale"]').click(function(){    
 		if($(".mobile-onsale-list").css("display")=="none"){
@@ -386,14 +420,13 @@ homeModule.controller('mbHeaderController',function ($scope) {
 		  	$(".mobile-onsale-list").fadeOut(200);  
 		}
 	});
+
 	//闭合优惠价
 	$("body").click(function(event){
-	if(event.target!=$('.mobile-onsale-content')[0] && event.target!=$('.mobile-onsale-arrow')[0]){
-	  
-	  if($(".mobile-onsale-list").css("display")=="block"){
-	    	$(".mobile-onsale-list").fadeOut(200);  
-	  	}
-	  }
-
+		if(event.target!=$('.mobile-onsale-content')[0] && event.target!=$('.mobile-onsale-arrow')[0]){
+		  if($(".mobile-onsale-list").css("display")=="block"){
+		    	$(".mobile-onsale-list").fadeOut(200);  
+		  	}
+		}
 	});
 });

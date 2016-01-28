@@ -1,9 +1,27 @@
-'use strict';
+// 'use strict';
 var httpService = angular.module('httpService', ['ngResource'], function($httpProvider) {
 });
 
-httpService.factory('ApiService',function($resource){
-	var baseUrl = 'http://182.92.110.219:8090/MLK/'
+// orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
+
+httpService.factory('ajaxService',function(baseUrl){
+	return{
+		deleteFav:function(Product,suc,err){
+			return 	$.ajax({
+			    type: "delete",
+			    url: baseUrl + '2/Favorite',
+			    data: {
+			    	userAccount:'123123',
+					productCode:Product.productCode
+			    },
+			    success:suc,
+			    error:err
+	  		});
+		}
+	}
+});
+
+httpService.factory('ApiService',function($resource,baseUrl){
 	return $resource(
 		baseUrl,
 		{},
@@ -73,14 +91,6 @@ httpService.factory('ApiService',function($resource){
 		          userAccount:'@userAccount',
 		          productCode:'@productCode'
 		        }
-		    },
-		    deleteFav:{
-		    	url:baseUrl+'2/Favorite',
-		    	method:'DELETE',
-		    	data:{
-		    		userAccount:'@userAccount',
-		         	productCode:'@productCode'
-		    	}
 		    }
 		}
 	);
