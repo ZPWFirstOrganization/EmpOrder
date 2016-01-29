@@ -72,12 +72,12 @@
                 <div class="order-product-wrapper" ng-repeat="product in currentOrderData.product">
                     <div class="order-product-photo">
                    
-                    <img src="res/photo_s.jpg"/>
+                    <img ng-src="{{product.iconUrl}}" src="res/null_icon.jpg" ui-sref="index.product({productCode:prodcuctCode})"/>
                     </div>
                     <div class="order-product-info">
                        
                        <div class="row1"> 
-                           <a class="order-product-name" >{{product.productName}}</a>
+                           <a class="order-product-name" ui-sref="index.product({productCode:prodcuctCode})">{{product.productName}}</a>
                            <div class="order-product-no pc-only">{{product.productCode}}</div> 
                        </div>
                        <div class="row2">               

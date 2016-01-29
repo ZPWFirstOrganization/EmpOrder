@@ -1,12 +1,6 @@
 orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
 //  http://wzdcbdeo01/mlk/2/
 orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,common,currentOrderServ,deleteServ,utils){
-	// $rootScope.userName = "Tom"
-	// $rootScope.userPhone = "11012012315"
-	// alert(new Date().toUTCString());
-	// $.ajax({type:"OPTIONS",url:"/",complete:function(x){console.log(x.getResponseHeader("Date"))}})
-	// alert(date.getYear())
-	// alert(date)
 	$rootScope.secretary = {userName:"",userPhone:""}
 	$rootScope.count = 0
 	$rootScope.resAmount = 0
@@ -21,18 +15,11 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
 	    $scope.isCanShop = response.allowOrder
 	    $scope.isCanShop = true
 	    $scope.lastData = parseInt(arry[1])
-		// if(parseInt(arry[1]) > new Date().getDate()){
-		// 	//可下单范围
-		// 	$scope.isCanShop = true
-		// }else{
-		// 	//不可下单范围
-		// 	$scope.isCanShop = true
-		// }
   	})
   	//初始化余额
   	currentOrderServ.getResAmount({kind: 'User',myBalanceAccount:'123123'},function(response){
-  		$rootScope.resAmount = response.myBalance
-  		$rootScope.payAmount = (common.get('type')==2) ? (5000-$rootScope.resAmount) : (2000-$rootScope.resAmount)
+  		$rootScope.resAmount = parseFloat(response.myBalance)
+  		$rootScope.payAmount = (common.get('type')==2) ? (5000-$rootScope.resAmount).toFixed(1) : (2000-$rootScope.resAmount).toFixed(1)
   	})
   	//初始化商品数量
   	currentOrderServ.getCount({kind: 'Order',userAccount:'123123'},function(response){
@@ -51,7 +38,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
 	currentOrderServ.getCurrentOrder({kind:'Order',userAccount:'123123',orderDate:''},function(response){
 	    
 	    $scope.currentOrderData = response[0];
-	    console.log($scope.currentOrderData.product[0]);
+	    // console.log($scope.currentOrderData.product[0]);
 	    if (angular.isUndefined($scope.currentOrderData)){
 	    	$scope.currentOrderData = {}
 	    }
@@ -80,7 +67,6 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
 				},
 				//success
 				function(response){
-			    	console.log("put count success!",response);
 			    	$rootScope.resAmount = response.myBalance
   					$rootScope.payAmount = (common.get('type')==2) ? (5000-$rootScope.resAmount) : (2000-$rootScope.resAmount)
   					$rootScope.count = response.productCount
@@ -88,11 +74,13 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
 		  		},
 		  		//error
 		  		function(response){
-		  			console.log("put count error!");
 		  			$scope.currentOrderData.product[index].requestQTY = oldCount
 		  			if (response.status == 404){
 		  				showModal({msg:"商品未找到"});
+		  			}else if(response.status == 400){
+		  				showModal({msg:"余额不足"});
 		  			}
+		  			$("body").hideLoading();
 		  		}
 		  	);
 		}else{
@@ -120,13 +108,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
 		$scope.currentOrderData.product[index].isFavorite = !$scope.currentOrderData.product[index].isFavorite
 	}
 	$scope.deleteProduct = function(index){
-		// var self=$(this);
-		function del(scope){
-			// this = scope
-			console.log(scope)
-			// $scope = angular.copy(scope)
-			scope.currentOrderData.product.splice(index,1)
-		}
+		$("body").showLoading(-150);
 		showConfirm({
 			msg:"确定删除该产品？",
 			confirmed:function(){
@@ -139,22 +121,13 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
   						$rootScope.count = response.productCount
 						$scope.currentOrderData.product.splice(index,1)
 					});
+					$("body").hideLoading();
 				},
 				function(response){
 					console.log(response)
-					// showModal({msg:"删除失败！"});
+					showModal({msg:"删除失败！"});
+					$("body").hideLoading();
 				})
-				// deleteServ.deleteOneProd(2,"Order",123123,10008679,
-				// function(response){
-				// 	console.log(response)
-				// 	$scope.$apply(function () {
-				// 		$scope.currentOrderData.product.splice(index,1)
-				// 	});
-				// },
-				// function(response){
-				// 	console.log(response)
-				// 	alert("删除失败！")
-				// });
 			},
 			cancel:function(){
 
@@ -169,19 +142,20 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
 		showConfirm({
 			msg:"确定取消该订单？",
 			confirmed:function(){
+				$("body").showLoading(-150);
 				deleteServ("Order",{userAccount:123123},
 				function(response){
-					console.log(response)
 					$scope.$apply(function () {
 						$rootScope.resAmount = response.myBalance
   						$rootScope.payAmount = (common.get('type')==2) ? (5000-$rootScope.resAmount) : (2000-$rootScope.resAmount)
   						$rootScope.count = response.productCount
 						$scope.currentOrderData.product = {}
 					});
+					$("body").hideLoading();
 				},
 				function(response){
-					console.log(response)
-					// showModal({msg:"删除失败！"});
+					showModal({msg:"删除失败！"});
+					$("body").hideLoading();
 				})
 			},
 			cancel:function(){
@@ -306,6 +280,7 @@ orderApp.factory('deleteServ',function(baseUrl,common){
 })
 
 orderApp.factory('common', function(){
+	//初始化type
 	this.type = 2
 	this.set = function (k,v){
 		this[k] = v
