@@ -246,7 +246,7 @@ homeModule.controller('prductListController',
 			$("body").hideLoading();
     	},function(){
     		$("body").hideLoading();
-    		showModal({msg:"余额不足"});
+    		showModal({msg:"剩余额度不足"});
     	});
 
     }
