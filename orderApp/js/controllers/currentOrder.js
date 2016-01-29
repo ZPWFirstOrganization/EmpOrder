@@ -108,10 +108,10 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
 		$scope.currentOrderData.product[index].isFavorite = !$scope.currentOrderData.product[index].isFavorite
 	}
 	$scope.deleteProduct = function(index){
-		$("body").showLoading(-150);
 		showConfirm({
 			msg:"确定删除该产品？",
 			confirmed:function(){
+				$("body").showLoading(-150);
 				deleteServ("Order",{userAccount:123123,productCode:$scope.currentOrderData.product[index].productCode},
 				function(response){
 					console.log(response)
