@@ -88,9 +88,9 @@
                        <div class="order-product-action">
                            <div  class="order-number-label">数量：</div>
 
-                           <input type="tel" class="order-number"  placeholder="数量" id="{{'text'+$index}}" ng-model="product.requestQTY" maxlength="3" ng-blur="countBlur(product.requestQTY,$index)" ng-focus="countFocus(product.requestQTY,'text'+$index)" style="display:{{{true: '',false:'none'}[isCanShop]}}" ng-keypress="enter($event)" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"/> 
-                           <div class="order-number-label" style="display:{{{false: '',true:'none'}[isCanShop]}}">{{this.product.requestQTY}}</div>
-                           <a action="del" class="order-action trush" ng-click="deleteProduct($index)" style="display:{{{true: '',false:'none'}[isCanShop]}}"></a>                       
+                           <input type="tel" class="order-number"  placeholder="数量" id="{{'text'+$index}}" ng-model="product.requestQTY" maxlength="3" ng-blur="countBlur(product.requestQTY,$index)" ng-focus="countFocus(product.requestQTY,'text'+$index)" ng-show="isCanShop" ng-keypress="enter($event)" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"/> 
+                           <div class="order-number-label" ng-show="!isCanShop">{{this.product.requestQTY}}</div>
+                           <a action="del" class="order-action trush" ng-click="deleteProduct($index)" ng-show="isCanShop"></a>                       
                            <a action="fav" ng-class="{true: 'order-action order-favorite', false: 'order-action order-cancelfavorite'}[!product.isFavorite]" ng-click="favClick($index)"></a>
                            <div class="clr"></div>                
                        </div>
@@ -112,8 +112,8 @@
 
             </div>
             <div class="order-action-wrapper pc-only">
-                <a action="cancel" class=" button button-gray w15 secondary"   style="display:{{{true: '',false:'none'}[isCanShop]}}" ng-click="orderCancel()">取消订单</a>
-                <a action="confirm" class=" button button-pink w15 primary"   style="display:{{{true: '',false:'none'}[isCanShop]}}" ng-click ="countinueShop()">继续购物</a>       
+                <a action="cancel" class=" button button-gray w15 secondary" ng-show="isCanShop" ng-click="orderCancel()">取消订单</a>
+                <a action="confirm" class=" button button-pink w15 primary" ng-show="isCanShop" ng-click ="countinueShop()">继续购物</a>       
 
             </div>            
             

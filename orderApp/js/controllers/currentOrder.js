@@ -78,7 +78,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
 		  			if (response.status == 404){
 		  				showModal({msg:"商品未找到"});
 		  			}else if(response.status == 400){
-		  				showModal({msg:"余额不足"});
+		  				showModal({msg:"剩余额度不足"});
 		  			}
 		  			$("body").hideLoading();
 		  		}

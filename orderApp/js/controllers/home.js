@@ -101,15 +101,20 @@ homeModule.factory('apiCaller',function($stateParams,$http,ApiService,ajaxServic
 					}
 			});
 		},
-		postOrderedProduct:function(Product,count,callbackFn) {
+		postOrderedProduct:function(Product,count,suc,err) {
 			return ApiService.postOrderedProduct({
 				userAccount:'123123',
 				productCode:Product.productCode,
 				count:count
 			},
 			function(response){
-				if (callbackFn) {
-					callbackFn();
+				if (suc) {
+					suc();
+				}
+			},
+			function(response){
+				if (err) {
+					err();
 				}
 			});
 		},
@@ -118,7 +123,6 @@ homeModule.factory('apiCaller',function($stateParams,$http,ApiService,ajaxServic
 				userAccount:'123123'
 			},
 			function (response) {
-				console.log('getOrderCount',response)
 				if (successFn) {
 					successFn();
 				}
@@ -145,7 +149,6 @@ homeModule.factory('apiCaller',function($stateParams,$http,ApiService,ajaxServic
 					myBalanceAccount:'123123'
 				},
 				function(response){
-					console.log('getBalance',response)
 					if (callbackFn) {
 						callbackFn();
 					}
@@ -231,6 +234,7 @@ homeModule.controller('prductListController',
 	}
 
     $scope.addCartClicked = function(Product) {
+    	$("body").showLoading(-150);
     	var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
     		showModal({msg:"已加当月订单"});
     		$(".cart").find(".number").transition({scale:2});
@@ -239,19 +243,27 @@ homeModule.controller('prductListController',
 			},500)
 			$scope.balance = apiCaller.getBalance();
 			$scope.orderCount = apiCaller.getOrderCount();
+			$("body").hideLoading();
+    	},function(){
+    		$("body").hideLoading();
+    		showModal({msg:"剩余额度不足"});
     	});
+
     }
 
     $scope.favoriteClicked = function(Product) {
+    	$("body").showLoading(-150);
     	if(!Product.isFavorite){
     		apiCaller.postFav(Product,function() {
     			showModal({msg:"添加到我的收藏"});
     			Product.isFavorite = true
+    			$("body").hideLoading();
     		})
     	}else{
 			Product.isFavorite = false;
     		apiCaller.deleteFav(Product,function() {
     			showModal({msg:"已取消收藏"});
+    			$("body").hideLoading();
     		})
     	}
     }
@@ -345,12 +357,14 @@ homeModule.controller('pcHeaderController', function($scope,$stateParams,$state,
 });
 
 homeModule.controller('mbNavController',function($scope,apiCaller,scopeMethod) {
+	$("body").showLoading(-150);
 	$scope.lit2Show=''
 	$scope.categories=apiCaller.getCategories(function () {
 		$scope.Division = $scope.categories[0];//显示在大类类列表中的系列
 		$scope.Group = $scope.categories[0].class2;//显示在小类中各个系列
 		$scope.DivisionName = $scope.categories[0].name;//显示在大类选择上的文字
 		$scope.GroupName = '系列';
+		$("body").hideLoading();
 	});
 
 	$scope.divisionItemClicked = function(Division) {

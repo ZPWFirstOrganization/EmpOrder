@@ -5,14 +5,14 @@
         <div class="select-content">{{DivisionName}}</div>
         <div class="select-arrow"></div>
     </div>
-    <div class="option-list" id="DivisionList" >
+    <div class="option-list" id="DivisionList" style="OVERFLOW-Y: auto; OVERFLOW-X:hidden;">
         <a class="list" ng-repeat="Division in categories" ng-click="divisionItemClicked(Division)">{{Division.name}}</a>
     </div>
     <div class="select-wrap  fr" action="right_select" cname="sku">
       <div class="select-content">{{GroupName}}</div>
       <div class="select-arrow"></div>
     </div> 
-    <div class="option-list" id="GroupList">
+    <div class="option-list" id="GroupList" style="OVERFLOW-Y: auto; OVERFLOW-X:hidden;">
       <a class="list" ng-repeat="Class in Group" ng-click="groupItemClicked(Class)">{{Class.name}}</a>
     </div>
     
