@@ -40,6 +40,9 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 		}).state('index.currentOrder',{
 			url:'/currentOrder',
 			templateUrl:'tpls/currentOrder.html'
+		}).state('index.product',{
+			url:'/product/productCode={productCode}',
+			templateUrl:'tpls/product.html'
 		})
 })
 
