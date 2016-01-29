@@ -399,13 +399,18 @@ homeModule.controller('mbNavController',function($scope,apiCaller,scopeMethod) {
 homeModule.controller('mbHeaderController',function ($scope,$state) {
 
 	$scope.showSearch = true;
-	setInterval(function () {
+	stateMonitor = setInterval(function () {
 		if($state.current.name == 'index.productList'){
 			$scope.showSearch = true;
 		}else{
 			$scope.showSearch = false;
 		}
+		$scope.$apply()
 	},100)
+
+	$scope.$on("$destroy", function() {
+    	clearInterval(stateMonitor);
+    })
 
 	//展开我的
 	$('[action="my"]').click(function(){    

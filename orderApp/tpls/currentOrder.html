@@ -1,36 +1,4 @@
 <div ng-controller="currentOrderCtrl">
-<!--mobile头-->
-<div class="mobile-header-wrapper mobile-only">
-    <div class="header">
-    <div class="mobile-onsale-wrap  fl w20" action="mobile-select-onsale" >
-
-        <div class="mobile-onsale-content">优惠价</div>
-        <div class="mobile-onsale-arrow"></div>
-    </div>    
-
-    <a class="my" action="my"></a>
-    <a class="fav"></a> 
-    </div>
-    
-    <div class="my-list">
-    <a class="list">当月订单</a>
-    <a class="list">历史订单</a>
-    <a class="list">个人信息</a>
-    <a class="list">公告</a>
-    </div>
-    
-    <div class="mobile-onsale-list">
-    <a class="list">优惠价</a>
-    <a class="list">6折</a>
-
-    </div>    
-<!--    <div class="search-wrapper">
-      
-        
-        <input type="text" class="search"  placeholder="产品名称 或 货号" />
-        <a class="search-btn "></a>
-    </div>-->
-</div>
 
 
   <!--pc面包屑-->
@@ -56,7 +24,7 @@
         </div>
         <div class="bread-crumb mobile-only">
 
-          <a onClick="history.back()" class="back">&lt; 首页</a>
+          <a ui-sref="index.productList({productClass:1,productCode:1,page:1})" class="back">&lt; 首页</a>
           <div class="title">当月订单</div>
         </div>
         <div class="right">
