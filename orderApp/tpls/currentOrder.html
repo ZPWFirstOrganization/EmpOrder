@@ -1,7 +1,41 @@
 <div ng-controller="currentOrderCtrl">
+<!--mobile头-->
+<div class="mobile-header-wrapper mobile-only">
+    <div class="header">
+    <div class="mobile-onsale-wrap  fl w20" action="mobile-select-onsale" >
+
+        <div class="mobile-onsale-content">优惠价</div>
+        <div class="mobile-onsale-arrow"></div>
+    </div>    
+
+    <a class="my" action="my"></a>
+    <a class="fav"></a> 
+    </div>
+    
+    <div class="my-list">
+    <a class="list">当月订单</a>
+    <a class="list">历史订单</a>
+    <a class="list">个人信息</a>
+    <a class="list">公告</a>
+    </div>
+    
+    <div class="mobile-onsale-list">
+    <a class="list">优惠价</a>
+    <a class="list">6折</a>
+
+    </div>    
+<!--    <div class="search-wrapper">
+      
+        
+        <input type="text" class="search"  placeholder="产品名称 或 货号" />
+        <a class="search-btn "></a>
+    </div>-->
+</div>
+
+
   <!--pc面包屑-->
 <div class="layout page-width pc-only">
-  <div class="bread-crumb"><a href="index.html">首页</a><a>&gt;</a><a href="#">当月订单</a></div>
+  <div class="bread-crumb"><a ui-sref="index.productList({productClass:1,productCode:1,page:1})">首页</a><a>&gt;</a><a>当月订单</a></div>
 
     <div class="clr"></div>
 </div>
@@ -20,7 +54,11 @@
             </div>
         
         </div>
-        <div class="bread-crumb mobile-only"><a onClick="history.back()" class="back">&lt; 首页</a><div class="title">当月订单</div></div>
+        <div class="bread-crumb mobile-only">
+
+          <a onClick="history.back()" class="back">&lt; 首页</a>
+          <div class="title">当月订单</div>
+        </div>
         <div class="right">
             
             
@@ -49,7 +87,8 @@
         
                        <div class="order-product-action">
                            <div  class="order-number-label">数量：</div>
-                           <input type="tel" class="order-number"  placeholder="数量"  ng-model="product.requestQTY" maxlength="3" ng-blur="countBlur(product.requestQTY,$index)" ng-focus="countFocus(product.requestQTY)" style="display:{{{true: '',false:'none'}[isCanShop]}}" ng-keypress="enter($event)" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"/> 
+
+                           <input type="tel" class="order-number"  placeholder="数量" id="{{'text'+$index}}" ng-model="product.requestQTY" maxlength="3" ng-blur="countBlur(product.requestQTY,$index)" ng-focus="countFocus(product.requestQTY,'text'+$index)" style="display:{{{true: '',false:'none'}[isCanShop]}}" ng-keypress="enter($event)" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"/> 
                            <div class="order-number-label" style="display:{{{false: '',true:'none'}[isCanShop]}}">{{this.product.requestQTY}}</div>
                            <a action="del" class="order-action trush" ng-click="deleteProduct($index)" style="display:{{{true: '',false:'none'}[isCanShop]}}"></a>                       
                            <a action="fav" ng-class="{true: 'order-action order-favorite', false: 'order-action order-cancelfavorite'}[!product.isFavorite]" ng-click="favClick($index)"></a>
@@ -63,12 +102,12 @@
 
             <div class="order-bottom-wrapper pc-only">
                 <div class="row1">
-                您的季度余额还剩:<font class="pink06">￥{{this.$parent.resAmount}}</font>  共 <font class="pink06">{{currentOrderData.product.length}}</font> 件商品，实付金额:<font class="pink06">￥{{this.$parent.payAmount}}</font>
+                您的季度余额还剩:<font class="pink06">￥{{this.$parent.resAmount}}</font>  共 <font class="pink06">{{this.$parent.count}}</font> 件商品，实付金额:<font class="pink06">￥{{this.$parent.payAmount}}</font>
                 </div> 
                 <div class="row2">
                 我同意以上金额从我当月薪资中扣除<br>
                 我已了解，根据公司政策要求，员工不得以任何形式、价格转卖公司产品<br>
-                部门秘书：{{this.$parent.userName}} {{this.$parent.userPhone}}<br>
+                部门秘书：{{this.$parent.secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{this.$parent.secretary.userPhone}}<br>
                 </div>            
 
             </div>
@@ -92,7 +131,7 @@
     <div class="row1">
         我同意以上金额从我当月薪资中扣除<br>
         我已了解，根据公司政策要求，员工不得以任何形式、价格转卖公司产品<br>
-        部门秘书：{{this.$parent.userName}} {{this.$parent.userPhone}}<br>    
+        部门秘书：{{this.$parent.secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{this.$parent.secretary.userPhone}}<br>    
     
     </div>
     <div class="row2">
