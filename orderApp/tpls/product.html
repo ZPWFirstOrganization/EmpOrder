@@ -1,10 +1,10 @@
 
 <div ng-controller='productCtrl'>
 
-<a class="cart animated" ui-sref="index.currentOrder">
+<a class="proddtl-cart animated" ui-sref="index.currentOrder">
 <div class="cart-inner">
 <div class="number">12</div>
-剩余额度<br>
+剩余额度:<br>
 5000.00
 </div>
 
@@ -36,7 +36,7 @@
             </div>
             <div class="proddtl-wrapper">
                 <div class="proddtl-photo">
-                 <div class="no-prod"></div>
+                 <div class="no-prod" ng-show="!Product.productStatus"></div>
                 <img ng-src="{{Product.imageUrl}}" src="res/null_img.jpg"/>
                 </div>
                 
@@ -85,18 +85,7 @@
             
             <div class="proddtl-intro-title">商品介绍</div>
             <div class="proddtl-intro-content">
-                产品功能
-                
-                干性肌肤适用。乳霜状的洁面乳添加植物复合成分和亚麻籽提取物，温和去除面部彩妆及污垢的同时不会带走任何营养成分，令你的肌肤清爽柔润更健康。
-                
-                主要成分
-                
-                水飞蓟果提取物，罗汉果提取物，柳珊瑚提取物，亚麻籽提取物，水解藻胶。
-                
-                使用及注意事项
-                
-                取适量洗面乳在湿润的脸部及颈部由下向上充分按摩，避开眼周，再以温水冲洗或温湿美容巾擦拭干净。        
-            
+                {{Product.productDescribe}}      
             </div> 
             
             
@@ -134,7 +123,4 @@
 </div> 
 
 <!--底部-->
-<div class="footer-wrapper pc-only">
-©2007-2013 Mary Kay Inc. 沪ICP备10024290号
-</div>
 </div>  
