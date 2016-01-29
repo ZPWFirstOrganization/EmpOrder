@@ -1,12 +1,12 @@
 orderApp.controller('productCtrl',function($q,$scope,$stateParams,baseUrl,common,productServ){
     console.log($stateParams.productCode);
     console.log(common.get("type"));
-    $scope.Production = {};
+    $scope.Product = {};
     
 	//获取商品详情
 	productServ.getProductDetail({kind: 'Product',productCode:$stateParams.productCode},function(response){
 	    console.log(response[0]);
-        $scope.Production = response[0];
+        $scope.Product = response[0];
   	})    
     
 });   

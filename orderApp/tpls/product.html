@@ -168,22 +168,22 @@
         <div class="bread-crumb mobile-only"><a onClick="history.back()" class="back"><b>&lt;</b> 首页</a><div class="title">商品详情</div></div>
         <div class="proddtl-content-inner">
             <div class="mobile-only proddtl-mobile-product-name">
-            {{Production.productName}}
+            {{Product.productName}}
             <a action="fav" class="cancelfavorite mobile-only"></a>
             </div>
             <div class="proddtl-wrapper">
                 <div class="proddtl-photo">
                  <div class="no-prod"></div>
-                <img ng-src="{{Production.imageUrl}}" src="res/null_img.jpg"/>
+                <img ng-src="{{Product.imageUrl}}" src="res/null_img.jpg"/>
                 </div>
                 
                 <div class="proddtl-info">
                    <a action="fav" class="cancelfavorite pc-only"></a>
-                   <a class="product-name pc-only" >玫琳凯臻时粹颜™精华乳</a>
+                   <a class="product-name pc-only" >{{Product.productName}}</a>
                    <div class="row2">               
                     <div class="proddtl-form-row">
                       <div class="field-key  ">零售价：</div>
-                      <div class="field-value ">￥1980.00</div>
+                      <div class="field-value ">￥{{Product.productRealPrice}}</div>
                       <div class="clr"> </div>
                     </div>
                     <div class="proddtl-form-row">
