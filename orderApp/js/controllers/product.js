@@ -1,6 +1,30 @@
-orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
+orderApp.controller('productCtrl',function($q,$scope,$stateParams,baseUrl,common,productServ){
+    console.log($stateParams.productCode);
+    console.log(common.get("type"));
+    $scope.Production = {};
+    
+	//获取商品详情
+	productServ.getProductDetail({kind: 'Product',productCode:$stateParams.productCode},function(response){
+	    console.log(response[0]);
+        $scope.Production = response[0];
+  	})    
+    
+});   
 
-orderApp.controller('productCtrl',function($q,$scope,$rootScope,$stateParams){
-    $scope.Production = {productName:"玫琳凯臻时粹颜™精华乳1"};
-	$scope.currentProductCode = "10000699";
-});    
+
+orderApp.factory('productServ',function($resource,common,baseUrl){
+	return $resource(
+    baseUrl+common.get("type")+'/:kind',
+    {},
+    {
+      //获取商品详情
+      getProductDetail:{
+        method:'GET',
+        params:{
+          productCode:'@productCode'
+        },
+        isArray:true
+      } 
+    }
+  );
+})      
