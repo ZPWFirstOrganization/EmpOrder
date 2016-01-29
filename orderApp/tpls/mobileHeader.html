@@ -1,4 +1,4 @@
-<div class="mobile-header-wrapper mobile-only" ng-controller='mbHeaderController' ui-sref="index.productList">
+<div class="mobile-header-wrapper mobile-only" ng-controller='mbHeaderController'>
     <div class="header">
       <div class="mobile-onsale-wrap  fl w20" action="mobile-select-onsale" >
 
@@ -11,7 +11,7 @@
     </div>
     
     <div class="my-list">
-      <a class="list" ui-sref="index.currentOrder" ng-click="$event.stopPropagation();">当月订单</a>
+      <a class="list" ui-sref="index.currentOrder">当月订单</a>
       <a class="list">历史订单</a>
       <a class="list">个人信息</a>
       <a class="list">公告</a>
