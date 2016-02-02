@@ -23,7 +23,7 @@
 
 
 
-<!--pc mobile产品列表-->
+<!--pc mobile产品详情-->
 <div class="layout page-width">
   	
     <div class="proddtl-content-wrapper">
@@ -32,7 +32,7 @@
         <div class="proddtl-content-inner">
             <div class="mobile-only proddtl-mobile-product-name">
             {{Product.productName}}
-            <a action="fav" class="cancelfavorite mobile-only"></a>
+            <a action="fav" ng-class="{true:'cancelfavorite mobile-only',false:'favorite mobile-only'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>
             </div>
             <div class="proddtl-wrapper">
                 <div class="proddtl-photo">
@@ -41,7 +41,7 @@
                 </div>
                 
                 <div class="proddtl-info">
-                   <a action="fav" class="cancelfavorite pc-only"></a>
+                   <a action="fav" ng-class="{true:'cancelfavorite pc-only',false:'favorite pc-only'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>                   
                    <a class="product-name pc-only" >{{Product.productName}}</a>
                    <div class="row2">               
                     <div class="proddtl-form-row">
@@ -88,21 +88,8 @@
                 {{Product.productDescribe}}      
             </div> 
             
-            
-        
-            
-    
-            
-
+        </div>
     </div>
-    
-
-        
-    </div>
-
-    
-
-
 </div>
 
 <div class="proddtl-mobile-action-wrapper mobile-only">
