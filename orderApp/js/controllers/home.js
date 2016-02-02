@@ -1,6 +1,4 @@
-var homeModule = angular.module('homeModule',['httpService']);
-
-homeModule.factory('scopeData',function() {
+orderApp.factory('scopeData',function() {
 	return{
 		noticePageRevert     :false,
 		ProductionList       :{},
@@ -16,7 +14,7 @@ homeModule.factory('scopeData',function() {
 	}
 });
 
-homeModule.service('scopeMethod',function($state,scopeData,apiCaller) {
+orderApp.service('scopeMethod',function($state,scopeData,apiCaller) {
 	return{
 		changeState:function(ProductClass,ProductCode,Page) {
 			scopeData.currentProductClass = ProductClass;
@@ -28,7 +26,7 @@ homeModule.service('scopeMethod',function($state,scopeData,apiCaller) {
 	}
 })
 
-homeModule.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,scopeData) {
+orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,scopeData) {
 	return{
 		getProductListByStates:function(){
 			scopeData.ProductionList = ApiService.getProductList(
@@ -157,7 +155,7 @@ homeModule.factory('apiCaller',function($stateParams,$http,ApiService,ajaxServic
 	}
 });
 
-homeModule.controller('prductListController',
+orderApp.controller('prductListController',
 	function($scope,$stateParams,$state,$http,scopeData,scopeMethod,apiCaller) {
 	$scope.currentDivisionName;
 	$scope.currenGroupName = '';
@@ -310,7 +308,7 @@ homeModule.controller('prductListController',
 	}
 });
 
-homeModule.controller('pcHeaderController', function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
+orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
 	
 	$scope.showList = false;
 	
@@ -356,7 +354,7 @@ homeModule.controller('pcHeaderController', function($scope,$stateParams,$state,
 	});
 });
 
-homeModule.controller('mbNavController',function($scope,apiCaller,scopeMethod) {
+orderApp.controller('mbNavController',function($scope,apiCaller,scopeMethod) {
 	$("body").showLoading(-150);
 	$scope.lit2Show=''
 	$scope.categories=apiCaller.getCategories(function () {
@@ -396,7 +394,7 @@ homeModule.controller('mbNavController',function($scope,apiCaller,scopeMethod) {
 	});
 });
 
-homeModule.controller('mbHeaderController',function ($scope,$state) {
+orderApp.controller('mbHeaderController',function ($scope,$state) {
 
 	$scope.showSearch = true;
 	stateMonitor = setInterval(function () {
