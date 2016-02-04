@@ -22,7 +22,7 @@
     <div class="product-wrapper" ng-repeat="Product in pdList.products" ng-init="Product.productStatus=='1'?btnClass = 'button-s button-gray add-cart':btnClass = 'button-s button-gray button-disable add-cart'";>
       <div class="product-photo">
         <div class="no-product" ng-show="!Product.productStatus"></div>
-        <img ng-src="{{Product.iconUrl}}" src="res/null_icon.jpg" ui-sref="index.product({productCode:{{Product.productCode}}})" style="cursor:pointer"/>
+        <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ui-sref="index.product({productCode:{{Product.productCode}}})" style="cursor:pointer"/>
       </div>
       <div class="product-info">
         <a ng-class="{true:'cancelfavorite',false:'favorite'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>

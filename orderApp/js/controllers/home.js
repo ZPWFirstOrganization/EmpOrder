@@ -7,6 +7,7 @@ orderApp.factory('scopeData',function() {
 		homeDivisionCode     :'',
 		divisionCode         :'',
 		groupCode            :'',
+		sourcePageId         : 0,          //0:代表productList页,1:代表currentOrder页
 		currentProductCode   :'',          //当前大类或小类的code
 		currentDivisionName  :'护肤',      //当前大类的名称(用于面包屑)
 		currenGroupName      :'',          //当前小类的名称，未显示小类时为空(用于面包屑)
@@ -166,6 +167,7 @@ orderApp.controller('prductListController',
 	$scope.inputTexts = [];
 	$scope.pages = [];
 	$scope.currentPage=$stateParams.page;
+    scopeData.sourcePageId = 0;
 
 	var isEmptyObject = function( obj ) {
 	    for ( var name in obj ) {

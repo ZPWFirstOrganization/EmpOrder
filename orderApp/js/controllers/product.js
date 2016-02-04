@@ -1,11 +1,15 @@
 orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scopeMethod,baseUrl,common,productServ,currentOrderServ,deleteServ,apiCaller){
     //console.log($stateParams.productCode);
+    //console.log("scopeData.sourcePageId "+ scopeData.sourcePageId);
     $scope.orderCount = apiCaller.getOrderCount();
     $scope.balance = apiCaller.getBalance();
     $scope.inputTexts = [];
     $scope.Product = {};
 	$scope.currentDivisionName;
 	$scope.currenGroupName = '';
+    $scope.sourcePageNamePC = '';
+    $scope.sourcePageNameMB = '';
+    $scope.sourcePageLink = '';
     
     //判断是否为空
 	var isEmptyObject = function( obj ) {
@@ -19,6 +23,21 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
         $scope.inputTexts[$stateParams.productCode] = '1';
     }
 
+    //判断是从哪个页面跳转到产品详情页面; 0:代表productList页,1:代表currentOrder页
+    switch (scopeData.sourcePageId) {
+    case 0:
+        $scope.sourcePageNamePC="返回首页";
+        $scope.sourcePageNameMB="首页";
+        $scope.sourcePageLink="index.productList";
+        break;
+
+    case 1:
+        $scope.sourcePageNamePC="返回当月订单";
+        $scope.sourcePageNameMB="当月订单";
+        $scope.sourcePageLink="index.currentOrder";
+        break;
+    }
+                        
     //获取大类            
     if($scope.currentDivisionName != scopeData.currentDivisionName){
         $scope.currentDivisionName = scopeData.currentDivisionName;
@@ -101,11 +120,18 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
 
     }
     
-    //点击首页
+    //点击返回首页或当月订单
 	$scope.nav1Clicked = function () {
-		scopeMethod.changeState('1',scopeData.homeDivisionCode,'1');
-		scopeData.currentDivisionName = scopeData.homeDivisionName;
-		scopeData.currenGroupName = '';
+        switch (scopeData.sourcePageId){
+		case 0:
+            scopeMethod.changeState('1',scopeData.homeDivisionCode,'1');
+            scopeData.currentDivisionName = scopeData.homeDivisionName;
+            scopeData.currenGroupName = '';
+        
+            break;
+        case 1:
+            break;
+        }
 	}
 
     //点击大类
