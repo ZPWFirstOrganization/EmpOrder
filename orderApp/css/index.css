@@ -38,7 +38,7 @@
 .category-wrapper{ height:45px; border-bottom:1px solid #eee;position:fixed; width:100%; z-index:50; top:86px; background-color:#fff }
 .home-content-wrapper{ margin-top:130px; }
 .content-inner{  padding:0px 1%;}
-.option-list{ position:absolute; width:100%; top:45px;  z-index:500; background-color:#fff; border-bottom:1px solid #eee; box-shadow:0px 2px 5px  rgba(0,0,0,0.7); display:none}
+.option-list{ position:absolute; width:100%; max-height:400px; top:45px;  z-index:500; background-color:#fff; border-bottom:1px solid #eee; box-shadow:0px 2px 5px  rgba(0,0,0,0.7); display:none; overflow:auto;}
 .option-list .list{ line-height:45px; border-bottom:1px solid #eee; margin-left:20px; display:block; font-size:16px;}
 .option-list .list:last-child{ border-bottom:none;}
 .option-list .list:active{ background-color:#eee}

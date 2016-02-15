@@ -1,6 +1,6 @@
 orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
-//  http://wzdcbdeo01/mlk/2/
-orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,common,currentOrderServ,deleteServ,utils){
+//  http://wzdcbdeo01:8090/mlk/
+orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,scopeData,common,currentOrderServ,deleteServ,utils){
 	$rootScope.secretary = {userName:"",userPhone:""}
 	$rootScope.count = 0
 	$rootScope.resAmount = 0
@@ -8,6 +8,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,comm
 	$scope.isCanShop = false
 	$scope.currentOrderData = {};
 	$scope.lastData = 1
+    scopeData.sourcePageId = 1;
 	//获取下单日期范围
 	$("body").showLoading(-150);
 	currentOrderServ.getDateGate({kind: 'Order'},function(response){

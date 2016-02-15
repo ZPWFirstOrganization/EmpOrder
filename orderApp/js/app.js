@@ -1,4 +1,6 @@
-var orderApp = angular.module('orderApp', [ "ui.router", "homeModule"]);
+var orderApp = angular.module('orderApp', [ "ui.router", "ngResource"], function($httpProvider) {
+	
+});
 
 orderApp.config(function($stateProvider,$urlRouterProvider){
 	$urlRouterProvider.when("","/home/productClass={productClass}&productCode={productCode}&page={page}");

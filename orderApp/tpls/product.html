@@ -3,9 +3,9 @@
 
 <a class="proddtl-cart animated" ui-sref="index.currentOrder">
 <div class="cart-inner">
-<div class="number">12</div>
+<div class="number">{{orderCount.productCount}}</div>
 剩余额度:<br>
-5000.00
+{{balance.myBalance}}
 </div>
 
 </a>
@@ -15,7 +15,7 @@
 
 <!--pc面包屑-->
 <div class="layout page-width pc-only">
-	<div class="bread-crumb"><a ui-sref="index.productList({productClass:1,productCode:1,page:1})">首页</a><a>&gt;</a><a href="#">护肤</a><a>&gt;</a><a href="#">臻时粹颜系列</a><a>&gt;</a><a>玫琳凯臻时粹颜™精华乳</a></div>
+	<div class="bread-crumb"><a ng-click="nav1Clicked()" ui-sref="{{sourcePageLink}}">{{sourcePageNamePC}}</a><a>|</a><a ng-click="nav2Clicked()" ui-sref="index.productList">{{currentDivisionName}}</a><a ng-show="isGroupNameShow">&gt;</a><a ng-show="isGroupNameShow" ng-click="nav3Clicked()" ui-sref="index.productList">{{currenGroupName}}</a><a>&gt;</a><a>{{Product.productName}}</a></div>
     
     <div class="clr"></div>
 </div>
@@ -23,25 +23,25 @@
 
 
 
-<!--pc mobile产品列表-->
+<!--pc mobile产品详情-->
 <div class="layout page-width">
   	
     <div class="proddtl-content-wrapper">
     
-        <div class="bread-crumb mobile-only"><a ui-sref="index.productList({productClass:1,productCode:1,page:1})" class="back"><b>&lt;</b> 首页</a><div class="title">商品详情</div></div>
+        <div class="bread-crumb mobile-only"><a ng-click="nav1Clicked()" ui-sref="{{sourcePageLink}}" class="back"><b>&lt;</b>{{sourcePageNameMB}}</a><div class="title">商品详情</div></div>
         <div class="proddtl-content-inner">
             <div class="mobile-only proddtl-mobile-product-name">
             {{Product.productName}}
-            <a action="fav" class="cancelfavorite mobile-only"></a>
+            <a action="fav" ng-class="{true:'cancelfavorite mobile-only',false:'favorite mobile-only'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>
             </div>
             <div class="proddtl-wrapper">
                 <div class="proddtl-photo">
                  <div class="no-prod" ng-show="!Product.productStatus"></div>
-                <img ng-src="{{Product.imageUrl}}" src="res/null_img.jpg"/>
+                <img ng-src="{{Product.imageUrl}}" onerror="this.src='res/null_img.jpg'" />
                 </div>
                 
                 <div class="proddtl-info">
-                   <a action="fav" class="cancelfavorite pc-only"></a>
+                   <a action="fav" ng-class="{true:'cancelfavorite pc-only',false:'favorite pc-only'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>                   
                    <a class="product-name pc-only" >{{Product.productName}}</a>
                    <div class="row2">               
                     <div class="proddtl-form-row">
@@ -72,10 +72,10 @@
                    </div>
     
                    <div class="product-action pc-only">
-                   <a class="btn subtract disable" ></a>
-                   <input type="tel" class="number"  placeholder="数量"  value="1" maxlength="3" />
-                   <a class="btn add" ></a>
-                   <a class="button-s button-gray button-disable add-cart" >加入当月订单</a>
+                   <a class="btn subtract disable" ng-click="countSubtracted(Product)"></a>
+                   <input type="tel" class="number" id="{{Product.productCode}}" ng-click="numberClicked(Product)" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" />
+                   <a class="btn add" ng-click="countAdded(Product)"></a>
+                   <a ng-class="{true:'button-s button-gray add-cart',false:'button-s button-gray button-disable add-cart'}[Product.productStatus=='1']" ng-click="addCartClicked(Product)">加入当月订单</a>
                    </div>
                 </div>            
                 
@@ -88,33 +88,20 @@
                 {{Product.productDescribe}}      
             </div> 
             
-            
-        
-            
-    
-            
-
+        </div>
     </div>
-    
-
-        
-    </div>
-
-    
-
-
 </div>
 
 <div class="proddtl-mobile-action-wrapper mobile-only">
    
     <div class="row1">
     <div class="left">
-       <a class="btn subtract disable" ></a>
-       <input type="tel" class="number"  placeholder="数量"  value="1" maxlength="3" />
-       <a class="btn add" ></a>
+       <a class="btn subtract disable" ng-click="countSubtracted(Product)"></a>
+       <input type="tel" class="number" id="{{Product.productCode}}" ng-click="numberClicked(Product)" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" />
+       <a class="btn add" ng-click="countAdded(Product)"></a>
     </div>
     <div class="right">
-        <a  class=" button button-gray w100 button-disable"   >加入当月订单</a>
+        <a ng-class="{true:'button-s button-gray add-cart',false:'button-s button-gray button-disable add-cart'}[Product.productStatus=='1']" ng-click="addCartClicked(Product)">加入当月订单</a>
        
     </div> 
     <div class="clr"></div>

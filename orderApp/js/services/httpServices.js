@@ -1,10 +1,4 @@
-// 'use strict';
-var httpService = angular.module('httpService', ['ngResource'], function($httpProvider) {
-});
-
-// orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
-
-httpService.factory('ajaxService',function(baseUrl){
+orderApp.factory('ajaxService',function(baseUrl){
 	return{
 		deleteFav:function(Product,suc,err){
 			return 	$.ajax({
@@ -21,7 +15,7 @@ httpService.factory('ajaxService',function(baseUrl){
 	}
 });
 
-httpService.factory('ApiService',function($resource,baseUrl){
+orderApp.factory('ApiService',function($resource,baseUrl){
 	return $resource(
 		baseUrl,
 		{},
