@@ -72,7 +72,7 @@
                    </div>
     
                    <div class="product-action pc-only">
-                   <a class="btn subtract disable" ng-click="countSubtracted(Product)"></a>
+                   <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
                    <input type="tel" class="number" id="{{Product.productCode}}" ng-click="numberClicked(Product)" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" />
                    <a class="btn add" ng-click="countAdded(Product)"></a>
                    <a ng-class="{true:'button-s button-gray add-cart',false:'button-s button-gray button-disable add-cart'}[Product.productStatus=='1']" ng-click="addCartClicked(Product)">加入当月订单</a>
@@ -96,7 +96,7 @@
    
     <div class="row1">
     <div class="left">
-       <a class="btn subtract disable" ng-click="countSubtracted(Product)"></a>
+       <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
        <input type="tel" class="number" id="{{Product.productCode}}" ng-click="numberClicked(Product)" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" />
        <a class="btn add" ng-click="countAdded(Product)"></a>
     </div>
