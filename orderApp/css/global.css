@@ -46,7 +46,12 @@ body{ background-color: #f3f3f3; color:#000; font-family:Arial, "微软雅黑"; 
 .cart-inner{ position:relative; color:#fff; padding-left:55px; margin-top:15px;}
 .cart-inner .number{ width:15px; height:15px; line-height:15px; text-align:center; border:2px solid #fff; background-color:#FF5558; position:absolute; border-radius:50% 50%; top:-5px; left:30px; font-size:10px;}
 
-.empty{ height:400px; background-image:url(../img/null.png); background-position:50% 50%; background-size:10%; background-repeat:no-repeat;}
+.empty{ height:400px; background-position:50% 50%; background-size:10%; background-repeat:no-repeat; position:relative}
+.empty .icon{ width:80px; height:80px; position:absolute; left:30%; top:115px;background-image:url(../img/null.png); background-size:100%; }
+.empty .wording{width:300px;position:absolute; left:42%; top:100px;}
+.empty .wording h1{ font-size:18px; margin-top:30px;}
+.empty .wording h3{font-weight:100;}
+.empty .btn{ width:200px;position:absolute; top:220px; margin:auto; right:0px; left:0px;}
 .loading{ width:50px; height:50px; position:absolute; z-index:1000; left:50%; top:50%; margin-left:-25px;margin-top:-25px; background-color:#000; border-radius:5px; background-image:url(../img/loading.gif);background-repeat: no-repeat;background-position: 50% 50%; background-size:70%; opacity:0.6; display:none;}
 .to-top{ width:50px; height:50px; position:fixed; z-index:60; right:10px; bottom:10px; margin-left:-25px; background-color:#000;  opacity:0.6; display:none; background-image:url(../../img/arrow.png); background-repeat:no-repeat; background-size:70% 70%; background-position:50% 50%; cursor:pointer;}
 .to-top:hover{ opacity:1;}
@@ -144,14 +149,14 @@ dataTables_paginate a:ntd-last-child(2)
 
 
 /*表格*/
-.table{ border:1px #eee solid;}
+.table{ border-top:1px #eee solid;border-bottom:1px #eee solid;}
 .table .tr{ border-bottom:1px solid #eee;}
 
-.table .th{ border-bottom:1px solid #eee; background-color:#ffa8b1}
-.table .th .td{ font-weight:bold; color:#fff; text-align:center}
+.table .th{ border-bottom:1px solid #eee; background-color:#f9f9f9}
+.table .th .td{ font-weight:bold; color:#333; text-align:center}
 .table .td{ padding:10px 0px;float:left; text-align:center }
 .table .td span{ margin-top:3px;}
-.table .td a{ margin-top:3px;color:#ffa8b1}
+.table .td a{ margin-top:3px;color:#e5a086}
 .split-dot{ zoom:1;position: relative; width: 100%; min-height: 1px; background-image:url(../img/dot-line.png); background-repeat:repeat-x; background-position:50% 50%;}
 .split-dot span{font-size:14px; background-color:#fff}
 
@@ -197,7 +202,12 @@ body{ background-color: #fff; color:#000; font-family:Arial, "微软雅黑"; mar
 .cart-inner .number{ width:15px; height:15px; line-height:15px; text-align:center; border:2px solid #fff; background-color:#FF5558; position:absolute; border-radius:50% 50%; top:-5px; left:30px; font-size:10px;}
 
 
-.empty{ height:400px; background-image:url(../img/null.png); background-position:50% 50%; background-repeat:no-repeat;background-size:25%;}
+.empty{ height:400px; padding-top:30px; }
+.empty .icon{ width:80px; height:80px; margin:0px auto 0px auto;background-image:url(../img/null.png); background-size:100%; }
+.empty .wording{width:300px; margin:20px auto 0px auto; text-align:center;}
+.empty .wording h1{ font-size:18px; margin-top:30px;}
+.empty .wording h3{font-weight:100;}
+.empty .btn{ width:200px;margin:20px auto 0px auto;}
 .loading{ width:50px; height:50px; position:fixed; z-index:1000; left:50%; top:50%; margin-left:-25px;margin-top:-25px; background-color:#000; border-radius:5px; background-image:url(../img/loading.gif);background-repeat: no-repeat;background-position: 50% 50%; background-size:70%; opacity:0.6; display:none;}
 .to-top{ width:50px; height:50px; position:fixed; z-index:60; right:10px; bottom:10px; margin-left:-25px; background-color:#000;  opacity:0.6; display:none; background-image:url(../../img/arrow.png); background-repeat:no-repeat; background-size:70% 70%; background-position:50% 50%; cursor:pointer;}
 .to-top:hover{ opacity:1;}
@@ -217,7 +227,7 @@ body{ background-color: #fff; color:#000; font-family:Arial, "微软雅黑"; mar
 .layout .left{ display:none;}
 .layout .right{ float: none; padding:0% 1%}
 
-.bread-crumb{ height:40px; border-bottom:1px solid #eee; background-color:#f9f9f9;}
+.bread-crumb{ height:40px; border-bottom:1px solid #eee; background-color:#f9f9f9; position:fixed; top:45px; width:100%; z-index:100;}
 .bread-crumb .back{ line-height:40px; width:30% ; display:inline-block; padding-left:10px; font-size:16px;}
 .bread-crumb .title{ line-height:40px; width:40%; display:inline-block; text-align:center; font-size:16px; font-weight:bold;}
 /*按钮 输入框*/
@@ -233,6 +243,15 @@ body{ background-color: #fff; color:#000; font-family:Arial, "微软雅黑"; mar
 .button-disable{border:1px solid #ccc!important; background-color:#ccc!important; color:#fff!important; cursor: text;}
 
 
+.form-row{ padding:10px 0px; position: relative;}
+.form-row .field-key{width:150px;height:30px;float:left;position:relative;line-height:30px}
+.form-row .field-value{width:370px;min-height:30px;float:left;position:relative;padding-top:4px}
+.form-row .input-name{width:150px;height:30px;float:left;position:relative;line-height:30px}
+.form-row .input-name-even{width:150px;height:30px;float:left;position:relative;line-height:30px; text-indent:10px;}
+.form-row .input-box{width:370px;min-height:30px;float:left;position:relative;padding:0}
+.form-row .textarea-box{border:1px solid #cbcbcb;width:370px;border-radius:3px;background:#f7f7f7;float:left;position:relative}
+.form-row .textarea-text{border:0;outline:0; }
 
-
+.split-dot{ border-top:1px dotted #eee;  background-position:50% 50%; background-repeat:repeat-x  }
+.split-dot span{font-size:14px; background-color:#fff}
 }

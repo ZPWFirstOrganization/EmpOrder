@@ -41,7 +41,8 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 				method:'GET',
 				params:{
 					userAccount:'@userAccount'
-				}
+				},
+				isArray:true
 			},
 			getFavoriteList:{
 				url:baseUrl+'2/Favorite',
@@ -85,6 +86,23 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 		          userAccount:'@userAccount',
 		          productCode:'@productCode'
 		        }
+		    },
+		    getOrderList:{
+				url:baseUrl+'2/Order',
+		      	method:'GET',
+		      	params:{
+		          userAccount:'@userAccount',
+		          orderDate:'@orderDate',
+		          pageNum:'@pageNum'
+		        }
+		    },
+		    getOrderData:{
+				url:baseUrl+'2/Order',
+		      	method:'GET',
+		      	params:{
+		          orderID:'@orderID',
+		        },
+		        isArray:true
 		    }
 		}
 	);

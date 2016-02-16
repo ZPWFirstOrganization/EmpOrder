@@ -11,7 +11,10 @@ orderApp.factory('scopeData',function() {
 		currentProductCode   :'',          //当前大类或小类的code
 		currentDivisionName  :'护肤',      //当前大类的名称(用于面包屑)
 		currenGroupName      :'',          //当前小类的名称，未显示小类时为空(用于面包屑)
-		currentPage          :'1'          //当前页数
+		currentPage          :'1',         //当前页数
+		secretaryName        :'',		   //秘书姓名		
+		secretaryPhone		 :'',          //秘书电话
+		currentOrderPage     : 1		   //当前订单页数
 	}
 });
 
@@ -152,6 +155,53 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 						callbackFn();
 					}
 			});
+		},
+		getOrderListByPage:function(param,suc,err){
+			return ApiService.getOrderList({
+				userAccount:param.userAccount,
+				orderDate:param.orderDate,
+				pageNum:param.pageNum
+			},
+			function(res){
+				if(suc){
+					return suc(res)
+				}
+			},
+			function(res){
+				if(err){
+					return err(res)
+				}
+			})
+		},
+		getSecretary:function(param,suc,err){
+			return ApiService.getSecretary({
+				userAccount:param.userAccount
+			},
+			function(res){
+				if(suc){
+					return suc(res)
+				}
+			},
+			function(res){
+				if(err){
+					return err(res)
+				}
+			})
+		},
+		getOrderDetailInfo:function(param,suc,err){
+			return ApiService.getOrderData({
+				orderID:param.orderID
+			},
+			function(res){
+				if(suc){
+					return suc(res)
+				}
+			},
+			function(res){
+				if(err){
+					return err(res)
+				}
+			})
 		}
 	}
 });
@@ -311,7 +361,6 @@ orderApp.controller('prductListController',
 });
 
 orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
-	
 	$scope.showList = false;
 	
 	$scope.categories=apiCaller.getCategories(function(){

@@ -1,6 +1,5 @@
 <div ng-controller="currentOrderCtrl">
 
-
   <!--pc面包屑-->
 <div class="layout page-width pc-only">
   <div class="bread-crumb"><a ui-sref="index.productList({productClass:1,productCode:1,page:1})">首页</a><a>&gt;</a><a>当月订单</a></div>
@@ -8,19 +7,15 @@
     <div class="clr"></div>
 </div>
 
-
-
-
 <!--pc mobile产品列表-->
 <div class="layout page-width">
     <div class="content-wrapper">
         <div class="left">
             <div class="sider-menu-wrapper">
-            <a class="sider-menu active">当月订单</a>
-            <a class="sider-menu">历史订单</a>
-            <a class="sider-menu">个人信息</a>
+            <a class="sider-menu active" ui-sref="index.currentOrder">当月订单</a>
+            <a class="sider-menu" ui-sref="index.historyOrder({page:1})">历史订单</a>
+            <a class="sider-menu" ui-sref="index.personInfo">个人信息</a>
             </div>
-        
         </div>
         <div class="bread-crumb mobile-only">
 
@@ -28,15 +23,24 @@
           <div class="title">当月订单</div>
         </div>
         <div class="right">
-            
-            
           <div class="order-top-wrapper">
               <div class="order-tips">您的订单{{{true: '将', false: '已'}[isCanShop]}}在本月{{lastData}}日自动提交</div>
             </div>
             
             <div class="order-mid-wrapper">
             
-                <!--<div class="empty"></div>-->
+                <div class="empty" ng-show="{{!isHaveData}}">
+                    <div class="icon"></div>
+                    <div class="wording">
+                    <h1>当月还无订单</h1>
+                    <h3>您本月还没有购买商品噢，去购物吧</h3>
+                    </div>
+                    <div class="btn">
+                    <a class="button button-gray w100" ui-sref="index.productList({productClass:1,productCode:1,page:1})">去购物</a>
+                    </div>
+        
+                </div>
+
                 <div class="order-product-wrapper" ng-repeat="product in currentOrderData.product">
                     <div class="order-product-photo">
                    
@@ -67,23 +71,21 @@
                     <div class="clr"></div>
                 </div>        
             </div>
-
             <div class="order-bottom-wrapper pc-only">
                 <div class="row1">
-                您的季度余额还剩:<font class="pink06">￥{{this.$parent.resAmount}}</font>  共 <font class="pink06">{{this.$parent.count}}</font> 件商品，实付金额:<font class="pink06">￥{{this.$parent.payAmount}}</font>
+                您的季度余额还剩:<font class="pink06">￥{{resAmount}}</font>  共 <font class="pink06">{{count}}</font> 件商品，实付金额:<font class="pink06">￥{{payAmount}}</font>
                 </div> 
                 <div class="row2">
                 我同意以上金额从我当月薪资中扣除<br>
                 我已了解，根据公司政策要求，员工不得以任何形式、价格转卖公司产品<br>
-                部门秘书：{{this.$parent.secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{this.$parent.secretary.userPhone}}<br>
-                </div>            
-
+                部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}<br>
+                </div>
             </div>
             <div class="order-action-wrapper pc-only">
                 <a action="cancel" class=" button button-gray w15 secondary" ng-show="isCanShop" ng-click="orderCancel()">取消订单</a>
                 <a action="confirm" class=" button button-pink w15 primary" ng-show="isCanShop" ng-click ="countinueShop()">继续购物</a>       
 
-            </div>            
+            </div>     
             
         
         </div>
@@ -99,17 +101,17 @@
     <div class="row1">
         我同意以上金额从我当月薪资中扣除<br>
         我已了解，根据公司政策要求，员工不得以任何形式、价格转卖公司产品<br>
-        部门秘书：{{this.$parent.secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{this.$parent.secretary.userPhone}}<br>    
+        部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}<br>    
     
     </div>
     <div class="row2">
     <div class="left w50">
-        <div style="font-size:16px">实付金额:￥{{this.$parent.payAmount}} </div>
-        <div style="font-size:12px">季度余额:￥{{this.$parent.resAmount}} </div>
+        <div style="font-size:16px">实付金额:￥{{payAmount}} </div>
+        <div style="font-size:12px">季度余额:￥{{resAmount}} </div>
     </div>
     <div class="right w50">
-        <a action="cancel" class=" button button-gray w45 secondary"   style="display:{{{true: '',false:'none'}[isCanShop]}} " ng-click="orderCancel()">取消订单</a>
-        <a action="confirm" class=" button button-pink w45 primary"   style="display:{{{true: '',false:'none'}[isCanShop]}}" ng-click ="countinueShop()">继续购物</a>   
+        <a action="cancel" class=" button button-gray w45 secondary" ng-show="isCanShop" ng-click="orderCancel()">取消订单</a>
+        <a action="confirm" class=" button button-pink w45 primary" ng-show="isCanShop" ng-click ="countinueShop()">继续购物</a>   
     </div> 
     <div class="clr"></div>
     </div>   

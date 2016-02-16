@@ -1,0 +1,30 @@
+@media screen and (min-width: 801px) { 
+.content-wrapper{ min-height:400px;}
+.sider-menu-wrapper{ background-color:#f9f9f9; border:1px solid #eee; border-radius:3px; overflow:hidden}
+.sider-menu-wrapper .sider-menu{ padding:5% 5%; display:block;}
+.sider-menu-wrapper .active{ background-color:#666;color:#fff; margin:0px -1px}
+
+.prsonnal .top-wrapper{ height:40px; background-color:#f9f9f9; border-top:1px solid #eee; border-bottom:1px solid #eee; }
+.prsonnal .top-wrapper .person-tips{ line-height:40px; padding-left:10px;  }
+
+.mid-wrapper{ min-height:400px;}
+.form-row{ padding:5px 10px; position: relative;}
+.form-row .field-key{width:15%;line-height:30px;float:left;position:relative;}
+.form-row .field-value{width:80%;line-height:30px;float:left;position:relative;padding-top:0px}
+}
+@media screen and (max-width: 800px) { 
+.category-wrapper{ height:45px; border-bottom:1px solid #eee;position:fixed; width:100%; z-index:50; top:86px; background-color:#fff }
+.content-wrapper{ margin-top:85px; padding-bottom:130px; }
+.option-list{ position:absolute; width:100%; top:46px;  z-index:500; background-color:#fff; border-bottom:1px solid #eee; box-shadow:0px 2px 5px  rgba(0,0,0,0.7); display:none}
+.option-list .list{ line-height:45px; border-bottom:1px solid #eee; margin-left:10px; display:block}
+.option-list .list:last-child{ border-bottom:none;}
+.option-list .list:active{ background-color:#eee}
+
+.top-wrapper{ height:40px; background-color:#fff;  border-bottom:1px solid #eee; }
+.top-wrapper .person-tips{  padding-left:40px; padding-top:12px; padding-bottom:12px; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 50%; background-size: 7% auto ;  }
+
+.form-row{ padding:5px 10px; position: relative;}
+.form-row .field-key{width:40%;line-height:40px;float:left;position:relative;}
+.form-row .field-value{width:60%;line-height:40px;float:left;position:relative;padding-top:0px}
+
+}

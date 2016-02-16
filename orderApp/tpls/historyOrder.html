@@ -1,0 +1,226 @@
+
+<div ng-controller="historyOrderCtrl">
+<!--主体-->
+
+<!--pc面包屑-->
+<div class="layout page-width pc-only">
+	<div class="bread-crumb"><a href="index.html">首页</a><a>&gt;</a><a href="#">历史订单</a></div>
+
+    <div class="clr"></div>
+</div>
+
+<!--mobile分类选择-->
+<div class="category-wrapper mobile-only">
+
+    <div class="select-wrap  fl" action="select" cname="year" data="2016,2015,2014,2013,2012">
+
+        <div class="select-content">选择年</div>
+        <div class="select-arrow"></div>
+    </div>
+    
+    <div class="select-wrap  fr" action="select" cname="month" data="1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月">
+
+        <div class="select-content">选择月</div>
+        <div class="select-arrow"></div>
+    </div> 
+    <div class="clr"></div>  
+    
+    
+    <div class="option-list">
+    <a class="list" >选项</a>
+
+    </div>
+     
+</div>
+
+
+<!--pc mobile产品列表-->
+<div class="layout page-width">
+    <div class="content-wrapper">
+        <div class="left">
+            <div class="sider-menu-wrapper">
+            <a class="sider-menu " ui-sref="index.currentOrder">当月订单</a>
+            <a class="sider-menu active" ui-sref="index.historyOrder({page:1})">历史订单</a>
+            <a class="sider-menu" ui-sref="index.personInfo">个人信息</a>
+            </div>
+        
+        </div>
+        <div class="bread-crumb mobile-only"><a onClick="history.back()" class="back"><b>&lt;</b> 首页</a><div class="title">历史订单</div></div>
+        
+		<!--pc产品列表-->        
+        <div class="right orderHistory pc-only">
+            
+            
+        	<div class="top-wrapper">
+            	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div>
+                <div class="select-wrapper">
+                    <select class="select2"  >
+                    <option value="">选择月</option>
+                    <option value="1">1月</option>
+                    <option value="2">2月</option>
+             
+                    </select>
+                </div>                  
+                <div class="select-wrapper">
+                    <select class="select2"  >
+                    <option value="">选择年</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+             
+                    </select>
+                </div>    
+                <div class="clr"></div>
+            </div>
+            
+            <div class="mid-wrapper table">
+            
+                <div class="empty" ng-show="!isHaveData">
+                        <div class="icon"></div>
+                        <div class="wording">
+                        <h1>暂无历史订单</h1>
+                        <h3>您还没有开始购物商品，去购物吧</h3>
+                        </div>
+                        <div class="btn">
+                        <a class="button button-gray w100">去购物</a>
+                        </div>
+            
+                    </div>
+                
+               
+                    <div class="th" ng-show="isHaveData">
+                        <div class="td w20 text-center"><span class="text-center">订单编号</span></div>
+                        <div class="td w20 text-center"><span class="text-center">应付金额</span></div>
+                        <div class="td w20 text-center"><span class="text-center">订单状态</span></div>
+                        <div class="td w20 text-center"><span class="text-center">订单时间</span></div>
+                        <div class="td w20 text-center"><span class="text-center">操作</span></div>
+                       
+                        <div class="clr"></div>
+                    </div>
+                    <div class="tr" ng-repeat="order in orderList" ng-show="isHaveData">
+                    	 <div class="td w20"><span class="">{{order.orderID}}</span></div>
+                         <div class="td w20"><span class="">￥{{order.orderRealAmount}}</span></div>
+                         <div class="td w20"><span class="">{{order.orderState | stateFilter }}</span></div>
+                         <div class="td w20"><span class="">{{order.orderYearMonth}}</span></div>
+                         <div class="td w20"><a class=""  ui-sref="index.orderDetail({orderID:order.orderID})">查看</a></div>
+                        
+                         <div class="clr"></div>
+                    </div>
+           
+    
+                            
+            </div>         
+        <!--pc分页-->    
+        <div class="paginate-wrap pc-only" ng-show="isHaveData">
+          <div class="dataTables_paginate">
+            <span ng-class="{true:'current',false:'num'}[currentPage==page]" ng-repeat="page in pages" ng-click="pageNumClicked(page)">{{page}}</span>
+            <a class="num" ng-click="pageNumClicked('next')"> >> </a>
+            <div class="clr"></div>
+          </div>
+        </div> 
+                
+            
+        
+        </div>
+
+
+
+		<!--mobile产品列表-->
+        
+        <div class="right orderHistory mobile-only">
+            
+            
+        	<div class="top-wrapper">
+            	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}} </div>
+               
+            </div>
+            
+            <div class="mid-wrapper">
+  
+                <div class="empty" ng-show="!isHaveData">
+                        <div class="icon"></div>
+                        <div class="wording">
+                        <h1>暂无历史订单</h1>
+                        <h3>您还没有开始购物商品，去购物吧</h3>
+                        </div>
+                        <div class="btn">
+                        <a class="button button-gray w100">去购物</a>
+                        </div>
+            
+                    </div>
+              
+                <a class="order" ng-repeat="order in orderList" ng-show="isHaveData">
+                    <div class="form-row" ui-sref="index.orderDetail({orderID:order.orderID})">
+                      <div class="field-key w25 gray10">订单编号：</div>
+                      <div class="field-value w25">{{order.orderID}}</div>
+                      <div class="field-key w25 gray10">订单状态：</div>
+                      <div class="field-value w20 ">{{order.orderState | stateFilter }}</div>
+                      <div class="clr"> </div>
+                    </div>            
+                    <div class="form-row" ui-sref="index.orderDetail({orderID:order.orderID})">
+                      <div class="field-key w25 gray10">应付金额：</div>
+                      <div class="field-value w25">￥{{order.orderRealAmount}}</div>
+                      <div class="field-key w25 gray10">订单时间：</div>
+                      <div class="field-value w20 ">{{order.orderYearMonth}}</div>
+                      <div class="clr"> </div>
+                    </div> 
+                </a>                            
+            </div>           
+
+            
+          
+                  
+            
+        
+        </div>        
+        <div class="clr"></div> 
+        
+    
+    </div>
+</div>
+</div>
+<script>
+    //选择年月
+    $('[action="select"]').click(function(){
+        
+        if($(".option-list").css("display")=="none"){
+            $(".option-list").fadeIn(200);  
+            showModalBg($(".option-list"));     
+            
+        }else if($(this).attr("cname")==$(".option-list").attr("belong")){
+            $(".option-list").fadeOut(200);
+            hideModalBg();  
+        }
+        var data=$(this).attr("data").split(",");
+        $(".option-list").html("");
+        $.each( data, function(i, n){
+          //alert( "Item #" + i + ": " + n );
+          $(".option-list").append('<a class="list">'+n+'</a>')
+          
+        });
+        
+        $(".option-list").attr("belong",$(this).attr("cname")); 
+
+    });
+    
+    //点击大类
+    $(document).on("click",".list",function(){
+        $('[cname="'+$(".option-list").attr("belong")+'"]').find('.select-content').html($(this).html())
+        if($(".option-list").css("display")=="block"){
+            $(".option-list").fadeOut(200); 
+            hideModalBg();  
+        }
+
+    });     
+     
+    $("body").click(function(event){
+        
+        if(event.target!=$('.select-content')[0] && event.target!=$('.select-arrow')[0] && event.target!=$('.select-content')[1] && event.target!=$('.select-arrow')[1] ){
+            
+            if($(".option-list").css("display")=="block"){
+                $(".option-list").fadeOut(200); 
+                hideModalBg();  
+            }
+        }
+
+    }); 
+</script>

@@ -1,13 +1,14 @@
 orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
 //  http://wzdcbdeo01:8090/mlk/
-orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,scopeData,common,currentOrderServ,deleteServ,utils){
-	$rootScope.secretary = {userName:"",userPhone:""}
-	$rootScope.count = 0
-	$rootScope.resAmount = 0
-	$rootScope.payAmount = (common.get('type')==2) ? 5000 : 2000
+orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,currentOrderServ,deleteServ,apiCaller,scopeData){
+	$scope.secretary = {userName:"",userPhone:""}
+	$scope.count = 0
+	$scope.resAmount = 0
+	$scope.payAmount = (common.get('type')==2) ? 5000 : 2000
 	$scope.isCanShop = false
 	$scope.currentOrderData = {};
 	$scope.lastData = 1
+	$scope.isHaveData = true
     scopeData.sourcePageId = 1;
 	//获取下单日期范围
 	$("body").showLoading(-150);
@@ -19,22 +20,25 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,scop
   	})
   	//初始化余额
   	currentOrderServ.getResAmount({kind: 'User',myBalanceAccount:'123123'},function(response){
-  		$rootScope.resAmount = parseFloat(response.myBalance)
-  		$rootScope.payAmount = (common.get('type')==2) ? (5000-$rootScope.resAmount).toFixed(1) : (2000-$rootScope.resAmount).toFixed(1)
+  		$scope.resAmount = parseFloat(response.myBalance)
+  		$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(1) : (2000-$scope.resAmount).toFixed(1)
   	})
   	//初始化商品数量
   	currentOrderServ.getCount({kind: 'Order',userAccount:'123123'},function(response){
-  		$rootScope.count = response.productCount
+  		$scope.count = response.productCount
   	})
   	//获取秘书
-	currentOrderServ.getSecretary({kind: 'User',userAccount:'123123'},function(response){
-		// setTimeout(function(){
-		// 	$scope.$apply(function(){
-		  		$rootScope.secretary.userName = response[0].userName
-		  		$rootScope.secretary.userPhone = response[0].userPhone
-	 //  		})
-		// },100)
-  	})
+  	if (scopeData.secretaryName == '' || scopeData.secretaryPhone == ''){
+		apiCaller.getSecretary({userAccount:'123123'},function(response){
+			scopeData.secretaryName = response[0].userName
+	  		$scope.secretary.userName = scopeData.secretaryName
+	  		scopeData.secretaryPhone = response[0].userPhone
+	  		$scope.secretary.userPhone = scopeData.secretaryPhone
+	  	})
+	}else{
+		$scope.secretary.userName = scopeData.secretaryName
+		$scope.secretary.userPhone = scopeData.secretaryPhone
+	}
   	//获取当月订单详细内容
 	currentOrderServ.getCurrentOrder({kind:'Order',userAccount:'123123',orderDate:''},function(response){
 	    
@@ -43,6 +47,9 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,scop
 	    if (angular.isUndefined($scope.currentOrderData)){
 	    	$scope.currentOrderData = {}
 	    }
+	    if ($scope.currentOrderData.product.length == 0 ){
+	    	$scope.isHaveData = false
+		}
 	    $("body").hideLoading();
   	})
 	var oldCount;
@@ -51,7 +58,8 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,scop
 		$("#"+id).select();
 	};
 	$scope.countBlur = function(prodCount,index){
-		if (prodCount == "" || parseInt(prodCount) <= 0){
+		prodCount = prodCount.replace(/\D/g,'')
+		if (prodCount == "" || parseInt(prodCount) <= 0 ){
 			$scope.currentOrderData.product[index].requestQTY = oldCount
 			return
 		};
@@ -68,9 +76,9 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,scop
 				},
 				//success
 				function(response){
-			    	$rootScope.resAmount = response.myBalance
-  					$rootScope.payAmount = (common.get('type')==2) ? (5000-$rootScope.resAmount) : (2000-$rootScope.resAmount)
-  					$rootScope.count = response.productCount
+			    	$scope.resAmount = response.myBalance
+  					$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount) : (2000-$scope.resAmount)
+  					$scope.count = response.productCount
   					$("body").hideLoading();
 		  		},
 		  		//error
@@ -117,9 +125,9 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,scop
 				function(response){
 					console.log(response)
 					$scope.$apply(function () {
-						$rootScope.resAmount = response.myBalance
-  						$rootScope.payAmount = (common.get('type')==2) ? (5000-$rootScope.resAmount) : (2000-$rootScope.resAmount)
-  						$rootScope.count = response.productCount
+						$scope.resAmount = response.myBalance
+  						$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount) : (2000-$scope.resAmount)
+  						$scope.count = response.productCount
 						$scope.currentOrderData.product.splice(index,1)
 					});
 					$("body").hideLoading();
@@ -136,7 +144,8 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,scop
 		});
 		
 	}
-	$scope.enter = function(ev) { if (ev.keyCode !== 13) return; 
+	$scope.enter = function(ev) {
+		if (ev.keyCode !== 13) return; 
 		//input回车事件
 	}
 	$scope.orderCancel = function(){
@@ -147,9 +156,9 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$rootScope,scop
 				deleteServ("Order",{userAccount:123123},
 				function(response){
 					$scope.$apply(function () {
-						$rootScope.resAmount = response.myBalance
-  						$rootScope.payAmount = (common.get('type')==2) ? (5000-$rootScope.resAmount) : (2000-$rootScope.resAmount)
-  						$rootScope.count = response.productCount
+						$scope.resAmount = response.myBalance
+  						$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount) : (2000-$scope.resAmount)
+  						$scope.count = response.productCount
 						$scope.currentOrderData.product = {}
 					});
 					$("body").hideLoading();

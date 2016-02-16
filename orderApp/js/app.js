@@ -42,6 +42,15 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 		}).state('index.currentOrder',{
 			url:'/currentOrder',
 			templateUrl:'tpls/currentOrder.html'
+		}).state('index.historyOrder',{
+			url:'/historyOrder/page={page}',
+			templateUrl:'tpls/historyOrder.html'
+		}).state('index.personInfo',{
+			url:'/personInfo',
+			templateUrl:'tpls/personInfo.html'
+		}).state('index.orderDetail',{
+			url:'/orderDetail/orderID={orderID}',
+			templateUrl:'tpls/orderDetail.html'
 		}).state('index.product',{
 			url:'/product/productCode={productCode}',
 			templateUrl:'tpls/product.html'
