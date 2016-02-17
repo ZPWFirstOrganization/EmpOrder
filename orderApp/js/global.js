@@ -5,7 +5,17 @@
  */
 $(document).ready(function(e) {
 
+	//当月订单响应屏幕位置
+	window.onload = window.onresize =  function(){		
 	
+		  if($(window).width()>1300){
+			r=(parseInt($(window).width())-1000)/2 -180;
+			$(".cart").css({"right":r})       
+		  }else{
+			$(".cart").css({"right":10})     
+			  
+		  }
+	};
 	
 	//pc js--------------------------------------------------	
 	
