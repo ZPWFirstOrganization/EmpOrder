@@ -79,13 +79,6 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
 		}
 	}
     
-    //点击数量输入框
-	$scope.numberClicked = function(Product) {
-		var id = Product.productCode;
-		$("#"+id).focus();
-		$("#"+id).select();
-	}    
-
     //数量减一
 	$scope.countSubtracted = function(Product){
 		var id = Product.productCode;
@@ -145,6 +138,29 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
 		scopeMethod.changeState(scopeData.currentProductClass,scopeData.groupCode,'1');
 	}    
     
+	//产品数量得到焦点
+	var oldCount;
+    $scope.countFocus = function(prodCount,Product){
+		var id = Product.productCode;
+		oldCount = parseInt(prodCount);
+		$("#"+id).select();
+	};
+
+	//产品数量失去焦点
+	$scope.countBlur = function(prodCount,Product){
+		prodCount = prodCount + "";
+		prodCount = prodCount.replace(/\D/g,'');
+		if (prodCount == "" || parseInt(prodCount) <= 0 ){
+			$scope.inputTexts[Product.productCode] = oldCount;
+			return
+		};
+	};
+
+	$scope.enter = function(ev) {
+		if (ev.keyCode !== 13) return; 
+		//input回车事件
+	}	
+
 });   
 
 

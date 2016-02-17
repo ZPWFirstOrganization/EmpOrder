@@ -1,11 +1,11 @@
 orderApp.controller('personInfoCtrl',function($scope,$state,ApiService,apiCaller,scopeData,baseUrl,common,personServ){
-    console.log("personInfoCtrl");	
+    //console.log("personInfoCtrl");	
     
     $scope.Person = {};
     
 	//获取个人信息
 	personServ.getPersonInfo({kind: 'User',infoAccount:'123123'},function(response){
-	    console.log(response);
+	    //console.log(response);
         $scope.Person = response;
   	})        
 })
