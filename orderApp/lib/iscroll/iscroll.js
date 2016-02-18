@@ -102,8 +102,7 @@ var utils = (function () {
 	});
 
 	me.hasClass = function (e, c) {
-		var re = new RegExp("(^|\\s)" + c + "(\\s|$)");
-		return re.test(e.className);
+		return ((" "+e.className+" ").indexOf(" "+c+" ") == -1)?false:true;
 	};
 
 	me.addClass = function (e, c) {
@@ -313,6 +312,9 @@ function IScroll (el, options) {
 
 	this.options.invertWheelDirection = this.options.invertWheelDirection ? -1 : 1;
 
+	if ( this.options.probeType == 3 ) {
+		this.options.useTransition = false;	}
+
 // INSERT POINT: NORMALIZATION
 
 	// Some defaults	
@@ -517,12 +519,29 @@ IScroll.prototype = {
 			this.startTime = timestamp;
 			this.startX = this.x;
 			this.startY = this.y;
+
+			if ( this.options.probeType == 1 ) {
+				this._execEvent('scroll');
+			}
 		}
 
+		if ( this.options.probeType > 1 ) {
+			this._execEvent('scroll');
+		}
 /* REPLACE END: _move */
 
 	},
 
+	silieUpDown:function(){
+		var y = this.y;
+		
+		if ( !this.hasVerticalScroll || y > 0 ) {
+			this._execEvent('slideDown');
+		} else if ( y < this.maxScrollY ) {
+			this._execEvent('slideUp');
+		}
+	},
+	
 	_end: function (e) {
 		if ( !this.enabled || utils.eventType[e.type] !== this.initiated ) {
 			return;
@@ -549,6 +568,7 @@ IScroll.prototype = {
 
 		// reset if we are outside of the boundaries
 		if ( this.resetPosition(this.options.bounceTime) ) {
+			this.silieUpDown();
 			return;
 		}
 
@@ -1118,6 +1138,10 @@ IScroll.prototype = {
 
 		this.scrollTo(newX, newY, 0);
 
+		if ( this.options.probeType > 1 ) {
+			this._execEvent('scroll');
+		}
+
 // INSERT POINT: _wheel
 	},
 
@@ -1523,6 +1547,10 @@ IScroll.prototype = {
 			if ( that.isAnimating ) {
 				rAF(step);
 			}
+
+			if ( that.options.probeType == 3 ) {
+				that._execEvent('scroll');
+			}
 		}
 
 		this.isAnimating = true;
@@ -1763,6 +1791,15 @@ Indicator.prototype = {
 		newY = this.y + deltaY;
 
 		this._pos(newX, newY);
+
+
+		if ( this.scroller.options.probeType == 1 && timestamp - this.startTime > 300 ) {
+			this.startTime = timestamp;
+			this.scroller._execEvent('scroll');
+		} else if ( this.scroller.options.probeType > 1 ) {
+			this.scroller._execEvent('scroll');
+		}
+
 
 // INSERT POINT: indicator._move
 
