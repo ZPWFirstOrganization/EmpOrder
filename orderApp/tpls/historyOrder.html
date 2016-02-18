@@ -42,7 +42,7 @@
         <div class="left">
             <div class="sider-menu-wrapper">
             <a class="sider-menu " ui-sref="index.currentOrder">当月订单</a>
-            <a class="sider-menu active" ui-sref="index.historyOrder({page:1,orderDate:''})">历史订单</a>
+            <a class="sider-menu active" ui-sref="index.historyOrder({page:1,orderDate:'',orderParam:{}})">历史订单</a>
             <a class="sider-menu" ui-sref="index.personInfo">个人信息</a>
             </div>
         
@@ -53,11 +53,12 @@
         <div class="right orderHistory pc-only">
             
             
-        	<div class="top-wrapper">
+        	<div class="his-top-wrapper">
             	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div>
-                <div class="select-wrapper">
-                    <select class="select2" ng-model="pcSelectMonth" ng-change="pcSelectDate()" ng-options="(m.name) for m in months">
-                        <option value="">{{pcSelectMonth.value}}</option>
+                <div class="his-select-wrapper">
+                    <select class="select2" ng-model="pcSelectMonth" ng-change="pcSelectDate()" ng-options="m.name for m in months">
+                        <!-- <option ng-selected="pcSelectMonth" value="pcSelectYear.value">{{pcSelectMonth.value}}</option> -->
+                        <option value="" ng-selected="true">选择月</option>
                     </select>
                     <!-- <select class="select2">
                     <option value="">选择月</option>
@@ -66,17 +67,20 @@
                     <option ng-repeat="month in months" value="month.value" ng-click="choice()">{{month.name}}</option>
                     </select> -->
                 </div>                  
-                <div class="select-wrapper">
-                    <select class="select2" ng-model="pcSelectYear" ng-change="pcSelectDate()" ng-options="(y.name) for y in years">
-                        <option value="">{{pcSelectYear.value}}</option>
+                <div class="his-select-wrapper">
+                    <select class="select2" ng-model="pcSelectYear" ng-change="pcSelectDate()" ng-options="y.name for y in years">
+                        <!-- <option ng-selected="pcSelectYear" value="">{{pcSelectYear.name}}</option> -->
+                        <option value="" ng-selected="pcSelectYear == null">选择年</option>
+
                     </select>
+
 <!--                     <select class="select2">
                     <option value="">选择年</option>
                     <option value="2016">2016</option>
                     <option ng-repeat="year in years" value="year.value">{{year.name}}</option>
              
                     </select> -->
-                </div>    
+                </div>  
                 <div class="clr"></div>
             </div>
             
