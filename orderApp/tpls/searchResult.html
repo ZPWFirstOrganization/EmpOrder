@@ -1,0 +1,83 @@
+<!--pc面包屑-->
+<div class="layout page-width pc-only">
+  <div class="bread-crumb"><a ui-sref="index.productList" ng-click="nav1Clicked()">首页</a><a>&gt;</a><a>收藏</a></div>
+    <div class="tips">可下单日期为每月1到17日，您当前日期不可下单</div>
+    <div class="clr"></div>
+</div>
+
+<div class="layout page-width">
+    
+    <div class="sr-content-wrapper">
+        <div class="bread-crumb mobile-only">
+          <a class="back" ui-sref="index.productList" ng-click="nav1Clicked()">
+            <b>&lt;</b> 首页
+          </a>
+          <div class="title">搜索结果</div>
+        </div>
+    
+        <div class="sr-tips mobile-only"> 一共搜索到<span class="pink06">4</span>个<span class="pink06">唇彩</span>产品</div>
+        <div class="sr-content-inner">
+
+
+            <div class="empty">
+                <div class="icon"></div>
+                <div class="wording">
+                <h1>未查询到此产品</h1>
+                <h3>请检查是否名称编号输入错误</h3>
+                </div>
+                
+    
+            </div>
+                
+                
+            <div class="sr-product-wrapper">
+                <div class="sr-product-photo">
+                 <div class="sr-no-product"></div>
+                <img src="assets/resource/photo_s.jpg"/>
+                </div>
+                
+                <div class="sr-product-info">
+                   <a action="fav" class="sr-cancelfavorite"></a>
+                   <a class="sr-product-name" href="product.html">玫琳凯臻时粹颜™精华乳</a>
+                   <div class="sr-row2">               
+                       <span class="sr-new-price">￥1980.00</span>
+                       <div class="sr-product-no">G5615DB6CA9766</div>               
+                   </div>
+    
+                   <div class="sr-product-action">
+                   <a class="sr-btn sr-subtract sr-disable" ></a>
+                   <input type="tel" class="sr-number"  placeholder="数量"  value="1" maxlength="3" />
+                   <a class="btn add" ></a>
+                   <a class="button-s button-gray button-disable add-cart" >加入当月订单</a>
+                   </div>
+                </div>            
+                <div class="clr"></div>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </div>
+    
+    <!--pc分页-->    
+    
+    <div class="paginate-wrap pc-only">
+        <div class="dataTables_paginate " >
+          
+            <span class="current">1</span>
+            <a class="num" href="/index.php/Back/Product/showList/p/2.html">2</a>
+            <a class="num" href="/index.php/Back/Product/showList/p/3.html">3</a>
+            <a class="num" href="/index.php/Back/Product/showList/p/4.html">4</a>
+            <a class="num" href="/index.php/Back/Product/showList/p/5.html">5</a> 
+            <a class="next" href="/index.php/Back/Product/showList/p/2.html">>></a> 
+            <div class="clr"></div>
+           
+        </div>      
+    </div>  
+</div>
+
+<a class="cart animated" ui-sref="index.currentOrder">
+  <div class="cart-inner">
+  <div class="number" id="numbercircle">{{orderCount.productCount}}</div>
+    剩余额度：</br>
+    {{balance.myBalance}}
+  </div>
+</a>

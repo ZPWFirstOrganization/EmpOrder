@@ -14,11 +14,11 @@
             </div>
         </div>
         <div class="search-wrapper">
-          <input type="text" class="search"  placeholder="产品名称 或 货号" />
-          <a class="search-btn "></a>
+          <input type="text" class="search" ng-model="searchKey" placeholder="产品名称 或 货号" />
+          <a class="search-btn " ng-click="searchClicked()"></a>
         </div>
         <div class="my-wrapper">
-          <a class="button-s button-gray icon-fav">收藏</a>
+          <a class="button-s button-gray icon-fav" ng-click='favClicked()'>收藏</a>
           <a class="button-s button-gray icon-my" ui-sref="index.currentOrder">我的</a>
         </div>
         <div class="clr"></div>
