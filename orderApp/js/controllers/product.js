@@ -95,22 +95,23 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
 
     //加入当月订单    
     $scope.addCartClicked = function(Product) {
-    	$("body").showLoading(-150);
-        var id = Product.productCode;
-    	var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[id],function(){
-    		showModal({msg:"已加当月订单"});
-    		$(".proddtl-cart").find(".number").transition({scale:2});
-			setTimeout(function(){
-				$(".proddtl-cart").find(".number").transition({scale:1});
-			},500)
-			$scope.balance = apiCaller.getBalance();
-			$scope.orderCount = apiCaller.getOrderCount();
-			$("body").hideLoading();
-    	},function(){
-    		$("body").hideLoading();
-    		showModal({msg:"剩余额度不足"});
-    	});
-
+        if (Product.productStatus == 0){
+            $("body").showLoading(-150);
+            var id = Product.productCode;
+            var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[id],function(){
+                showModal({msg:"已加当月订单"});
+                $(".proddtl-cart").find(".number").transition({scale:2});
+                setTimeout(function(){
+                    $(".proddtl-cart").find(".number").transition({scale:1});
+                },500)
+                $scope.balance = apiCaller.getBalance();
+                $scope.orderCount = apiCaller.getOrderCount();
+                $("body").hideLoading();
+            },function(){
+                $("body").hideLoading();
+                showModal({msg:"剩余额度不足"});
+            });
+        }
     }
     
     //点击返回首页或当月订单
