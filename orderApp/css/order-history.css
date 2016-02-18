@@ -1,5 +1,5 @@
 @media screen and (min-width: 801px) { 
-.content-wrapper{ min-height:400px;}
+.his-content-wrapper{ min-height:400px;}
 .sider-menu-wrapper{ background-color:#f9f9f9; border:1px solid #eee; border-radius:3px; overflow:hidden}
 .sider-menu-wrapper .sider-menu{ padding:5% 5%; display:block;}
 .sider-menu-wrapper .active{ background-color:#666;color:#fff; margin:0px -1px}
@@ -15,7 +15,7 @@
 
 }
 @media screen and (max-width: 800px) { 
-.content-wrapper{ margin-top:130px;  }
+.his-content-wrapper{ margin-top:130px;  }
 
 .category-wrapper{ height:45px; border-bottom:1px solid #eee;position:fixed; width:100%; z-index:50; top:86px; background-color:#fff }
 .select-wrap{ position:relative; height:100%;width:49%;}
@@ -32,9 +32,9 @@
 .option-list .list:active{ background-color:#eee}
 
 .orderHistory{}
-.orderHistory .top-wrapper{ height:40px; }
-.orderHistory .top-wrapper .his-tips{ line-height:40px;  border-bottom:1px solid #eee; padding-left:10px;    }
-.orderHistory .top-wrapper .select-wrapper{ float:right; padding-top:5px; width:100px; margin-left:5px;}
+.orderHistory .his-top-wrapper{ height:40px; }
+.orderHistory .his-top-wrapper .his-tips{ line-height:40px;  border-bottom:1px solid #eee; padding-left:10px;    }
+.orderHistory .his-top-wrapper .select-wrapper{ float:right; padding-top:5px; width:100px; margin-left:5px;}
 
 .orderHistory .mid-wrapper{ min-height:400px;}
 .orderHistory .order{ padding:10px 10px;border-bottom:1px solid #eee; display:block; position:relative;   }

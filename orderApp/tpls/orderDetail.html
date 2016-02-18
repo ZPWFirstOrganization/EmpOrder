@@ -30,13 +30,13 @@
         	<div class="top-wrapper pc-only">
                 <div class="form-row">
                   <div class="field-key w10 gray10">订单编号：</div>
-                  <div class="field-value w15">123123213 </div>
+                  <div class="field-value w15">{{orderData.orderID}} </div>
                   <div class="field-key w10 gray10">订单状态：</div>
                   <div class="field-value w15 ">未确认</div>
                   <div class="field-key w10 gray10">应付金额：</div>
-                  <div class="field-value w15">￥4560.00</div>
+                  <div class="field-value w15">￥{{orderData.orderRetailAmount}}</div>
                   <div class="field-key w10 gray10">订单时间：</div>
-                  <div class="field-value w15 ">2016-02</div>
+                  <div class="field-value w15 ">{{orderData.orderYearMonth}}</div>
                   <div class="clr"> </div>
                 </div>
                 
@@ -46,16 +46,16 @@
             <div class="order mobile-only">
                 <div class="form-row">
                   <div class="field-key w25 gray10">订单编号：</div>
-                  <div class="field-value w25">123123213 </div>
+                  <div class="field-value w25">{{orderData.orderID}} </div>
                   <div class="field-key w25 gray10">订单状态：</div>
                   <div class="field-value w20 ">未确认</div>
                   <div class="clr"> </div>
                 </div>            
                 <div class="form-row">
                   <div class="field-key w25 gray10">应付金额：</div>
-                  <div class="field-value w25">￥4560.00</div>
+                  <div class="field-value w25">￥{{orderData.orderRetailAmount}}</div>
                   <div class="field-key w25 gray10">订单时间：</div>
-                  <div class="field-value w20 ">2016-02</div>
+                  <div class="field-value w20 ">{{orderData.orderYearMonth}}</div>
                   <div class="clr"> </div>
                 </div>             
 
@@ -63,24 +63,24 @@
             <div class="order-detail mid-wrapper">
             
                 <!--<div class="empty"></div>-->
-                <div class="product-wrapper">
+                <div class="product-wrapper" ng-repeat="product in orderData.product">
                     <div class="product-photo">
                    
-                    <img src="assets/resource/photo_s.jpg"/>
+                    <img ng-src="{{product.imageUrl}}" onerror="this.src='res/null_img.jpg'" />
                     </div>
                     <div class="product-info">
                        
                        <div class="row1"> 
-                           <a class="order-product-name" href="product.html" >玫琳凯臻时粹颜™精华乳玫琳凯臻时粹颜™精华乳玫琳凯臻时粹颜</a>
-                           <div class="product-no pc-only">货号：G5615DB6CA9766</div> 
+                           <a class="order-product-name">{{product.productName}}</a>
+                           <div class="product-no pc-only">货号：{{product.productCode}}</div> 
                        </div>
                        <div class="row2">               
-                           <span class="new-price">￥1980.00</span>
-                           <div class="product-no mobile-only">G5615DB6CA9766</div>               
+                           <span class="new-price">￥{{product.productRetailPrice}}</span>
+                           <div class="product-no mobile-only">{{product.productCode}}</div>               
                        </div>
         
                        <div class="product-action">
-                           <div  class="number-label">数量：2</div>                      
+                           <div  class="number-label">数量：{{product.finalQTY}}</div>                      
                           
                           
                            <div class="clr"></div>                
@@ -89,36 +89,7 @@
                     </div>
                     <div class="clr"></div>
                 </div>
-                 
-                <div class="product-wrapper">
-                    <div class="product-photo">
-                   
-                    <img src="assets/resource/photo_s.jpg"/>
-                    </div>
-                    <div class="product-info">
-                       
-                       <div class="row1"> 
-                           <a class="order-product-name" href="product.html" >玫琳凯臻时粹颜™精华乳玫琳凯臻时粹颜™精华乳玫琳凯臻时粹颜</a>
-                           <div class="product-no pc-only">货号：G5615DB6CA9766</div> 
-                       </div>
-                       <div class="row2">               
-                           <span class="new-price">￥1980.00</span>
-                           <div class="product-no mobile-only">G5615DB6CA9766</div>               
-                       </div>
-        
-                       <div class="product-action">
-                           <div  class="number-label">数量：2</div>                      
-                          
-                          
-                           <div class="clr"></div>                
-                       </div>
-                       <div class="clr"></div>
-                    </div>
-                    <div class="clr"></div>
-                </div>
-
-                                 
-                            
+                         
             </div>           
 
          

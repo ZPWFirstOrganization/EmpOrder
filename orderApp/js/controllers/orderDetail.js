@@ -1,7 +1,10 @@
 orderApp.controller('orderDetailCtrl',function($scope,$state,$stateParams,ApiService,apiCaller,scopeData){
-	
-	apiCaller.getOrderDetailInfo({orderID:"2f56efcb-ed6c-47cf-94f2-385384208a74"},function(res){
-		console.log(res)
+	$scope.orderData
+	apiCaller.getOrderDetailInfo({orderID:"7f845abe-d177-4aaa-bf74-05f94bab0603"},function(res){
+		// console.log(res[0])
+		$scope.orderData = res[0]
+	},function(res){
+		$scope.orderData = {product:{}}
 	})
 	
 })

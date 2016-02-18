@@ -159,7 +159,9 @@ function showModalBg(obj){
 	
 	modalBg=$('<div id="modalBg" style="background-color:#000; opacity:0.7; position:absolute; z-index:10; width:100%; height:'+height+'px; top:'+top+'"></div>');
 	obj.after(modalBg);
-	
+	modalBg.bind('touchmove', function(e) {
+            e.preventDefault();
+    });
 	modalBg.click(function(){
 		$(this).remove();	
 	})

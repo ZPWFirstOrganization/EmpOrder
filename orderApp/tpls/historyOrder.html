@@ -12,23 +12,25 @@
 <!--mobile分类选择-->
 <div class="category-wrapper mobile-only">
 
-    <div class="select-wrap  fl" action="select" cname="year" data="2016,2015,2014,2013,2012">
+    <div class="select-wrap  fl" action="select" cname="year" ng-click="selectList('year')">
 
-        <div class="select-content">选择年</div>
+        <div class="select-content">{{showYear}}</div>
         <div class="select-arrow"></div>
     </div>
     
-    <div class="select-wrap  fr" action="select" cname="month" data="1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月">
 
-        <div class="select-content">选择月</div>
+    <div class="select-wrap  fr" action="select" cname="month" ng-click="selectList('month')">
+
+        <div class="select-content">{{showMonth}}</div>
         <div class="select-arrow"></div>
     </div> 
     <div class="clr"></div>  
     
-    
-    <div class="option-list">
-    <a class="list" >选项</a>
-
+    <div class="option-list" id="yearList">
+    <a class="list" ng-repeat="year in years" ng-click="selectItem('year',year)">{{year.name}}</a>
+    </div>
+    <div class="option-list" id="monthList">
+    <a class="list" ng-repeat="month in months" ng-click="selectItem('month',month)">{{month.name}}</a>
     </div>
      
 </div>
@@ -36,11 +38,11 @@
 
 <!--pc mobile产品列表-->
 <div class="layout page-width">
-    <div class="content-wrapper">
+    <div class="his-content-wrapper">
         <div class="left">
             <div class="sider-menu-wrapper">
             <a class="sider-menu " ui-sref="index.currentOrder">当月订单</a>
-            <a class="sider-menu active" ui-sref="index.historyOrder({page:1})">历史订单</a>
+            <a class="sider-menu active" ui-sref="index.historyOrder({page:1,orderDate:''})">历史订单</a>
             <a class="sider-menu" ui-sref="index.personInfo">个人信息</a>
             </div>
         
@@ -54,20 +56,26 @@
         	<div class="top-wrapper">
             	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div>
                 <div class="select-wrapper">
-                    <select class="select2"  >
+                    <select class="select2" ng-model="pcSelectMonth" ng-change="pcSelectDate()" ng-options="(m.name) for m in months">
+                        <option value="">{{pcSelectMonth.value}}</option>
+                    </select>
+                    <!-- <select class="select2">
                     <option value="">选择月</option>
                     <option value="1">1月</option>
                     <option value="2">2月</option>
-             
-                    </select>
+                    <option ng-repeat="month in months" value="month.value" ng-click="choice()">{{month.name}}</option>
+                    </select> -->
                 </div>                  
                 <div class="select-wrapper">
-                    <select class="select2"  >
+                    <select class="select2" ng-model="pcSelectYear" ng-change="pcSelectDate()" ng-options="(y.name) for y in years">
+                        <option value="">{{pcSelectYear.value}}</option>
+                    </select>
+<!--                     <select class="select2">
                     <option value="">选择年</option>
                     <option value="2016">2016</option>
-                    <option value="2015">2015</option>
+                    <option ng-repeat="year in years" value="year.value">{{year.name}}</option>
              
-                    </select>
+                    </select> -->
                 </div>    
                 <div class="clr"></div>
             </div>
@@ -96,7 +104,7 @@
                        
                         <div class="clr"></div>
                     </div>
-                    <div class="tr" ng-repeat="order in orderList" ng-show="isHaveData">
+                    <div class="tr" ng-repeat="order in orderList track by $index" ng-show="isHaveData">
                     	 <div class="td w20"><span class="">{{order.orderID}}</span></div>
                          <div class="td w20"><span class="">￥{{order.orderRealAmount}}</span></div>
                          <div class="td w20"><span class="">{{order.orderState | stateFilter }}</span></div>
@@ -129,9 +137,8 @@
         <div class="right orderHistory mobile-only">
             
             
-        	<div class="top-wrapper">
+        	<div class="his-top-wrapper">
             	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}} </div>
-               
             </div>
             
             <div class="mid-wrapper">
@@ -148,7 +155,7 @@
             
                     </div>
               
-                <a class="order" ng-repeat="order in orderList" ng-show="isHaveData">
+                <a class="order" ng-repeat="order in orderList track by $index" ng-show="isHaveData">
                     <div class="form-row" ui-sref="index.orderDetail({orderID:order.orderID})">
                       <div class="field-key w25 gray10">订单编号：</div>
                       <div class="field-value w25">{{order.orderID}}</div>
@@ -179,48 +186,5 @@
 </div>
 </div>
 <script>
-    //选择年月
-    $('[action="select"]').click(function(){
-        
-        if($(".option-list").css("display")=="none"){
-            $(".option-list").fadeIn(200);  
-            showModalBg($(".option-list"));     
-            
-        }else if($(this).attr("cname")==$(".option-list").attr("belong")){
-            $(".option-list").fadeOut(200);
-            hideModalBg();  
-        }
-        var data=$(this).attr("data").split(",");
-        $(".option-list").html("");
-        $.each( data, function(i, n){
-          //alert( "Item #" + i + ": " + n );
-          $(".option-list").append('<a class="list">'+n+'</a>')
-          
-        });
-        
-        $(".option-list").attr("belong",$(this).attr("cname")); 
-
-    });
     
-    //点击大类
-    $(document).on("click",".list",function(){
-        $('[cname="'+$(".option-list").attr("belong")+'"]').find('.select-content').html($(this).html())
-        if($(".option-list").css("display")=="block"){
-            $(".option-list").fadeOut(200); 
-            hideModalBg();  
-        }
-
-    });     
-     
-    $("body").click(function(event){
-        
-        if(event.target!=$('.select-content')[0] && event.target!=$('.select-arrow')[0] && event.target!=$('.select-content')[1] && event.target!=$('.select-arrow')[1] ){
-            
-            if($(".option-list").css("display")=="block"){
-                $(".option-list").fadeOut(200); 
-                hideModalBg();  
-            }
-        }
-
-    }); 
 </script>

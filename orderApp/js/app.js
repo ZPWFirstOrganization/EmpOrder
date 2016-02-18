@@ -43,8 +43,11 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 			url:'/currentOrder',
 			templateUrl:'tpls/currentOrder.html'
 		}).state('index.historyOrder',{
-			url:'/historyOrder/page={page}',
-			templateUrl:'tpls/historyOrder.html'
+			url:'/historyOrder/page={page}&orderDate={orderDate}',
+			templateUrl:'tpls/historyOrder.html',
+			params:{
+				orderParam:{}
+			}
 		}).state('index.personInfo',{
 			url:'/personInfo',
 			templateUrl:'tpls/personInfo.html'
