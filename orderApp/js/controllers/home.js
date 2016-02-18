@@ -26,6 +26,15 @@ orderApp.service('scopeMethod',function($state,scopeData,apiCaller) {
 			scopeData.currentPage = Page;
 			$state.go('index.productList',{productClass:scopeData.currentProductClass,productCode:scopeData.currentProductCode,page:scopeData.currentPage});
 			apiCaller.getProductListByStates();
+		},
+		getFavoriteList:function(){
+
+		},
+		getSearchTips:function(){
+
+		},
+		getSearchResult:function(){
+
 		}
 	}
 })
@@ -40,44 +49,6 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				pageNum:scopeData.currentPage,
 				userAccount:'123123'
 			})
-		},
-		getProductListByDivision:function(Division,callbackFn){
-			scopeData.ProductionList = ApiService.getProductList(
-			{
-				code:Division.code,//大类传大类的id,小类传小类的CONFIG_VALUE
-				productClass:'1',//大类为1，小类为2
-				pageNum:'1',
-				userAccount:'123123'
-			},
-			function(response){
-				scopeData.noticePageRevert = true;
-				scopeData.ProductionList = response;
-				scopeData.currentProductCode=Division.code;
-				scopeData.currentProductClass='1';
-				scopeData.currentPage = 1;
-				if (callbackFn) {
-					callbackFn();
-				}
-			});
-		},
-		getProductListByGroup:function(Group,callbackFn) {
-			ApiService.getProductList(
-			{
-				code:Group.code,//大类传大类的id,小类传小类的CONFIG_VALUE
-				productClass:'2',//大类为1，小类为2
-				pageNum:'1',
-				userAccount:'123123'
-			},
-			function(response){
-				scopeData.noticePageRevert = true;
-				scopeData.ProductionList = response;
-				scopeData.currentProductCode = Group.code;
-				scopeData.currentProductClass = '2';
-				scopeData.currentPage = 1;
-				if (callbackFn) {
-					callbackFn();
-				}
-			});
 		},
 		getProductListByPage:function(page,callbackFn){
 			ApiService.getProductList(
