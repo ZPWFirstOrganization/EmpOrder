@@ -18,7 +18,7 @@
         <div class="left">
             <div class="order-detail sider-menu-wrapper">
             <a class="sider-menu" ui-sref="index.currentOrder">当月订单</a>
-            <a class="sider-menu active">历史订单</a>
+            <a class="sider-menu active" ui-sref="index.historyOrder({page:1,orderDate:'',orderParam:{}})">历史订单</a>
             <a class="sider-menu" ui-sref="index.personInfo">个人信息</a>
             </div>
         
@@ -32,7 +32,7 @@
                   <div class="field-key w10 gray10">订单编号：</div>
                   <div class="field-value w15">{{orderData.orderID}} </div>
                   <div class="field-key w10 gray10">订单状态：</div>
-                  <div class="field-value w15 ">未确认</div>
+                  <div class="field-value w15 ">{{orderData.orderState | stateFilter }}</div>
                   <div class="field-key w10 gray10">应付金额：</div>
                   <div class="field-value w15">￥{{orderData.orderRetailAmount}}</div>
                   <div class="field-key w10 gray10">订单时间：</div>
@@ -48,7 +48,7 @@
                   <div class="field-key w25 gray10">订单编号：</div>
                   <div class="field-value w25">{{orderData.orderID}} </div>
                   <div class="field-key w25 gray10">订单状态：</div>
-                  <div class="field-value w20 ">未确认</div>
+                  <div class="field-value w20 ">{{orderData.orderState | stateFilter }}</div>
                   <div class="clr"> </div>
                 </div>            
                 <div class="form-row">

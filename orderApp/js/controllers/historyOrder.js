@@ -7,15 +7,15 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	$scope.currentPage = $stateParams.page;
 	$scope.showYear = "选择年"
 	$scope.showMonth = "选择月"
-	$scope.years = [{name:"选择年",value:null},
-					{name:"2008",value:"2008"},{name:"2009",value:"2009"},
-					{name:"2010",value:"2010"},{name:"2011",value:"2011"},
-					{name:"2012",value:"2012"},{name:"2013",value:"2013"},
-					{name:"2014",value:"2014"},{name:"2015",value:"2015"},
-					{name:"2016",value:"2016"}
+	$scope.years = [
+					{name:"2016",value:"2016"},{name:"2015",value:"2015"},
+					{name:"2014",value:"2014"},{name:"2013",value:"2013"},
+					{name:"2012",value:"2012"},{name:"2011",value:"2011"},
+					{name:"2010",value:"2010"},{name:"2009",value:"2009"},
+					{name:"2008",value:"2008"}
 				   ]
 
-	$scope.months = [{name:"选择月",value:null},
+	$scope.months = [
 					{name:"1月",value:"01"},{name:"2月",value:"02"},
 					{name:"3月",value:"03"},{name:"4月",value:"04"},
 					{name:"5月",value:"05"},{name:"6月",value:"06"},
@@ -184,16 +184,29 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
     }
     $scope.pcSelectYear = null
     $scope.pcSelectMonth = null
-    if (!angular.isUndefined($stateParams.orderParam)){
-    	$scope.pcSelectYear = $stateParams.orderParam.year
-    	$scope.pcSelectMonth = $stateParams.orderParam.month
+    if (angular.isDefined($stateParams.orderParam.year) && angular.isDefined($stateParams.orderParam.month)){
+    	// $scope.pcSelectYear = $stateParams.orderParam.year
+    	$.each($scope.years, function(i,v){
+    		if (v.value == $stateParams.orderParam.year.value){
+    			$scope.pcSelectYear = v
+    		}
+        });
+        $.each($scope.months, function(i,v){
+    		if (v.value == $stateParams.orderParam.month.value){
+    			$scope.pcSelectMonth = v
+    		}
+        });
+    	// $scope.pcSelectMonth = $stateParams.orderParam.month
     }
-    console.log($stateParams.orderParam)
-    console.log("aaaaaaaaaaaaaaaaaa",$scope.pcSelectYear)
+    console.log($scope.pcSelectYear,$scope.pcSelectMonth)
+    // alert($scope.pcSelectYear.year)
     // $scope.pcSelectYear = null
     // $scope.pcSelectMonth = null
+    // $scope.pcSelectMonth = $scope.months[0]
+    // console.log($scope.pcSelectMonth)
     $scope.pcSelectDate = function(){
-    // console.log($scope.pcSelectYear,$scope.pcSelectMonth)
+    // $scope.pcSelectMonth = $scope.months[0]
+    console.log($scope.pcSelectYear,$scope.pcSelectMonth)
     	if($scope.pcSelectYear != null && $scope.pcSelectMonth != null){
     		var date = $scope.pcSelectYear.value +"-"+ $scope.pcSelectMonth.value
  			$("body").showLoading(-150);
@@ -204,6 +217,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
  					orderParam:{year:$scope.pcSelectYear,month:$scope.pcSelectMonth},
  					orderDate:date
  				})
+ 			$("body").hideLoading();
     	}else if($scope.pcSelectYear == null && $scope.pcSelectMonth == null){
     		$state.go('index.historyOrder',
  				{
@@ -212,6 +226,11 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
  				})
     	}
     }
+    $(".select2").select2({
+	    width: '100%',
+        minimumResultsForSearch: Infinity
+
+	});
 })
 
  orderApp.filter('stateFilter',function(){
