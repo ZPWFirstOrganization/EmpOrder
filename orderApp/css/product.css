@@ -39,7 +39,7 @@
 @media screen and (max-width: 800px) { 
 
 
-.proddtl-content-wrapper{ margin-top:50px; padding-bottom:50px; }
+.proddtl-content-wrapper{ margin-top:90px; padding-bottom:50px; }
 .proddtl-content-inner{  padding:0px 1%;}
 
 .proddtl-mobile-product-name{ font-size:16px; padding:10px 12% 10px 0px;  display:block; color:#000; overflow:hidden; position:relative;}

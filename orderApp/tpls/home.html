@@ -33,7 +33,8 @@ jQuery.fn.showLoading = function(top) {
       this.find(".loading").css("top",topPx+top);
 
     this.find(".loading").fadeIn(200);
-
+	$("#main").height(h);
+   $("#main").width(w);
 };
 //隐藏加载菊花
 jQuery.fn.hideLoading = function() {
@@ -59,7 +60,8 @@ function ajaxType(val){
 
 $(document).ready(function(e) {
   //pc and mobile js--------------------------------------------------
-   
+   $("#main").height($(window).height());
+   $("#main").width($(window).width());
   //自动完成搜索api   https://github.com/ArtemFitiskin/jquery-autocompleter
   var data = [
     { "value": "1", "label": "1" },
