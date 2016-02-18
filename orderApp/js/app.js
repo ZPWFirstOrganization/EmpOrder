@@ -60,6 +60,14 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 		}).state('index.notice',{
 			url:'/notice',
 			templateUrl:'tpls/notice.html'
+		}).state('index.favorites',{
+			url:'/favorites',
+			templateUrl:'tpls/favorites.html',
+			controller:'favController'
+		}).state('index.searchResult',{
+			url:'/searchResult',
+			templateUrl:'tpls/searchResult.html',
+			controller:'searchResultController'
 		})
 })
 

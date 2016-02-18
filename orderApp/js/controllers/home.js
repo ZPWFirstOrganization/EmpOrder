@@ -202,6 +202,36 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 					return err(res)
 				}
 			})
+		},
+		getFavoriteList:function(suc,err) {
+			return ApiService.getFavoriteList({
+				userAccount:'123123'
+			},
+			function(res){
+				if(suc){
+					return suc(res)
+				}
+			},
+			function(res){
+				if(err){
+					return err(res)
+				}
+			})
+		},
+		getSearchResult:function(searchKey,suc,err) {
+			return ApiService.getSearchResult({
+				key:searchKey
+			},
+			function(res){
+				if(suc){
+					return suc(res)
+				}
+			},
+			function(res){
+				if(err){
+					return err(res)
+				}
+			})
 		}
 	}
 });
@@ -360,51 +390,6 @@ orderApp.controller('prductListController',
 	}
 });
 
-orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
-	$scope.showList = false;
-	
-	$scope.categories=apiCaller.getCategories(function(){
-		scopeData.homeDivisionName = $scope.categories[0].name;
-		scopeData.homeDivisionCode = $scope.categories[0].code;
-		if($stateParams.productClass == "" || $stateParams.productCode == "" || $stateParams.page == ""){
-			scopeMethod.changeState("1",$scope.categories[0].code,"1");
-		}else if($stateParams.productClass && $stateParams.productCode && $stateParams.page){
-			scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$stateParams.page);
-		}
-	});
-
-	$scope.divisionClicked=function(Division) {
-		scopeData.currentDivisionName = Division.name;
-		scopeData.divisionCode = Division.code;
-		scopeData.currenGroupName = '';
-        scopeMethod.changeState("1",Division.code,"1");
-	}
-	$scope.groupClicked=function(Group,Division) {
-		scopeData.currentDivisionName = Division.name;
-		scopeData.divisionCode = Division.code;
-		scopeData.currenGroupName = Group.name;
-		scopeData.groupCode = Group.code;
-        scopeMethod.changeState("2",Group.code,"1");
-	}
-
-	$scope.logoClicked = function() {
-		scopeMethod.changeState("1","1","1");
-		scopeData.currentDivisionName = $scope.categories[0].name;
-		scopeData.currenGroupName = '';
-	}
-
-	//展开/闭合优惠价
-	$('[action="pc-select-onsale"]').mouseenter(function(){   
-		if($(".pc-onsale-list-wrapper").css("display")=="none"){
-		  $(".pc-onsale-list-wrapper").fadeIn(200); 
-		}
-	}).mouseleave(function(){   
-		if($(".pc-onsale-list-wrapper").css("display")!="none"){
-		  $(".pc-onsale-list-wrapper").fadeOut(200);  
-		}
-	});
-});
-
 orderApp.controller('mbNavController',function($scope,apiCaller,scopeMethod) {
 	$("body").showLoading(-150);
 	$scope.lit2Show=''
@@ -426,6 +411,7 @@ orderApp.controller('mbNavController',function($scope,apiCaller,scopeMethod) {
 		$scope.GroupName = Group.name;
 		scopeMethod.changeState("2",Group.code,"1");
 	}
+
 	//选择大类 小类 
 	$('[action="left_select"]').click(function(){
 		if($("#DivisionList").css("display")=="none"){

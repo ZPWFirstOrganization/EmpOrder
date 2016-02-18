@@ -1,0 +1,59 @@
+@media screen and (min-width: 801px) { 
+.fav-tips{ float:right; color:#e5a086;padding:20px;}
+
+.fav-content-wrapper{ min-height:700px;}
+.fav-content-inner{  padding:0px 10px;}
+.fav-product-wrapper{ width:50%; height:120px; border-bottom:1px solid #ddd; float:left; padding:15px 0px;}
+.fav-product-wrapper:nth-last-child(1){ width:50%}
+.fav-product-wrapper .fav-product-photo{ width:30%; height:120px; float:left;text-align:center; position:relative;}
+.fav-product-wrapper .fav-product-photo .no-product{ position:absolute; width:30px; height:30px; background-image:url(../img/icon_no_product.png);background-position:50% 50%; background-size:100% ;color:#666 }
+.fav-product-wrapper .fav-product-photo img{ width:120px;}
+.fav-product-wrapper .fav-product-info{ float:right; width:70%; position:relative}
+.fav-product-wrapper .fav-product-info .fav-favorite{ display:inline-block; width:30px; height:30px; background-image:url(../img/icon_fav_border.png); background-size:100%;background-position:50% 50%; background-repeat:no-repeat; position:absolute; right:10px; top:0px;  color:#e5a086; cursor:pointer; background-color:#fff}
+.fav-product-wrapper .fav-product-info .fav-cancelfavorite{ width:30px; height:30px;  background-image:url(../img/icon_fav.png);background-size:100%;background-size:100% 100%; background-position:50% 50%; background-repeat:no-repeat;  position:absolute; right:10px; top:0px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff}
+.fav-product-wrapper .fav-product-info .fav-product-name{ font-size:16px; margin-top:5px; height:45px; width:85%; display:block; color:#000}
+.fav-product-wrapper .fav-product-info .fav-row2{}
+.fav-product-wrapper .fav-product-info .fav-row2 .fav-new-price{color:#000; font-size:16px; display:inline-block; width:129px;}
+.fav-product-wrapper .fav-product-info .fav-row2 .fav-product-no{font-size:12px;margin-top:0px; display:inline-block}
+.fav-product-wrapper .fav-product-info .fav-product-action{margin-top:8px}
+.fav-product-wrapper .fav-product-info .fav-product-action .fav-btn{width:30px; height:30px; border:1px solid #eee; display:inline-block ; float:left; cursor:pointer; background-size:auto 80%;background-position:50% 50%; background-repeat:no-repeat;  }
+.fav-product-wrapper .fav-product-info .fav-product-action .fav-subtract{ background-image:url(../img/icon_subtract.png); border-radius:3px 0px 0px 3px; }
+.fav-product-wrapper .fav-product-info .fav-product-action .fav-add{background-image:url(../img/icon_add.png);border-radius:0px 3px 3px 0px; }
+.fav-product-wrapper .fav-product-info .fav-product-action .fav-number{ width:40px; height:30px;font-size:16px; margin:0px -1px;  text-align:center; border:1px solid #eee;float:left}
+.fav-product-wrapper .fav-product-info .fav-product-action .fav-disable{ cursor:text; opacity:0.5;}
+.fav-product-wrapper .fav-product-info .fav-product-action .fav-add-cart{ margin-left:10px}
+}
+@media screen and (max-width: 800px) { 
+
+
+
+
+
+
+.fav-content-wrapper{ margin-top:85px; }
+.fav-content-inner{  padding:0px 1%;}
+
+.fav-tips{  padding-left:40px; padding-top:12px; padding-bottom:12px; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 50%; background-size: 7% auto ; border-bottom:1px solid #eee; }
+
+.fav-product-wrapper{ width:100%;  border-bottom:1px solid #ddd; padding:10px 0px }
+.fav-product-wrapper .fav-product-photo{ width:30%; height:110px; float:left;text-align:center;position:relative;}
+.fav-product-wrapper .fav-product-photo .fav-no-product{ position:absolute; left:-5px; top:-10px; width:30px; height:30px; background-image:url(../img/icon_no_product.png);background-position:50% 50%; background-size:100% ; }
+.fav-product-wrapper .fav-product-photo img{  height:100%}
+.fav-product-wrapper .fav-product-info{ float:right; width:70%; position:relative; overflow:hidden}
+.fav-product-wrapper .fav-product-info .fav-favorite{background-image:url(../img/icon_fav_border.png); background-repeat:no-repeat; background-position:50% 50%; background-size:100% 100%; position:absolute; right:10px; top:-5px;width:35px; height:35px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff; text-indent:-9999px; overflow:hidden; z-index:10}
+.fav-product-wrapper .fav-product-info .fav-cancelfavorite{background-image:url(../img/icon_fav.png); background-repeat:no-repeat; background-position:50% 50%;background-size:100% 100%; position:absolute; right:10px; top:-5px;width:35px; height:35px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff; text-indent:-9999px; overflow:hidden; z-index:10}
+.fav-product-wrapper .fav-product-info .fav-product-name{ font-size:16px; margin-top:0px; height:40px; width:83%; display:block; color:#000; overflow:hidden;}
+.fav-product-wrapper .fav-product-info .fav-row2{ margin-top:5px;}
+.fav-product-wrapper .fav-product-info .fav-row2 .fav-new-price{color:#000; font-size:16px; display:inline-block; width:125px;}
+.fav-product-wrapper .fav-product-info .fav-row2 .fav-product-no{font-size:12px;margin-top:0px; display:inline-block;color:#666}
+.fav-product-wrapper .fav-product-info .fav-product-action{margin-top:8px; margin-right:-100px;}
+.fav-product-wrapper .fav-product-info .fav-product-action .fav-btn{width:30px; height:30px; border:1px solid #eee; display:inline-block ; float:left; cursor:pointer; background-size:auto 80%;background-position:50% 50%; background-repeat:no-repeat;  }
+.fav-product-wrapper .fav-product-info .fav-product-action .fav-subtract{ background-image:url(../img/icon_subtract.png); border-radius:3px 0px 0px 3px; }
+.fav-product-wrapper .fav-product-info .fav-product-action .fav-add{background-image:url(../img/icon_add.png);border-radius:0px 3px 3px 0px; }
+.fav-product-wrapper .fav-product-info .fav-product-action .fav-number{ width:40px; height:30px; margin:0px -1px;font-size:16px;  text-align:center; border:1px solid #eee;float:left; border-radius:0px}
+
+
+.fav-product-wrapper .fav-product-info .fav-product-action .fav-disable{ cursor:text; opacity:0.5;}
+.fav-product-wrapper .fav-product-info .fav-product-action .fav-add-cart{ margin-left:2%}
+
+}

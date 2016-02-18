@@ -103,6 +103,14 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 		          orderID:'@orderID',
 		        },
 		        isArray:true
+		    },
+		    getSearchResult:{
+		    	url:baseUrl+'2/Product',
+		    	method:'GET',
+		    	params:{
+		          key:'@key',
+		        },
+		        isArray:true
 		    }
 		}
 	);
