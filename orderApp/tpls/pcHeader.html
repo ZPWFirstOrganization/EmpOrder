@@ -28,10 +28,10 @@
    <div class="nav">
      <div class="nav-inner page-width">
       <li class="menu" ng-repeat="Division in categories" ng-mouseenter="showList=!showList" ng-mouseleave="showList=!showList" ng-click='divisionClicked(Division)'>
-        <a>{{Division.name}}</a>
+        <a>{{Division.categoryName}}</a>
         <div class="submenu-wrapper" ng-show="showList" >
             <div class="submenu-inner" >
-                <a class="submenu" ng-repeat="Group in Division.class2" ng-click='groupClicked(Group,Division);$event.stopPropagation();'>{{Group.name}}</a>
+                <a class="submenu" ng-repeat="Group in Division.series" ng-click='groupClicked(Group,Division);$event.stopPropagation();'>{{Group.seriesName}}</a>
             </div>
         </div>
       </li>

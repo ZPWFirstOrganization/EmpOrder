@@ -35,32 +35,32 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 		},1000);
 	})
 	$scope.categories=apiCaller.getCategories(function(){
-		scopeData.homeDivisionName = $scope.categories[0].name;
-		scopeData.homeDivisionCode = $scope.categories[0].code;
+		scopeData.homeDivisionName = $scope.categories[0].categoryName;
+		scopeData.homeDivisionCode = $scope.categories[0].categoryCode;
 		if($stateParams.productClass == "" || $stateParams.productCode == "" || $stateParams.page == ""){
-			scopeMethod.changeState("1",$scope.categories[0].code,"1");
+			scopeMethod.changeState("1",$scope.categories[0].categoryCode,"1");
 		}else if($stateParams.productClass && $stateParams.productCode && $stateParams.page){
 			scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$stateParams.page);
 		}
 	});
 
 	$scope.divisionClicked=function(Division) {
-		scopeData.currentDivisionName = Division.name;
-		scopeData.divisionCode = Division.code;
+		scopeData.currentDivisionName = Division.categoryName;
+		scopeData.divisionCode = Division.categoryCode;
 		scopeData.currenGroupName = '';
-        scopeMethod.changeState("1",Division.code,"1");
+        scopeMethod.changeState("1",Division.categoryCode,"1");
 	}
 	$scope.groupClicked=function(Group,Division) {
-		scopeData.currentDivisionName = Division.name;
-		scopeData.divisionCode = Division.code;
-		scopeData.currenGroupName = Group.name;
-		scopeData.groupCode = Group.code;
-        scopeMethod.changeState("2",Group.code,"1");
+		scopeData.currentDivisionName = Division.categoryName;
+		scopeData.divisionCode = Division.categoryCode;
+		scopeData.currenGroupName = Group.seriesName;
+		scopeData.groupCode = Group.seriesCode;
+        scopeMethod.changeState("2",Group.seriesCode,"1");
 	}
 
 	$scope.logoClicked = function() {
 		scopeMethod.changeState("1","1","1");
-		scopeData.currentDivisionName = $scope.categories[0].name;
+		scopeData.currentDivisionName = $scope.categories[0].categoryName;
 		scopeData.currenGroupName = '';
 	}
 
