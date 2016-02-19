@@ -12,7 +12,8 @@
   <div class="clr"></div>
 </div>
 
-
+<div id="wrapper">
+    <div id="scroller">
 
 <div class="layout page-width">
   
@@ -43,6 +44,14 @@
     <div class="clr"></div>
   </div>
 </div>
+
+   
+        <div id="scroller-pullUp" class="scroller-pullUp mobile-only">
+            <span id="up-icon" class="icon-double-angle-up pull-up-icon">»</span>
+            <span id="pullUp-msg" class="pull-up-msg">上拉可以刷新</span>		
+        </div>
+    </div>
+</div>
     
   <!--pc分页-->    
   <div class="paginate-wrap pc-only">
@@ -62,5 +71,26 @@
     {{balance.myBalance}}
   </div>
 </a>
-
+<script>
+if($(window).width()<801)
+Hook.init({
+	wrapperId:"#wrapper",
+	scrollerId:"#scroller",
+	pullUpId:"#scroller-pullUp",
+	wrapperCss:{
+		"position": "absolute",
+		"z-index": 1,
+		"top": "0px",
+		"bottom": "0px",
+		"left": "0px",
+		"right":"0px",
+		overflow: "hidden"
+	},
+	distance:50,
+	callback:function(){
+	//do you ajax logic
+	alert("11");
+	}
+});
+</script>
 </div>
