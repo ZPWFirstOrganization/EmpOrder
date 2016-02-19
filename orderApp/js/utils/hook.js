@@ -5,7 +5,6 @@ var Hook = {
 	init:function(param){
 		var wrapperId = param.wrapperId;
 		var scrollerId = param.scrollerId;
-		var pullUpId = param.pullUpId;
 		var dis = typeof(param.distance) == "undefined"? 50:param.distance;
 		var callback = typeof(param.callback)=="function"?param.callback:function(){};
 		if($(wrapperId).length == 0){
@@ -15,12 +14,12 @@ var Hook = {
 		if($(scrollerId).length == 0){
 			console.log("there is no element id named " + scrollerId);
 			return;
+		}else{
+			$(scrollerId).append($('<div id="scroller-pullUp" class="scroller-pullUp mobile-only">'+
+				'<span id="up-icon" class="icon-double-angle-up pull-up-icon">»</span>'+
+				'<span id="pullUp-msg" class="pull-up-msg">上拉可以刷新</span>'+		
+        	'</div>'));
 		}
-		if($(pullUpId).length == 0){
-			console.log("there is no element id named " + pullUpId);
-			return;
-		}
-		
 		$(scrollerId).addClass("scroller");
 		$(wrapperId).css(param.wrapperCss);
 		myScroll,upIcon = $("#up-icon");
@@ -33,7 +32,7 @@ var Hook = {
 	});
 	myScroll.on("scroll",function(){
 		if(this.y!=0){
-			$(pullUpId).css({"display":"block"});
+			$("#scroller-pullUp").css({"display":"block"});
 		}					  
 		var y = this.y,
 			maxY = this.maxScrollY - y,
