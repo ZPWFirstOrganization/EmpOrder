@@ -5,8 +5,8 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	$scope.pages = [];
 	$scope.pageCount = 0
 	$scope.currentPage = $stateParams.page;
-	$scope.showYear = "选择年"
-	$scope.showMonth = "选择月"
+	// $scope.showYear = "选择年"
+	// $scope.showMonth = "选择月"	
 	$scope.pcSelectYear = null
     $scope.pcSelectMonth = null
 	// $scope.years = [
@@ -94,14 +94,16 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	  		$scope.secretary.userName = scopeData.secretaryName
 	  		scopeData.secretaryPhone = response[0].userPhone
 	  		$scope.secretary.userPhone = scopeData.secretaryPhone
-	  		setYearOprions()
+	  		initLizeSelecter()
 	  	})
 	}else{
 		$scope.secretary.userName = scopeData.secretaryName
 		$scope.secretary.userPhone = scopeData.secretaryPhone
-		setYearOprions()
+		initLizeSelecter()
 	}
-	function setYearOprions(){
+	var mobileSelectYear = ""
+    var mobileSelectMonth = ""
+	function initLizeSelecter(){
 		var now = 2016
   		//初始化年份
   		var yearObj
@@ -111,6 +113,55 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
   			yearObj.value = String(i)
   			$scope.years.push(yearObj)
   		};
+  		//初始化日期选择器
+		// alert($scope.pcSelectYear)
+		// alert($stateParams.orderDate)
+		var dateArray = $stateParams.orderDate.split("-")
+		var yearHolder = "" //= ($scope.pcSelectYear==null) ? "选择年" : $scope.pcSelectYear.name
+		var monthHolder = "" //= ($scope.pcSelectMonth==null) ? "选择月" : $scope.pcSelectMonth.name
+		$.each(dateArray, function(i,v){
+			if(i==0){
+				$.each($scope.years, function(i2,v2){
+					if(v==v2.value && v!=""){
+						yearHolder = v2.name
+						mobileSelectYear = v2.value
+						$scope.pcSelectYear = v2
+					}
+				})
+			}
+			if(i==1){
+				$.each($scope.months, function(i2,v2){
+					if(v==v2.value && v!=""){
+						monthHolder = v2.name
+						mobileSelectMonth = v2.value
+						$scope.pcSelectMonth = v2
+					}
+				})
+			}
+        });
+        if (yearHolder==""){
+        	$scope.pcSelectYear=$scope.years[0];
+        	yearHolder = "选择年"
+        }
+        if (monthHolder==""){
+        	$scope.pcSelectMonth=$scope.months[0];
+        	monthHolder = "选择月"
+        }
+  //       yearHolder = (yearHolder=="")? "选择年" : yearHolder
+		// monthHolder= (monthHolder=="")? "选择月" : monthHolder
+		$("#pcYearSelecter").select2({
+		    width: '100%',
+	        minimumResultsForSearch: Infinity,
+	        placeholder: yearHolder
+		});
+		$("#pcMonthSelecter").select2({
+		    width: '100%',
+	        minimumResultsForSearch: Infinity,
+	        placeholder: monthHolder
+		});
+		// $scope.showYear = yearHolder
+		// $scope.showMonth = monthHolder
+		// console.log(mobileSelectYear,",",mobileSelectMonth)
 	}
     $("body").click(function(event){ 
         if(event.target!=$('.select-content')[0] && event.target!=$('.select-arrow')[0] && event.target!=$('.select-content')[1] && event.target!=$('.select-arrow')[1] ){
@@ -125,9 +176,6 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
         }
 
     });
-
-    var selectYear = ""
-    var selectMonth = ""
     $scope.selectList = function(flag){
      	// alert(flag)
      	if (flag=="year"){
@@ -153,48 +201,11 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		}
 		// showModalBg($(".option-list"))
     }
-    //mobile 日期选择
-    $scope.selectItem = function(flag,data){
-     	if(flag=="year"){
-     		$scope.showYear = data.name
-     		selectYear = data.value
-     	}else{
-     		$scope.showMonth = data.name
-     		selectMonth = data.value
-     	}
- 		if (selectYear != "" && selectMonth != ""){
- 			var date = selectYear +"-"+ selectMonth
- 			$("body").showLoading(-150);
- 			// $state.go('index.historyOrder',
- 			// 	{
- 			// 		page:1,
- 			// 		orderParam:{year:$scope.pcSelectYear,month:$scope.pcSelectMonth}
- 			// 	})
-			// orderDate
- 			queryOrderInfo(date)
- 		}
-    }
-   
-    if (angular.isDefined($stateParams.orderParam.year) && angular.isDefined($stateParams.orderParam.month)){
-    	// $scope.pcSelectYear = $stateParams.orderParam.year
-    	$.each($scope.years, function(i,v){
-    		if (v.value == $stateParams.orderParam.year.value){
-    			$scope.pcSelectYear = v
-    		}
-        });
-        $.each($scope.months, function(i,v){
-    		if (v.value == $stateParams.orderParam.month.value){
-    			$scope.pcSelectMonth = v
-    		}
-        });
-    }
-    //pc 日期选择
-    $scope.pcSelectDate = function(){
-    	// console.log($scope.pcSelectYear)
+    function datePickerChange(){
     	if($scope.pcSelectYear != null && $scope.pcSelectMonth != null){
     		if ($scope.pcSelectYear.value != "" && $scope.pcSelectMonth.value != ""){
 	    		var date = $scope.pcSelectYear.value +"-"+ $scope.pcSelectMonth.value
-	 			$("body").showLoading(-150);
+	 			// $("body").showLoading(-150);
 	 			// queryOrderInfo(date)
 	 			$state.go('index.historyOrder',
 	 				{
@@ -203,6 +214,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	 					orderDate:date
 	 				})
 	 			$("body").hideLoading();
+	 		//两个都没选择,查询所有订单
  			}else if($scope.pcSelectYear.value == "" && $scope.pcSelectMonth.value == "") {
  				$state.go('index.historyOrder',
  				{
@@ -212,28 +224,58 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
  				})
  			}
     	}
-    	// else if($scope.pcSelectYear == null && $scope.pcSelectMonth == null){
-    	// 	$state.go('index.historyOrder',
- 				// {
- 				// 	page:1,
- 				// 	orderDate:"",
- 				// 	orderParam:{}
- 				// })
-    	// }
     }
-	//初始化日期选择器
-	var yearHolder = ($scope.pcSelectYear==null) ? "选择年" : $scope.pcSelectYear.name
-	var monthHolder = ($scope.pcSelectMonth==null) ? "选择月" : $scope.pcSelectMonth.name
-	$("#pcYearSelecter").select2({
-	    width: '100%',
-        minimumResultsForSearch: Infinity,
-        placeholder: yearHolder
-	});
-	$("#pcMonthSelecter").select2({
-	    width: '100%',
-        minimumResultsForSearch: Infinity,
-        placeholder: monthHolder
-	});
+    //mobile 日期选择
+    $scope.selectItem = function(flag,data){
+     	if(flag=="year"){
+     		$scope.pcSelectYear = data
+     		// $scope.showYear = data.name
+     		// mobileSelectYear = data.value
+     	}else{
+     		$scope.pcSelectMonth = data
+     		// $scope.showMonth = data.name
+     		// mobileSelectMonth = data.value
+     	}
+   //   	if ($scope.pcSelectYear.value != "" && $scope.pcSelectMonth.value != ""){
+   //  		var date = $scope.pcSelectYear.value +"-"+ $scope.pcSelectMonth.value
+ 		// 	// $("body").showLoading(-150);
+ 		// 	// queryOrderInfo(date)
+ 		// 	$state.go('index.historyOrder',
+ 		// 		{
+ 		// 			page:1,
+ 		// 			orderParam:{year:$scope.pcSelectYear,month:$scope.pcSelectMonth},
+ 		// 			orderDate:date
+ 		// 		})
+ 		// 	$("body").hideLoading();
+	 	// 	//两个都没选择,查询所有订单
+			// }else if($scope.pcSelectYear.value == "" && $scope.pcSelectMonth.value == "") {
+			// 	$state.go('index.historyOrder',
+			// 	{
+			// 		page:1,
+			// 		orderDate:"",
+			// 		orderParam:{}
+			// 	})
+			// }
+			datePickerChange()	
+    }
+   
+    // if (angular.isDefined($stateParams.orderParam.year) && angular.isDefined($stateParams.orderParam.month)){
+    // 	// $scope.pcSelectYear = $stateParams.orderParam.year
+    // 	$.each($scope.years, function(i,v){
+    // 		if (v.value == $stateParams.orderParam.year.value){
+    // 			$scope.pcSelectYear = v
+    // 		}
+    //     });
+    //     $.each($scope.months, function(i,v){
+    // 		if (v.value == $stateParams.orderParam.month.value){
+    // 			$scope.pcSelectMonth = v
+    // 		}
+    //     });
+    // }
+    //pc 日期选择change事件
+    $scope.pcSelectDate = datePickerChange
+
+	
 })
 
  orderApp.filter('stateFilter',function(){
