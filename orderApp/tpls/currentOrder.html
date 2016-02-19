@@ -71,7 +71,7 @@
                     <div class="clr"></div>
                 </div>        
             </div>
-            <div class="order-bottom-wrapper pc-only">
+            <div class="order-bottom-wrapper pc-only" ng-show="isHaveData">
                 <div class="row1">
                 您的季度余额还剩:<font class="pink06">￥{{resAmount}}</font>  共 <font class="pink06">{{count}}</font> 件商品，实付金额:<font class="pink06">￥{{payAmount}}</font>
                 </div> 
@@ -81,7 +81,7 @@
                 部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}<br>
                 </div>
             </div>
-            <div class="order-action-wrapper pc-only">
+            <div class="order-action-wrapper pc-only" ng-show="isHaveData">
                 <a action="cancel" class=" button button-gray w15 secondary" ng-show="isCanShop" ng-click="orderCancel()">取消订单</a>
                 <a action="confirm" class=" button button-pink w15 primary" ng-show="isCanShop" ng-click ="countinueShop()">继续购物</a>       
 
@@ -97,7 +97,7 @@
 </div>
 
 
-<div class="mobile-action-wrapper mobile-only">
+<div class="mobile-action-wrapper mobile-only" ng-show="isHaveData">
     <div class="row1">
         我同意以上金额从我当月薪资中扣除<br>
         我已了解，根据公司政策要求，员工不得以任何形式、价格转卖公司产品<br>
