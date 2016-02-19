@@ -37,9 +37,6 @@
 
 
 <!--pc mobile产品列表-->
-<div class="bread-crumb mobile-only"><a ui-sref="index.productList({productClass:1,productCode:1,page:1})" class="back"><b>&lt;</b> 首页</a><div class="title">历史订单</div></div>
-<div id="wrapper">
-    <div id="scroller"> 
 <div class="layout page-width">
     <div class="his-content-wrapper">
         <div class="left">
@@ -50,7 +47,7 @@
             </div>
         
         </div>
-        
+        <div class="bread-crumb mobile-only"><a ui-sref="index.productList({productClass:1,productCode:1,page:1})" class="back"><b>&lt;</b> 首页</a><div class="title">历史订单</div></div>
         
 		<!--pc产品列表-->        
         <div class="right orderHistory pc-only">
@@ -142,7 +139,7 @@
 		<!--mobile产品列表-->
         
         <div class="right orderHistory mobile-only">
-      
+            
             
         	<div class="his-top-wrapper">
             	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}} </div>
@@ -179,7 +176,8 @@
                     </div> 
                 </a>                            
             </div>           
-   
+
+            
           
                   
             
@@ -190,8 +188,6 @@
     
     </div>
 </div>
-    </div>
-</div> 
 </div>
 <script>
     

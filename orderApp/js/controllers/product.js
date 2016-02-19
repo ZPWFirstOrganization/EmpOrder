@@ -124,7 +124,11 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
 	$scope.nav1Clicked = function () {
         switch (scopeData.sourcePageId){
 		case 0:
-            scopeMethod.changeState('1',scopeData.homeDivisionCode,'1');
+            scopeMethod.changeState('1',scopeData.homeDivisionCode,'1',function(){
+                $("body").hideLoading();
+            },function(){
+                $("body").hideLoading();
+            });
             scopeData.currentDivisionName = scopeData.homeDivisionName;
             scopeData.currenGroupName = '';
         
@@ -136,13 +140,21 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
 
     //点击大类
 	$scope.nav2Clicked = function () {
-		scopeMethod.changeState('1',scopeData.divisionCode,'1');
+		scopeMethod.changeState('1',scopeData.divisionCode,'1',function(){
+                $("body").hideLoading();
+            },function(){
+                $("body").hideLoading();
+            });
 		scopeData.currenGroupName = '';
 	}
 
     //点击小类
 	$scope.nav3Clicked = function () {
-		scopeMethod.changeState(scopeData.currentProductClass,scopeData.groupCode,'1');
+		scopeMethod.changeState(scopeData.currentProductClass,scopeData.groupCode,'1',function(){
+                $("body").hideLoading();
+            },function(){
+                $("body").hideLoading();
+            });
 	}    
     
 	//产品数量得到焦点

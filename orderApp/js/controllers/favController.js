@@ -142,7 +142,11 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     }
 
     $scope.nav1Clicked = function () {
-        scopeMethod.changeState('1',scopeData.homeDivisionCode,'1');
+        scopeMethod.changeState('1',scopeData.homeDivisionCode,'1',function(){
+                $("body").hideLoading();
+            },function(){
+                $("body").hideLoading();
+            });
         scopeData.currentDivisionName = scopeData.homeDivisionName;
         scopeData.currenGroupName = '';
     }

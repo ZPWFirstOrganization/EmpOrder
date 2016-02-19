@@ -27,6 +27,8 @@ orderApp.controller('mbNavController',function ($scope,$stateParams,apiCaller,sc
 			}
 		}
 		$("body").hideLoading();
+	},function(){
+		$("body").hideLoading();
 	});
 
 	$scope.divisionClicked = function(){
@@ -59,13 +61,21 @@ orderApp.controller('mbNavController',function ($scope,$stateParams,apiCaller,sc
 		$scope.GroupName = '系列';
 		$scope.isDLShow = false;
 		hideModalBg();
-		scopeMethod.changeState("1",Division.categoryCode,"1");
+		scopeMethod.changeState("1",Division.categoryCode,"1",function(){
+				$("body").hideLoading();
+			},function(){
+				$("body").hideLoading();
+			});
 	}
 	$scope.groupItemClicked = function(Group) {
 		$scope.GroupName = Group.seriesName;
 		$scope.isGLShow = false;
 		hideModalBg();
-		scopeMethod.changeState("2",Group.seriesCode,"1");
+		scopeMethod.changeState("2",Group.seriesCode,"1",function(){
+				$("body").hideLoading();
+			},function(){
+				$("body").hideLoading();
+			});
 	}
 
 	$("body").click(function(event){

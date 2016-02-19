@@ -44,17 +44,32 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 		scopeData.homeDivisionName = $scope.categories[0].categoryName;
 		scopeData.homeDivisionCode = $scope.categories[0].categoryCode;
 		if($stateParams.productClass == "" || $stateParams.productCode == "" || $stateParams.page == ""){
-			scopeMethod.changeState("1",$scope.categories[0].categoryCode,"1");
+			scopeMethod.changeState("1",$scope.categories[0].categoryCode,"1",function(){
+				$("body").hideLoading();
+			},function(){
+				$("body").hideLoading();
+			});
 		}else if($stateParams.productClass && $stateParams.productCode && $stateParams.page){
-			scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$stateParams.page);
+			scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$stateParams.page,function(){
+				$("body").hideLoading();
+			},function(){
+				$("body").hideLoading();
+			});
 		}
+		
+	},function(){
+		$("body").hideLoading();
 	});
 
 	$scope.divisionClicked=function(Division) {
 		scopeData.currentDivisionName = Division.categoryName;
 		scopeData.divisionCode = Division.categoryCode;
 		scopeData.currenGroupName = '';
-        scopeMethod.changeState("1",Division.categoryCode,"1");
+        scopeMethod.changeState("1",Division.categoryCode,"1",function(){
+				$("body").hideLoading();
+			},function(){
+				$("body").hideLoading();
+			});
 	}
 
 	$scope.groupClicked=function(Group,Division) {
@@ -62,11 +77,19 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 		scopeData.divisionCode = Division.categoryCode;
 		scopeData.currenGroupName = Group.seriesName;
 		scopeData.groupCode = Group.seriesCode;
-        scopeMethod.changeState("2",Group.seriesCode,"1");
+        scopeMethod.changeState("2",Group.seriesCode,"1",function(){
+				$("body").hideLoading();
+			},function(){
+				$("body").hideLoading();
+			});
 	}
 
 	$scope.logoClicked = function() {
-		scopeMethod.changeState("1","1","1");
+		scopeMethod.changeState("1","1","1",function(){
+				$("body").hideLoading();
+			},function(){
+				$("body").hideLoading();
+			});
 		scopeData.currentDivisionName = $scope.categories[0].categoryName;
 		scopeData.currenGroupName = '';
 	}

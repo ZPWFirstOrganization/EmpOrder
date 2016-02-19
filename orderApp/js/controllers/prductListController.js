@@ -93,7 +93,11 @@ orderApp.controller('prductListController',
 			$scope.currentPage = page;
 		}
 
-		scopeMethod.changeState(scopeData.currentProductClass,scopeData.currentProductCode,$scope.currentPage);
+		scopeMethod.changeState(scopeData.currentProductClass,scopeData.currentProductCode,$scope.currentPage,function(){
+				$("body").hideLoading();
+			},function(){
+				$("body").hideLoading();
+			});
 	}
 
     $scope.addCartClicked = function(Product) {
@@ -159,18 +163,30 @@ orderApp.controller('prductListController',
 	}
 
 	$scope.nav1Clicked = function () {
-		scopeMethod.changeState('1',scopeData.homeDivisionCode,'1');
+		scopeMethod.changeState('1',scopeData.homeDivisionCode,'1',function(){
+				$("body").hideLoading();
+			},function(){
+				$("body").hideLoading();
+			});
 		scopeData.currentDivisionName = scopeData.homeDivisionName;
 		scopeData.currenGroupName = '';
 	}
 
 	$scope.nav2Clicked = function () {
-		scopeMethod.changeState('1',scopeData.divisionCode,'1');
+		scopeMethod.changeState('1',scopeData.divisionCode,'1',function(){
+				$("body").hideLoading();
+			},function(){
+				$("body").hideLoading();
+			});
 		scopeData.currenGroupName = '';
 	}
 
 	$scope.nav3Clicked = function () {
-		scopeMethod.changeState(scopeData.currentProductClass,scopeData.groupCode,'1');
+		scopeMethod.changeState(scopeData.currentProductClass,scopeData.groupCode,'1',function(){
+				$("body").hideLoading();
+			},function(){
+				$("body").hideLoading();
+			});
 	}
 
 });

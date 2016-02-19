@@ -20,12 +20,12 @@ orderApp.factory('scopeData',function() {
 
 orderApp.service('scopeMethod',function($state,scopeData,apiCaller) {
 	return{
-		changeState:function(ProductClass,ProductCode,Page) {
+		changeState:function(ProductClass,ProductCode,Page,suc,err) {
 			scopeData.currentProductClass = ProductClass;
 			scopeData.currentProductCode = ProductCode;
 			scopeData.currentPage = Page;
 			$state.go('index.productList',{productClass:scopeData.currentProductClass,productCode:scopeData.currentProductCode,page:scopeData.currentPage});
-			apiCaller.getProductListByStates();
+			apiCaller.getProductListByStates(suc,err);
 		},
 		getSearchTips:function(){
 
@@ -44,13 +44,23 @@ orderApp.service('scopeMethod',function($state,scopeData,apiCaller) {
 
 orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,scopeData) {
 	return{
-		getProductListByStates:function(){
+		getProductListByStates:function(suc,err){
 			scopeData.ProductionList = ApiService.getProductList(
 			{
 				code:scopeData.currentProductCode,//大类传大类的id,小类传小类的CONFIG_VALUE
 				productClass:scopeData.currentProductClass,//大类为1，小类为2
 				pageNum:scopeData.currentPage,
 				userAccount:'123123'
+			},
+			function(res){
+				if (suc) {
+					suc(res);
+				}
+			},
+			function(res){
+				if(err){
+					err(res);
+				}
 			})
 		},
 		getProductListByPage:function(page,suc,err){
@@ -72,13 +82,18 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				}
 			});
 		},
-		getCategories:function(callbackFn){
+		getCategories:function(suc,err){
 			return ApiService.getCategories(
 				function(response){
-					if (callbackFn) {
-						callbackFn();
+					if (suc) {
+						suc();
 					}
-			});
+				},
+				function(response){
+					if (err) {
+						err();
+					}
+				});
 		},
 		postOrderedProduct:function(Product,count,suc,err) {
 			return ApiService.postOrderedProduct({
