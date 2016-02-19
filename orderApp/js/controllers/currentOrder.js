@@ -1,6 +1,6 @@
 orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
 //  http://wzdcbdeo01:8090/mlk/
-orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,currentOrderServ,deleteServ,apiCaller,scopeData){
+orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,scopeData){
 	$scope.secretary = {userName:"",userPhone:""}
 	$scope.count = 0
 	$scope.resAmount = 0
@@ -177,9 +177,20 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,c
 
 			}
 		});
+
 	}
 	$scope.countinueShop = function(){
 		$state.go("index.productList",{productClass:1,productCode:1,page:1})
+	}
+
+	$scope.nav1Clicked = function () {
+		scopeMethod.changeState('1',scopeData.homeDivisionCode,'1',function(){
+				$("body").hideLoading();
+			},function(){
+				$("body").hideLoading();
+			});
+		scopeData.currentDivisionName = scopeData.homeDivisionName;
+		scopeData.currenGroupName = '';
 	}
 });
 
@@ -309,3 +320,4 @@ orderApp.factory('common', function(){
 orderApp.factory('utils',function(){
 	return this
 })
+

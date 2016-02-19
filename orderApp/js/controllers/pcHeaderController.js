@@ -70,6 +70,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 			},function(){
 				$("body").hideLoading();
 			});
+		// $scope.showList = false;
 	}
 
 	$scope.groupClicked=function(Group,Division) {
@@ -82,6 +83,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 			},function(){
 				$("body").hideLoading();
 			});
+		// $scope.showList = false;
 	}
 
 	$scope.logoClicked = function() {
