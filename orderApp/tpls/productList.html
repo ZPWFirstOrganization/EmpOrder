@@ -13,48 +13,37 @@
 </div>
 
 
-<!--<div id="wrapper">
-    <div id="scroller">-->
-    
-        <div class="layout page-width" >
-            <div class="home-content-wrapper">
-        <div class="tips mobile-only" ng-if=false>可下单日期为每月1到17日，您当前日期不可下单</div>
-        <div class="content-inner">
-        <div class="product-wrapper" ng-repeat="Product in pdList.products" ng-init="Product.productStatus=='0'?btnClass = 'button-s button-gray add-cart':btnClass = 'button-s button-gray button-disable add-cart'";>
-          <div class="product-photo">
-            <div class="no-product" ng-show="Product.productStatus != 0"></div>
-            <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ui-sref="index.product({productCode:{{Product.productCode}}})" style="cursor:pointer"/>
-          </div>
-          <div class="product-info">
-            <a ng-class="{true:'cancelfavorite',false:'favorite'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>
-            <a class="product-name" ui-sref="index.product({productCode:{{Product.productCode}}})">{{Product.productName}}</a>
-            <div class="row2">
-              <span class="new-price">￥{{Product.productRealPrice}}</span>
-              <div class="product-no">{{Product.productCode}}</div>
-            </div>
-            <div class="product-action" ng-init="falg = Product.productCode">
-              <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
-              <input type="tel" class="number" id="{{Product.productCode}}" ng-click="numberClicked(Product)"  placeholder="数量" maxlength="3" ng-model="inputTexts[Product.productCode]" ></input>
-              <a class="btn add" ng-click="countAdded(Product)"></a>
-              <a class="{{btnClass}}" ng-click="addCartClicked(Product)">加入当月订单</a>
-            </div>
-          </div>
-          <div class="clr"></div>
+
+<div class="layout page-width">
+  
+  <div class="home-content-wrapper">
+    <div class="tips mobile-only" ng-if=false>可下单日期为每月1到17日，您当前日期不可下单</div>
+    <div class="content-inner">
+    <div class="product-wrapper" ng-repeat="Product in pdList.products" ng-init="Product.productStatus=='0'?btnClass = 'button-s button-gray add-cart':btnClass = 'button-s button-gray button-disable add-cart'";>
+      <div class="product-photo">
+        <div class="no-product" ng-show="Product.productStatus != 0"></div>
+        <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ui-sref="index.product({productCode:'{{Product.productCode}}'})" style="cursor:pointer"/>
+      </div>
+      <div class="product-info">
+        <a ng-class="{true:'cancelfavorite',false:'favorite'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>
+        <a class="product-name" ui-sref="index.product({productCode:'{{Product.productCode}}'})">{{Product.productName}}</a>
+        <div class="row2">
+          <span class="new-price">￥{{Product.productRealPrice}}</span>
+          <div class="product-no">{{Product.productCode}}</div>
         </div>
-        <div class="clr"></div>
+        <div class="product-action" ng-init="falg = Product.productCode">
+          <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
+          <input type="tel" class="number" id="{{Product.productCode}}" ng-click="numberClicked(Product)"  placeholder="数量" maxlength="3" ng-model="inputTexts[Product.productCode]" ></input>
+          <a class="btn add" ng-click="countAdded(Product)"></a>
+          <a class="{{btnClass}}" ng-click="addCartClicked(Product)">加入当月订单</a>
         </div>
+      </div>
+      <div class="clr"></div>
     </div>
-        </div>
-    
- <!--   
-        <div id="scroller-pullUp" class="scroller-pullUp mobile-only">
-            <span id="up-icon" class="icon-double-angle-up pull-up-icon">»</span>
-            <span id="pullUp-msg" class="pull-up-msg">上拉可以刷新</span>		
-        </div>
-    </div>
+    <div class="clr"></div>
+  </div>
 </div>
- -->		
-   
+    
   <!--pc分页-->    
   <div class="paginate-wrap pc-only">
     <div class="dataTables_paginate">
@@ -73,27 +62,5 @@
     {{balance.myBalance}}
   </div>
 </a>
-
-<script>
-/*if($(window).width()<801)
-Hook.init({
-	wrapperId:"#wrapper",
-	scrollerId:"#scroller",
-	pullUpId:"#scroller-pullUp",
-	wrapperCss:{
-		"position": "absolute",
-		"z-index": 1,
-		"top": "0px",
-		"bottom": "0px",
-		"left": "0px",
-		"right":"0px",
-		overflow: "hidden"
-	},
-	distance:50,
-	callback:function(){
-	//do you ajax logic
-	}
-});*/
-</script>
 
 </div>

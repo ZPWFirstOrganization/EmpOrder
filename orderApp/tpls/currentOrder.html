@@ -29,7 +29,7 @@
             
             <div class="order-mid-wrapper">
             
-                <div class="empty" ng-show="!isHaveData">
+                <div class="empty" ng-show="{{!isHaveData}}">
                     <div class="icon"></div>
                     <div class="wording">
                     <h1>当月还无订单</h1>
@@ -41,15 +41,15 @@
         
                 </div>
 
-                <div class="order-product-wrapper" ng-repeat="product in currentOrderData.product" ng-show="isHaveData">
+                <div class="order-product-wrapper" ng-repeat="product in currentOrderData.product">
                     <div class="order-product-photo">
                    
-                    <img ng-src="{{product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ui-sref="index.product({productCode:{{product.productCode}}})"/>
+                    <img ng-src="{{product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ui-sref="index.product({productCode:'{{product.productCode}}'})"/>
                     </div>
                     <div class="order-product-info">
                        
                        <div class="row1"> 
-                           <a class="order-product-name" ui-sref="index.product({productCode:{{product.productCode}}})">{{product.productName}}</a>
+                           <a class="order-product-name" ui-sref="index.product({productCode:'{{product.productCode}}'})">{{product.productName}}</a>
                            <div class="order-product-no pc-only">{{product.productCode}}</div> 
                        </div>
                        <div class="row2">               
