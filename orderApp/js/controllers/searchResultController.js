@@ -4,6 +4,7 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     $scope.inputTexts = [];
     $scope.currentPage = $stateParams.page;
     $scope.pageNumCount = 1;
+    $scope.totalCount = 0;
     $scope.searchKey = $stateParams.key;
     var initData = function(){
         $scope.balance = apiCaller.getBalance();
@@ -13,6 +14,7 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
         apiCaller.getSearchResult($stateParams.key,$stateParams.page,function(res){
             console.log("getSearchResult",res)
             $scope.searchResult = res.products;
+            $scope.totalCount = res.totalCount;
             $scope.pageNumCount = res.pageNumCount;
             for (var i = 0; i < res.pageNumCount; i++) {
                 $scope.pages.push(i+1)
@@ -35,6 +37,35 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     }
 
     initData();
+    //手机上拉刷新
+    if($(window).width()<801)
+        Hook.init({
+            wrapperId:"#wrapper",
+            scrollerId:"#scroller",
+            wrapperCss:{
+                "position": "absolute",
+                "z-index": 1,
+                "top": "0px",
+                "bottom": "0px",
+                "left": "0px",
+                "right":"0px",
+                overflow: "hidden"
+            },
+            distance:50,
+            callback:function(){
+                $("body").showLoading(-150);
+                apiCaller.getSearchResult($stateParams.key,++$scope.currentPage,function(res){
+                    $scope.searchResult =
+                     ($scope.searchResult).concat(res.products);
+                    console.log($scope.searchResult) 
+                    console.log(res)
+                     $("body").hideLoading();
+                },function(){
+                    $("body").hideLoading();
+                    showModal({msg:"没有更多产品了!"});
+                })
+            }
+    });
 
     $scope.pageNumClicked = function(page){
         if($scope.currentPage == page){
@@ -72,29 +103,20 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     }
 
     $scope.favoriteClicked = function(Product) {
-        
-        showConfirm({
-            msg:"是否取消收藏？",
-            confirmed:function(){
-                $("body").showLoading(-150);
-                apiCaller.deleteFav(Product,function() {
-                    showModal({msg:"已取消收藏"});
-                    if($scope.favList[1]){
-                        $state.go('index.favorites',{page:$scope.currentPage});
-                        initData();
-                    }else{
-                        if($scope.currentPage > 1){
-                            $state.go('index.favorites',{page:($scope.currentPage-1)});
-                        }else{
-                            $state.go('index.favorites',{page:$scope.currentPage});
-                        }
-                        initData();
-                    }
-                    $("body").hideLoading();
-                });
-            }
-        });
-        
+        $("body").showLoading(-150);
+        if(!Product.isFavorite){
+            apiCaller.postFav(Product,function() {
+                showModal({msg:"添加到我的收藏"});
+                Product.isFavorite = true
+                $("body").hideLoading();
+            })
+        }else{
+            Product.isFavorite = false;
+            apiCaller.deleteFav(Product,function() {
+                showModal({msg:"已取消收藏"});
+                $("body").hideLoading();
+            })
+        }
     }
 
     $scope.countSubtracted = function(Product){

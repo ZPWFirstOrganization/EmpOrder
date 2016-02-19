@@ -5,6 +5,9 @@
     <div class="clr"></div>
 </div>
 
+<div id="wrapper">
+    <div id="scroller">
+
 <div class="layout page-width">
     
     <div class="sr-content-wrapper">
@@ -15,7 +18,7 @@
           <div class="title">搜索结果</div>
         </div>
     
-        <div class="sr-tips mobile-only"> 一共搜索到<span class="pink06">4</span>个<span class="pink06">{{searchKey}}</span>产品</div>
+        <div class="sr-tips mobile-only"> 一共搜索到<span class="pink06">{{totalCount}}</span>个<span class="pink06">{{searchKey}}</span>产品</div>
         <div class="sr-content-inner">
 
 
@@ -35,7 +38,7 @@
                 </div>
                 
                 <div class="sr-product-info">
-                   <a action="fav" class="sr-cancelfavorite" ng-click="favoriteClicked(Product)"></a>
+                   <a action="fav" ng-class="{true:'sr-cancelfavorite',false:'sr-favorite'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>
                    <a class="sr-product-name" ui-sref="index.product({productCode:{{Product.productCode}}})">{{Product.productName}}</a>
                    <div class="sr-row2">               
                        <span class="sr-new-price">￥{{Product.productRetailPrice}}</span>
@@ -54,7 +57,9 @@
             <div class="clr"></div>
         </div>
     </div>
-    
+
+    </div>
+</div>
     <!--pc分页-->    
     
     <div class="paginate-wrap pc-only" ng-if="!isResultEmpty">

@@ -53,7 +53,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				userAccount:'123123'
 			})
 		},
-		getProductListByPage:function(page,callbackFn){
+		getProductListByPage:function(page,suc,err){
 			ApiService.getProductList(
 			{
 				code:scopeData.currentProductCode,//大类传大类的id,小类传小类的CONFIG_VALUE
@@ -61,11 +61,14 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				pageNum:page,
 				userAccount:'123123'
 			},
-			function(response){
-				scopeData.ProductionList = response;
-				scopeData.currentPage = page;
-				if (callbackFn) {
-					callbackFn();
+			function(res){
+				if (suc) {
+					suc(res);
+				}
+			},
+			function(res){
+				if(err){
+					err(res);
 				}
 			});
 		},
@@ -196,7 +199,8 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getSearchResult:function(searchKey,Page,suc,err) {
 			return ApiService.getSearchResult({
 				key:searchKey,
-				pageNum:Page
+				pageNum:Page,
+				userAccount:'123123'
 			},
 			function(res){
 				if(suc){

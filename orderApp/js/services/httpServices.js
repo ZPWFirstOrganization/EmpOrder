@@ -119,7 +119,8 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 		    	method:'GET',
 		    	params:{
 		          key:'@key',
-		          pageNum:'@pageNum'
+		          pageNum:'@pageNum',
+		          userAccount:'@userAccount'
 		        },
 		        isArray:false
 		    }
