@@ -4,7 +4,7 @@
 
 <!--pc面包屑-->
 <div class="layout page-width pc-only">
-	<div class="bread-crumb"><a href="index.html">首页</a><a>&gt;</a><a href="#">历史订单</a></div>
+	<div class="bread-crumb"><a ui-sref="index.productList({productClass:1,productCode:1,page:1})">首页</a><a>&gt;</a><a>历史订单</a></div>
 
     <div class="clr"></div>
 </div>
@@ -14,14 +14,14 @@
 
     <div class="select-wrap  fl" action="select" cname="year" ng-click="selectList('year')">
 
-        <div class="select-content">{{showYear}}</div>
+        <div class="select-content">{{pcSelectYear.name}}</div>
         <div class="select-arrow"></div>
     </div>
     
 
     <div class="select-wrap  fr" action="select" cname="month" ng-click="selectList('month')">
 
-        <div class="select-content">{{showMonth}}</div>
+        <div class="select-content">{{pcSelectMonth.name}}</div>
         <div class="select-arrow"></div>
     </div> 
     <div class="clr"></div>  
@@ -42,22 +42,23 @@
         <div class="left">
             <div class="sider-menu-wrapper">
             <a class="sider-menu " ui-sref="index.currentOrder">当月订单</a>
-            <a class="sider-menu active" ui-sref="index.historyOrder({page:1,orderDate:''})">历史订单</a>
+            <a class="sider-menu active" ui-sref="index.historyOrder({page:1,orderDate:'',orderParam:{}})">历史订单</a>
             <a class="sider-menu" ui-sref="index.personInfo">个人信息</a>
             </div>
         
         </div>
-        <div class="bread-crumb mobile-only"><a onClick="history.back()" class="back"><b>&lt;</b> 首页</a><div class="title">历史订单</div></div>
+        <div class="bread-crumb mobile-only"><a ui-sref="index.productList({productClass:1,productCode:1,page:1})" class="back"><b>&lt;</b> 首页</a><div class="title">历史订单</div></div>
         
 		<!--pc产品列表-->        
         <div class="right orderHistory pc-only">
             
             
-        	<div class="top-wrapper">
+        	<div class="his-top-wrapper">
             	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div>
-                <div class="select-wrapper">
-                    <select class="select2" ng-model="pcSelectMonth" ng-change="pcSelectDate()" ng-options="(m.name) for m in months">
-                        <option value="">{{pcSelectMonth.value}}</option>
+                <div class="his-select-wrapper">
+                    <select class="select2" id="pcMonthSelecter" ng-model="pcSelectMonth" ng-change="pcSelectDate()" ng-options="m.name for m in months">
+                        <!-- <option ng-selected="pcSelectMonth" value="pcSelectYear.value">{{pcSelectMonth.value}}</option> -->
+                        <option value=""></option>
                     </select>
                     <!-- <select class="select2">
                     <option value="">选择月</option>
@@ -66,17 +67,20 @@
                     <option ng-repeat="month in months" value="month.value" ng-click="choice()">{{month.name}}</option>
                     </select> -->
                 </div>                  
-                <div class="select-wrapper">
-                    <select class="select2" ng-model="pcSelectYear" ng-change="pcSelectDate()" ng-options="(y.name) for y in years">
-                        <option value="">{{pcSelectYear.value}}</option>
+                <div class="his-select-wrapper">
+                    <select class="select2" id="pcYearSelecter" ng-model="pcSelectYear" ng-change="pcSelectDate()" ng-options="y.name for y in years">
+                        <!-- <option ng-selected="pcSelectYear" value="">{{pcSelectYear.name}}</option> -->
+                        <option value=""></option>
+
                     </select>
+
 <!--                     <select class="select2">
                     <option value="">选择年</option>
                     <option value="2016">2016</option>
                     <option ng-repeat="year in years" value="year.value">{{year.name}}</option>
              
                     </select> -->
-                </div>    
+                </div>  
                 <div class="clr"></div>
             </div>
             
@@ -89,7 +93,7 @@
                         <h3>您还没有开始购物商品，去购物吧</h3>
                         </div>
                         <div class="btn">
-                        <a class="button button-gray w100">去购物</a>
+                        <a class="button button-gray w100" ui-sref="index.productList({productClass:1,productCode:1,page:1})">去购物</a>
                         </div>
             
                     </div>
@@ -150,7 +154,7 @@
                         <h3>您还没有开始购物商品，去购物吧</h3>
                         </div>
                         <div class="btn">
-                        <a class="button button-gray w100">去购物</a>
+                        <a class="button button-gray w100" ui-sref="index.productList({productClass:1,productCode:1,page:1})">去购物</a>
                         </div>
             
                     </div>

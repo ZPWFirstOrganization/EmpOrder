@@ -21,7 +21,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,c
   	//初始化余额
   	currentOrderServ.getResAmount({kind: 'User',myBalanceAccount:'123123'},function(response){
   		$scope.resAmount = parseFloat(response.myBalance)
-  		$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(1) : (2000-$scope.resAmount).toFixed(1)
+  		$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(1)
   	})
   	//初始化商品数量
   	currentOrderServ.getCount({kind: 'Order',userAccount:'123123'},function(response){
@@ -43,14 +43,16 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,c
 	currentOrderServ.getCurrentOrder({kind:'Order',userAccount:'123123',orderDate:''},function(response){
 	    
 	    $scope.currentOrderData = response[0];
-	    // console.log($scope.currentOrderData.product[0]);
+	    //无商品
 	    if (angular.isUndefined($scope.currentOrderData)){
-	    	$scope.currentOrderData = {}
+	    	$scope.currentOrderData = {product:[]}
 	    }
 	    if ($scope.currentOrderData.product.length == 0 ){
 	    	$scope.isHaveData = false
 		}
 	    $("body").hideLoading();
+  	},function(response){
+  		$("body").hideLoading();
   	})
 	var oldCount;
     $scope.countFocus = function(prodCount,id){
@@ -58,6 +60,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,c
 		$("#"+id).select();
 	};
 	$scope.countBlur = function(prodCount,index){
+		prodCount = String(prodCount)
 		prodCount = prodCount.replace(/\D/g,'')
 		if (prodCount == "" || parseInt(prodCount) <= 0 ){
 			$scope.currentOrderData.product[index].requestQTY = oldCount
@@ -123,18 +126,19 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,c
 				$("body").showLoading(-150);
 				deleteServ("Order",{userAccount:123123,productCode:$scope.currentOrderData.product[index].productCode},
 				function(response){
-					console.log(response)
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance
   						$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount) : (2000-$scope.resAmount)
   						$scope.count = response.productCount
 						$scope.currentOrderData.product.splice(index,1)
+						if($scope.currentOrderData.product.length == 0){
+							$scope.isHaveData = false
+						}
 					});
 					$("body").hideLoading();
 				},
 				function(response){
-					console.log(response)
-					showModal({msg:"删除失败！"});
+					// showModal({msg:"删除失败！"});
 					$("body").hideLoading();
 				})
 			},
@@ -160,11 +164,12 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,c
   						$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount) : (2000-$scope.resAmount)
   						$scope.count = response.productCount
 						$scope.currentOrderData.product = {}
+						$scope.isHaveData = false
 					});
 					$("body").hideLoading();
 				},
 				function(response){
-					showModal({msg:"删除失败！"});
+					// showModal({msg:"删除失败！"});
 					$("body").hideLoading();
 				})
 			},
