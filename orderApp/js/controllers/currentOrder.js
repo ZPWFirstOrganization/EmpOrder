@@ -10,12 +10,19 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,c
 	$scope.lastData = 1
 	$scope.isHaveData = true
     scopeData.sourcePageId = 1;
+    $scope.isShowFoot = function(){
+    	if ($scope.isHaveData && $scope.isCanShop){
+    		return true
+    	}else{
+    		return false
+    	}
+    }
 	//获取下单日期范围
 	$("body").showLoading(-150);
 	currentOrderServ.getDateGate({kind: 'Order'},function(response){
 	    var arry = response.orderDate.split("-")
 	    $scope.isCanShop = response.allowOrder
-	    $scope.isCanShop = true
+	    // $scope.isCanShop = true
 	    $scope.lastData = parseInt(arry[1])
   	})
   	//初始化余额
