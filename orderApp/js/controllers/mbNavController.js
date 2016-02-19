@@ -31,10 +31,13 @@ orderApp.controller('mbNavController',function ($scope,$stateParams,apiCaller,sc
 		$("body").hideLoading();
 	});
 
+	var isBodyClicked = true;
 	$scope.divisionClicked = function(){
+		isBodyClicked = false
 		if(!$scope.isDLShow){
 			$scope.isDLShow = true;
 			$scope.isGLShow = false;
+			hideModalBg();
 			showModalBg($("#DivisionList"));
 		}else{
 			$scope.isDLShow = false;
@@ -44,9 +47,11 @@ orderApp.controller('mbNavController',function ($scope,$stateParams,apiCaller,sc
 	}
 
 	$scope.groupClicked = function(){
+		isBodyClicked = false
 		if(!$scope.isGLShow){
 			$scope.isDLShow = false;
 			$scope.isGLShow = true;
+			hideModalBg();
 			showModalBg($("#GroupList"));
 		}else{
 			$scope.isDLShow = false;
@@ -79,13 +84,17 @@ orderApp.controller('mbNavController',function ($scope,$stateParams,apiCaller,sc
 	}
 
 	$("body").click(function(event){
-		if($scope.isDLShow){
-			$scope.isDLShow = false;
-			hideModalBg();
-		}
-		if($scope.isGLShow){
-			$scope.isGLShow = false;
-			hideModalBg();
+		if(isBodyClicked){
+			if($scope.isDLShow){
+				$scope.isDLShow = false;
+				hideModalBg();
+			}
+			if($scope.isGLShow){
+				$scope.isGLShow = false;
+				hideModalBg();
+			}
+		}else{
+			isBodyClicked = true;
 		}
 	})
 });

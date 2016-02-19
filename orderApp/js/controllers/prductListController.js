@@ -47,32 +47,32 @@ orderApp.controller('prductListController',
 	},100)
 
 	//手机上拉刷新
-	if($(window).width()<801)
-		Hook.init({
-			wrapperId:"#wrapper",
-			scrollerId:"#scroller",
-			wrapperCss:{
-				"position": "absolute",
-				"z-index": 1,
-				"top": "0px",
-				"bottom": "0px",
-				"left": "0px",
-				"right":"0px",
-				overflow: "hidden"
-			},
-			distance:50,
-			callback:function(){
-				$("body").showLoading(-150);
-				apiCaller.getProductListByPage(++$scope.currentPage,function(res){
-					scopeData.ProductionList.products =
-					 (scopeData.ProductionList.products).concat(res.products);
-					 $("body").hideLoading();
-				},function(){
-					$("body").hideLoading();
-					showModal({msg:"没有更多产品了!"});
-				})
-			}
-	});
+	// if($(window).width()<801)
+	// 	Hook.init({
+	// 		wrapperId:"#wrapper",
+	// 		scrollerId:"#scroller",
+	// 		wrapperCss:{
+	// 			"position": "absolute",
+	// 			"z-index": 1,
+	// 			"top": "0px",
+	// 			"bottom": "0px",
+	// 			"left": "0px",
+	// 			"right":"0px",
+	// 			overflow: "hidden"
+	// 		},
+	// 		distance:50,
+	// 		callback:function(){
+	// 			$("body").showLoading(-150);
+	// 			apiCaller.getProductListByPage(++$scope.currentPage,function(res){
+	// 				scopeData.ProductionList.products =
+	// 				 (scopeData.ProductionList.products).concat(res.products);
+	// 				 $("body").hideLoading();
+	// 			},function(){
+	// 				$("body").hideLoading();
+	// 				showModal({msg:"没有更多产品了!"});
+	// 			})
+	// 		}
+	// });
 
 	$scope.$on("$destroy", function() {
     	clearInterval(monitorData);
