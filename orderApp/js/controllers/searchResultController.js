@@ -57,8 +57,6 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
                 apiCaller.getSearchResult($stateParams.key,++$scope.currentPage,function(res){
                     $scope.searchResult =
                      ($scope.searchResult).concat(res.products);
-                    console.log($scope.searchResult) 
-                    console.log(res)
                      $("body").hideLoading();
                 },function(){
                     $("body").hideLoading();
