@@ -23,7 +23,7 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
         $scope.inputTexts[$stateParams.productCode] = '1';
     }
 
-    //判断是从哪个页面跳转到产品详情页面; 0:代表productList页,1:代表currentOrder页
+    //判断是从哪个页面跳转到产品详情页面; 0:代表productList页,1:代表currentOrder页,2:代表historyOrder页
     switch (scopeData.sourcePageId) {
     case 0:
         $scope.sourcePageNamePC="返回首页";
@@ -36,6 +36,12 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
         $scope.sourcePageNameMB="当月订单";
         $scope.sourcePageLink="index.currentOrder";
         break;
+
+    case 2:
+        $scope.sourcePageNamePC="返回历史订单";
+        $scope.sourcePageNameMB="历史订单";
+        $scope.sourcePageLink="index.historyOrder";
+        break;        
     }
                         
     //获取大类            
