@@ -15,7 +15,7 @@
 
 <!--pc面包屑-->
 <div class="layout page-width pc-only">
-	<div class="bread-crumb"><a ng-click="nav1Clicked()" ui-sref="{{sourcePageLink}}">{{sourcePageNamePC}}</a><a>|</a><a ng-click="nav2Clicked()" ui-sref="index.productList">{{currentDivisionName}}</a><a ng-show="isGroupNameShow">&gt;</a><a ng-show="isGroupNameShow" ng-click="nav3Clicked()" ui-sref="index.productList">{{currenGroupName}}</a><a>&gt;</a><a>{{Product.productName}}</a></div>
+	<div class="bread-crumb"><a href="javascript:history.back();">{{sourcePageNamePC}}</a><a>|</a><a ng-click="nav2Clicked()" ui-sref="index.productList">{{currentDivisionName}}</a><a ng-show="isGroupNameShow">&gt;</a><a ng-show="isGroupNameShow" ng-click="nav3Clicked()" ui-sref="index.productList">{{currenGroupName}}</a><a>&gt;</a><a>{{Product.productName}}</a></div>
     
     <div class="clr"></div>
 </div>
@@ -28,7 +28,7 @@
   	
     <div class="proddtl-content-wrapper">
     
-        <div class="bread-crumb mobile-only"><a ng-click="nav1Clicked()" ui-sref="{{sourcePageLink}}" class="back"><b>&lt;</b>{{sourcePageNameMB}}</a><div class="title">商品详情</div></div>
+        <div class="bread-crumb mobile-only"><a href="javascript:history.back();" class="back"><b>&lt;</b>{{sourcePageNameMB}}</a><div class="title">商品详情</div></div>
         <div class="proddtl-content-inner">
             <div class="mobile-only proddtl-mobile-product-name">
             {{Product.productName}}

@@ -9,7 +9,6 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
 	$scope.currenGroupName = '';
     $scope.sourcePageNamePC = '';
     $scope.sourcePageNameMB = '';
-    $scope.sourcePageLink = '';
     
     //判断是否为空
 	var isEmptyObject = function( obj ) {
@@ -28,19 +27,16 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
     case 0:
         $scope.sourcePageNamePC="返回首页";
         $scope.sourcePageNameMB="首页";
-        $scope.sourcePageLink="index.productList";
         break;
 
     case 1:
         $scope.sourcePageNamePC="返回当月订单";
         $scope.sourcePageNameMB="当月订单";
-        $scope.sourcePageLink="index.currentOrder";
         break;
 
     case 2:
         $scope.sourcePageNamePC="返回历史订单";
         $scope.sourcePageNameMB="历史订单";
-        $scope.sourcePageLink="index.historyOrder";
         break;        
     }
                         
@@ -120,24 +116,6 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
         }
     }
     
-    //点击返回首页或当月订单
-	$scope.nav1Clicked = function () {
-        switch (scopeData.sourcePageId){
-		case 0:
-            scopeMethod.changeState('1',scopeData.homeDivisionCode,'1',function(){
-                $("body").hideLoading();
-            },function(){
-                $("body").hideLoading();
-            });
-            scopeData.currentDivisionName = scopeData.homeDivisionName;
-            scopeData.currenGroupName = '';
-        
-            break;
-        case 1:
-            break;
-        }
-	}
-
     //点击大类
 	$scope.nav2Clicked = function () {
 		scopeMethod.changeState('1',scopeData.divisionCode,'1',function(){
