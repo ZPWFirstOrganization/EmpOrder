@@ -2,38 +2,44 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	$scope.showList = false;
 	$scope.searchKey = "";
 	var delayTime;
-	$(".search").keyup(function(){
+	
+	$(".search").keyup(function(event){
 		clearTimeout(delayTime);
-		delayTime = setTimeout(function() {
-			apiCaller.getSearchResult($scope.searchKey,function(res){
-				console.log('searchresult',res)
-				var data = [];
-				for (var i = 0; i < res.length; i++) {
-					var tmp;
-					if(res[i].productCode){
-						tmp = {"value":res[i].productCode,"label":res[i].productCode}
-						data.push(tmp)
-					}
-					if(res[i].productName){
-						tmp = {"value":res[i].productName,"label":res[i].productName}
-						data.push(tmp)
-					}
-					// if(i>=5){
-					// 	break;
-					// }
-				};
-				console.log('data',data)
-				$('.search').autocompleter({ 
-					highlightMatches: true,
-			        // abort source if empty field
-			        empty: false,
-			        // max results
-			        limit: 5,
-					source: data
-				});
-			})
-		},1000);
+		if (event.keyCode == 13){
+			console.log("event.keyCode == 13",$scope.searchKey)
+			if($scope.searchKey != ""){
+				$state.go('index.searchResult',{key:$scope.searchKey,page:1})
+			}
+		// }else{
+		// 	delayTime = setTimeout(function() {
+		// 		apiCaller.getSearchResult($scope.searchKey,function(res){
+		// 			console.log('searchresult',res)
+		// 			var data = [];
+		// 			for (var i = 0; i < res.length; i++) {
+		// 				var tmp;
+		// 				if(res[i].productCode){
+		// 					tmp = {"value":res[i].productCode,"label":res[i].productCode}
+		// 					data.push(tmp)
+		// 				}
+		// 				if(res[i].productName){
+		// 					tmp = {"value":res[i].productName,"label":res[i].productName}
+		// 					data.push(tmp)
+		// 				}
+		// 			};
+		// 			console.log('data',data)
+		// 			$('.search').autocompleter({ 
+		// 				highlightMatches: true,
+		// 		        // abort source if empty field
+		// 		        empty: false,
+		// 		        // max results
+		// 		        limit: 5,
+		// 				source: data
+		// 			});
+		// 		})
+		// 	},1000);
+		}
 	})
+
 	$scope.categories=apiCaller.getCategories(function(){
 		scopeData.homeDivisionName = $scope.categories[0].categoryName;
 		scopeData.homeDivisionCode = $scope.categories[0].categoryCode;
@@ -50,6 +56,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 		scopeData.currenGroupName = '';
         scopeMethod.changeState("1",Division.categoryCode,"1");
 	}
+
 	$scope.groupClicked=function(Group,Division) {
 		scopeData.currentDivisionName = Division.categoryName;
 		scopeData.divisionCode = Division.categoryCode;
@@ -65,11 +72,13 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	}
 
 	$scope.favClicked = function() {
-		$state.go('index.favorites')
+		$state.go('index.favorites',{page:1});
 	}
 
 	$scope.searchClicked = function(){
-		$state.go('index.searchResult')
+		if($scope.searchKey != ""){
+			$state.go('index.searchResult',{key:$scope.searchKey,page:1})
+		}
 	}
 	//展开/闭合优惠价
 	$('[action="pc-select-onsale"]').mouseenter(function(){   

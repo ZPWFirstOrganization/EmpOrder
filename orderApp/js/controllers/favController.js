@@ -1,16 +1,56 @@
-orderApp.controller('favController',function ($scope,apiCaller,scopeData,scopeMethod) {
+orderApp.controller('favController',function ($scope,$stateParams,$state,apiCaller,scopeData,scopeMethod) {
     
-    $scope.balance = apiCaller.getBalance();
-    $scope.orderCount = apiCaller.getOrderCount();
-
-    $scope.favList = apiCaller.getFavoriteList(function() {
-        if($scope.favList[0]){
-            $scope.isFavEmpty = false;
-        }else{
+    var initData = function(){
+        $scope.balance = apiCaller.getBalance();
+        $scope.orderCount = apiCaller.getOrderCount();
+        apiCaller.getFavoriteList($scope.currentPage,function(res) {
+            $scope.favList = res.favorites;
+            $scope.pageNumCount = res.pageNumCount;
+            for (var i = 0; i < res.pageNumCount; i++) {
+                $scope.pages.push(i+1)
+            };
+            var i = 0;
+            var tmpArr = [];
+            for (Product in $scope.favList ) {
+                $scope.inputTexts[$scope.favList[i].productCode] = '1'
+                i++;
+            };
+            if($scope.favList[0]){
+                $scope.isFavEmpty = false;
+            }else{
+                $scope.isFavEmpty = true;
+            }
+            $("body").hideLoading();
+            console.log(res)
+        },function(){
             $scope.isFavEmpty = true;
+            $("body").hideLoading();
+        });
+    }
+
+    $scope.pages = [];
+    $scope.inputTexts = [];
+    $scope.currentPage = $stateParams.page;
+    $scope.pageNumCount = 1;
+    $("body").showLoading(-150);
+    initData();
+
+    $scope.pageNumClicked = function(page){
+        if($scope.currentPage == page){
+            return;
         }
-        console.log($scope.isFavEmpty)
-    });
+        if('next' == page){
+            if($scope.currentPage < $scope.pageNumCount){
+                $scope.currentPage = parseInt($scope.currentPage) + 1;
+            }else{
+                showModal({msg:"已经是最后一页了"});
+                return;
+            }
+        }else{
+            $scope.currentPage = page;
+        }
+        $state.go('index.favorites',{page:$scope.currentPage})
+    }
 
     $scope.addCartClicked = function(Product) {
         $("body").showLoading(-150);
@@ -28,6 +68,50 @@ orderApp.controller('favController',function ($scope,apiCaller,scopeData,scopeMe
             showModal({msg:"剩余额度不足"});
         });
 
+    }
+
+    $scope.favoriteClicked = function(Product) {
+        
+        showConfirm({
+            msg:"是否取消收藏？",
+            confirmed:function(){
+                $("body").showLoading(-150);
+                apiCaller.deleteFav(Product,function() {
+                    showModal({msg:"已取消收藏"});
+                    if($scope.favList[1]){
+                        $state.go('index.favorites',{page:$scope.currentPage});
+                        initData();
+                    }else{
+                        if($scope.currentPage > 1){
+                            $state.go('index.favorites',{page:($scope.currentPage-1)});
+                        }else{
+                            $state.go('index.favorites',{page:$scope.currentPage});
+                        }
+                        initData();
+                    }
+                    $("body").hideLoading();
+                });
+            }
+        });
+        
+    }
+
+    $scope.countSubtracted = function(Product){
+        var id = Product.productCode;
+        if($scope.inputTexts[id] > 1)
+            $scope.inputTexts[id] = parseInt($scope.inputTexts[id]) - 1;
+    }
+
+    $scope.countAdded = function(Product){
+        var id = Product.productCode;
+        if($scope.inputTexts[id] < 999)
+            $scope.inputTexts[id] = parseInt($scope.inputTexts[id]) + 1;
+    }
+
+    $scope.numberClicked = function(Product) {
+        var id = Product.productCode;
+        $("#"+id).focus();
+        $("#"+id).select();
     }
 
     $scope.nav1Clicked = function () {

@@ -61,11 +61,11 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 			url:'/notice',
 			templateUrl:'tpls/notice.html'
 		}).state('index.favorites',{
-			url:'/favorites',
+			url:'/favorites/page={page}',
 			templateUrl:'tpls/favorites.html',
 			controller:'favController'
 		}).state('index.searchResult',{
-			url:'/searchResult',
+			url:'/searchResult/key={key}&page={page}',
 			templateUrl:'tpls/searchResult.html',
 			controller:'searchResultController'
 		})

@@ -28,7 +28,7 @@
         <a ng-class="{true:'cancelfavorite',false:'favorite'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>
         <a class="product-name" ui-sref="index.product({productCode:{{Product.productCode}}})">{{Product.productName}}</a>
         <div class="row2">
-          <span class="new-price">￥{{Product.productRealPrice}}</span>
+          <span class="new-price">￥{{Product.productRetailPrice}}</span>
           <div class="product-no">{{Product.productCode}}</div>
         </div>
         <div class="product-action" ng-init="falg = Product.productCode">

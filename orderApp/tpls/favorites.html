@@ -13,8 +13,8 @@
           <div class="title">收藏</div>
         </div>
         <div class="tips mobile-only">可下单日期为每月1到17日，您当前日期不可下单</div>
-        <div class="fav-content-inner" >
-            <div class="empty" >
+        <div class="fav-content-inner">
+            <div class="empty" ng-if="isFavEmpty">
                 <div class="icon"></div>
                 <div class="wording">
                 <h1>暂无收藏商品</h1>
@@ -25,45 +25,40 @@
                 </div>
 
             </div>
-            <div class="fav-product-wrapper">
+            <div ng-if="!isFavEmpty" class="fav-product-wrapper" ng-repeat="Product in favList" ng-init="Product.productStatus=='0'?btnClass = 'button-s button-gray fav-add-cart':btnClass = 'button-s button-gray button-disable fav-add-cart'">
                 <div class="fav-product-photo">
-                 <div class="fav-no-product"></div>
-                <img src="assets/resource/photo_s.jpg"/>
+                  <div class="fav-no-product" ng-show="Product.productStatus != 0"></div>
+                <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ui-sref="index.product({productCode:{{Product.productCode}}})" style="cursor:pointer"/>
                 </div>
                 
                 <div class="fav-product-info">
-                   <a action="fav" class="fav-cancelfavorite"></a>
-                   <a class="fav-product-name">玫琳凯臻时粹颜™精华乳</a>
+                   <a action="fav" class="fav-cancelfavorite" ng-click="favoriteClicked(Product)"></a>
+                   <a class="fav-product-name" ui-sref="index.product({productCode:{{Product.productCode}}})">{{Product.productName}}</a>
                    <div class="fav-row2">               
-                       <span class="fav-new-price">￥1980.00</span>
-                       <div class="fav-product-no">G5615DB6CA9766</div>               
+                       <span class="fav-new-price">￥{{Product.productRetailPrice}}</span>
+                       <div class="fav-product-no">{{Product.productCode}}</div>               
                    </div>
     
                    <div class="fav-product-action">
-                   <a class="fav-btn fav-subtract fav-disable" ></a>
-                   <input type="tel" class="fav-number"  placeholder="数量"  value="1" maxlength="3" />
-                   <a class="fav-btn fav-add" ></a>
-                   <a class="button-s button-gray button-disable fav-add-cart" ng-click="addCartClicked()">加入当月订单</a>
+                   <a class="fav-btn fav-subtract" ng-click="countSubtracted(Product)"></a>
+                   <input type="tel" class="fav-number" id="{{Product.productCode}}" placeholder="数量"  value="1" maxlength="3" ng-click="numberClicked(Product)" ng-model="inputTexts[Product.productCode]" />
+                   <a class="fav-btn fav-add" ng-click="countAdded(Product)"></a>
+                   <a class="{{btnClass}}" ng-click="addCartClicked(Product)">加入当月订单</a>
                    </div>
                 </div>            
                 <div class="clr"></div>
             </div>
+          <div class="clr"></div>
         </div>
+      <div class="clr"></div>
     </div>
     
     <!--pc分页-->    
     
-    <div class="paginate-wrap pc-only">
+    <div class="paginate-wrap pc-only" ng-if="!isFavEmpty">
         <div class="dataTables_paginate " >
-          
-            <span class="current">1</span>
-            <a class="num" href="/index.php/Back/Product/showList/p/2.html">2</a>
-            <a class="num" href="/index.php/Back/Product/showList/p/3.html">3</a>
-            <a class="num" href="/index.php/Back/Product/showList/p/4.html">4</a>
-            <a class="num" href="/index.php/Back/Product/showList/p/5.html">5</a> 
-            <a class="next" href="/index.php/Back/Product/showList/p/2.html">>></a> 
-            <div class="clr"></div>
-           
+          <span ng-class="{true:'current',false:'num'}[currentPage==page]" ng-repeat="page in pages" ng-click="pageNumClicked(page)">{{page}}</span>
+          <a class="num" ng-click="pageNumClicked('next')"> >> </a>
         </div>      
     </div>  
 </div>

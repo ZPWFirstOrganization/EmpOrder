@@ -48,7 +48,8 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 				url:baseUrl+'2/Favorite',
 				method:'GET',
 				params:{
-					userAccount:'@userAccount'
+					userAccount:'@userAccount',
+					pageNum:'@pageNum'
 				}
 			},
 			getBalance:{
@@ -104,13 +105,23 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 		        },
 		        isArray:true
 		    },
+		    getSearchTips:{
+		    	url:baseUrl+'2/Product',
+		    	method:'GET',
+		    	params:{
+		          key:'@key'
+		        },
+		        isArray:true
+		    }
+		    ,
 		    getSearchResult:{
 		    	url:baseUrl+'2/Product',
 		    	method:'GET',
 		    	params:{
 		          key:'@key',
+		          pageNum:'@pageNum'
 		        },
-		        isArray:true
+		        isArray:false
 		    }
 		}
 	);

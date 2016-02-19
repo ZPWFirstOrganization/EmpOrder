@@ -14,7 +14,7 @@ orderApp.factory('scopeData',function() {
 		currentPage          :'1',         //当前页数
 		secretaryName        :'',		   //秘书姓名		
 		secretaryPhone		 :'',          //秘书电话
-		currentOrderPage     : 1		   //当前订单页数
+		currentOrderPage     : 1,		   //当前订单页数
 	}
 });
 
@@ -27,14 +27,17 @@ orderApp.service('scopeMethod',function($state,scopeData,apiCaller) {
 			$state.go('index.productList',{productClass:scopeData.currentProductClass,productCode:scopeData.currentProductCode,page:scopeData.currentPage});
 			apiCaller.getProductListByStates();
 		},
-		getFavoriteList:function(){
-
-		},
 		getSearchTips:function(){
 
 		},
 		getSearchResult:function(){
 
+		},
+		isEmptyObject:function(obj){
+		    for ( var name in obj ) {
+		        return false;
+		    }
+		    return true;
 		}
 	}
 })
@@ -174,8 +177,9 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				}
 			})
 		},
-		getFavoriteList:function(suc,err) {
+		getFavoriteList:function(Page,suc,err) {
 			return ApiService.getFavoriteList({
+				pageNum:Page,
 				userAccount:'123123'
 			},
 			function(res){
@@ -189,9 +193,10 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				}
 			})
 		},
-		getSearchResult:function(searchKey,suc,err) {
+		getSearchResult:function(searchKey,Page,suc,err) {
 			return ApiService.getSearchResult({
-				key:searchKey
+				key:searchKey,
+				pageNum:Page
 			},
 			function(res){
 				if(suc){

@@ -11,13 +11,6 @@ orderApp.controller('prductListController',
 	$scope.currentPage=$stateParams.page;
     scopeData.sourcePageId = 0;
 
-	var isEmptyObject = function( obj ) {
-	    for ( var name in obj ) {
-	        return false;
-	    }
-	    return true;
-	}
-
 	var monitorData = setInterval(function() {
 		
 		if (scopeData.ProductionList != $scope.pdList){
@@ -27,7 +20,7 @@ orderApp.controller('prductListController',
 			$scope.pages = [];
 			scopeData.noticePageRevert=false;
 		}
-		if(isEmptyObject($scope.pages)){
+		if(scopeMethod.isEmptyObject($scope.pages)){
 			for (var i = 0; i < $scope.pdList.pageNumCount; i++) {
 				$scope.pages.push(i+1)
 			};
@@ -42,7 +35,7 @@ orderApp.controller('prductListController',
 			$scope.isGroupNameShow = ($scope.currenGroupName != '');
 			$scope.$apply();
 		}
-		if(isEmptyObject($scope.inputTexts)){
+		if(scopeMethod.isEmptyObject($scope.inputTexts)){
 			var i = 0;
 			var tmpArr = [];
 			for (Product in scopeData.ProductionList.products) {

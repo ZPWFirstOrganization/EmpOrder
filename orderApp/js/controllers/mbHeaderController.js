@@ -1,8 +1,9 @@
 orderApp.controller('mbHeaderController',function ($scope,$state) {
 
     $scope.showSearch = true;
+    $scope.searchKey = "";
     stateMonitor = setInterval(function () {
-        if($state.current.name == 'index.productList'){
+        if($state.current.name == 'index.productList' || $state.current.name == 'index.searchResult'){
             $scope.showSearch = true;
         }else{
             $scope.showSearch = false;
@@ -17,19 +18,21 @@ orderApp.controller('mbHeaderController',function ($scope,$state) {
     //展开我的
     $('[action="my"]').click(function(){    
         if($(".my-list").css("display")=="none"){
-            $(".my-list").fadeIn(200);  
+            $(".my-list").fadeIn(200);
+            showModalBg($(".my-list"));
         }else{
-            $(".my-list").fadeOut(200); 
+            $(".my-list").fadeOut(200);
+            hideModalBg();
         } 
 
     });
 
     $scope.favClicked = function() {
-        $state.go('index.favorites')
+        $state.go('index.favorites',{page:1});
     }
 
     $scope.searchClicked = function(){
-        $state.go('index.searchResult')
+        $state.go('index.searchResult',{key:$scope.searchKey,page:1});
     }
     //闭合我的
     $("body").click(function(event){
@@ -39,6 +42,43 @@ orderApp.controller('mbHeaderController',function ($scope,$state) {
             }
         }
     });
+
+    $(".search").keyup(function(event){
+        clearTimeout(delayTime);
+        if (event.keyCode == 13){
+            console.log("event.keyCode == 13",$scope.searchKey)
+            if($scope.searchKey != ""){
+                $state.go('index.searchResult',{key:$scope.searchKey,page:1})
+            }
+        // }else{
+        //  delayTime = setTimeout(function() {
+        //      apiCaller.getSearchResult($scope.searchKey,function(res){
+        //          console.log('searchresult',res)
+        //          var data = [];
+        //          for (var i = 0; i < res.length; i++) {
+        //              var tmp;
+        //              if(res[i].productCode){
+        //                  tmp = {"value":res[i].productCode,"label":res[i].productCode}
+        //                  data.push(tmp)
+        //              }
+        //              if(res[i].productName){
+        //                  tmp = {"value":res[i].productName,"label":res[i].productName}
+        //                  data.push(tmp)
+        //              }
+        //          };
+        //          console.log('data',data)
+        //          $('.search').autocompleter({ 
+        //              highlightMatches: true,
+        //              // abort source if empty field
+        //              empty: false,
+        //              // max results
+        //              limit: 5,
+        //              source: data
+        //          });
+        //      })
+        //  },1000);
+        }
+    })
 
     //展开优惠价
     $('[action="mobile-select-onsale"]').click(function(){    
