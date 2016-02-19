@@ -4,9 +4,9 @@
 .sider-menu-wrapper .sider-menu{ padding:5% 5%; display:block;}
 .sider-menu-wrapper .active{ background-color:#666;color:#fff; margin:0px -1px}
 
-.orderHistory .top-wrapper{ height:40px; }
-.orderHistory .top-wrapper .his-tips{ line-height:40px;  float:left; }
-.orderHistory .top-wrapper .select-wrapper{ float:right; padding-top:5px; width:100px; margin-left:5px;}
+.orderHistory .his-top-wrapper{ height:40px; }
+.orderHistory .his-top-wrapper .his-tips{ line-height:40px;  float:left; }
+.orderHistory .his-top-wrapper .his-select-wrapper{ float:right; padding-top:5px; width:100px; margin-left:5px;}
 
 .orderHistory .mid-wrapper{ min-height:400px;}
 .orderHistory .table .td span{ line-height:25px;}
@@ -34,7 +34,7 @@
 .orderHistory{}
 .orderHistory .his-top-wrapper{ height:40px; }
 .orderHistory .his-top-wrapper .his-tips{ line-height:40px;  border-bottom:1px solid #eee; padding-left:10px;    }
-.orderHistory .his-top-wrapper .select-wrapper{ float:right; padding-top:5px; width:100px; margin-left:5px;}
+.orderHistory .his-top-wrapper .his-select-wrapper{ float:right; padding-top:5px; width:100px; margin-left:5px;}
 
 .orderHistory .mid-wrapper{ min-height:400px;}
 .orderHistory .order{ padding:10px 10px;border-bottom:1px solid #eee; display:block; position:relative;   }
