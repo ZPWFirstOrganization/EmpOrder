@@ -2,7 +2,12 @@
 var myScroll;
 var Hook = {
 	isRefresh:false,
+	destroy:function(){
+		myScroll.destroy();
+		myScroll = null;
+	},
 	init:function(param){
+		//console.log("hook init");
 		var wrapperId = param.wrapperId;
 		var scrollerId = param.scrollerId;
 		var dis = typeof(param.distance) == "undefined"? 50:param.distance;
@@ -22,7 +27,8 @@ var Hook = {
 		}
 		$(scrollerId).addClass("scroller");
 		$(wrapperId).css(param.wrapperCss);
-		myScroll,upIcon = $("#up-icon");
+		
+		var upIcon = $("#up-icon");
 		
 	myScroll = new IScroll(wrapperId, { probeType: 3, mouseWheel: true,click:true });
 	
@@ -66,6 +72,6 @@ var Hook = {
 			myScroll.refresh();
 		}
 	});
-		document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+		//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 	}
 }
