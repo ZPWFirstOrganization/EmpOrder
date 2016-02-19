@@ -20,8 +20,8 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,c
   	})
   	//初始化余额
   	currentOrderServ.getResAmount({kind: 'User',myBalanceAccount:'123123'},function(response){
-  		$scope.resAmount = parseFloat(response.myBalance)
-  		$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(1)
+  		$scope.resAmount = parseFloat(response.myBalance).toFixed(2)
+  		$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   	})
   	//初始化商品数量
   	currentOrderServ.getCount({kind: 'Order',userAccount:'123123'},function(response){
@@ -79,8 +79,8 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,c
 				},
 				//success
 				function(response){
-			    	$scope.resAmount = response.myBalance
-  					$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount) : (2000-$scope.resAmount)
+			    	$scope.resAmount = response.myBalance.toFixed(2)
+  					$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   					$scope.count = response.productCount
   					$("body").hideLoading();
 		  		},
@@ -127,8 +127,8 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,c
 				deleteServ("Order",{userAccount:123123,productCode:$scope.currentOrderData.product[index].productCode},
 				function(response){
 					$scope.$apply(function () {
-						$scope.resAmount = response.myBalance
-  						$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount) : (2000-$scope.resAmount)
+						$scope.resAmount = response.myBalance.toFixed(2)
+  						$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   						$scope.count = response.productCount
 						$scope.currentOrderData.product.splice(index,1)
 						if($scope.currentOrderData.product.length == 0){
@@ -160,8 +160,8 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,c
 				deleteServ("Order",{userAccount:123123},
 				function(response){
 					$scope.$apply(function () {
-						$scope.resAmount = response.myBalance
-  						$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount) : (2000-$scope.resAmount)
+						$scope.resAmount = response.myBalance.toFixed(2)
+  						$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   						$scope.count = response.productCount
 						$scope.currentOrderData.product = {}
 						$scope.isHaveData = false
