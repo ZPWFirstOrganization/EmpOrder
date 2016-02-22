@@ -66,7 +66,7 @@
                 <div class="product-wrapper" ng-repeat="product in orderData.product">
                     <div class="product-photo">
                    
-                    <img ng-src="{{product.imageUrl}}" onerror="this.src='res/null_img.jpg'" />
+                    <img ng-src="{{product.imageUrl}}" onerror="this.src='res/null_img.jpg'" ui-sref="index.product({productCode:{{product.productCode}}})"/>
                     </div>
                     <div class="product-info">
                        

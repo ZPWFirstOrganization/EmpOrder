@@ -35,32 +35,32 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     $("body").showLoading(-150);
     initData();
     //手机上拉刷新
-    // if($(window).width()<801)
-    //     Hook.init({
-    //         wrapperId:"#wrapper",
-    //         scrollerId:"#scroller",
-    //         wrapperCss:{
-    //             "position": "absolute",
-    //             "z-index": 1,
-    //             "top": "0px",
-    //             "bottom": "0px",
-    //             "left": "0px",
-    //             "right":"0px",
-    //             overflow: "hidden"
-    //         },
-    //         distance:50,
-    //         callback:function(){
-    //             $("body").showLoading(-150);
-    //             apiCaller.getFavoriteList(++$scope.currentPage,function(res){
-    //                 $scope.favList =
-    //                  ($scope.favList).concat(res.favorites);
-    //                  $("body").hideLoading();
-    //             },function(){
-    //                 $("body").hideLoading();
-    //                 showModal({msg:"没有更多产品了!"});
-    //             })
-    //         }
-    // });
+    if($(window).width()<801)
+        Hook.init({
+            wrapperId:"#wrapper",
+            scrollerId:"#scroller",
+            wrapperCss:{
+                "position": "absolute",
+                "z-index": 1,
+                "top": "0px",
+                "bottom": "0px",
+                "left": "0px",
+                "right":"0px",
+                overflow: "hidden"
+            },
+            distance:50,
+            callback:function(){
+                $("body").showLoading(-150);
+                apiCaller.getFavoriteList(++$scope.currentPage,function(res){
+                    $scope.favList =
+                     ($scope.favList).concat(res.favorites);
+                     $("body").hideLoading();
+                },function(){
+                    $("body").hideLoading();
+                    showModal({msg:"没有更多产品了!"});
+                })
+            }
+    });
 
     $scope.pageNumClicked = function(page){
         if($scope.currentPage == page){
