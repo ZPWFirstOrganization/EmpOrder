@@ -4,7 +4,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	$scope.orderList = [];
 	$scope.pages = [];
 	$scope.pageCount = 0
-	$scope.currentPage = $stateParams.page;
+	$scope.currentPage = parseInt($stateParams.page);
 	scopeData.sourcePageId = 2;
 	// $scope.showYear = "选择年"
 	// $scope.showMonth = "选择月"	
@@ -62,8 +62,8 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 			$("body").hideLoading();
 			// $scope.orderList = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]
 		},function(res){
-			$scope.pages = []
-			$scope.orderList = []
+			// $scope.pages = []
+			// $scope.orderList = []
 			$scope.isHaveData = false;
 			$("body").hideLoading();
 		})
@@ -79,7 +79,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 				$('html,body').animate({scrollTop: '0px'},100)
 				$state.go('index.historyOrder',{page:scopeData.currentOrderPage});
 			}else{
-				showModal({msg:"已经是最后一页了"});
+				showModal({msg:"已经是最后一页"});
 				return;
 			}
 		}else{
@@ -275,8 +275,47 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
     // }
     //pc 日期选择change事件
     $scope.pcSelectDate = datePickerChange
-
-	
+    if($(window).width()<801)
+	Hook.init({
+		wrapperId:"#wrapper",
+		scrollerId:"#scroller",
+		wrapperCss:{
+			"position": "absolute",
+			"z-index": 1,
+			"top": "0px",
+			// "bottom": "0px",
+			"height":$(window).height()+"px",
+			"left": "0px",
+			"right":"0px",
+			overflow: "hidden"
+		},
+		distance:50,
+		callback:function(){
+			if($scope.currentPage >= $scope.pageCount){
+				showModal({msg:"没有更多历史订单"});
+				return
+			}
+			//下拉刷新
+			$("body").showLoading(-150)
+			$scope.currentPage = parseInt($scope.currentPage) + 1
+			apiCaller.getOrderListByPage(
+				{userAccount:'456456',orderDate:$stateParams.orderDate,pageNum:$scope.currentPage},
+				function(res){
+					$("body").hideLoading()
+					if(res.order.length != 0){
+						$.each(res.order, function(i,v){
+							$scope.orderList.push(v)
+					    });
+					}
+				},
+				function(res){
+					$("body").hideLoading()
+					showModal({msg:"加载失败"});
+					$scope.currentPage = parseInt($scope.currentPage) - 1
+				}
+			)
+		}
+	});
 })
 
  orderApp.filter('stateFilter',function(){
