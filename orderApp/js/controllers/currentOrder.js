@@ -9,7 +9,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 	$scope.currentOrderData = {};
 	$scope.lastData = 1
 	$scope.isHaveData = true
-    scopeData.sourcePageId = 1;
+    // scopeData.sourcePageId = 1;
     $scope.isShowFoot = function(){
     	if ($scope.isHaveData && $scope.isCanShop){
     		return true

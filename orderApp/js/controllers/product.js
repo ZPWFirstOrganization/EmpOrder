@@ -1,4 +1,5 @@
-orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scopeMethod,baseUrl,common,productServ,currentOrderServ,deleteServ,apiCaller){
+orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scopeMethod,baseUrl,common,productServ,currentOrderServ,deleteServ,apiCaller,sessionStorage){
+    $('html,body').animate({scrollTop: '0px'},0)
     //console.log($stateParams.productCode);
     //console.log("scopeData.sourcePageId "+ scopeData.sourcePageId);
     $scope.orderCount = apiCaller.getOrderCount();
@@ -23,7 +24,7 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
     }
 
     //判断是从哪个页面跳转到产品详情页面; 0:代表productList页,1:代表currentOrder页,2:代表historyOrder页
-    switch (scopeData.sourcePageId) {
+    switch (parseInt(sessionStorage.get("sourcePageId"))) {
     case 0:
         $scope.sourcePageNamePC="返回首页";
         $scope.sourcePageNameMB="首页";
