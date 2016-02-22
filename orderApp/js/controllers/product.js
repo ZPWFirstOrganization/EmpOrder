@@ -35,9 +35,18 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
         break;
 
     case 2:
-        $scope.sourcePageNamePC="返回历史订单";
-        $scope.sourcePageNameMB="历史订单";
-        break;        
+        $scope.sourcePageNamePC="返回订单详情";
+        $scope.sourcePageNameMB="订单详情";
+        break;
+
+    case 3:
+        $scope.sourcePageNamePC="返回收藏";
+        $scope.sourcePageNameMB="收藏";
+        break;
+    case 4:
+        $scope.sourcePageNamePC="返回搜索";
+        $scope.sourcePageNameMB="搜索";
+        break;
     }
                         
     //获取大类            
