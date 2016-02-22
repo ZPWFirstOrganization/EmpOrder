@@ -165,7 +165,7 @@ $(document).ready(function(e) {
 function showModalBg(obj){
 	
 	top=45;
-	height=$(window).height()-45;
+	height=$(window).height()+100;
 	
 	modalBg=$('<div id="modalBg" style="background-color:#000; opacity:0.7; position:absolute; z-index:10; width:100%; height:'+height+'px; top:'+top+'"></div>');
 	obj.after(modalBg);

@@ -88,9 +88,11 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 			$state.go('index.historyOrder',{page:page});
 		}
 	}
+	var currentYear = (new Date()).getFullYear()
 	//获取秘书
   	if (scopeData.secretaryName == '' || scopeData.secretaryPhone == ''){
 		apiCaller.getSecretary({userAccount:'123123'},function(response){
+			currentYear = parseInt(response[0].currentYear)
 			scopeData.secretaryName = response[0].userName
 	  		$scope.secretary.userName = scopeData.secretaryName
 	  		scopeData.secretaryPhone = response[0].userPhone
@@ -102,13 +104,12 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		$scope.secretary.userPhone = scopeData.secretaryPhone
 		initLizeSelecter()
 	}
-	var mobileSelectYear = ""
-    var mobileSelectMonth = ""
+	// var mobileSelectYear = ""
+ //    var mobileSelectMonth = ""
 	function initLizeSelecter(){
-		var now = 2016
   		//初始化年份
   		var yearObj
-  		for (var i = now; i >= 2008; i--) {
+  		for (var i = currentYear; i >= 2008; i--) {
   			yearObj = new Object()
   			yearObj.name = String(i)
   			yearObj.value = String(i)
@@ -125,7 +126,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 				$.each($scope.years, function(i2,v2){
 					if(v==v2.value && v!=""){
 						yearHolder = v2.name
-						mobileSelectYear = v2.value
+						// mobileSelectYear = v2.value
 						$scope.pcSelectYear = v2
 					}
 				})
@@ -134,7 +135,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 				$.each($scope.months, function(i2,v2){
 					if(v==v2.value && v!=""){
 						monthHolder = v2.name
-						mobileSelectMonth = v2.value
+						// mobileSelectMonth = v2.value
 						$scope.pcSelectMonth = v2
 					}
 				})
@@ -275,6 +276,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
     // }
     //pc 日期选择change事件
     $scope.pcSelectDate = datePickerChange
+    //mobile 下拉刷新
     if($(window).width()<801)
 	Hook.init({
 		wrapperId:"#wrapper",
@@ -321,7 +323,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
  orderApp.filter('stateFilter',function(){
  	return function (input) {
  		var map = {0:"未确认",1:"已确认",2:"已处理",3:"已打包",4:"作废"} 
-           return map[parseInt(input)+""]
+           return map[input]
         }
  })
 

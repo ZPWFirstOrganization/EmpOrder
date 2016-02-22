@@ -143,7 +143,7 @@ dataTables_paginate a:ntd-last-child(2)
 .textarea{border:1px solid #eee;  border-radius: 3px; font-size:14px; min-height:100px; overflow-y:scroll;   font-size:14px; resize:none; padding:10px 20px;*padding:3% 5% 3% 5%; box-sizing:border-box; width:100%; *width:90%; background-color:#FFF;display:block; word-wrap:break-word;}
 /*按钮 分割线*/
 
-.split-dot{ background-image:url(../../img/dot-line.png); min-height:1px; background-position:50% 50%; background-repeat:repeat-x  }
+.split-dot{ border-top:1px dotted #eee;  background-position:50% 50%; background-repeat:repeat-x  }
 .split-dot span{font-size:14px; background-color:#fff}
 
 
@@ -157,8 +157,6 @@ dataTables_paginate a:ntd-last-child(2)
 .table .td{ padding:10px 0px;float:left; text-align:center }
 .table .td span{ margin-top:3px;}
 .table .td a{ margin-top:3px;color:#e5a086}
-.split-dot{ zoom:1;position: relative; width: 100%; min-height: 1px; background-image:url(../img/dot-line.png); background-repeat:repeat-x; background-position:50% 50%;}
-.split-dot span{font-size:14px; background-color:#fff}
 
 }
 @media screen and (max-width: 800px) { 

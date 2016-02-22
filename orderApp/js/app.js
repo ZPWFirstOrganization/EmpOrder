@@ -1,4 +1,4 @@
-var orderApp = angular.module('orderApp', [ "ui.router", "ngResource"], function($httpProvider) {
+var orderApp = angular.module('orderApp', [ "ui.router", "ngResource","sessionStorageService"], function($httpProvider) {
 	
 });
 

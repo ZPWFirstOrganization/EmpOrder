@@ -26,10 +26,10 @@
 .select-wrap .select-content{ overflow:hidden;  word-break:no-wrap; text-align:left; text-indent:10px;white-space:nowrap; line-height:45px; text-align:center; font-size:16px}	
 .select-wrap .select-arrow{ position:absolute; width:20px; height:97%; background-color:#fff; right:10px; top:0; bottom:0; background-image:url(../img/arrow_down_pink.png); background-repeat:no-repeat; background-position:50% 50%; background-size:70% auto;}	
 
-.option-list{ position:absolute; width:100%; top:45px;  z-index:500; background-color:#fff; border-bottom:1px solid #eee; box-shadow:0px 2px 5px  rgba(0,0,0,0.7); display:none;overflow-x: hidden; overflow-y:scroll; max-height:400px;}
-.option-list .list{ line-height:45px; border-bottom:1px solid #eee; margin-left:10px; display:block}
-.option-list .list:last-child{ border-bottom:none;}
-.option-list .list:active{ background-color:#eee}
+.his-option-list{ position:absolute; width:100%; top:45px;  z-index:500; background-color:#fff; border-bottom:1px solid #eee; box-shadow:0px 2px 5px  rgba(0,0,0,0.7); display:none;overflow-x: hidden; overflow-y:scroll; max-height:200px;}
+.his-option-list .list{ line-height:45px; border-bottom:1px solid #eee; margin-left:10px; display:block}
+.his-option-list .list:last-child{ border-bottom:none;}
+.his-option-list .list:active{ background-color:#eee}
 
 .orderHistory{}
 .orderHistory .his-top-wrapper{ height:40px; }
