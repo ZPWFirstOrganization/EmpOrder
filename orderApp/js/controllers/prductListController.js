@@ -1,7 +1,8 @@
-orderApp.controller('prductListController',
-	function($scope,$stateParams,$state,$http,scopeData,scopeMethod,apiCaller) {
-	$scope.currentDivisionName;
+orderApp.controller('prductListController',function($scope,$stateParams,$state,$http,scopeData,scopeMethod,apiCaller) {
+	$scope.currentDivisionName = '';
 	$scope.currenGroupName = '';
+	$scope.currentCategoryCode = '1'
+	$scope.isGroupNameShow = false;
 	$scope.orderCount = 0;
 	$scope.balance = apiCaller.getBalance();
 	$scope.orderCount = apiCaller.getOrderCount();
@@ -11,40 +12,64 @@ orderApp.controller('prductListController',
 	$scope.currentPage=$stateParams.page;
     scopeData.sourcePageId = 0;
 
-	var monitorData = setInterval(function() {
+    apiCaller.getOrderDate(function(res){
+    	scopeData.isNotAllowOrder = !(res.allowOrder);
+    	scopeData.orderDate = res.orderDate.split('-');
+    	$scope.isNotAllowOrder = scopeData.isNotAllowOrder;
+    	$scope.orderDate = scopeData.orderDate;
+    })
+
+    apiCaller.getProductListByStates(function(res){
+    	$scope.pdList = res;
+    	console.log('scopeData.categories',scopeData.categories)
+		for (var i = 0; i < $scope.pdList.pageNumCount; i++) {
+			$scope.pages.push(i+1)
+		};
 		
-		if (scopeData.ProductionList != $scope.pdList){
-			$scope.pdList = scopeData.ProductionList;
+		if($stateParams.productClass == '1'){
+			$scope.isGroupNameShow = false;
+			for(index in scopeData.categories){
+				if($stateParams.productCode == scopeData.categories[index].categoryCode){
+					$scope.currentDivisionName = scopeData.categories[index].categoryName;
+					break;
+				}
+			}
+		}else{
+			$scope.isGroupNameShow = true;
+			var isBreak = false
+			for(index in scopeData.categories){
+				for(i in scopeData.categories[index].series){
+					if($stateParams.productCode == scopeData.categories[index].series[i].seriesCode){
+						$scope.currenGroupName = scopeData.categories[index].series[i].seriesName;
+						$scope.currentDivisionName = scopeData.categories[index].categoryName;
+						$scope.currentCategoryCode = scopeData.categories[index].categoryCode;
+						isBreak = true;
+						break;
+					}
+				}
+				if(isBreak){
+					break;
+				}
+			}
 		}
-		if(scopeData.noticePageRevert){
-			$scope.pages = [];
-			scopeData.noticePageRevert=false;
-		}
-		if(scopeMethod.isEmptyObject($scope.pages)){
-			for (var i = 0; i < $scope.pdList.pageNumCount; i++) {
-				$scope.pages.push(i+1)
-			};
-			$scope.$apply();
-		}
-		if($scope.currentDivisionName != scopeData.currentDivisionName){
-			$scope.currentDivisionName = scopeData.currentDivisionName;
-			$scope.$apply();
-		}
-		if($scope.currenGroupName != scopeData.currenGroupName){
-			$scope.currenGroupName = scopeData.currenGroupName;
-			$scope.isGroupNameShow = ($scope.currenGroupName != '');
-			$scope.$apply();
-		}
-		if(scopeMethod.isEmptyObject($scope.inputTexts)){
-			var i = 0;
-			var tmpArr = [];
-			for (Product in scopeData.ProductionList.products) {
-				$scope.inputTexts[scopeData.ProductionList.products[i].productCode] = '1'
-				i++;
-			};
-			$scope.$apply();
-		}
-	},100)
+		$("body").hideLoading();
+    },function(){
+    	$("body").hideLoading();
+    });
+
+	$scope.$watch('pdList', function(newVal, oldVal) {
+        if (newVal.products !== oldVal.products) {
+            for (index in newVal.products ) {
+                $scope.inputTexts[newVal.products[index].productCode] = '1'
+            };
+            if(!scopeMethod.isEmptyObject(newVal)) {
+                for (index in newVal.products) {
+                   newVal.products[index].isNotAllowOrder = $scope.isNotAllowOrder;
+                };
+            }
+        }
+        
+    }, true);
 
 	//手机上拉刷新
 	if($(window).width()<801)
@@ -74,11 +99,8 @@ orderApp.controller('prductListController',
 			}
 	});
 
-	$scope.$on("$destroy", function() {
-    	clearInterval(monitorData);
-    })
-
 	$scope.pageNumClicked = function(page){
+		$(window).scrollTop(0);
 		if($scope.currentPage == page){
 			return;
 		}
@@ -93,15 +115,11 @@ orderApp.controller('prductListController',
 			$scope.currentPage = page;
 		}
 
-		scopeMethod.changeState(scopeData.currentProductClass,scopeData.currentProductCode,$scope.currentPage,function(){
-				$("body").hideLoading();
-			},function(){
-				$("body").hideLoading();
-			});
+		scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$scope.currentPage);
 	}
 
     $scope.addCartClicked = function(Product) {
-    	if (Product.productStatus == 0){
+    	if (Product.productStatus == 0 && !Product.isNotAllowOrder){
 	    	$("body").showLoading(-150);
 	    	var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
 	    		showModal({msg:"已加当月订单"});
@@ -163,30 +181,10 @@ orderApp.controller('prductListController',
 	}
 
 	$scope.nav1Clicked = function () {
-		scopeMethod.changeState('1',scopeData.homeDivisionCode,'1',function(){
-				$("body").hideLoading();
-			},function(){
-				$("body").hideLoading();
-			});
-		scopeData.currentDivisionName = scopeData.homeDivisionName;
-		scopeData.currenGroupName = '';
+		scopeMethod.changeState('1','1','1');
 	}
 
 	$scope.nav2Clicked = function () {
-		scopeMethod.changeState('1',scopeData.divisionCode,'1',function(){
-				$("body").hideLoading();
-			},function(){
-				$("body").hideLoading();
-			});
-		scopeData.currenGroupName = '';
+		scopeMethod.changeState('1',$scope.currentCategoryCode,'1');
 	}
-
-	$scope.nav3Clicked = function () {
-		scopeMethod.changeState(scopeData.currentProductClass,scopeData.groupCode,'1',function(){
-				$("body").hideLoading();
-			},function(){
-				$("body").hideLoading();
-			});
-	}
-
 });

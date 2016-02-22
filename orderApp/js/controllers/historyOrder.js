@@ -70,6 +70,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	}
 	queryOrderInfo($stateParams.orderDate)
 	$scope.pageNumClicked = function(page){
+		$(window).scrollTop(0);
 		if($scope.currentPage == page){
 			return;
 		}

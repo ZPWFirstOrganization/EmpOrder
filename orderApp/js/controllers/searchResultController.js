@@ -1,5 +1,5 @@
 orderApp.controller('searchResultController',function ($scope,$state,$stateParams,apiCaller,scopeData,scopeMethod) {
-    
+    $("body").showLoading(-150);
     $scope.pages = [];
     $scope.inputTexts = [];
     $scope.currentPage = $stateParams.page;
@@ -10,10 +10,9 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     var initData = function(){
         $scope.balance = apiCaller.getBalance();
         $scope.orderCount = apiCaller.getOrderCount();
-        console.log("$stateParams.key",$stateParams.key)
-        console.log("$stateParams.page",$stateParams.page)
+        $scope.isNotAllowOrder = scopeData.isNotAllowOrder;
+        $scope.orderDate = scopeData.orderDate;
         apiCaller.getSearchResult($stateParams.key,$stateParams.page,function(res){
-            console.log("getSearchResult",res)
             $scope.searchResult = res.products;
             $scope.totalCount = res.totalCount;
             $scope.pageNumCount = res.pageNumCount;
@@ -67,6 +66,7 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     });
 
     $scope.pageNumClicked = function(page){
+        $(window).scrollTop(0);
         if($scope.currentPage == page){
             return;
         }
@@ -137,12 +137,6 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     }
 
     $scope.nav1Clicked = function () {
-        scopeMethod.changeState('1',scopeData.homeDivisionCode,'1',function(){
-                $("body").hideLoading();
-            },function(){
-                $("body").hideLoading();
-            });
-        scopeData.currentDivisionName = scopeData.homeDivisionName;
-        scopeData.currenGroupName = '';
+        scopeMethod.changeState('1','1','1');
     }
 })

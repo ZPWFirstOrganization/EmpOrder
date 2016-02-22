@@ -69,7 +69,7 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 			getOrderDate:{
 				url:baseUrl+'2/Order',
 				method:'GET',
-				isArray:true
+				isArray:false
 			},
 			postOrderedProduct:{
 				url:baseUrl+'2/Order',

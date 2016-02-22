@@ -127,21 +127,12 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
     
     //点击大类
 	$scope.nav2Clicked = function () {
-		scopeMethod.changeState('1',scopeData.divisionCode,'1',function(){
-                $("body").hideLoading();
-            },function(){
-                $("body").hideLoading();
-            });
-		scopeData.currenGroupName = '';
+		scopeMethod.changeState('1',scopeData.divisionCode,'1');
 	}
 
     //点击小类
 	$scope.nav3Clicked = function () {
-		scopeMethod.changeState(scopeData.currentProductClass,scopeData.groupCode,'1',function(){
-                $("body").hideLoading();
-            },function(){
-                $("body").hideLoading();
-            });
+		scopeMethod.changeState(scopeData.currentProductClass,scopeData.groupCode,'1');
 	}    
     
 	//产品数量得到焦点

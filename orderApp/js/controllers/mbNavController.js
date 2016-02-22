@@ -66,21 +66,13 @@ orderApp.controller('mbNavController',function ($scope,$stateParams,apiCaller,sc
 		$scope.GroupName = '系列';
 		$scope.isDLShow = false;
 		hideModalBg();
-		scopeMethod.changeState("1",Division.categoryCode,"1",function(){
-				$("body").hideLoading();
-			},function(){
-				$("body").hideLoading();
-			});
+		scopeMethod.changeState("1",Division.categoryCode,"1");
 	}
 	$scope.groupItemClicked = function(Group) {
 		$scope.GroupName = Group.seriesName;
 		$scope.isGLShow = false;
 		hideModalBg();
-		scopeMethod.changeState("2",Group.seriesCode,"1",function(){
-				$("body").hideLoading();
-			},function(){
-				$("body").hideLoading();
-			});
+		scopeMethod.changeState("2",Group.seriesCode,"1");
 	}
 
 	$("body").click(function(event){

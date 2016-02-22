@@ -1,7 +1,7 @@
 <!--pc面包屑-->
 <div class="layout page-width pc-only">
   <div class="bread-crumb"><a ui-sref="index.productList" ng-click="nav1Clicked()">首页</a><a>&gt;</a><a>收藏</a></div>
-    <div class="tips">可下单日期为每月1到17日，您当前日期不可下单</div>
+    <div class="tips" ng-if="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div>
     <div class="clr"></div>
 </div>
 
@@ -15,7 +15,7 @@
           <a class="back" ui-sref="index.productList" ng-click="nav1Clicked()"><b>&lt;</b> 首页</a>
           <div class="title">收藏</div>
         </div>
-        <div class="tips mobile-only">可下单日期为每月1到17日，您当前日期不可下单</div>
+        <div class="tips mobile-only" ng-if="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div>
         <div class="fav-content-inner">
             <div class="empty" ng-if="isFavEmpty">
                 <div class="icon"></div>
@@ -28,7 +28,7 @@
                 </div>
 
             </div>
-            <div ng-if="!isFavEmpty" class="fav-product-wrapper" ng-repeat="Product in favList" ng-init="Product.productStatus=='0'?btnClass = 'button-s button-gray fav-add-cart':btnClass = 'button-s button-gray button-disable fav-add-cart'">
+            <div ng-if="!isFavEmpty" class="fav-product-wrapper" ng-repeat="Product in favList" ng-init="Product.productStatus=='0' && !Product.isNotAllowOrder?btnClass = 'button-s button-gray fav-add-cart':btnClass = 'button-s button-gray button-disable fav-add-cart'">
                 <div class="fav-product-photo">
                   <div class="fav-no-product" ng-show="Product.productStatus != 0"></div>
                 <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ui-sref="index.product({productCode:{{Product.productCode}}})" style="cursor:pointer"/>

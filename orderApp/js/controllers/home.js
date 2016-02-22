@@ -1,12 +1,7 @@
 orderApp.factory('scopeData',function() {
 	return{
 		noticePageRevert     :false,
-		ProductionList       :{},
-		currentProductClass  :'1',         //当前产品列表显示的是大类为1，小类为2
-		homeDivisionName     :'',
-		homeDivisionCode     :'',
-		divisionCode         :'',
-		groupCode            :'',
+		categories           :[],
 		sourcePageId         : 0,          //0:代表productList页,1:代表currentOrder页
 		currentProductCode   :'',          //当前大类或小类的code
 		currentDivisionName  :'护肤',      //当前大类的名称(用于面包屑)
@@ -15,23 +10,15 @@ orderApp.factory('scopeData',function() {
 		secretaryName        :'',		   //秘书姓名		
 		secretaryPhone		 :'',          //秘书电话
 		currentOrderPage     : 1,		   //当前订单页数
+		isNotAllowOrder      : true,       //当前是否为不可下单日期内
+		orderDate            :[],          //可下单日期范围
 	}
 });
 
 orderApp.service('scopeMethod',function($state,scopeData,apiCaller) {
 	return{
-		changeState:function(ProductClass,ProductCode,Page,suc,err) {
-			scopeData.currentProductClass = ProductClass;
-			scopeData.currentProductCode = ProductCode;
-			scopeData.currentPage = Page;
-			$state.go('index.productList',{productClass:scopeData.currentProductClass,productCode:scopeData.currentProductCode,page:scopeData.currentPage});
-			apiCaller.getProductListByStates(suc,err);
-		},
-		getSearchTips:function(){
-
-		},
-		getSearchResult:function(){
-
+		changeState:function(ProductClass,ProductCode,Page) {
+			$state.go('index.productList',{productClass:ProductClass,productCode:ProductCode,page:Page});
 		},
 		isEmptyObject:function(obj){
 		    for ( var name in obj ) {
@@ -47,9 +34,9 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getProductListByStates:function(suc,err){
 			scopeData.ProductionList = ApiService.getProductList(
 			{
-				code:scopeData.currentProductCode,//大类传大类的id,小类传小类的CONFIG_VALUE
-				productClass:scopeData.currentProductClass,//大类为1，小类为2
-				pageNum:scopeData.currentPage,
+				code:$stateParams.productCode,//大类传大类的id,小类传小类的CONFIG_VALUE
+				productClass:$stateParams.productClass,//大类为1，小类为2
+				pageNum:$stateParams.page,
 				userAccount:'123123'
 			},
 			function(res){
@@ -66,8 +53,8 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getProductListByPage:function(page,suc,err){
 			ApiService.getProductList(
 			{
-				code:scopeData.currentProductCode,//大类传大类的id,小类传小类的CONFIG_VALUE
-				productClass:scopeData.currentProductClass,//大类为1，小类为2
+				code:$stateParams.productCode,//大类传大类的id,小类传小类的CONFIG_VALUE
+				productClass:$stateParams.productClass,//大类为1，小类为2
 				pageNum:page,
 				userAccount:'123123'
 			},
@@ -84,14 +71,14 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getCategories:function(suc,err){
 			return ApiService.getCategories(
-				function(response){
+				function(res){
 					if (suc) {
-						suc();
+						suc(res);
 					}
 				},
-				function(response){
+				function(res){
 					if (err) {
-						err();
+						err(res);
 					}
 				});
 		},
@@ -227,6 +214,20 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 					return err(res)
 				}
 			})
+		},
+		getOrderDate:function(suc,err){
+			return ApiService.getOrderDate(
+				function(res){
+					if(suc){
+						return suc(res)
+					}
+				},
+				function(res){
+					if(err){
+						return err(res)
+					}
+				}
+			)
 		}
 	}
 });

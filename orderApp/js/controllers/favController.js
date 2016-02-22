@@ -3,17 +3,16 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     var initData = function(){
         $scope.balance = apiCaller.getBalance();
         $scope.orderCount = apiCaller.getOrderCount();
+        $scope.isNotAllowOrder = scopeData.isNotAllowOrder;
+        $scope.orderDate = scopeData.orderDate;
         apiCaller.getFavoriteList($scope.currentPage,function(res) {
             $scope.favList = res.favorites;
             $scope.pageNumCount = res.pageNumCount;
             for (var i = 0; i < res.pageNumCount; i++) {
                 $scope.pages.push(i+1)
             };
-            var i = 0;
-            var tmpArr = [];
-            for (Product in $scope.favList ) {
-                $scope.inputTexts[$scope.favList[i].productCode] = '1'
-                i++;
+            for (index in $scope.favList ) {
+                $scope.inputTexts[$scope.favList[index].productCode] = '1'
             };
             if($scope.favList[0]){
                 $scope.isFavEmpty = false;
@@ -62,7 +61,22 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
             }
     });
 
+    $scope.$watch('favList', function(newVal, oldVal) {
+        if (newVal !== oldVal) {
+            console.log("$watch(favList",newVal)
+            for (index in newVal ) {
+                $scope.inputTexts[newVal[index].productCode] = '1'
+            };
+            if(!scopeMethod.isEmptyObject(newVal)) {
+                for (index in newVal) {
+                   newVal[index].isNotAllowOrder = $scope.isNotAllowOrder;
+                };
+            }
+        }
+    }, true);
+
     $scope.pageNumClicked = function(page){
+        $(window).scrollTop(0);
         if($scope.currentPage == page){
             return;
         }
@@ -80,21 +94,22 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     }
 
     $scope.addCartClicked = function(Product) {
-        $("body").showLoading(-150);
-        var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
-            showModal({msg:"已加当月订单"});
-            $(".cart").find(".number").transition({scale:2});
-            setTimeout(function(){
-                $(".cart").find(".number").transition({scale:1});
-            },500)
-            $scope.balance = apiCaller.getBalance();
-            $scope.orderCount = apiCaller.getOrderCount();
-            $("body").hideLoading();
-        },function(){
-            $("body").hideLoading();
-            showModal({msg:"剩余额度不足"});
-        });
-
+        if (Product.productStatus == 0 && !Product.isNotAllowOrder){
+            $("body").showLoading(-150);
+            var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
+                showModal({msg:"已加当月订单"});
+                $(".cart").find(".number").transition({scale:2});
+                setTimeout(function(){
+                    $(".cart").find(".number").transition({scale:1});
+                },500)
+                $scope.balance = apiCaller.getBalance();
+                $scope.orderCount = apiCaller.getOrderCount();
+                $("body").hideLoading();
+            },function(){
+                $("body").hideLoading();
+                showModal({msg:"剩余额度不足"});
+            });
+        }
     }
 
     $scope.favoriteClicked = function(Product) {
@@ -142,12 +157,6 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     }
 
     $scope.nav1Clicked = function () {
-        scopeMethod.changeState('1',scopeData.homeDivisionCode,'1',function(){
-                $("body").hideLoading();
-            },function(){
-                $("body").hideLoading();
-            });
-        scopeData.currentDivisionName = scopeData.homeDivisionName;
-        scopeData.currenGroupName = '';
+        scopeMethod.changeState('1','1','1');
     }
 })

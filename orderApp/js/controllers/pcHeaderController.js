@@ -2,6 +2,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	$scope.showList = false;
 	$scope.searchKey = "";
 	var delayTime;
+	var isGroupClicked = false;
 	
 	$(".search").keyup(function(event){
 		clearTimeout(delayTime);
@@ -40,21 +41,12 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 		}
 	})
 
-	$scope.categories=apiCaller.getCategories(function(){
-		scopeData.homeDivisionName = $scope.categories[0].categoryName;
-		scopeData.homeDivisionCode = $scope.categories[0].categoryCode;
+	$scope.categories=apiCaller.getCategories(function(res){
+		scopeData.categories = res;
 		if($stateParams.productClass == "" || $stateParams.productCode == "" || $stateParams.page == ""){
-			scopeMethod.changeState("1",$scope.categories[0].categoryCode,"1",function(){
-				$("body").hideLoading();
-			},function(){
-				$("body").hideLoading();
-			});
+			scopeMethod.changeState("1",$scope.categories[0].categoryCode,"1");
 		}else if($stateParams.productClass && $stateParams.productCode && $stateParams.page){
-			scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$stateParams.page,function(){
-				$("body").hideLoading();
-			},function(){
-				$("body").hideLoading();
-			});
+			scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$stateParams.page);
 		}
 		
 	},function(){
@@ -62,38 +54,24 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	});
 
 	$scope.divisionClicked=function(Division) {
-		scopeData.currentDivisionName = Division.categoryName;
-		scopeData.divisionCode = Division.categoryCode;
-		scopeData.currenGroupName = '';
-        scopeMethod.changeState("1",Division.categoryCode,"1",function(){
-				$("body").hideLoading();
-			},function(){
-				$("body").hideLoading();
-			});
-		// $scope.showList = false;
+		if(!isGroupClicked){
+			scopeData.currentDivisionName = Division.categoryName;
+			scopeData.divisionCode = Division.categoryCode;
+			scopeData.currenGroupName = '';
+	        scopeMethod.changeState("1",Division.categoryCode,"1");
+	    }else{
+	    	isGroupClicked = false;
+	    }
 	}
 
 	$scope.groupClicked=function(Group,Division) {
-		scopeData.currentDivisionName = Division.categoryName;
-		scopeData.divisionCode = Division.categoryCode;
-		scopeData.currenGroupName = Group.seriesName;
-		scopeData.groupCode = Group.seriesCode;
-        scopeMethod.changeState("2",Group.seriesCode,"1",function(){
-				$("body").hideLoading();
-			},function(){
-				$("body").hideLoading();
-			});
+		isGroupClicked = true;
+        scopeMethod.changeState("2",Group.seriesCode,"1");
 		// $scope.showList = false;
 	}
 
 	$scope.logoClicked = function() {
-		scopeMethod.changeState("1","1","1",function(){
-				$("body").hideLoading();
-			},function(){
-				$("body").hideLoading();
-			});
-		scopeData.currentDivisionName = $scope.categories[0].categoryName;
-		scopeData.currenGroupName = '';
+		scopeMethod.changeState("1","1","1");
 	}
 
 	$scope.favClicked = function() {
