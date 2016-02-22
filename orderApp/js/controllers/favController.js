@@ -1,5 +1,5 @@
-orderApp.controller('favController',function ($scope,$stateParams,$state,apiCaller,scopeData,scopeMethod) {
-    scopeData.sourcePageId = 3;
+orderApp.controller('favController',function ($scope,$stateParams,$state,apiCaller,scopeData,scopeMethod,sessionStorage) {
+    sessionStorage.put("sourcePageId","3")
     var initData = function(){
         $scope.balance = apiCaller.getBalance();
         $scope.orderCount = apiCaller.getOrderCount();

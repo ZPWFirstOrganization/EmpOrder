@@ -1,4 +1,4 @@
-orderApp.controller('prductListController',function($scope,$stateParams,$state,$http,scopeData,scopeMethod,apiCaller) {
+orderApp.controller('prductListController',function($scope,$stateParams,$state,$http,scopeData,scopeMethod,apiCaller,sessionStorage) {
 	$scope.currentDivisionName = '';
 	$scope.currenGroupName = '';
 	$scope.currentCategoryCode = '1'
@@ -10,8 +10,8 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 	$scope.inputTexts = [];
 	$scope.pages = [];
 	$scope.currentPage=$stateParams.page;
-    scopeData.sourcePageId = 0;
-
+    // scopeData.sourcePageId = 0;
+    sessionStorage.put("sourcePageId","0")
     apiCaller.getOrderDate(function(res){
     	scopeData.isNotAllowOrder = !(res.allowOrder);
     	scopeData.orderDate = res.orderDate.split('-');

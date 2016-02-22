@@ -1,6 +1,6 @@
 orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
 //  http://wzdcbdeo01:8090/mlk/
-orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,scopeData){
+orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,scopeData,sessionStorage){
 	$scope.secretary = {userName:"",userPhone:""}
 	$scope.count = 0
 	$scope.resAmount = 0
@@ -9,6 +9,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 	$scope.currentOrderData = {};
 	$scope.lastData = 1
 	$scope.isHaveData = true
+	sessionStorage.put("sourcePageId","1")
     // scopeData.sourcePageId = 1;
     $scope.isShowFoot = function(){
     	if ($scope.isHaveData && $scope.isCanShop){
@@ -22,7 +23,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 	currentOrderServ.getDateGate({kind: 'Order'},function(response){
 	    var arry = response.orderDate.split("-")
 	    $scope.isCanShop = response.allowOrder
-	    // $scope.isCanShop = true
+	    $scope.isCanShop = true
 	    $scope.lastData = parseInt(arry[1])
   	})
   	//初始化余额
