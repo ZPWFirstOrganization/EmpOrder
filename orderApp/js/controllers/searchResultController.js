@@ -1,4 +1,4 @@
-orderApp.controller('searchResultController',function ($scope,$state,$stateParams,apiCaller,scopeData,scopeMethod) {
+orderApp.controller('searchResultController',function ($scope,$state,$stateParams,apiCaller,scopeData,scopeMethod,sessionStorage) {
     $("body").showLoading(-150);
     $scope.pages = [];
     $scope.inputTexts = [];
@@ -6,7 +6,8 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     $scope.pageNumCount = 1;
     $scope.totalCount = 0;
     $scope.searchKey = $stateParams.key;
-    scopeData.sourcePageId = 4;
+    sessionStorage.put("sourcePageId","4")
+    // scopeData.sourcePageId = 4;
     var initData = function(){
         $scope.balance = apiCaller.getBalance();
         $scope.orderCount = apiCaller.getOrderCount();
