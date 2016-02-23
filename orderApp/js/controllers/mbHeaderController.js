@@ -1,4 +1,4 @@
-orderApp.controller('mbHeaderController',function ($scope,$state) {
+orderApp.controller('mbHeaderController',function ($scope,$state,scopeMethod) {
 
     $scope.showSearch = true;
     $scope.searchKey = "";
@@ -26,6 +26,10 @@ orderApp.controller('mbHeaderController',function ($scope,$state) {
         } 
 
     });
+
+    $scope.nav1Clicked = function () {
+        scopeMethod.changeState('1','1','1');
+    }
 
     $scope.favClicked = function() {
         $state.go('index.favorites',{page:1});
