@@ -94,22 +94,22 @@ $(document).ready(function(e) {
    //pc and mobile js--------------------------------------------------
    
    //自动完成搜索api   https://github.com/ArtemFitiskin/jquery-autocompleter
-	var data = [
-		{ "value": "1", "label": "1" },
-		{ "value": "1-1", "label": "1-1" },
-		{ "value": "2", "label": "2" },
-		{ "value": "3", "label": "3" }
-	];
+	// var data = [
+	// 	{ "value": "1", "label": "1" },
+	// 	{ "value": "1-1", "label": "1-1" },
+	// 	{ "value": "2", "label": "2" },
+	// 	{ "value": "3", "label": "3" }
+	// ];
 
-	$('.search').autocompleter({ 
-		highlightMatches: true,
+	// $('.search').autocompleter({ 
+	// 	highlightMatches: true,
 
-        // abort source if empty field
-        empty: false,
-        // max results
-        limit: 5,
-		source: data
-	 });
+ //        // abort source if empty field
+ //        empty: false,
+ //        // max results
+ //        limit: 5,
+	// 	source: data
+	//  });
 
 
 

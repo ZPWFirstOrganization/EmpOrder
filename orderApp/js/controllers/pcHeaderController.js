@@ -3,41 +3,43 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	$scope.searchKey = "";
 	var delayTime;
 	var isGroupClicked = false;
+	var data = [];
 	
-	$(".search").keyup(function(event){
+	$("#pcSeach").keyup(function(event){
 		clearTimeout(delayTime);
+		$('#pcSeach').autocompleter('destroy');
 		if (event.keyCode == 13){
-			console.log("event.keyCode == 13",$scope.searchKey)
 			if($scope.searchKey != ""){
 				$state.go('index.searchResult',{key:$scope.searchKey,page:1})
+				$('#pcSeach').autocompleter('close');
 			}
-		// }else{
-		// 	delayTime = setTimeout(function() {
-		// 		apiCaller.getSearchResult($scope.searchKey,function(res){
-		// 			console.log('searchresult',res)
-		// 			var data = [];
-		// 			for (var i = 0; i < res.length; i++) {
-		// 				var tmp;
-		// 				if(res[i].productCode){
-		// 					tmp = {"value":res[i].productCode,"label":res[i].productCode}
-		// 					data.push(tmp)
-		// 				}
-		// 				if(res[i].productName){
-		// 					tmp = {"value":res[i].productName,"label":res[i].productName}
-		// 					data.push(tmp)
-		// 				}
-		// 			};
-		// 			console.log('data',data)
-		// 			$('.search').autocompleter({ 
-		// 				highlightMatches: true,
-		// 		        // abort source if empty field
-		// 		        empty: false,
-		// 		        // max results
-		// 		        limit: 5,
-		// 				source: data
-		// 			});
-		// 		})
-		// 	},1000);
+		}else{
+			delayTime = setTimeout(function() {
+				apiCaller.getSearchTips($scope.searchKey,function(res){
+					data = [];
+					for (var i = 0; i < res.length; i++) {
+						var tmp;
+						if(res[i].productCode){
+							tmp = {"value":res[i].productCode,"label":res[i].productCode}
+							data.push(tmp)
+						}
+						if(res[i].productName){
+							tmp = {"value":res[i].productName,"label":res[i].productName}
+							data.push(tmp)
+						}
+					};
+					$('#pcSeach').blur()
+					setTimeout(function(){
+						$('#pcSeach').autocompleter({ 
+							highlightMatches: true,
+					        empty: false,
+					        limit: 5,
+							source: data
+						});
+						$('#pcSeach').focus()
+					},100)
+				})
+			},500);
 		}
 	})
 

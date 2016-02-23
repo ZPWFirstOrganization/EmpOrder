@@ -135,6 +135,20 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 					}
 			});
 		},
+		getSearchTips:function(keyWord,suc,err){
+			return ApiService.getSearchTips({key:keyWord},
+				function(res){
+				if(suc){
+					return suc(res)
+				}
+			},
+			function(res){
+				if(err){
+					return err(res)
+				}
+			}
+				)
+		},
 		getOrderListByPage:function(param,suc,err){
 			return ApiService.getOrderList({
 				userAccount:param.userAccount,

@@ -112,8 +112,7 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 		          key:'@key'
 		        },
 		        isArray:true
-		    }
-		    ,
+		    },
 		    getSearchResult:{
 		    	url:baseUrl+'2/Product',
 		    	method:'GET',

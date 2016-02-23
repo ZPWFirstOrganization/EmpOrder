@@ -1,5 +1,6 @@
-orderApp.controller('mbHeaderController',function ($scope,$state,scopeMethod) {
+orderApp.controller('mbHeaderController',function ($scope,$state,scopeMethod,apiCaller) {
 
+    var delayTime;
     $scope.showSearch = true;
     $scope.searchKey = "";
     stateMonitor = setInterval(function () {
@@ -47,40 +48,43 @@ orderApp.controller('mbHeaderController',function ($scope,$state,scopeMethod) {
         }
     });
 
-    $(".search").keyup(function(event){
+    var data = [];
+    $("#mbSeach").keyup(function(event){
         clearTimeout(delayTime);
+        $('#mbSeach').autocompleter('destroy');
+        data = [];
         if (event.keyCode == 13){
-            console.log("event.keyCode == 13",$scope.searchKey)
             if($scope.searchKey != ""){
                 $state.go('index.searchResult',{key:$scope.searchKey,page:1})
+                $('#mbSeach').autocompleter('close');
             }
-        // }else{
-        //  delayTime = setTimeout(function() {
-        //      apiCaller.getSearchResult($scope.searchKey,function(res){
-        //          console.log('searchresult',res)
-        //          var data = [];
-        //          for (var i = 0; i < res.length; i++) {
-        //              var tmp;
-        //              if(res[i].productCode){
-        //                  tmp = {"value":res[i].productCode,"label":res[i].productCode}
-        //                  data.push(tmp)
-        //              }
-        //              if(res[i].productName){
-        //                  tmp = {"value":res[i].productName,"label":res[i].productName}
-        //                  data.push(tmp)
-        //              }
-        //          };
-        //          console.log('data',data)
-        //          $('.search').autocompleter({ 
-        //              highlightMatches: true,
-        //              // abort source if empty field
-        //              empty: false,
-        //              // max results
-        //              limit: 5,
-        //              source: data
-        //          });
-        //      })
-        //  },1000);
+        }else{
+            delayTime = setTimeout(function() {
+                apiCaller.getSearchTips($scope.searchKey,function(res){
+                    data = [];
+                    for (var i = 0; i < res.length; i++) {
+                        var tmp;
+                        if(res[i].productCode){
+                            tmp = {"value":res[i].productCode,"label":res[i].productCode}
+                            data.push(tmp)
+                        }
+                        if(res[i].productName){
+                            tmp = {"value":res[i].productName,"label":res[i].productName}
+                            data.push(tmp)
+                        }
+                    };
+                    $('#mbSeach').blur()
+                    setTimeout(function(){
+                        $('#mbSeach').autocompleter({ 
+                            highlightMatches: true,
+                            empty: false,
+                            limit: 5,
+                            source: data
+                        });
+                        $('#mbSeach').focus()
+                    },100)
+                })
+            },500);
         }
     })
 

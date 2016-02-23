@@ -33,6 +33,7 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
             }
             $("body").hideLoading();
         },function(){
+            $("body").hideLoading();
             $scope.isResultEmpty = true;
         });
     }
