@@ -183,22 +183,28 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
      	// alert(flag)
      	if (flag=="year"){
      		if($("#yearList").css("display")=="none"){
-				$("#yearList").fadeIn(200);
-				$("#monthList").fadeOut(200);
+     			$("#yearArrow").addClass("select-arrow-up")
+     			$("#monthArrow").removeClass("select-arrow-up")
+				$("#yearList").slideDown(300);
+				$("#monthList").slideUp(0);
 				hideModalBg();
 				showModalBg($("#yearList"))
 			}else{
-				$("#yearList").fadeOut(200);
+				$("#yearArrow").removeClass("select-arrow-up")
+				$("#yearList").slideUp(300);
 				hideModalBg();  
 			}
      	}else{
 	     	if($("#monthList").css("display")=="none"){
-				$("#monthList").fadeIn(200);
-				$("#yearList").fadeOut(200);
+	     		$("#monthArrow").addClass("select-arrow-up")
+     			$("#yearArrow").removeClass("select-arrow-up")
+				$("#monthList").slideDown(300);
+				$("#yearList").slideUp(0);
 				hideModalBg();
 				showModalBg($("#monthList"))
 			}else{
-				$("#monthList").fadeOut(200);
+				$("#monthArrow").removeClass("select-arrow-up")
+				$("#monthList").slideUp(300);
 				hideModalBg();  
 			}
 		}

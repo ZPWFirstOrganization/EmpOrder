@@ -50,7 +50,7 @@
  Global Variables
 ----------------------------*/
         	
-        		$(this).attr("topMeasure",50);				
+        		// $(this).attr("topMeasure",50);				
 				$(this).attr("topOffset", $(this).height() + parseInt($(this).attr("topMeasure")));
 				$(this).attr("locked",false);
 				$(this).attr("animation",options.animation);
@@ -176,7 +176,7 @@
 		
         
 	
-		$(this).attr("topMeasure",50);				
+		// $(this).attr("topMeasure",50);				
 		$(this).attr("topOffset", $(this).height() + $(this).attr("topMeasure"));
 		$(this).attr("locked",false);
 		$(this).attr("animation",options.animation);
