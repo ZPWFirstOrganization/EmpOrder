@@ -5,7 +5,7 @@ orderApp.controller('personInfoCtrl',function($scope,$state,ApiService,apiCaller
     
 	//获取个人信息
 	personServ.getPersonInfo({kind: 'User',infoAccount:'123123'},function(response){
-	    //console.log(response);
+	    console.log(response);
         $scope.Person = response;
   	})        
 })

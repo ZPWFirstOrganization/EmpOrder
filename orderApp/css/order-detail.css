@@ -7,7 +7,7 @@
 .order-detail .top-wrapper{ background-color:#f9f9f9; border-top:1px solid #eee; border-bottom:1px solid #eee; padding:0px 10px; }
 .order-detail .top-wrapper .form-row{ padding:10px 0px; position: relative;}
 .order-detail .top-wrapper .form-row .field-key{width:150px;height:30px;float:left;position:relative;line-height:30px}
-.order-detail .top-wrapper .form-row .field-value{width:370px;line-height:30px;float:left;position:relative;padding-top:0px}
+.order-detail .top-wrapper .form-row .field-value{width:370px;line-height:30px;float:left;position:relative;padding-top:0px;left:-20px;}
 
 .order-detail .mid-wrapper{ min-height:400px;}
 .order-detail .product-wrapper{ width:100%; height:120px; border-bottom:1px solid #ddd; padding:10px 0px;}

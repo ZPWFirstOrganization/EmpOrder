@@ -1,9 +1,10 @@
 orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiService,apiCaller,scopeData){
+	$('html,body').animate({scrollTop: '0px'},0)
 	$("body").showLoading();
 	$scope.isHaveData = true;
 	$scope.orderList = [];
 	$scope.pages = [];
-	$scope.pageCount = 0
+	// $scope.pageCount = 0
 	$scope.currentPage = parseInt($stateParams.page);
 	// scopeData.sourcePageId = 2;
 	// $scope.showYear = "选择年"
@@ -30,7 +31,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	if (angular.isUndefined($stateParams.page)){
 		$stateParams.page = 1
 	}
-	scopeData.currentOrderPage = $stateParams.page
+	// scopeData.currentOrderPage = $stateParams.page
 	$scope.secretary = {userName:"",userPhone:""}
 	//获取订单信息
 	function queryOrderInfo(orderDate){
@@ -38,7 +39,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		// if (!angular.isUndefined($stateParams.orderDate)){
 		// 	orderDate = $stateParams.orderDate
 		// }
-		apiCaller.getOrderListByPage({userAccount:'456456',orderDate:orderDate,pageNum:scopeData.currentOrderPage},function(res){
+		apiCaller.getOrderListByPage({userAccount:'456456',orderDate:orderDate,pageNum:$scope.currentPage},function(res){
 		// console.log(res)
 		$scope.pages = []
 		$scope.orderList = []
@@ -51,7 +52,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 			$scope.isHaveData = false;
 		}else{
 			$scope.isHaveData = true;
-			$scope.pageCount = res.pageCount
+			// $scope.pageCount = res.pageCount
 			for (var i = 0; i < res.pageCount; i++) {
 				$scope.pages.push(i+1)
 			};
@@ -70,22 +71,57 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	}
 	queryOrderInfo($stateParams.orderDate)
 	$scope.pageNumClicked = function(page){
-		$(window).scrollTop(0);
 		if($scope.currentPage == page){
 			return;
 		}
+		//下一页
 		if('next' == page){
-			if($scope.currentPage < $scope.pageCount){
-				scopeData.currentOrderPage = parseInt($stateParams.page) + 1
-				$('html,body').animate({scrollTop: '0px'},100)
-				$state.go('index.historyOrder',{page:scopeData.currentOrderPage});
+			if($scope.currentPage < $scope.pages.length){
+				$scope.currentPage = parseInt($stateParams.page) + 1
+				// $('html,body').animate({scrollTop: '0px'},100)
+				$state.go('index.historyOrder',{page:$scope.currentPage});
 			}else{
-				showModal({msg:"已经是最后一页"});
+				// showModal({msg:"已经是最后一页"});
 				return;
 			}
-		}else{
+		}
+		//上一页
+		else if('previous' == page){
+			if($scope.currentPage > 1){
+				$scope.currentPage = parseInt($stateParams.page) - 1
+				// $('html,body').animate({scrollTop: '0px'},100)
+				$state.go('index.historyOrder',{page:$scope.currentPage});
+			}else{
+				// showModal({msg:"已经是最后一页"});
+				return;
+			}
+		}
+		//首页
+		else if('first' == page){
+			if($scope.currentPage != 1){
+				$scope.currentPage = 1
+				// $('html,body').animate({scrollTop: '0px'},100)
+				$state.go('index.historyOrder',{page:1});
+			}else{
+				// showModal({msg:"已经是最后一页"});
+				return;
+			}
+		}
+		//尾页
+		else if('last' == page){
+			if($scope.currentPage != $scope.pages.length){
+				$scope.currentPage = $scope.pages.length
+				// $('html,body').animate({scrollTop: '0px'},100)
+				$state.go('index.historyOrder',{page:$scope.pages.length});
+			}else{
+				// showModal({msg:"已经是最后一页"});
+				return;
+			}
+		}
+		//点击页码
+		else{
 			// $scope.currentPage = page;
-			$('html,body').animate({scrollTop: '0px'},100)
+			// $('html,body').animate({scrollTop: '0px'},100)
 			$state.go('index.historyOrder',{page:page});
 		}
 	}

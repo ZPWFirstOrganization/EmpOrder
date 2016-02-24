@@ -36,7 +36,7 @@
             </div>
             <div class="proddtl-wrapper">
                 <div class="proddtl-photo">
-                 <div class="no-prod" ng-show="Product.productStatus != 0"></div>
+                 <div class="no-prod" ng-hide="Product.productStatus != 1"></div>
                 <img ng-src="{{Product.imageUrl}}" onerror="this.src='res/null_img.jpg'" />
                 </div>
                 

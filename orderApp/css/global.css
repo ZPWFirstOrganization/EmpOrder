@@ -87,6 +87,7 @@ body{ background-color: #f3f3f3; color:#000; font-family:Arial, "微软雅黑"; 
 .paginate-wrap{ padding:20px 0px;}
 .dataTables_paginate{text-align: center;}
 .dataTables_paginate a.paginate_button,.dataTables_paginate a.paginate_active,.num, .current, .next, .prev,.dataTables_paginate .end, .dataTables_paginate .first{border: 1px solid #ddd;padding: 3px 10px;margin-right: 5px;cursor: pointer;color: #636E7B;line-height: 21px;position: relative;background: #fff;display: inline-block;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;}
+.dataTables_paginate a.paginate_button,.dataTables_paginate .num_gray{border: 1px solid #ddd;padding: 3px 10px;margin-right: 5px;color: #636E7B;line-height: 21px;position: relative;background: #eee;display: inline-block;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;}
 dataTables_paginate a:ntd-last-child(2)
 .dataTables_paginate > li:first-child > a,.dataTables_paginate > li:first-child > span{border-bottom-left-radius: 3px;border-top-left-radius: 3px;}
 .dataTables_paginate a.paginate_button:hover{text-decoration: none !important;background-color: #E4E7EA;}

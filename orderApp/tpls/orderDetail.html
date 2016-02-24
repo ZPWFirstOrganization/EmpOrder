@@ -64,13 +64,13 @@
                 <!--<div class="empty"></div>-->
                 <div class="product-wrapper" ng-repeat="product in orderData.product">
                     <div class="product-photo">
-                   
-                    <img ng-src="{{product.imageUrl}}" onerror="this.src='res/null_img.jpg'" ui-sref="index.product({productCode:{{product.productCode}}})" style="cursor:pointer"/>
+                    <div class="no-product" ng-hide="product.productStatus != 1"></div>
+                    <img ng-src="{{product.imageUrl}}" onerror="this.src='res/null_img.jpg'" ng-click="prodClick(product.productStatus,product.productCode)" style="cursor:pointer"/>
                     </div>
                     <div class="product-info">
                        
                        <div class="row1"> 
-                           <a class="order-product-name" ui-sref="index.product({productCode:{{product.productCode}}})">{{product.productName}}</a>
+                           <a class="order-product-name" ng-click="prodClick(product.productStatus,product.productCode)" style="cursor:pointer">{{product.productName}}</a>
                            <div class="product-no pc-only">货号：{{product.productCode}}</div> 
                        </div>
                        <div class="row2">               
