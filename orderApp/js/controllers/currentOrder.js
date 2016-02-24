@@ -19,7 +19,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
     	}
     }
 	//获取下单日期范围
-	$("body").showLoading(-150);
+	$("body").showLoading();
 	currentOrderServ.getDateGate({kind: 'Order'},function(response){
 	    var arry = response.orderDate.split("-")
 	    $scope.isCanShop = response.allowOrder
@@ -75,7 +75,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 			return
 		};
 		if (parseInt(prodCount) != oldCount){
-			$("body").showLoading(-150);
+			$("body").showLoading();
 			
 
 			currentOrderServ.putProduct(
@@ -131,7 +131,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 		showConfirm({
 			msg:"确定删除该产品？",
 			confirmed:function(){
-				$("body").showLoading(-150);
+				$("body").showLoading();
 				deleteServ("Order",{userAccount:123123,productCode:$scope.currentOrderData.product[index].productCode},
 				function(response){
 					$scope.$apply(function () {
@@ -164,7 +164,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 		showConfirm({
 			msg:"确定取消该订单？",
 			confirmed:function(){
-				$("body").showLoading(-150);
+				$("body").showLoading();
 				deleteServ("Order",{userAccount:123123},
 				function(response){
 					$scope.$apply(function () {

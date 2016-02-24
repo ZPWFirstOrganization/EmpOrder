@@ -5,6 +5,7 @@
 .sider-menu-wrapper .active{ background-color:#666;color:#fff; margin:0px -1px}
 
 .orderHistory .his-top-wrapper{ height:40px; }
+.orderHistory .his-top-wrapper .his-tips-line1{ line-height:40px;  padding-left:40px; float:left; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 50%; background-size: auto 60% ; }
 .orderHistory .his-top-wrapper .his-tips{ line-height:40px;  float:left; }
 .orderHistory .his-top-wrapper .his-select-wrapper{ float:right; padding-top:5px; width:100px; margin-left:5px;}
 
@@ -24,10 +25,11 @@
 .select-wrap:active{ background-color:#eee}
 .select-wrap select{ position:absolute; z-index:10; opacity:0.01; right:0; left:0; top:0; bottom:0; width:100%; height:45px;}
 .select-wrap .select-content{ overflow:hidden;  word-break:no-wrap; text-align:left; text-indent:10px;white-space:nowrap; line-height:45px; text-align:center; font-size:16px}	
-.select-wrap .select-arrow{ position:absolute; width:20px; height:97%; background-color:#fff; right:10px; top:0; bottom:0; background-image:url(../img/arrow_down_pink.png); background-repeat:no-repeat; background-position:50% 50%; background-size:70% auto;}	
+.select-wrap .select-arrow{ position:absolute; width:20px; height:97%; background-color:#fff; right:10px; top:0; bottom:0; background-image:url(../img/arrow_down_pink.png); background-repeat:no-repeat; background-position:50% 50%; background-size:70% auto;}
+.select-wrap .select-arrow-up{  background-image:url(../img/arrow_up_pink.png)!important; }	
 
-.his-option-list{ position:absolute; width:100%; top:45px;  z-index:500; background-color:#fff; border-bottom:1px solid #eee; box-shadow:0px 2px 5px  rgba(0,0,0,0.7); display:none;overflow-x: hidden; overflow-y:scroll; max-height:200px;}
-.his-option-list .list{ line-height:45px; border-bottom:1px solid #eee; margin-left:10px; display:block}
+.his-option-list{ position:absolute; width:100%; top:45px;  z-index:500; background-color:#fff; border-bottom:1px solid #eee; box-shadow:0px 2px 5px  rgba(0,0,0,0.7); display:none;overflow-x: hidden; overflow-y:scroll; max-height:270px;}
+.his-option-list .list{ line-height:45px; border-bottom:1px solid #eee; margin-left:10px; display:block;text-align: center;}
 .his-option-list .list:last-child{ border-bottom:none;}
 .his-option-list .list:active{ background-color:#eee}
 

@@ -3,7 +3,7 @@
 
 <a class="proddtl-cart animated" ui-sref="index.currentOrder">
 <div class="cart-inner">
-<div class="number">{{orderCount.productCount}}</div>
+<div class="number"><b>{{{false: orderCount.productCount, true: '···'}[orderCount.productCount >= 100]}}</b></div>
 剩余额度:<br>
 {{balance.myBalance}}
 </div>

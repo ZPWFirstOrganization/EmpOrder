@@ -17,7 +17,7 @@ orderApp.factory('scopeData',function() {
 	}
 });
 
-orderApp.service('scopeMethod',function($state,scopeData,apiCaller) {
+orderApp.service('scopeMethod',function($state,scopeData,apiCaller,sessionStorage) {
 	return{
 		changeState:function(ProductClass,ProductCode,Page) {
 			$state.go('index.productList',{productClass:ProductClass,productCode:ProductCode,page:Page});
@@ -27,6 +27,13 @@ orderApp.service('scopeMethod',function($state,scopeData,apiCaller) {
 		        return false;
 		    }
 		    return true;
+		},
+		setSessiondiscountType:function(discountType){
+			if (parseInt(discountType) != 2 && parseInt(discountType) != 6){
+				discountType = 2
+			}
+			sessionStorage.put('discountType',discountType)
+			console.log(sessionStorage.get('discountType'))
 		}
 	}
 })

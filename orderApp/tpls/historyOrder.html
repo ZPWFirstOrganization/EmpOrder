@@ -15,14 +15,14 @@
     <div class="select-wrap  fl" action="select" cname="year" ng-click="selectList('year')">
 
         <div class="select-content">{{pcSelectYear.name}}</div>
-        <div class="select-arrow"></div>
+        <div id="yearArrow" class="select-arrow"></div>
     </div>
     
 
     <div class="select-wrap  fr" action="select" cname="month" ng-click="selectList('month')">
 
         <div class="select-content">{{pcSelectMonth.name}}</div>
-        <div class="select-arrow"></div>
+        <div id="monthArrow" class="select-arrow"></div>
     </div> 
     <div class="clr"></div>  
     
@@ -57,6 +57,8 @@
             
             
         	<div class="his-top-wrapper">
+                <div class="his-tips-line1">此价格仅表示下单当月价格   </div>
+                
             	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div>
                 <div class="his-select-wrapper">
                     <select class="select2" id="pcMonthSelecter" ng-model="pcSelectMonth" ng-change="pcSelectDate()" ng-options="m.name for m in months">
@@ -103,20 +105,20 @@
                 
                
                     <div class="th" ng-show="isHaveData">
-                        <div class="td w20 text-center"><span class="text-center">订单编号</span></div>
-                        <div class="td w20 text-center"><span class="text-center">应付金额</span></div>
-                        <div class="td w20 text-center"><span class="text-center">订单状态</span></div>
-                        <div class="td w20 text-center"><span class="text-center">订单时间</span></div>
-                        <div class="td w20 text-center"><span class="text-center">操作</span></div>
+                        <!-- <div class="td w20 text-center"><span class="text-center">订单编号</span></div> -->
+                        <div class="td w25 text-center"><span class="text-center">订单时间</span></div>
+                        <div class="td w25 text-center"><span class="text-center">应付金额</span></div>
+                        <div class="td w25 text-center"><span class="text-center">订单状态</span></div>
+                        <div class="td w25 text-center"><span class="text-center">操作</span></div>
                        
                         <div class="clr"></div>
                     </div>
                     <div class="tr" ng-repeat="order in orderList track by $index" ng-show="isHaveData">
-                    	 <div class="td w20"><span class="">{{order.orderID}}</span></div>
-                         <div class="td w20"><span class="">￥{{order.orderRealAmount}}</span></div>
-                         <div class="td w20"><span class="">{{order.orderState | stateFilter }}</span></div>
-                         <div class="td w20"><span class="">{{order.orderYearMonth}}</span></div>
-                         <div class="td w20"><a class=""  ui-sref="index.orderDetail({orderID:order.orderID})">查看</a></div>
+                    	 <!-- <div class="td w20"><span class="">{{order.orderID}}</span></div> -->
+                         <div class="td w25"><span class="">{{order.orderYearMonth}}</span></div>
+                         <div class="td w25"><span class="">￥{{order.orderRealAmount}}</span></div>
+                         <div class="td w25"><span class="">{{order.orderState | stateFilter }}</span></div>
+                         <div class="td w25"><a class=""  ui-sref="index.orderDetail({orderID:order.orderID})">查看</a></div>
                         
                          <div class="clr"></div>
                     </div>
@@ -127,8 +129,11 @@
         <!--pc分页-->    
         <div class="paginate-wrap pc-only" ng-show="isHaveData">
           <div class="dataTables_paginate">
+            <a class="num" > 首页 </a>
+            <a class="num" ng-click="pageNumClicked('last')"> << </a>
             <span ng-class="{true:'current',false:'num'}[currentPage==page]" ng-repeat="page in pages" ng-click="pageNumClicked(page)">{{page}}</span>
             <a class="num" ng-click="pageNumClicked('next')"> >> </a>
+            <a class="num" > 尾页 </a>
             <div class="clr"></div>
           </div>
         </div> 
@@ -164,8 +169,10 @@
               
                 <a class="order" ng-repeat="order in orderList track by $index" ng-show="isHaveData">
                     <div class="form-row" ui-sref="index.orderDetail({orderID:order.orderID})">
-                      <div class="field-key w25 gray10">订单编号：</div>
-                      <div class="field-value w25">{{order.orderID}}</div>
+<!--                       <div class="field-key w25 gray10">订单编号：</div>
+                      <div class="field-value w25">{{order.orderID}}</div> -->
+                      <div class="field-key w25 gray10">订单时间：</div>
+                      <div class="field-value w20 ">{{order.orderYearMonth}}</div>
                       <div class="field-key w25 gray10">订单状态：</div>
                       <div class="field-value w20 ">{{order.orderState | stateFilter }}</div>
                       <div class="clr"> </div>
@@ -173,8 +180,6 @@
                     <div class="form-row" ui-sref="index.orderDetail({orderID:order.orderID})">
                       <div class="field-key w25 gray10">应付金额：</div>
                       <div class="field-value w25">￥{{order.orderRealAmount}}</div>
-                      <div class="field-key w25 gray10">订单时间：</div>
-                      <div class="field-value w20 ">{{order.orderYearMonth}}</div>
                       <div class="clr"> </div>
                     </div> 
                 </a>                            

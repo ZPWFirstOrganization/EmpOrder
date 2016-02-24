@@ -1,7 +1,7 @@
 //显示Toast提示 替换alert
 function showModal(obj){
    var fadeInTime = obj.fadeInTime ? obj.fadeInTime : 500; //黑块淡进
-   var delayTime = obj.delayTime ? obj.delayTime : 2000; //停留时间
+   var delayTime = obj.delayTime ? obj.delayTime : 1000; //停留时间
    var fadeOutTime = obj.fadeOutTime ? obj.fadeOutTime : 200; //淡出时间
    var callbackTime  = obj.callbackTime ? obj.callbackTime : 3000; //回调延迟
 
@@ -10,7 +10,7 @@ function showModal(obj){
       $("body").append('<div class="showModal" style="display:none">'+obj.msg+'</div>');
    }
 
-   $(".showModal").fadeIn(fadeInTime).delay(delayTime).animate({"top":"60%","opacity":0},fadeOutTime).fadeOut(0);
+   $(".showModal").fadeIn(fadeInTime).delay(delayTime).fadeOut(fadeOutTime);
 
    //回调
    if(obj.end){

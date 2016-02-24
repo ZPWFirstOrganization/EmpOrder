@@ -1,5 +1,5 @@
 orderApp.controller('mbNavController',function ($scope,$stateParams,apiCaller,scopeMethod) {
-	$("body").showLoading(-150);
+	$("body").showLoading();
 	$scope.lit2Show=''
 	$scope.isDLShow = false;
 	$scope.isGLShow = false;
