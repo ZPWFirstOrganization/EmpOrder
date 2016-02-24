@@ -1,5 +1,5 @@
 orderApp.controller('searchResultController',function ($scope,$state,$stateParams,apiCaller,scopeData,scopeMethod,sessionStorage) {
-    $("body").showLoading(-150);
+    $("body").showLoading();
     $scope.pages = [];
     $scope.inputTexts = [];
     $scope.currentPage = $stateParams.page;
@@ -55,7 +55,7 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
             },
             distance:50,
             callback:function(){
-                $("body").showLoading(-150);
+                $("body").showLoading();
                 apiCaller.getSearchResult($stateParams.key,++$scope.currentPage,function(res){
                     $scope.searchResult =
                      ($scope.searchResult).concat(res.products);
@@ -86,7 +86,7 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     }
 
     $scope.addCartClicked = function(Product) {
-        $("body").showLoading(-150);
+        $("body").showLoading();
         var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
             showModal({msg:"已加当月订单"});
             $(".cart").find(".number").transition({scale:2});
@@ -104,7 +104,7 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     }
 
     $scope.favoriteClicked = function(Product) {
-        $("body").showLoading(-150);
+        $("body").showLoading();
         if(!Product.isFavorite){
             apiCaller.postFav(Product,function() {
                 showModal({msg:"添加到我的收藏"});

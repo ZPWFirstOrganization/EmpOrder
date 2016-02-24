@@ -1,5 +1,5 @@
 orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiService,apiCaller,scopeData){
-	$("body").showLoading(-150);
+	$("body").showLoading();
 	$scope.isHaveData = true;
 	$scope.orderList = [];
 	$scope.pages = [];
@@ -299,7 +299,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 				return
 			}
 			//下拉刷新
-			$("body").showLoading(-150)
+			$("body").showLoading()
 			$scope.currentPage = parseInt($scope.currentPage) + 1
 			apiCaller.getOrderListByPage(
 				{userAccount:'456456',orderDate:$stateParams.orderDate,pageNum:$scope.currentPage},

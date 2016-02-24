@@ -87,7 +87,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 			},
 			distance:50,
 			callback:function(){
-				$("body").showLoading(-150);
+				$("body").showLoading();
 				apiCaller.getProductListByPage(++$scope.currentPage,function(res){
 					scopeData.ProductionList.products =
 					 (scopeData.ProductionList.products).concat(res.products);
@@ -120,9 +120,9 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 
     $scope.addCartClicked = function(Product) {
     	if (Product.productStatus == 0 && !Product.isNotAllowOrder){
-	    	$("body").showLoading(-150);
+	    	$("body").showLoading();
 	    	var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
-	    		showModal({msg:"已加当月订单"});
+	    		showModal({msg:"已加入当月订单"});
 	    		$(".cart").find(".number").transition({scale:2});
 				setTimeout(function(){
 					$(".cart").find(".number").transition({scale:1});
@@ -138,7 +138,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
     }
 
     $scope.favoriteClicked = function(Product) {
-    	$("body").showLoading(-150);
+    	$("body").showLoading();
     	if(!Product.isFavorite){
     		apiCaller.postFav(Product,function() {
     			showModal({msg:"添加到我的收藏"});

@@ -31,7 +31,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     $scope.inputTexts = [];
     $scope.currentPage = $stateParams.page;
     $scope.pageNumCount = 1;
-    $("body").showLoading(-150);
+    $("body").showLoading();
     initData();
     //手机上拉刷新
     if($(window).width()<801)
@@ -49,7 +49,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
             },
             distance:50,
             callback:function(){
-                $("body").showLoading(-150);
+                $("body").showLoading();
                 apiCaller.getFavoriteList(++$scope.currentPage,function(res){
                     $scope.favList =
                      ($scope.favList).concat(res.favorites);
@@ -95,7 +95,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
 
     $scope.addCartClicked = function(Product) {
         if (Product.productStatus == 0 && !Product.isNotAllowOrder){
-            $("body").showLoading(-150);
+            $("body").showLoading();
             var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
                 showModal({msg:"已加当月订单"});
                 $(".cart").find(".number").transition({scale:2});
@@ -117,7 +117,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
         showConfirm({
             msg:"是否取消收藏？",
             confirmed:function(){
-                $("body").showLoading(-150);
+                $("body").showLoading();
                 apiCaller.deleteFav(Product,function() {
                     showModal({msg:"已取消收藏"});
                     if($scope.favList[1]){

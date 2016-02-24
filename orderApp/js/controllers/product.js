@@ -108,7 +108,7 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
     //加入当月订单    
     $scope.addCartClicked = function(Product) {
         if (Product.productStatus == 0){
-            $("body").showLoading(-150);
+            $("body").showLoading();
             var id = Product.productCode;
             var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[id],function(){
                 showModal({msg:"已加当月订单"});
