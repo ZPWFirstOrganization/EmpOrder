@@ -6,7 +6,7 @@
 .fav-product-wrapper{ width:50%; height:120px; border-bottom:1px solid #ddd; float:left; padding:15px 0px;}
 .fav-product-wrapper:nth-last-child(1){ width:50%}
 .fav-product-wrapper .fav-product-photo{ width:30%; height:120px; float:left;text-align:center; position:relative;}
-.fav-product-wrapper .fav-product-photo .no-product{ position:absolute; width:30px; height:30px; background-image:url(../img/icon_no_product.png);background-position:50% 50%; background-size:100% ;color:#666 }
+.fav-product-wrapper .fav-product-photo .fav-no-product{ position:absolute; width:30px; height:30px; background-image:url(../img/icon_no_product.png);background-position:50% 50%; background-size:100% ;color:#666 }
 .fav-product-wrapper .fav-product-photo img{ width:120px;}
 .fav-product-wrapper .fav-product-info{ float:right; width:70%; position:relative}
 .fav-product-wrapper .fav-product-info .fav-favorite{ display:inline-block; width:30px; height:30px; background-image:url(../img/icon_fav_border.png); background-size:100%;background-position:50% 50%; background-repeat:no-repeat; position:absolute; right:10px; top:0px;  color:#e5a086; cursor:pointer; background-color:#fff}

@@ -31,31 +31,50 @@ orderApp.controller('mbNavController',function ($scope,$stateParams,apiCaller,sc
 		$("body").hideLoading();
 	});
 
+	$("body").click(function(event){ 
+        if(event.target!=$('.select-content')[0] && event.target!=$('.select-arrow')[0] && event.target!=$('.select-content')[1] && event.target!=$('.select-arrow')[1] ){
+            if($("#DivisionList").css("display")!="none"){
+				$("#DivisionList").slideUp(300);
+				$("#DivisionArrow").removeClass("select-arrow-up")
+				hideModalBg();
+			}
+			if($("#GroupList").css("display")!="none"){
+				$("#GroupList").slideUp(300);
+				$("#GroupArrow").removeClass("select-arrow-up")
+				hideModalBg();
+			}
+        }
+    });
+
 	var isBodyClicked = true;
 	$scope.divisionClicked = function(){
 		isBodyClicked = false
-		if(!$scope.isDLShow){
-			$scope.isDLShow = true;
-			$scope.isGLShow = false;
+		if($("#DivisionList").css("display")=="none"){
+			$("#DivisionList").slideDown(300);
+			$("#DivisionArrow").addClass("select-arrow-up")
+			$("#GroupArrow").removeClass("select-arrow-up")
+			$("#GroupList").slideUp(0);
 			hideModalBg();
 			showModalBg($("#DivisionList"));
 		}else{
-			$scope.isDLShow = false;
-			$scope.isGLShow = false;
+			$("#DivisionList").slideUp(300);
+			$("#DivisionArrow").removeClass("select-arrow-up")
 			hideModalBg();
 		}
 	}
 
 	$scope.groupClicked = function(){
 		isBodyClicked = false
-		if(!$scope.isGLShow){
-			$scope.isDLShow = false;
-			$scope.isGLShow = true;
+		if($("#GroupList").css("display")=="none"){
+			$("#GroupList").slideDown(300);
+			$("#DivisionList").slideUp(0);
+			$("#GroupArrow").addClass("select-arrow-up")
+			$("#DivisionArrow").removeClass("select-arrow-up")
 			hideModalBg();
 			showModalBg($("#GroupList"));
 		}else{
-			$scope.isDLShow = false;
-			$scope.isGLShow = false;
+			$("#GroupList").slideUp(300);
+			$("#GroupArrow").removeClass("select-arrow-up")
 			hideModalBg();
 		}
 	}
@@ -64,29 +83,36 @@ orderApp.controller('mbNavController',function ($scope,$stateParams,apiCaller,sc
 		$scope.DivisionName = Division.categoryName;//显示在大类类列表上的文字
 		$scope.Group = Division.series;//显示在小类中各个系列
 		$scope.GroupName = '系列';
-		$scope.isDLShow = false;
-		hideModalBg();
-		scopeMethod.changeState("1",Division.categoryCode,"1");
+		if($("#DivisionList").css("display")!="none"){
+			$("#DivisionList").slideUp(300);
+			$("#DivisionArrow").removeClass("select-arrow-up")
+			hideModalBg();
+		}
+		if($("#GroupList").css("display")!="none"){
+			$("#GroupList").slideUp(300);
+			$("#GroupArrow").removeClass("select-arrow-up")
+			hideModalBg();
+		}
+		setTimeout(function(){
+			scopeMethod.changeState("1",Division.categoryCode,"1");
+		},300)
 	}
+	
 	$scope.groupItemClicked = function(Group) {
 		$scope.GroupName = Group.seriesName;
-		$scope.isGLShow = false;
-		hideModalBg();
-		scopeMethod.changeState("2",Group.seriesCode,"1");
-	}
-
-	$("body").click(function(event){
-		if(isBodyClicked){
-			if($scope.isDLShow){
-				$scope.isDLShow = false;
-				hideModalBg();
-			}
-			if($scope.isGLShow){
-				$scope.isGLShow = false;
-				hideModalBg();
-			}
-		}else{
-			isBodyClicked = true;
+		if($("#DivisionList").css("display")!="none"){
+			$("#DivisionList").slideUp(300);
+			$("#DivisionArrow").removeClass("select-arrow-up")
+			hideModalBg();
 		}
-	})
+		if($("#GroupList").css("display")!="none"){
+			$("#GroupList").slideUp(300);
+			$("#GroupArrow").removeClass("select-arrow-up")
+			hideModalBg();
+		}
+		setTimeout(function(){
+			scopeMethod.changeState("2",Group.seriesCode,"1");
+		},300)
+		
+	}
 });

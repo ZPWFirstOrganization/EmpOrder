@@ -42,55 +42,7 @@ $(document).ready(function(e) {
 	});
 	
 	//mobile js--------------------------------------------------
-    //展开我的
-	$('[action="my"]').click(function(){		
-		if($(".my-list").css("display")=="none"){
-			$(".my-list").fadeIn(200);	
-			
-			showModalBg($(".my-list"));
-		}else{
-			$(".my-list").fadeOut(200);	
-			hideModalBg();
-		}	
-
-	});
-	
-	//闭合我的
-	$("body").click(function(event){
-		
-		if(event.target!=$('[action="my"]')[0]){
-			if($(".my-list").css("display")=="block"){
-				$(".my-list").fadeOut(200);	
-				hideModalBg();
-			}
-	    }
-
-	});		
-	//展开优惠价
-	$('[action="mobile-select-onsale"]').click(function(){		
-		if($(".mobile-onsale-list").css("display")=="none"){
-			$(".mobile-onsale-list").fadeIn(200);	
-			showModalBg($(".mobile-onsale-list"));
-		}else{
-			$(".mobile-onsale-list").fadeOut(200);
-			hideModalBg();	
-		}	
-
-	});
-    //闭合优惠价
-	$("body").click(function(event){
-		//console.log(event.target)
-		if(event.target!=$('.mobile-onsale-content')[0] && event.target!=$('.mobile-onsale-arrow')[0]){
-			
-			if($(".mobile-onsale-list").css("display")=="block"){
-				$(".mobile-onsale-list").fadeOut(200);
-				hideModalBg();		
-			}
-	    }
-
-	});	
-	
-	
+    
    //pc and mobile js--------------------------------------------------
    
    //自动完成搜索api   https://github.com/ArtemFitiskin/jquery-autocompleter

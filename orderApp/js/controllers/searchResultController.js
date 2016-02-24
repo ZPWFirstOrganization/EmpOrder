@@ -67,6 +67,12 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
             }
     });
 
+    $scope.toDetail = function(Product){
+        if(Product.productStatus == 0){
+            $state.go('index.product',{productCode:Product.ProductCode});
+        }
+    }
+
     $scope.pageNumClicked = function(page){
         $(window).scrollTop(0);
         if($scope.currentPage == page){

@@ -17,15 +17,48 @@ orderApp.controller('mbHeaderController',function ($scope,$state,scopeMethod,api
     })
 
     //展开我的
-    $('[action="my"]').click(function(){    
+    $('[action="my"]').click(function(){        
         if($(".my-list").css("display")=="none"){
-            $(".my-list").fadeIn(200);
+            $(".my-list").slideDown(300);
             showModalBg($(".my-list"));
         }else{
-            $(".my-list").fadeOut(200);
+            $(".my-list").slideUp(300); 
             hideModalBg();
-        } 
+        }   
+    });
+    
+    //闭合我的
+    $("body").click(function(event){
+        if(event.target!=$('[action="my"]')[0]){
+            if($(".my-list").css("display")=="block"){
+                $(".my-list").slideUp(200); 
+                hideModalBg();
+            }
+        }
+    });     
 
+    //展开优惠价
+    $('[action="mobile-select-onsale"]').click(function(){      
+        if($(".mobile-onsale-list").css("display")=="none"){
+            $(".mobile-onsale-list").fadeIn(200);   
+            showModalBg($(".mobile-onsale-list"));
+            $("#typeArrow").addClass("mobile-onsale-arrow-up");
+        }else{
+            $(".mobile-onsale-list").fadeOut(200);
+            $("#typeArrow").removeClass("mobile-onsale-arrow-up");
+            hideModalBg();  
+        }   
+
+    });
+    //闭合优惠价
+    $("body").click(function(event){
+        if(event.target!=$('.mobile-onsale-content')[0] && event.target!=$('.mobile-onsale-arrow')[0]){
+            if($(".mobile-onsale-list").css("display")=="block"){
+                $(".mobile-onsale-list").fadeOut(200);
+                $("#typeArrow").removeClass("mobile-onsale-arrow-up");
+                hideModalBg();      
+            }
+        }
     });
 
     $scope.nav1Clicked = function () {
@@ -39,14 +72,6 @@ orderApp.controller('mbHeaderController',function ($scope,$state,scopeMethod,api
     $scope.searchClicked = function(){
         $state.go('index.searchResult',{key:$scope.searchKey,page:1});
     }
-    //闭合我的
-    $("body").click(function(event){
-        if(event.target!=$('[action="my"]')[0]){
-            if($(".my-list").css("display")=="block"){
-                $(".my-list").fadeOut(200); 
-            }
-        }
-    });
 
     var data = [];
     $("#mbSeach").keyup(function(event){
@@ -88,21 +113,4 @@ orderApp.controller('mbHeaderController',function ($scope,$state,scopeMethod,api
         }
     })
 
-    //展开优惠价
-    $('[action="mobile-select-onsale"]').click(function(){    
-        if($(".mobile-onsale-list").css("display")=="none"){
-            $(".mobile-onsale-list").fadeIn(200);
-        }else{
-            $(".mobile-onsale-list").fadeOut(200);  
-        }
-    });
-
-    //闭合优惠价
-    $("body").click(function(event){
-        if(event.target!=$('.mobile-onsale-content')[0] && event.target!=$('.mobile-onsale-arrow')[0]){
-          if($(".mobile-onsale-list").css("display")=="block"){
-                $(".mobile-onsale-list").fadeOut(200);  
-            }
-        }
-    });
 });

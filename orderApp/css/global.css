@@ -181,7 +181,7 @@ body{ background-color: #fff; color:#000; font-family:Arial, "微软雅黑"; mar
 
 .mobile-onsale-wrap .mobile-onsale-content{ overflow:hidden; color:#fff; word-break:no-wrap; text-align:left; text-indent:10px;white-space:nowrap; line-height:45px; }	
 .mobile-onsale-wrap .mobile-onsale-arrow{ position:absolute; width:20px; height:97%;  right:0; top:0; bottom:0; background-image:url(../img/arrow_down_pink.png); background-repeat:no-repeat; background-position:50% 50%; background-size:70% auto;}	
-
+.mobile-onsale-wrap .mobile-onsale-arrow-up{  background-image:url(../img/arrow_up_pink.png)!important; }
 
 .my-list{ position:absolute; width:100%; top:45px;  z-index:500; background-color:#fff; border-bottom:1px solid #eee; box-shadow:1px 2px 10px  rgba(0,0,0,0.7); display:none}
 .my-list .list{ line-height:45px; border-bottom:1px solid #eee; margin-left:20px; display:block}
