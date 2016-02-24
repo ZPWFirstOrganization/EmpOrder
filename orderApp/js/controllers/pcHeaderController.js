@@ -6,40 +6,42 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	var data = [];
 	
 	$("#pcSeach").keyup(function(event){
-		clearTimeout(delayTime);
-		$('#pcSeach').autocompleter('destroy');
-		if (event.keyCode == 13){
-			if($scope.searchKey != ""){
-				$state.go('index.searchResult',{key:$scope.searchKey,page:1})
-				$('#pcSeach').autocompleter('close');
+		if(event.keyCode != 38 && event.keyCode != 40){
+			clearTimeout(delayTime);
+			$('#pcSeach').autocompleter('destroy');
+			if (event.keyCode == 13){
+				if($scope.searchKey != ""){
+					$state.go('index.searchResult',{key:$scope.searchKey,page:1})
+					$('#pcSeach').autocompleter('close');
+				}
+			}else{
+				delayTime = setTimeout(function() {
+					apiCaller.getSearchTips($scope.searchKey,function(res){
+						data = [];
+						for (var i = 0; i < res.length; i++) {
+							var tmp;
+							if(res[i].productCode){
+								tmp = {"value":res[i].productCode,"label":res[i].productCode}
+								data.push(tmp)
+							}
+							if(res[i].productName){
+								tmp = {"value":res[i].productName,"label":res[i].productName}
+								data.push(tmp)
+							}
+						};
+						$('#pcSeach').blur()
+						setTimeout(function(){
+							$('#pcSeach').autocompleter({ 
+								highlightMatches: true,
+						        empty: false,
+						        limit: 5,
+								source: data
+							});
+							$('#pcSeach').focus()
+						},100)
+					})
+				},500);
 			}
-		}else{
-			delayTime = setTimeout(function() {
-				apiCaller.getSearchTips($scope.searchKey,function(res){
-					data = [];
-					for (var i = 0; i < res.length; i++) {
-						var tmp;
-						if(res[i].productCode){
-							tmp = {"value":res[i].productCode,"label":res[i].productCode}
-							data.push(tmp)
-						}
-						if(res[i].productName){
-							tmp = {"value":res[i].productName,"label":res[i].productName}
-							data.push(tmp)
-						}
-					};
-					$('#pcSeach').blur()
-					setTimeout(function(){
-						$('#pcSeach').autocompleter({ 
-							highlightMatches: true,
-					        empty: false,
-					        limit: 5,
-							source: data
-						});
-						$('#pcSeach').focus()
-					},100)
-				})
-			},500);
 		}
 	})
 

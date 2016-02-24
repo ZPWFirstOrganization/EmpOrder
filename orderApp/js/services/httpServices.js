@@ -15,18 +15,19 @@ orderApp.factory('ajaxService',function(baseUrl){
 	}
 });
 
-orderApp.factory('ApiService',function($resource,baseUrl){
+orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
+	var discoutType = scopeData.discountType;
 	return $resource(
 		baseUrl,
 		{},
 		{
 			getCategories:{
-				url:baseUrl+'2/Product',
+				url:baseUrl+discoutType+'/Product',
 				method:'GET',
 				isArray:true
 			},
 			getProductList:{
-				url:baseUrl+'2/Product',
+				url:baseUrl+discoutType+'/Product',
 				method:'GET',
 				params:{
 					code:'@code',//大类传大类的id,小类传小类的CONFIG_VALUE
@@ -37,7 +38,7 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 				isArray:false
 			},
 			getSecretary:{
-				url:baseUrl+'2/User',
+				url:baseUrl+discoutType+'/User',
 				method:'GET',
 				params:{
 					userAccount:'@userAccount'
@@ -45,7 +46,7 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 				isArray:true
 			},
 			getFavoriteList:{
-				url:baseUrl+'2/Favorite',
+				url:baseUrl+discoutType+'/Favorite',
 				method:'GET',
 				params:{
 					userAccount:'@userAccount',
@@ -53,26 +54,26 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 				}
 			},
 			getBalance:{
-				url:baseUrl+'2/User',
+				url:baseUrl+discoutType+'/User',
 				method:'GET',
 				params:{
 					myBalanceAccount:'@myBalanceAccount'
 				}
 			},
 			getOrderCount:{
-				url:baseUrl+'2/Order',
+				url:baseUrl+discoutType+'/Order',
 				method:'GET',
 				params:{
 					userAccount:'@userAccount'
 				}
 			},
 			getOrderDate:{
-				url:baseUrl+'2/Order',
+				url:baseUrl+discoutType+'/Order',
 				method:'GET',
 				isArray:false
 			},
 			postOrderedProduct:{
-				url:baseUrl+'2/Order',
+				url:baseUrl+discoutType+'/Order',
 				method:'POST',
 				data:{
 					userAccount:'@userAccount',
@@ -81,7 +82,7 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 				}
 			},
 			postFav:{
-				url:baseUrl+'2/Favorite',
+				url:baseUrl+discoutType+'/Favorite',
 		      	method:'POST',
 		      	data:{
 		          userAccount:'@userAccount',
@@ -89,7 +90,7 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 		        }
 		    },
 		    getOrderList:{
-				url:baseUrl+'2/Order',
+				url:baseUrl+discoutType+'/Order',
 		      	method:'GET',
 		      	params:{
 		          userAccount:'@userAccount',
@@ -98,7 +99,7 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 		        }
 		    },
 		    getOrderData:{
-				url:baseUrl+'2/Order',
+				url:baseUrl+discoutType+'/Order',
 		      	method:'GET',
 		      	params:{
 		          orderID:'@orderID',
@@ -106,7 +107,7 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 		        isArray:true
 		    },
 		    getSearchTips:{
-		    	url:baseUrl+'2/Product',
+		    	url:baseUrl+discoutType+'/Product',
 		    	method:'GET',
 		    	params:{
 		          key:'@key'
@@ -114,7 +115,7 @@ orderApp.factory('ApiService',function($resource,baseUrl){
 		        isArray:true
 		    },
 		    getSearchResult:{
-		    	url:baseUrl+'2/Product',
+		    	url:baseUrl+discoutType+'/Product',
 		    	method:'GET',
 		    	params:{
 		          key:'@key',

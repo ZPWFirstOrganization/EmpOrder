@@ -3,6 +3,7 @@
 @import url('animate.css');
 *{ margin:0px; padding:0px;font-family:Arial, "微软雅黑"; font-size:14px;transition:background-color  1s;-webkit-appearance: none;}
 a{text-decoration:none;color:#000;}
+input::-ms-clear { display: none; }
 
 
 @media screen and (min-width: 801px) { 

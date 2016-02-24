@@ -162,6 +162,12 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 	    $(".option-list").fadeOut(200); 
 	});
 
+	$scope.toDetail = function(Product){
+		if(Product.productStatus == 0){
+			$state.go('index.product',{productCode:Product.ProductCode});
+		}
+	}
+
 	$scope.numberClicked = function(Product) {
 		var id = Product.productCode;
 		$("#"+id).focus();
