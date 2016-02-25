@@ -1,5 +1,11 @@
-orderApp.controller('mbHeaderController',function ($scope,$state,scopeMethod,apiCaller) {
+orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,scopeData,scopeMethod,apiCaller) {
 
+    if("2"==$stateParams.discountType){
+        $scope.currentType = "优惠价";
+    }else{
+        $scope.currentType = "6折";
+    }
+    scopeData.discountType = $stateParams.discountType;
     var delayTime;
     $scope.showSearch = true;
     $scope.searchKey = "";
@@ -48,7 +54,6 @@ orderApp.controller('mbHeaderController',function ($scope,$state,scopeMethod,api
             $("#typeArrow").removeClass("mobile-onsale-arrow-up");
             hideModalBg();  
         }   
-
     });
     //闭合优惠价
     $("body").click(function(event){
@@ -61,12 +66,27 @@ orderApp.controller('mbHeaderController',function ($scope,$state,scopeMethod,api
         }
     });
 
+    $scope.changeDiscountType = function(type){
+        if(type == "6"){
+            $scope.currentType = "6折";
+            scopeData.discountType = "6"
+        }
+        if(type == "2"){
+            $scope.currentType = "优惠价";
+            scopeData.discountType = "2"
+        }
+        $(".mobile-onsale-list").fadeOut(200);
+        $("#typeArrow").removeClass("mobile-onsale-arrow-up");
+        hideModalBg();  
+        scopeMethod.changeState("1","1","1");
+    }
+
     $scope.nav1Clicked = function () {
         scopeMethod.changeState('1','1','1');
     }
 
     $scope.favClicked = function() {
-        $state.go('index.favorites',{page:1});
+        $state.go('index.favorites',{discountType:scopeData.discountType,page:1});
     }
 
     $scope.searchClicked = function(){

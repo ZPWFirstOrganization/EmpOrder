@@ -77,7 +77,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
 
     $scope.toDetail = function(Product){
         if(Product.productStatus == 0){
-            $state.go('index.product',{productCode:Product.ProductCode});
+            $state.go('index.product',{productCode:Product.productCode});
         }
     }
 

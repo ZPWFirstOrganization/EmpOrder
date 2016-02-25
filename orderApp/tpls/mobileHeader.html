@@ -3,7 +3,7 @@
     <div class="header">
       <div class="mobile-onsale-wrap  fl w20" action="mobile-select-onsale" >
 
-          <div class="mobile-onsale-content">优惠价</div>
+          <div class="mobile-onsale-content">{{currentType}}</div>
           <div class="mobile-onsale-arrow" id="typeArrow"></div>
       </div>
 
@@ -19,8 +19,8 @@
     </div>
     
     <div class="mobile-onsale-list" ng-click="$event.stopPropagation();">
-    <a class="list">优惠价</a>
-    <a class="list">6折</a>
+    <a class="list" ng-click="changeDiscountType(2)">优惠价</a>
+    <a class="list" ng-click="changeDiscountType(6)">6折</a>
 
     </div>    
     <div class="search-wrapper" ng-show="showSearch">
