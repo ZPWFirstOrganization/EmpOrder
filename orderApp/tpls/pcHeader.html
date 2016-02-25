@@ -5,10 +5,10 @@
           <a class="logo" ng-click="logoClicked()" ui-sref="index.productList"></a>
           <div class=" title">员工内购系统</div> 
             <div class="onsale" action="pc-select-onsale">
-              <span ui-sref="index.productList({discountType:2,productClass:1,productCode:1,page:1})">优惠价</span>
+              <span>{{currentType}}</span>
               <div class="pc-onsale-list-wrapper">
                   <div class="pc-onsale-list">
-                    <a class="list" ui-sref="index.productList({discountType:6,productClass:1,productCode:1,page:1})">6折</a>
+                    <a class="list" ng-click="changeDiscountType()">{{typeForChnage}}</a>
                   </div>
               </div>
             </div>

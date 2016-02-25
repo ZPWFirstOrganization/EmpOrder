@@ -3,7 +3,7 @@ var orderApp = angular.module('orderApp', [ "ui.router", "ngResource","sessionSt
 });
 
 orderApp.config(function($stateProvider,$urlRouterProvider){
-	$urlRouterProvider.when("","/home/productClass={productClass}&productCode={productCode}&page={page}");
+	$urlRouterProvider.when("","/home/discountType=2&productClass=1&productCode=1&page=1");
 	// $urlRouterProvider.otherwise("/home/productClass=1&productCode=1&page=1");
 	$stateProvider.state('index',{
 			url:'/home',
@@ -29,7 +29,7 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 	            }
 			}
 		}).state('index.productList',{
-			url:"/productClass={productClass}&productCode={productCode}&page={page}",
+			url:"/discountType={discountType}&productClass={productClass}&productCode={productCode}&page={page}",
 			templateUrl: 'tpls/productList.html',
 			views:{
 				'':{
@@ -61,11 +61,11 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 			url:'/notice',
 			templateUrl:'tpls/notice.html'
 		}).state('index.favorites',{
-			url:'/favorites/page={page}',
+			url:'/favorites/discountType={discountType}&page={page}',
 			templateUrl:'tpls/favorites.html',
 			controller:'favController'
 		}).state('index.searchResult',{
-			url:'/searchResult/key={key}&page={page}',
+			url:'/searchResult/discountType={discountType}&key={key}&page={page}',
 			templateUrl:'tpls/searchResult.html',
 			controller:'searchResultController'
 		})

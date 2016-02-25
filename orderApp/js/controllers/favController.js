@@ -5,6 +5,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
         $scope.orderCount = apiCaller.getOrderCount();
         $scope.isNotAllowOrder = scopeData.isNotAllowOrder;
         $scope.orderDate = scopeData.orderDate;
+        scopeData.discountType = $stateParams.discountType;
         apiCaller.getFavoriteList($scope.currentPage,function(res) {
             $scope.favList = res.favorites;
             $scope.pageNumCount = res.pageNumCount;
@@ -20,7 +21,6 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
                 $scope.isFavEmpty = true;
             }
             $("body").hideLoading();
-            console.log(res)
         },function(){
             $scope.isFavEmpty = true;
             $("body").hideLoading();
@@ -83,20 +83,48 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
 
     $scope.pageNumClicked = function(page){
         $(window).scrollTop(0);
-        if($scope.currentPage == page){
-            return;
+        switch(page){
+            case 'next':
+                if($scope.currentPage < $scope.pageNumCount){
+                    $scope.currentPage = parseInt($scope.currentPage) + 1;
+                }else{
+                    showModal({msg:"已经是最后一页了"});
+                    return;
+                }
+            break;
+
+            case 'prev':
+                if($scope.currentPage > 1){
+                    $scope.currentPage = parseInt($scope.currentPage) - 1;
+                }else{
+                    showModal({msg:"已经是第一页了"});
+                    return;
+                }
+            break;
+
+            case 'last':
+                if($scope.currentPage == $scope.pageNumCount){
+                    showModal({msg:"已经是最后一页了"});
+                    return;
+                }else{
+                    $scope.currentPage = $scope.pageNumCount;
+                }
+            break;
+
+            case 'first':
+                if($scope.currentPage == 1){
+                    showModal({msg:"已经是第一页了"});
+                    return;
+                }else{
+                    $scope.currentPage = 1;
+                }
+            break;
+
+            default:
+                $scope.currentPage = page;
+            break;
         }
-        if('next' == page){
-            if($scope.currentPage < $scope.pageNumCount){
-                $scope.currentPage = parseInt($scope.currentPage) + 1;
-            }else{
-                showModal({msg:"已经是最后一页了"});
-                return;
-            }
-        }else{
-            $scope.currentPage = page;
-        }
-        $state.go('index.favorites',{page:$scope.currentPage})
+        $state.go('index.favorites',{discountType:scopeData.discountType,page:$scope.currentPage})
     }
 
     $scope.addCartClicked = function(Product) {
@@ -127,13 +155,13 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
                 apiCaller.deleteFav(Product,function() {
                     showModal({msg:"已取消收藏"});
                     if($scope.favList[1]){
-                        $state.go('index.favorites',{page:$scope.currentPage});
+                        $state.go('index.favorites',{discountType:scopeData.discountType,page:$scope.currentPage});
                         initData();
                     }else{
                         if($scope.currentPage > 1){
-                            $state.go('index.favorites',{page:($scope.currentPage-1)});
+                            $state.go('index.favorites',{discountType:scopeData.discountType,page:($scope.currentPage-1)});
                         }else{
-                            $state.go('index.favorites',{page:$scope.currentPage});
+                            $state.go('index.favorites',{discountType:scopeData.discountType,page:$scope.currentPage});
                         }
                         initData();
                     }

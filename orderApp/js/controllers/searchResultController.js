@@ -6,6 +6,7 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     $scope.pageNumCount = 1;
     $scope.totalCount = 0;
     $scope.searchKey = $stateParams.key;
+    scopeData.discountType = $stateParams.discountType;
     sessionStorage.put("sourcePageId","4")
     // scopeData.sourcePageId = 4;
     var initData = function(){
@@ -78,15 +79,46 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
         if($scope.currentPage == page){
             return;
         }
-        if('next' == page){
-            if($scope.currentPage < $scope.pageNumCount){
-                $scope.currentPage = parseInt($scope.currentPage) + 1;
-            }else{
-                showModal({msg:"已经是最后一页了"});
-                return;
-            }
-        }else{
-            $scope.currentPage = page;
+        switch(page){
+            case 'next':
+                if($scope.currentPage < $scope.pageNumCount){
+                    $scope.currentPage = parseInt($scope.currentPage) + 1;
+                }else{
+                    showModal({msg:"已经是最后一页了"});
+                    return;
+                }
+            break;
+
+            case 'prev':
+                if($scope.currentPage > 1){
+                    $scope.currentPage = parseInt($scope.currentPage) - 1;
+                }else{
+                    showModal({msg:"已经是第一页了"});
+                    return;
+                }
+            break;
+
+            case 'last':
+                if($scope.currentPage == $scope.pageNumCount){
+                    showModal({msg:"已经是最后一页了"});
+                    return;
+                }else{
+                    $scope.currentPage = $scope.pageNumCount;
+                }
+            break;
+
+            case 'first':
+                if($scope.currentPage == 1){
+                    showModal({msg:"已经是第一页了"});
+                    return;
+                }else{
+                    $scope.currentPage = 1;
+                }
+            break;
+
+            default:
+                $scope.currentPage = page;
+            break;
         }
         $state.go('index.searchResult',{key:$stateParams.key,page:$scope.currentPage})
     }

@@ -17,10 +17,14 @@ orderApp.factory('scopeData',function() {
 	}
 });
 
-orderApp.service('scopeMethod',function($state,scopeData,apiCaller,sessionStorage) {
+orderApp.service('scopeMethod',function($state,$stateParams,scopeData,apiCaller,sessionStorage) {
 	return{
 		changeState:function(ProductClass,ProductCode,Page) {
-			$state.go('index.productList',{productClass:ProductClass,productCode:ProductCode,page:Page});
+			if(!$stateParams.discountType || $stateParams.discountType==""){
+				$stateParams.discountType = "2";
+				scopeData.discountType = $stateParams.discountType;
+			}
+			$state.go('index.productList',{discountType:scopeData.discountType,productClass:ProductClass,productCode:ProductCode,page:Page});
 		},
 		isEmptyObject:function(obj){
 		    for ( var name in obj ) {
@@ -43,6 +47,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getProductListByStates:function(suc,err){
 			scopeData.ProductionList = ApiService.getProductList(
 			{
+				Type:scopeData.discountType+"/Product",
 				code:$stateParams.productCode,//大类传大类的id,小类传小类的CONFIG_VALUE
 				productClass:$stateParams.productClass,//大类为1，小类为2
 				pageNum:$stateParams.page,
@@ -62,6 +67,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getProductListByPage:function(page,suc,err){
 			ApiService.getProductList(
 			{
+				Type:scopeData.discountType+"/Product",
 				code:$stateParams.productCode,//大类传大类的id,小类传小类的CONFIG_VALUE
 				productClass:$stateParams.productClass,//大类为1，小类为2
 				pageNum:page,
@@ -80,6 +86,9 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getCategories:function(suc,err){
 			return ApiService.getCategories(
+				{
+					Type:scopeData.discountType+"/Product",
+				},
 				function(res){
 					if (suc) {
 						suc(res);
@@ -92,7 +101,11 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				});
 		},
 		postOrderedProduct:function(Product,count,suc,err) {
-			return ApiService.postOrderedProduct({
+			return ApiService.postOrderedProduct(
+			{
+				Type:scopeData.discountType+"/Order"
+			},
+			{
 				userAccount:scopeData.userAccount,
 				productCode:Product.productCode,
 				count:count
@@ -110,6 +123,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getOrderCount:function(successFn) {
 			return ApiService.getOrderCount({
+				Type:scopeData.discountType+"/Order",
 				userAccount:scopeData.userAccount
 			},
 			function (response) {
@@ -119,14 +133,23 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 			}
 			);
 		},
-		postFav:function(Product,callbackFn) {
-			return ApiService.postFav({
+		postFav:function(Product,suc,err) {
+			return ApiService.postFav(
+			{
+				Type:scopeData.discountType+"/Favorite"
+			},
+			{
 				userAccount:scopeData.userAccount,
 				productCode:Product.productCode
 			},
-			function(response){
-				if (callbackFn) {
-					callbackFn();
+			function(res){
+				if(suc){
+					return suc(res)
+				}
+			},
+			function(res){
+				if(err){
+					return err(res)
 				}
 			});
 		},
@@ -136,6 +159,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getBalance:function(callbackFn) {
 			return ApiService.getBalance(
 				{
+					Type:scopeData.discountType+"/User",
 					myBalanceAccount:scopeData.userAccount
 				},
 				function(response){
@@ -145,8 +169,11 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 			});
 		},
 		getSearchTips:function(keyWord,suc,err){
-			return ApiService.getSearchTips({key:keyWord},
-				function(res){
+			return ApiService.getSearchTips({
+					Type:scopeData.discountType+"/Product",
+					key:keyWord
+				},
+			function(res){
 				if(suc){
 					return suc(res)
 				}
@@ -160,6 +187,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getOrderListByPage:function(param,suc,err){
 			return ApiService.getOrderList({
+				Type:scopeData.discountType+"/Order",
 				userAccount:param.userAccount,
 				orderDate:param.orderDate,
 				pageNum:param.pageNum
@@ -177,6 +205,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getSecretary:function(param,suc,err){
 			return ApiService.getSecretary({
+				Type:scopeData.discountType+"/Product",
 				userAccount:param.userAccount
 			},
 			function(res){
@@ -192,6 +221,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getOrderDetailInfo:function(param,suc,err){
 			return ApiService.getOrderData({
+				Type:scopeData.discountType+"/Order",
 				orderID:param.orderID
 			},
 			function(res){
@@ -207,6 +237,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getFavoriteList:function(Page,suc,err) {
 			return ApiService.getFavoriteList({
+				Type:scopeData.discountType+"/Favorite",
 				pageNum:Page,
 				userAccount:scopeData.userAccount
 			},
@@ -223,6 +254,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getSearchResult:function(searchKey,Page,suc,err) {
 			return ApiService.getSearchResult({
+				Type:scopeData.discountType+"/Product",
 				key:searchKey,
 				pageNum:Page,
 				userAccount:scopeData.userAccount
@@ -240,6 +272,9 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getOrderDate:function(suc,err){
 			return ApiService.getOrderDate(
+				{
+					Type:scopeData.discountType+"/Order",
+				},
 				function(res){
 					if(suc){
 						return suc(res)

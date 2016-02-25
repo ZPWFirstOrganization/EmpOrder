@@ -1,4 +1,5 @@
 orderApp.controller('prductListController',function($scope,$stateParams,$state,$http,scopeData,scopeMethod,apiCaller,sessionStorage) {
+	scopeData.discountType = $stateParams.discountType;
 	$scope.currentDivisionName = '';
 	$scope.currenGroupName = '';
 	$scope.currentCategoryCode = '1'
@@ -104,15 +105,46 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 		if($scope.currentPage == page){
 			return;
 		}
-		if('next' == page){
-			if($scope.currentPage < $scope.pdList.pageNumCount){
-				$scope.currentPage = parseInt($scope.currentPage) + 1;
-			}else{
-				showModal({msg:"已经是最后一页了"});
-				return;
-			}
-		}else{
-			$scope.currentPage = page;
+		switch(page){
+			case 'next':
+				if($scope.currentPage < $scope.pdList.pageNumCount){
+					$scope.currentPage = parseInt($scope.currentPage) + 1;
+				}else{
+					showModal({msg:"已经是最后一页了"});
+					return;
+				}
+			break;
+
+			case 'prev':
+				if($scope.currentPage > 1){
+					$scope.currentPage = parseInt($scope.currentPage) - 1;
+				}else{
+					showModal({msg:"已经是第一页了"});
+					return;
+				}
+			break;
+
+			case 'last':
+				if($scope.currentPage == $scope.pdList.pageNumCount){
+					showModal({msg:"已经是最后一页了"});
+					return;
+				}else{
+					$scope.currentPage = $scope.pdList.pageNumCount;
+				}
+			break;
+
+			case 'first':
+				if($scope.currentPage == 1){
+					showModal({msg:"已经是第一页了"});
+					return;
+				}else{
+					$scope.currentPage = 1;
+				}
+			break;
+
+			default:
+				$scope.currentPage = page;
+			break;
 		}
 
 		scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$scope.currentPage);
@@ -144,11 +176,15 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
     			showModal({msg:"添加到我的收藏"});
     			Product.isFavorite = true
     			$("body").hideLoading();
+    		},function(){
+    			$("body").hideLoading();
     		})
     	}else{
 			Product.isFavorite = false;
     		apiCaller.deleteFav(Product,function() {
     			showModal({msg:"已取消收藏"});
+    			$("body").hideLoading();
+    		},function(){
     			$("body").hideLoading();
     		})
     	}
@@ -164,7 +200,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 
 	$scope.toDetail = function(Product){
 		if(Product.productStatus == 0){
-			$state.go('index.product',{productCode:Product.productCode});
+			$state.go('index.product',{productCode:Product.ProductCode});
 		}
 	}
 

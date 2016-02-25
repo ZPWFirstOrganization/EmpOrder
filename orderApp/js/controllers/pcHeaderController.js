@@ -1,4 +1,13 @@
 orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
+	
+	if("2"==$stateParams.discountType){
+		$scope.currentType = "优惠价";
+		$scope.typeForChnage = "6折";
+	}else{
+		$scope.currentType = "6折";
+		$scope.typeForChnage = "优惠价";
+	}
+	scopeData.discountType = $stateParams.discountType;
 	$scope.showList = false;
 	$scope.searchKey = "";
 	var delayTime;
@@ -11,7 +20,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 			$('#pcSeach').autocompleter('destroy');
 			if (event.keyCode == 13){
 				if($scope.searchKey != ""){
-					$state.go('index.searchResult',{key:$scope.searchKey,page:1})
+					$state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
 					$('#pcSeach').autocompleter('close');
 				}
 			}else{
@@ -48,11 +57,13 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	$scope.categories=apiCaller.getCategories(function(res){
 		scopeData.categories = res;
 		if($stateParams.productClass == "" || $stateParams.productCode == "" || $stateParams.page == ""){
+			scopeData.discountType = "2";
 			scopeMethod.changeState("1",$scope.categories[0].categoryCode,"1");
 		}else if($stateParams.productClass && $stateParams.productCode && $stateParams.page){
+			scopeData.discountType = $stateParams.discountType;
 			scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$stateParams.page);
 		}
-		
+		$("body").hideLoading();
 	},function(){
 		$("body").hideLoading();
 	});
@@ -62,6 +73,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 			scopeData.currentDivisionName = Division.categoryName;
 			scopeData.divisionCode = Division.categoryCode;
 			scopeData.currenGroupName = '';
+			scopeData.discountType = $stateParams.discountType;
 	        scopeMethod.changeState("1",Division.categoryCode,"1");
 	    }else{
 	    	isGroupClicked = false;
@@ -70,23 +82,40 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 
 	$scope.groupClicked=function(Group,Division) {
 		isGroupClicked = true;
+		scopeData.discountType = $stateParams.discountType;
         scopeMethod.changeState("2",Group.seriesCode,"1");
 		// $scope.showList = false;
 	}
 
 	$scope.logoClicked = function() {
+		scopeData.discountType = $stateParams.discountType;
 		scopeMethod.changeState("1","1","1");
 	}
 
 	$scope.favClicked = function() {
-		$state.go('index.favorites',{page:1});
+		$state.go('index.favorites',{discountType:scopeData.discountType,page:1});
 	}
 
 	$scope.searchClicked = function(){
 		if($scope.searchKey != ""){
-			$state.go('index.searchResult',{key:$scope.searchKey,page:1})
+			$state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
 		}
 	}
+
+	$scope.changeDiscountType = function(){
+		if($stateParams.discountType == "2"){
+			$scope.currentType = "6折";
+			$scope.typeForChnage = "优惠价";
+			scopeData.discountType = "6"
+		}else{
+			$scope.currentType = "优惠价";
+			$scope.typeForChnage = "6折";
+			scopeData.discountType = "2"
+		}
+		$(".pc-onsale-list-wrapper").fadeOut(200);  
+		scopeMethod.changeState("1","1","1");
+	}
+
 	//展开/闭合优惠价
 	$('[action="pc-select-onsale"]').mouseenter(function(){   
 		if($(".pc-onsale-list-wrapper").css("display")=="none"){

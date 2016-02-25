@@ -59,18 +59,21 @@
     </div>
 </div>
     <!--pc分页-->    
-    
-    <div class="paginate-wrap pc-only" ng-if="!isFavEmpty">
-        <div class="dataTables_paginate " >
-          <span ng-class="{true:'current',false:'num'}[currentPage==page]" ng-repeat="page in pages" ng-click="pageNumClicked(page)">{{page}}</span>
-          <a class="num" ng-click="pageNumClicked('next')"> >> </a>
-        </div>      
-    </div>  
+    <div class="paginate-wrap pc-only">
+      <div class="dataTables_paginate">
+        <a class="num" ng-click="pageNumClicked('first')"> 首页 </a>
+        <a class="num" ng-click="pageNumClicked('prev')"> << </a>
+        <span ng-class="{true:'current',false:'num'}[currentPage==page]" ng-repeat="page in pages" ng-click="pageNumClicked(page)">{{page}}</span>
+        <a class="num" ng-click="pageNumClicked('next')"> >> </a>
+        <a class="num" ng-click="pageNumClicked('last')"> 尾页 </a>
+        <div class="clr"></div>
+      </div>
+    </div>
 </div>
 
 <a class="cart animated" ui-sref="index.currentOrder">
   <div class="cart-inner">
-  <div class="number" id="numbercircle">{{orderCount.productCount}}</div>
+  <div class="number" id="numbercircle"><b>{{{false: orderCount.productCount, true: '···'}[orderCount.productCount >= 100]}}</b></div>
     剩余额度：</br>
     {{balance.myBalance}}
   </div>
