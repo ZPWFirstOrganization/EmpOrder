@@ -188,9 +188,6 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 		});
 
 	}
-	$scope.countinueShop = function(){
-		$state.go("index.productList",{productClass:1,productCode:1,page:1})
-	}
 
 	$scope.nav1Clicked = function () {
 		scopeMethod.changeState('1','1','1');
