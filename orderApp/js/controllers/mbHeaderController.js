@@ -77,7 +77,7 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
         }
         $(".mobile-onsale-list").fadeOut(200);
         $("#typeArrow").removeClass("mobile-onsale-arrow-up");
-        hideModalBg();  
+        hideModalBg();
         scopeMethod.changeState("1","1","1");
     }
 
@@ -90,7 +90,11 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
     }
 
     $scope.searchClicked = function(){
-        $state.go('index.searchResult',{key:$scope.searchKey,page:1});
+         $('#mbSeach').blur();
+         setTimeout(function(){
+            $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1});
+         },500);
+
     }
 
     var data = [];
@@ -100,7 +104,7 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
         data = [];
         if (event.keyCode == 13){
             if($scope.searchKey != ""){
-                $state.go('index.searchResult',{key:$scope.searchKey,page:1})
+                $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
                 $('#mbSeach').autocompleter('close');
             }
         }else{

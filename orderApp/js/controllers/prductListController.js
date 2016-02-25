@@ -101,48 +101,48 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 	});
 
 	$scope.pageNumClicked = function(page){
-		$(window).scrollTop(0);
 		if($scope.currentPage == page){
 			return;
 		}
 		switch(page){
 			case 'next':
 				if($scope.currentPage < $scope.pdList.pageNumCount){
+					$(window).scrollTop(0);
 					$scope.currentPage = parseInt($scope.currentPage) + 1;
 				}else{
-					showModal({msg:"已经是最后一页了"});
 					return;
 				}
 			break;
 
 			case 'prev':
 				if($scope.currentPage > 1){
+					$(window).scrollTop(0);
 					$scope.currentPage = parseInt($scope.currentPage) - 1;
 				}else{
-					showModal({msg:"已经是第一页了"});
 					return;
 				}
 			break;
 
 			case 'last':
 				if($scope.currentPage == $scope.pdList.pageNumCount){
-					showModal({msg:"已经是最后一页了"});
 					return;
 				}else{
+					$(window).scrollTop(0);
 					$scope.currentPage = $scope.pdList.pageNumCount;
 				}
 			break;
 
 			case 'first':
 				if($scope.currentPage == 1){
-					showModal({msg:"已经是第一页了"});
 					return;
 				}else{
+					$(window).scrollTop(0);
 					$scope.currentPage = 1;
 				}
 			break;
 
 			default:
+				$(window).scrollTop(0);
 				$scope.currentPage = page;
 			break;
 		}
