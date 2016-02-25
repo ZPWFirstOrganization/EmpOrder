@@ -1,0 +1,25 @@
+@media screen and (min-width: 801px) { 
+
+
+.bg{ background-image:url(../img/login_bg.jpg); background-size:100% auto; background-position:50% 0px;top: 0px;bottom: 0px;margin: auto;left: 0px;right: 0px;position: fixed;background-repeat:no-repeat;}
+.regist-header{ height:55px; position:fixed; z-index:100; background-image:url(../img/white_bg.png); width:100%; text-align:center;}
+.regist-header .mk{ width:400px; margin:10px auto; position:relative; color:#999;}
+
+.popup{ width:420px;  position:absolute; margin:0px auto; top:350px; right:0px; left:0px;  box-sizing:border-box;}
+.btn-reg{ line-height:36px; text-align:center; color:#fff; background-color:#ff2c2c; display:inline-block; margin-top:10px; cursor:pointer; width:45%; float:right}
+.btn-cancel{ line-height:36px; text-align:center; color:#333; background-color:#fff; display:inline-block; margin-top:10px; cursor:pointer; width:45%; float:left;}
+
+.regist-footer{ position:absolute; bottom:0px;margin:0px auto;  right:0px; left:0px; text-align:center; line-height:30px; }
+}
+@media screen and (max-width: 800px) { 
+
+.bg{ background-image:url(../img/login_bg.jpg);  background-position:50% 0px;top: 0px;bottom: 0px;margin: auto;left: 0px;right: 0px;position: fixed;}
+.regist-header{ height:50px; position:fixed; z-index:100; background-image:url(../img/white_bg.png); width:100%; text-align:center;}
+.regist-header .mk{ width:400px; margin:10px auto; position:relative; color:#999;}
+
+.popup{ width:100%;  position:absolute; margin:0px auto; top:70%; right:0px; left:0px;  box-sizing:border-box; padding:10px 20px;}
+.btn-reg{ line-height:36px; text-align:center; color:#fff; background-color:#ff2c2c; display:inline-block; margin-top:10px; cursor:pointer; width:45%; float:right}
+.btn-cancel{ line-height:36px; text-align:center; color:#333; background-color:#fff; display:inline-block; margin-top:10px; cursor:pointer; width:45%; float:left;}
+
+.regist-footer{ position:absolute; bottom:0px;margin:0px auto;  right:0px; left:0px; text-align:center; line-height:30px; font-size:12px }
+}
