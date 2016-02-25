@@ -53,11 +53,11 @@
   <!--pc分页-->    
   <div class="paginate-wrap pc-only">
     <div class="dataTables_paginate">
-      <a class="num" ng-click="pageNumClicked('first')"> 首页 </a>
-      <a class="num" ng-click="pageNumClicked('prev')"> << </a>
+      <a ng-class="{true:'num_gray',false:'num'}[currentPage==1 || pages.length==1 || pages.length==0]" ng-click="pageNumClicked('first')"> 首页 </a>
+      <a ng-class="{true:'num_gray',false:'num'}[currentPage==1 || pages.length==0]" ng-click="pageNumClicked('prev')"> 上一页 </a>
       <span ng-class="{true:'current',false:'num'}[currentPage==page]" ng-repeat="page in pages" ng-click="pageNumClicked(page)">{{page}}</span>
-      <a class="num" ng-click="pageNumClicked('next')"> >> </a>
-      <a class="num" ng-click="pageNumClicked('last')"> 尾页 </a>
+      <a ng-class="{true:'num_gray',false:'num'}[currentPage==pages.length || pages.length==0]" ng-click="pageNumClicked('next')"> 下一页 </a>
+      <a ng-class="{true:'num_gray',false:'num'}[currentPage==pages.length || pages.length==1 || pages.length==0]" ng-click="pageNumClicked('last')"> 尾页 </a>
       <div class="clr"></div>
     </div>
   </div>
