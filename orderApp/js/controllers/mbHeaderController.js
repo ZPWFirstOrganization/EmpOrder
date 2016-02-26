@@ -6,6 +6,7 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
         $scope.currentType = "6折";
     }
     scopeData.discountType = $stateParams.discountType;
+    $scope.discountType = scopeData.discountType;
     var delayTime;
     $scope.showSearch = true;
     $scope.searchKey = "";
@@ -66,15 +67,35 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
         }
     });
 
+    $scope.listItemClicked = function(type){
+        switch(type){
+            case 1:
+                $state.go("index.currentOrder",{discountType:scopeData.discountType});
+            break;
+            case 2:
+                $state.go("index.historyOrder",{discountType:scopeData.discountType,page:1,orderDate:'',orderParam:{}});
+            break;
+            case 3:
+                $state.go("index.personInfo",{discountType:scopeData.discountType});
+            break;
+            case 4:
+                $state.go("index.notice",{discountType:scopeData.discountType});
+            break;
+        }
+        $(".my-list").slideUp(200); 
+        hideModalBg();
+    }
+
     $scope.changeDiscountType = function(type){
-        if(type == "6"){
+        if(type == 6){
             $scope.currentType = "6折";
             scopeData.discountType = "6"
         }
-        if(type == "2"){
+        if(type == 2){
             $scope.currentType = "优惠价";
             scopeData.discountType = "2"
         }
+        $scope.discountType = scopeData.discountType;
         $(".mobile-onsale-list").fadeOut(200);
         $("#typeArrow").removeClass("mobile-onsale-arrow-up");
         hideModalBg();
