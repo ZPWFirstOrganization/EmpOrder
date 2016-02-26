@@ -197,9 +197,9 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 
 });
 
-orderApp.factory('currentOrderServ',function($resource,common,baseUrl){
+orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData){
 	return $resource(
-    baseUrl+common.get("type")+'/:kind',
+    baseUrl+scopeData.discountType+'/:kind',
     {},
     {
       //获取当月订单

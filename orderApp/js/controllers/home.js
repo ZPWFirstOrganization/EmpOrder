@@ -300,6 +300,55 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 					}
 				}
 			)
+		},
+		getUserProfile:function(type,suc,err){
+			return ApiService.postUserProfile(
+				{
+					Type:type+"/User",
+					loginMode:0
+				},
+				{
+					
+				},
+				function(res){
+					if(suc){
+						return suc(res)
+					}
+				},
+				function(res){
+					if(err){
+						return err(res)
+					}
+				}
+			)
+		},
+		regist:function(suc,err){
+			return ApiService.postRegist(
+				{
+					Type:scopeData.discountType+"/User",
+				},
+				function(res){
+					if(suc){
+						return suc(res)
+					}
+				},
+				function(res){
+					if(err){
+						return err(res)
+					}
+				}
+			)
 		}
 	}
 });
+
+orderApp.factory('userProfile',function($state,apiCaller){
+	this.getProfile = function(type){
+		apiCaller.getUserProfile(type,function(response){
+			scopeData.userAccount = "xxxxxx"
+		},function(response){
+			// $state.go('regist')
+		})
+	}
+	return this
+})
