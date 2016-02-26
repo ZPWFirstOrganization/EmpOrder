@@ -328,6 +328,9 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				{
 					Type:scopeData.discountType+"/User",
 				},
+				{
+
+				},
 				function(res){
 					if(suc){
 						return suc(res)
@@ -353,7 +356,7 @@ orderApp.factory('userProfile',function($state,apiCaller,scopeData){
 			scopeData.userAccount = response.userAccount
 		},function(response){
 			// alert(JSON.stringify(response))
-			// $state.go('regist')
+			// $state.go('regist',{discountType:type})
 		})
 	}
 	return this

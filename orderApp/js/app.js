@@ -69,7 +69,7 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 			templateUrl:'tpls/searchResult.html',
 			controller:'searchResultController'
 		}).state('regist',{
-			url:'/regist',
+			url:'/regist/discountType={discountType}',
 			templateUrl:'tpls/regist.html',
 		})
 })
