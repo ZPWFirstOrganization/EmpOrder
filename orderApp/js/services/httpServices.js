@@ -125,7 +125,10 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 		        isArray:false
 		    },
 		    postUserProfile:{
-		    	method:'POST'
+		    	method:'POST',
+		    	params:{
+		    		loginMode:'@loginMode'
+		    	}
 		    },
 		    postRegist:{
 		    	method:'POST',

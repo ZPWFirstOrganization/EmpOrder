@@ -74,3 +74,6 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 		})
 })
 
+orderApp.run(function(userProfile){
+	userProfile.getProfile($.getUrlParam('discountType'))
+})

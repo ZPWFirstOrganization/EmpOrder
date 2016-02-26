@@ -77,5 +77,14 @@
 <body>
 	<div ui-view id="main" ng-cloak>加载中...</div>
 </body>
-
+<script>
+(function ($) {
+    $.getUrlParam = function (name) {
+        var reg = new RegExp(name + "=([^&]*)(&|$)");
+        var urlObj=new String(window.location.href)
+        var r = urlObj.match(reg);
+        if (r != null) return unescape(r[1]); return null;
+    }
+})(jQuery);
+</script>
 </html>

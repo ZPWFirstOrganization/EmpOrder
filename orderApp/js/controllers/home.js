@@ -300,10 +300,14 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				}
 			)
 		},
-		getUserProfile:function(suc,err){
+		getUserProfile:function(type,suc,err){
 			return ApiService.postUserProfile(
 				{
-					Type:scopeData.discountType+"/User",
+					Type:type+"/User",
+					loginMode:0
+				},
+				{
+					
 				},
 				function(res){
 					if(suc){
@@ -336,3 +340,14 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		}
 	}
 });
+
+orderApp.factory('userProfile',function($state,apiCaller){
+	this.getProfile = function(type){
+		apiCaller.getUserProfile(type,function(response){
+			scopeData.userAccount = "xxxxxx"
+		},function(response){
+			// $state.go('regist')
+		})
+	}
+	return this
+})
