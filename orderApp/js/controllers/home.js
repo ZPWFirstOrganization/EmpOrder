@@ -286,6 +286,40 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 					}
 				}
 			)
+		},
+		getUserProfile:function(suc,err){
+			return ApiService.postUserProfile(
+				{
+					Type:scopeData.discountType+"/User",
+				},
+				function(res){
+					if(suc){
+						return suc(res)
+					}
+				},
+				function(res){
+					if(err){
+						return err(res)
+					}
+				}
+			)
+		},
+		regist:function(suc,err){
+			return ApiService.postRegist(
+				{
+					Type:scopeData.discountType+"/User",
+				},
+				function(res){
+					if(suc){
+						return suc(res)
+					}
+				},
+				function(res){
+					if(err){
+						return err(res)
+					}
+				}
+			)
 		}
 	}
 });
