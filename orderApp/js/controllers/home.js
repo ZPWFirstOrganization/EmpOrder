@@ -220,7 +220,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getSecretary:function(param,suc,err){
 			return ApiService.getSecretary({
-				Type:scopeData.discountType+"/Product",
+				Type:scopeData.discountType+"/User",
 				userAccount:param.userAccount
 			},
 			function(res){

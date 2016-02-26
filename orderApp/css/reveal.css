@@ -20,9 +20,11 @@
 	bottom: 0px;
 	left: 0px;
 	right: 0px;
-	margin:  auto;
+	margin-left: 35%;
+	margin-top: auto;
+	margin-bottom: auto;
 	max-width:400px;
-	max-height: 23%;
+	max-height: 150px;
 	background-color:#fff;
 	position: fixed;
 	z-index: 1001;
@@ -69,7 +71,7 @@
 	right: 0px;
 	margin:  auto;
 	max-width:80%;
-	max-height: 23%;
+	max-height: 140px;
 	background-color:#fff;
 	position: fixed;
 	z-index: 1001;

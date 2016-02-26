@@ -35,6 +35,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	}
 	// scopeData.currentOrderPage = $stateParams.page
 	$scope.secretary = {userName:"",userPhone:""}
+	var startYear = 2008
 	//获取订单信息
 	function queryOrderInfo(orderDate){
 		// var orderDate = ""
@@ -42,7 +43,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		// 	orderDate = $stateParams.orderDate
 		// }
 		apiCaller.getOrderListByPage({userAccount:scopeData.userAccount,orderDate:orderDate,pageNum:$scope.currentPage},function(res){
-		// console.log(res)
+		console.log(res)
 		$scope.pages = []
 		$scope.orderList = []
 		// if (angular.isUndefined(res.order)){
@@ -50,6 +51,10 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		// 	$("body").hideLoading();
 		// 	return
 		// }
+		if (res.firstOrderDate) {
+			startYear = parseInt(res.firstOrderDate.split("-")[0])
+		}
+		
 		if(res.order.length == 0){
 			$scope.isHaveData = false;
 		}else{
@@ -130,12 +135,16 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	var currentYear = (new Date()).getFullYear()
 	//获取秘书
   	if (scopeData.secretaryName == '' || scopeData.secretaryPhone == ''){
-		apiCaller.getSecretary({userAccount:'123123'},function(response){
-			currentYear = parseInt(response[0].currentYear)
-			scopeData.secretaryName = response[0].userName
-	  		$scope.secretary.userName = scopeData.secretaryName
-	  		scopeData.secretaryPhone = response[0].userPhone
-	  		$scope.secretary.userPhone = scopeData.secretaryPhone
+		apiCaller.getSecretary({userAccount:scopeData.userAccount},function(response){
+			if (response[0]){
+				currentYear = parseInt(response[0].currentYear)
+				scopeData.secretaryName = response[0].userName
+		  		$scope.secretary.userName = scopeData.secretaryName
+		  		scopeData.secretaryPhone = response[0].userPhone
+		  		$scope.secretary.userPhone = scopeData.secretaryPhone
+	  		}
+	  		initLizeSelecter()
+	  	},function(response){
 	  		initLizeSelecter()
 	  	})
 	}else{
@@ -148,7 +157,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	function initLizeSelecter(){
   		//初始化年份
   		var yearObj
-  		for (var i = currentYear; i >= 2008; i--) {
+  		for (var i = currentYear; i >= startYear; i--) {
   			yearObj = new Object()
   			yearObj.name = String(i)
   			yearObj.value = String(i)

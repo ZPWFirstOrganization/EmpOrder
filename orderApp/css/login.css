@@ -6,9 +6,9 @@
 .regist-header .mk{ width:400px; margin:10px auto; position:relative; color:#999;}
 
 .popup{ width:420px;  position:absolute; margin:0px auto; top:350px; right:0px; left:0px;  box-sizing:border-box;}
-.btn-reg{ line-height:36px; text-align:center; color:#fff; background-color:#ff2c2c; display:inline-block; margin-top:10px; cursor:pointer; width:45%; float:right}
-.btn-cancel{ line-height:36px; text-align:center; color:#333; background-color:#fff; display:inline-block; margin-top:10px; cursor:pointer; width:45%; float:left;}
-
+.btn-reg{ line-height:36px; text-align:center; color:#fff; background-color:#ff2c2c; display:inline-block; margin-top:10px; cursor:pointer; width:45%;}
+.btn-cancel{ line-height:36px; text-align:center; color:#333; background-color:#fff; display:inline-block; margin-top:10px; cursor:pointer; width:45%;}
+.regist-form-row{  position: relative;text-align: center;}
 .regist-footer{ position:absolute; bottom:0px;margin:0px auto;  right:0px; left:0px; text-align:center; line-height:30px; }
 }
 @media screen and (max-width: 800px) { 
@@ -18,8 +18,8 @@
 .regist-header .mk{ width:400px; margin:10px auto; position:relative; color:#999;}
 
 .popup{ width:100%;  position:absolute; margin:0px auto; top:70%; right:0px; left:0px;  box-sizing:border-box; padding:10px 20px;}
-.btn-reg{ line-height:36px; text-align:center; color:#fff; background-color:#ff2c2c; display:inline-block; margin-top:10px; cursor:pointer; width:45%; float:right}
-.btn-cancel{ line-height:36px; text-align:center; color:#333; background-color:#fff; display:inline-block; margin-top:10px; cursor:pointer; width:45%; float:left;}
-
+.btn-reg{ line-height:36px; text-align:center; color:#fff; background-color:#ff2c2c; display:inline-block; margin-top:10px; cursor:pointer; width:45%;}
+.btn-cancel{ line-height:36px; text-align:center; color:#333; background-color:#fff; display:inline-block; margin-top:10px; cursor:pointer; width:45%;}
+.regist-form-row{  position: relative;text-align: center;}
 .regist-footer{ position:absolute; bottom:0px;margin:0px auto;  right:0px; left:0px; text-align:center; line-height:30px; font-size:12px }
 }

@@ -30,7 +30,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 	    $scope.lastData = parseInt(arry[1])
   	})
   	//初始化余额
-  	currentOrderServ.getResAmount({kind: 'User',myBalanceAccount:'123123'},function(response){
+  	currentOrderServ.getResAmount({kind: 'User',myBalanceAccount:scopeData.userAccount},function(response){
   		$scope.resAmount = parseFloat(response.myBalance).toFixed(2)
   		$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   	})
@@ -40,7 +40,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
   	})
   	//获取秘书
   	if (scopeData.secretaryName == '' || scopeData.secretaryPhone == ''){
-		apiCaller.getSecretary({},function(response){
+		apiCaller.getSecretary({userAccount:scopeData.userAccount},function(response){
 			scopeData.secretaryName = response[0].userName
 	  		$scope.secretary.userName = scopeData.secretaryName
 	  		scopeData.secretaryPhone = response[0].userPhone
@@ -84,6 +84,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 			currentOrderServ.putProduct(
 				{	
 					kind: 'Order',
+					userAccount:scopeData.userAccount,
 					productCode:$scope.currentOrderData.product[index].productCode,
 					count:parseInt(prodCount)
 				},
@@ -112,22 +113,25 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 	$scope.favClick = function(index){
 		if ($scope.currentOrderData.product[index].isFavorite == false){
 			currentOrderServ.postFav(
-			{kind:"Favorite",productCode:$scope.currentOrderData.product[index].productCode}
+			{kind:"Favorite",userAccount:scopeData.userAccount,productCode:$scope.currentOrderData.product[index].productCode}
 			 ,function(){
-
+			 	$scope.currentOrderData.product[index].isFavorite = !$scope.currentOrderData.product[index].isFavorite
+			 	showModal({msg:"添加到我的收藏"});
 			},function(){
 
 			})
-			showModal({msg:"添加到我的收藏"});
+			
 		}else{
 			deleteServ("Favorite",{userAccount:scopeData.userAccount,productCode:$scope.currentOrderData.product[index].productCode},
 			function(response){
+				$scope.currentOrderData.product[index].isFavorite = !$scope.currentOrderData.product[index].isFavorite
+				showModal({msg:"已取消收藏"});
 			},
 			function(response){
 			});
-			showModal({msg:"已取消收藏"});
+			
 		}
-		$scope.currentOrderData.product[index].isFavorite = !$scope.currentOrderData.product[index].isFavorite
+		
 	}
 	$scope.deleteProduct = function(index){
 		showConfirm({
@@ -215,7 +219,7 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
         method:'PUT',
         params:{
           kind:'@kind',
-          userAccount:scopeData.userAccount,
+          userAccount:'@userAccount',
           productCode:'@productCode',
           count:'@count'
         }
@@ -234,7 +238,7 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
       	method:'POST',
       	params:{
       	  kind:'@kind',
-          userAccount:scopeData.userAccount,
+          userAccount:'@userAccount',
           productCode:'@productCode'
         }
       },

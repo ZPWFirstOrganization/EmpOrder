@@ -57,9 +57,11 @@
             
             
         	<div class="his-top-wrapper">
-                <div class="his-tips-line1">此价格仅表示下单当月价格   </div>
-                
-            	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div>
+                <div class="his-tips">此价格仅表示下单当月价格
+                <br><div class="f12">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div>
+                </div>
+<!--                 <div class="his-tips-line1">此价格仅表示下单当月价格   </div>
+            	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div> -->
                 <div class="his-select-wrapper">
                     <select class="select2" id="pcMonthSelecter" ng-model="pcSelectMonth" ng-change="pcSelectDate()" ng-options="m.name for m in months">
                         <!-- <option ng-selected="pcSelectMonth" value="pcSelectYear.value">{{pcSelectMonth.value}}</option> -->
@@ -118,7 +120,7 @@
                          <div class="td w25"><span class="">{{order.orderYearMonth}}</span></div>
                          <div class="td w25"><span class="">￥{{order.orderRealAmount}}</span></div>
                          <div class="td w25"><span class="">{{order.orderState | stateFilter }}</span></div>
-                         <div class="td w25"><a class=""  ui-sref="index.orderDetail({orderID:order.orderID})">查看</a></div>
+                         <div class="td w25"><a class=""  ui-sref="index.orderDetail({discountType:discountType,orderID:order.orderID})">查看</a></div>
                         
                          <div class="clr"></div>
                     </div>
@@ -150,7 +152,10 @@
       
             
         	<div class="his-top-wrapper">
-            	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}} </div>
+                <div class="his-tips">此价格仅表示下单当月价格
+                <br><div class="f12">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div>
+                </div>
+<!--             	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}} </div> -->
             </div>
             
             <div class="mid-wrapper">
@@ -168,7 +173,7 @@
                     </div>
               
                 <a class="order" ng-repeat="order in orderList track by $index" ng-show="isHaveData">
-                    <div class="form-row" ui-sref="index.orderDetail({orderID:order.orderID})">
+                    <div class="form-row" ui-sref="index.orderDetail({discountType:discountType,orderID:order.orderID})">
 <!--                       <div class="field-key w25 gray10">订单编号：</div>
                       <div class="field-value w25">{{order.orderID}}</div> -->
                       <div class="field-key w25 gray10">订单时间：</div>
@@ -177,7 +182,7 @@
                       <div class="field-value w20 ">{{order.orderState | stateFilter }}</div>
                       <div class="clr"> </div>
                     </div>            
-                    <div class="form-row" ui-sref="index.orderDetail({orderID:order.orderID})">
+                    <div class="form-row" ui-sref="index.orderDetail({discountType:discountType,orderID:order.orderID})">
                       <div class="field-key w25 gray10">应付金额：</div>
                       <div class="field-value w25">￥{{order.orderRealAmount}}</div>
                       <div class="clr"> </div>
