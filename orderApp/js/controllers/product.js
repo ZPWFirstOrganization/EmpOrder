@@ -28,30 +28,36 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
     case 0:
         $scope.sourcePageNamePC="返回首页";
         $scope.sourcePageNameMB="首页";
+        $scope.isNavShow = true;
         break;
 
     case 1:
         $scope.sourcePageNamePC="返回当月订单";
         $scope.sourcePageNameMB="当月订单";
+        $scope.isNavShow = false;
         break;
 
     case 2:
         $scope.sourcePageNamePC="返回订单详情";
         $scope.sourcePageNameMB="订单详情";
+        $scope.isNavShow = false;
         break;
 
     case 3:
         $scope.sourcePageNamePC="返回收藏";
         $scope.sourcePageNameMB="收藏";
+        $scope.isNavShow = false;
         break;
     case 4:
         $scope.sourcePageNamePC="返回搜索";
         $scope.sourcePageNameMB="搜索";
+        $scope.isNavShow = false;
         break;
 
     default:
         $scope.sourcePageNamePC="返回首页";
         $scope.sourcePageNameMB="首页";
+        $scope.isNavShow = true;
         break;
     }
                         

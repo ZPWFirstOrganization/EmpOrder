@@ -20,6 +20,14 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
     	$scope.orderDate = scopeData.orderDate;
     })
 
+    $scope.$watch('currentDivisionName', function(newVal, oldVal) {
+        scopeData.currentDivisionName = $scope.currentDivisionName;
+    }, true);
+
+    $scope.$watch('currenGroupName', function(newVal, oldVal) {
+       scopeData.currenGroupName = $scope.currenGroupName;
+    }, true);
+
     apiCaller.getProductListByStates(function(res){
     	$scope.pdList = res;
     	console.log('scopeData.categories',scopeData.categories)
