@@ -123,6 +123,14 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 		          userAccount:'@userAccount'
 		        },
 		        isArray:false
+		    },
+		    postUserProfile:{
+		    	method:'POST'
+		    },
+		    postRegist:{
+		    	method:'POST',
+		    	params:{
+		    	}
 		    }
 		}
 	);
