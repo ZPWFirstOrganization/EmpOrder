@@ -1,4 +1,4 @@
-orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scopeMethod,baseUrl,common,productServ,currentOrderServ,deleteServ,apiCaller,sessionStorage){
+orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeData,scopeMethod,baseUrl,common,productServ,currentOrderServ,deleteServ,apiCaller,sessionStorage){
     $('html,body').animate({scrollTop: '0px'},0)
     //console.log($stateParams.productCode);
     //console.log("scopeData.sourcePageId "+ scopeData.sourcePageId);

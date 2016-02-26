@@ -5,13 +5,13 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 	$scope.secretary = {userName:"",userPhone:""}
 	$scope.count = 0
 	$scope.resAmount = 0
-	$scope.payAmount = (common.get('type')==2) ? 5000 : 2000
 	$scope.isCanShop = false
 	$scope.currentOrderData = {};
 	$scope.lastData = 1
 	$scope.isHaveData = true
 	scopeData.discountType = $stateParams.discountType;
 	$scope.discountType = scopeData.discountType;
+	$scope.payAmount = (scopeData.discountType==2) ? 5000 : 2000
 	sessionStorage.put("sourcePageId","1")
     // scopeData.sourcePageId = 1;
     $scope.isShowFoot = function(){
@@ -32,7 +32,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
   	//初始化余额
   	currentOrderServ.getResAmount({kind: 'User',myBalanceAccount:'123123'},function(response){
   		$scope.resAmount = parseFloat(response.myBalance).toFixed(2)
-  		$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
+  		$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   	})
   	//初始化商品数量
   	currentOrderServ.getCount({kind: 'Order'},function(response){
@@ -90,7 +90,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 				//success
 				function(response){
 			    	$scope.resAmount = response.myBalance.toFixed(2)
-  					$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
+  					$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   					$scope.count = response.productCount
   					$("body").hideLoading();
 		  		},
@@ -138,7 +138,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 				function(response){
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance.toFixed(2)
-  						$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
+  						$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   						$scope.count = response.productCount
 						$scope.currentOrderData.product.splice(index,1)
 						if($scope.currentOrderData.product.length == 0){
@@ -171,7 +171,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 				function(response){
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance.toFixed(2)
-  						$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
+  						$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   						$scope.count = response.productCount
 						$scope.currentOrderData.product = {}
 						$scope.isHaveData = false
@@ -255,11 +255,11 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
   );
 })
 
-orderApp.factory('deleteServ',function(baseUrl,common){
+orderApp.factory('deleteServ',function(baseUrl,common,scopeData){
 	function del(kind,data,suc,err){	
 		return 	$.ajax({
 		    type: "delete",
-		    url: baseUrl+common.get("type")+"/"+kind,
+		    url: baseUrl+scopeData.discountType+"/"+kind,
 		    data: data,
 		    success:suc,
 		    error:err
