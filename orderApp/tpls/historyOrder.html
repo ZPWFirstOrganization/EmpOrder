@@ -4,7 +4,7 @@
 
 <!--pc面包屑-->
 <div class="layout page-width pc-only">
-	<div class="bread-crumb"><a ui-sref="index.productList({productClass:1,productCode:1,page:1})">首页</a><a>&gt;</a><a>历史订单</a></div>
+	<div class="bread-crumb"><a ui-sref="index.productList({discountType:'{{discountType}}',productClass:1,productCode:1,page:1})">首页</a><a>&gt;</a><a>历史订单</a></div>
 
     <div class="clr"></div>
 </div>
@@ -37,16 +37,16 @@
 
 
 <!--pc mobile产品列表-->
-<div class="bread-crumb mobile-only"><a ui-sref="index.productList({productClass:1,productCode:1,page:1})" class="back"><b>&lt;</b> 首页</a><div class="title">历史订单</div></div>
+<div class="bread-crumb mobile-only"><a ui-sref="index.productList({discountType:'{{discountType}}',productClass:1,productCode:1,page:1})" class="back"><b>&lt;</b> 首页</a><div class="title">历史订单</div></div>
 <div id="wrapper">
     <div id="scroller"> 
 <div class="layout page-width">
     <div class="his-content-wrapper">
         <div class="left">
             <div class="sider-menu-wrapper">
-            <a class="sider-menu " ui-sref="index.currentOrder">当月订单</a>
-            <a class="sider-menu active" ui-sref="index.historyOrder({page:1,orderDate:'',orderParam:{}})">历史订单</a>
-            <a class="sider-menu" ui-sref="index.personInfo">个人信息</a>
+            <a class="sider-menu " ui-sref="index.currentOrder({discountType:'{{discountType}}'})">当月订单</a>
+            <a class="sider-menu active" ui-sref="index.historyOrder({discountType:'{{discountType}}',page:1,orderDate:'',orderParam:{}})">历史订单</a>
+            <a class="sider-menu" ui-sref="index.personInfo({discountType:'{{discountType}}'})">个人信息</a>
             </div>
         
         </div>

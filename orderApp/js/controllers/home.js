@@ -4,6 +4,7 @@ orderApp.factory('scopeData',function() {
 		discountType         :'2',
 		noticePageRevert     :false,
 		categories           :[],
+		groupCode            :'',
 		sourcePageId         : 0,          //0:代表productList页,1:代表currentOrder页
 		currentProductCode   :'',          //当前大类或小类的code
 		currentDivisionName  :'护肤',      //当前大类的名称(用于面包屑)

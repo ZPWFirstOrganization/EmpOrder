@@ -82,9 +82,12 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 
 	$scope.groupClicked=function(Group,Division) {
 		isGroupClicked = true;
+		scopeData.currentDivisionName = Division.categoryName;
+		scopeData.divisionCode = Division.categoryCode;
+		scopeData.groupCode = Group.seriesCode;
+		scopeData.currenGroupName = Group.seriesName;
 		scopeData.discountType = $stateParams.discountType;
         scopeMethod.changeState("2",Group.seriesCode,"1");
-		// $scope.showList = false;
 	}
 
 	$scope.logoClicked = function() {
@@ -96,10 +99,17 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 		$state.go('index.favorites',{discountType:scopeData.discountType,page:1});
 	}
 
+	$scope.myBtnClicked = function(){
+		$state.go('index.currentOrder',{discountType:scopeData.discountType});
+	}
+
 	$scope.searchClicked = function(){
 		if($scope.searchKey != ""){
 			$state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
 		}
+	}
+	$scope.noticeClicked = function(){
+		$state.go('index.notice',{discountType:scopeData.discountType});
 	}
 
 	$scope.changeDiscountType = function(){

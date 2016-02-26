@@ -1,6 +1,7 @@
-orderApp.controller('personInfoCtrl',function($scope,$state,ApiService,apiCaller,scopeData,baseUrl,common,personServ){
+orderApp.controller('personInfoCtrl',function($scope,$state,$stateParams,ApiService,apiCaller,scopeData,baseUrl,common,personServ){
     //console.log("personInfoCtrl");	
-    
+    scopeData.discountType = $stateParams.discountType;
+    $scope.discountType = scopeData.discountType;
     $scope.Person = {};
     
 	//获取个人信息

@@ -48,6 +48,11 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
         $scope.sourcePageNamePC="返回搜索";
         $scope.sourcePageNameMB="搜索";
         break;
+
+    default:
+        $scope.sourcePageNamePC="返回首页";
+        $scope.sourcePageNameMB="首页";
+        break;
     }
                         
     //获取大类            
@@ -128,12 +133,14 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
     
     //点击大类
 	$scope.nav2Clicked = function () {
+        scopeData.groupCode = '';
+        scopeData.currenGroupName = '';
 		scopeMethod.changeState('1',scopeData.divisionCode,'1');
 	}
 
     //点击小类
 	$scope.nav3Clicked = function () {
-		scopeMethod.changeState(scopeData.currentProductClass,scopeData.groupCode,'1');
+		scopeMethod.changeState('2',scopeData.groupCode,'1');
 	}    
     
 	//产品数量得到焦点
@@ -157,7 +164,11 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
 	$scope.enter = function(ev) {
 		if (ev.keyCode !== 13) return; 
 		//input回车事件
-	}	
+	}
+
+    $scope.cartClicked = function(){
+        $state.go('index.currentOrder',{discountType:scopeData.discountType});
+    }	
 
 });   
 

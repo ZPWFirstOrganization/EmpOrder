@@ -1,6 +1,6 @@
 orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
 //  http://wzdcbdeo01:8090/mlk/
-orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,scopeData,sessionStorage){
+orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,scopeData,sessionStorage){
 	$('html,body').animate({scrollTop: '0px'},0)
 	$scope.secretary = {userName:"",userPhone:""}
 	$scope.count = 0
@@ -10,6 +10,8 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 	$scope.currentOrderData = {};
 	$scope.lastData = 1
 	$scope.isHaveData = true
+	scopeData.discountType = $stateParams.discountType;
+	$scope.discountType = scopeData.discountType;
 	sessionStorage.put("sourcePageId","1")
     // scopeData.sourcePageId = 1;
     $scope.isShowFoot = function(){
