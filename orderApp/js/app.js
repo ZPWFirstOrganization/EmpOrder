@@ -74,6 +74,7 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 		})
 })
 
-orderApp.run(function(userProfile){
-	userProfile.getProfile($.getUrlParam('discountType'))
+orderApp.run(function(userProfile,scopeData,scopeMethod){
+	scopeData.isMobile = scopeMethod.isMobile();
+	userProfile.getProfile($.getUrlParam('discountType'));
 })

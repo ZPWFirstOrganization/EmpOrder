@@ -5,6 +5,7 @@
 		noticePageRevert     :false,
 		categories           :[],
 		groupCode            :'',
+		isMobile             :0,
 		sourcePageId         : 0,          //0:代表productList页,1:代表currentOrder页
 		currentProductCode   :'',          //当前大类或小类的code
 		currentDivisionName  :'护肤',      //当前大类的名称(用于面包屑)
@@ -305,7 +306,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 			return ApiService.postUserProfile(
 				{
 					Type:type+"/User",
-					loginMode:0
+					loginMode:scopeData.isMobile
 				},
 				{
 					
@@ -348,10 +349,10 @@ orderApp.factory('userProfile',function($state,apiCaller,scopeData){
 			type = 2
 		}
 		apiCaller.getUserProfile(type,function(response){
-			alert(response.userAccount)
+			// alert(response.userAccount)
 			scopeData.userAccount = response.userAccount
 		},function(response){
-			alert(JSON.stringify(response))
+			// alert(JSON.stringify(response))
 			// $state.go('regist')
 		})
 	}

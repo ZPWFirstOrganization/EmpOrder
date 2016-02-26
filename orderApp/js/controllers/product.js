@@ -67,7 +67,7 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
     }
                             
 	//获取商品详情
-	productServ.getProductDetail({kind: 'Product',userAccount:scopeData.userAccount,productCode:$stateParams.productCode},function(response){
+	productServ.getProductDetail({kind: scopeData.discountType + '/Product',userAccount:scopeData.userAccount,productCode:$stateParams.productCode},function(response){
 	    //console.log(response[0]);
         $scope.Product = response[0];
   	})    
@@ -175,7 +175,7 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
 
 orderApp.factory('productServ',function($resource,common,baseUrl){
 	return $resource(
-    baseUrl+common.get("type")+'/:kind',
+    baseUrl+'/:kind',
     {},
     {
       //获取商品详情
