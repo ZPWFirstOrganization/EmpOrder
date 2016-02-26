@@ -40,22 +40,22 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 	            },
 			}
 		}).state('index.currentOrder',{
-			url:'/currentOrder',
+			url:'/currentOrder/discountType={discountType}',
 			templateUrl:'tpls/currentOrder.html'
 		}).state('index.historyOrder',{
-			url:'/historyOrder/page={page}&orderDate={orderDate}',
+			url:'/historyOrder/discountType={discountType}&page={page}&orderDate={orderDate}',
 			templateUrl:'tpls/historyOrder.html',
 			params:{
 				orderParam:{}
 			}
 		}).state('index.personInfo',{
-			url:'/personInfo',
+			url:'/personInfo/discountType={discountType}',
 			templateUrl:'tpls/personInfo.html'
 		}).state('index.orderDetail',{
-			url:'/orderDetail/orderID={orderID}',
+			url:'/orderDetail/discountType={discountType}&orderID={orderID}',
 			templateUrl:'tpls/orderDetail.html'
 		}).state('index.product',{
-			url:'/product/productCode={productCode}',
+			url:'/product/discountType={discountType}&productCode={productCode}',
 			templateUrl:'tpls/product.html'
 		}).state('index.notice',{
 			url:'/notice',
