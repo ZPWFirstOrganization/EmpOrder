@@ -70,7 +70,7 @@
     </div>
   </div>
 
-<a class="cart animated" ui-sref="index.currentOrder">
+<a class="cart animated" ng-click="cartClicked()">
   <div class="cart-inner">
   <div class="number" id="numbercircle"><b>{{{false: orderCount.productCount, true: '···'}[orderCount.productCount >= 100]}}</b></div>
     剩余额度：</br>

@@ -4,7 +4,7 @@
 
 <!--pc面包屑-->
 <div class="layout page-width pc-only">
-	<div class="bread-crumb"><a ui-sref="index.productList({productClass:1,productCode:1,page:1})">首页</a><a>&gt;</a><a href="#">公告</a></div>
+	<div class="bread-crumb"><a ui-sref="index.productList" ng-click="nav1Clicked()">首页</a><a>&gt;</a><a>公告</a></div>
     
     <div class="clr"></div>
 </div>
@@ -15,7 +15,7 @@
   	
     <div class="notice-content-wrapper">
     
-        <div class="bread-crumb mobile-only"><a ui-sref="index.productList({productClass:1,productCode:1,page:1})" class="back"><b>&lt;</b> 首页</a><div class="title">公告</div></div>
+        <div class="bread-crumb mobile-only"><a ui-sref="index.productList" ng-click="nav1Clicked()" class="back"><b>&lt;</b> 首页</a><div class="title">公告</div></div>
         <div class="notice-content-inner">
             <div class="notice-intro-title-line"></div>
             <div ng-repeat="Notice in noticeList";>    

@@ -19,7 +19,7 @@
         </div>
         <div class="my-wrapper">
           <a class="button-s button-gray icon-fav" ng-click='favClicked()'>收藏</a>
-          <a class="button-s button-gray icon-my" ui-sref="index.currentOrder">我的</a>
+          <a class="button-s button-gray icon-my" ui-sref="index.currentOrder" ng-click="myBtnClicked()">我的</a>
         </div>
         <div class="clr"></div>
      </div>
@@ -35,7 +35,7 @@
             </div>
         </div>
       </li>
-      <a class="notice" ui-sref="index.notice">公告</a>
+      <a class="notice" ng-click="noticeClicked()">公告</a>
       <div class="clr"></div>
      </div>
    </div>

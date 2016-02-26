@@ -6,6 +6,8 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	$scope.pages = [];
 	// $scope.pageCount = 0
 	$scope.currentPage = parseInt($stateParams.page);
+	scopeData.discountType = $stateParams.discountType;
+	$scope.discountType = scopeData.discountType;
 	// scopeData.sourcePageId = 2;
 	// $scope.showYear = "选择年"
 	// $scope.showMonth = "选择月"	

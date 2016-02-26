@@ -200,7 +200,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 
 	$scope.toDetail = function(Product){
 		if(Product.productStatus == 0){
-			$state.go('index.product',{productCode:Product.productCode});
+			$state.go('index.product',{discountType:scopeData.discountType,productCode:Product.productCode});
 		}
 	}
 
@@ -228,5 +228,9 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 
 	$scope.nav2Clicked = function () {
 		scopeMethod.changeState('1',$scope.currentCategoryCode,'1');
+	}
+
+	$scope.cartClicked = function(){
+		$state.go('index.currentOrder',{discountType:scopeData.discountType});
 	}
 });

@@ -77,7 +77,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
 
     $scope.toDetail = function(Product){
         if(Product.productStatus == 0){
-            $state.go('index.product',{productCode:Product.productCode});
+            $state.go('index.product',{discountType:scopeData.discountType,productCode:Product.productCode});
         }
     }
 
@@ -192,5 +192,9 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
 
     $scope.nav1Clicked = function () {
         scopeMethod.changeState('1','1','1');
+    }
+
+    $scope.cartClicked = function(){
+        $state.go('index.currentOrder',{discountType:scopeData.discountType});
     }
 })

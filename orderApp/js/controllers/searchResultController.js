@@ -70,7 +70,7 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
 
     $scope.toDetail = function(Product){
         if(Product.productStatus == 0){
-            $state.go('index.product',{productCode:Product.productCode});
+            $state.go('index.product',{discountType:scopeData.discountType,productCode:Product.productCode});
         }
     }
 
@@ -178,5 +178,9 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
 
     $scope.nav1Clicked = function () {
         scopeMethod.changeState('1','1','1');
+    }
+
+    $scope.cartClicked = function(){
+        $state.go('index.currentOrder',{discountType:scopeData.discountType});
     }
 })

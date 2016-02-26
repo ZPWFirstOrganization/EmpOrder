@@ -58,7 +58,7 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 			url:'/product/discountType={discountType}&productCode={productCode}',
 			templateUrl:'tpls/product.html'
 		}).state('index.notice',{
-			url:'/notice',
+			url:'/notice/discountType={discountType}',
 			templateUrl:'tpls/notice.html'
 		}).state('index.favorites',{
 			url:'/favorites/discountType={discountType}&page={page}',
