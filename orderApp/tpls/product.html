@@ -15,7 +15,16 @@
 
 <!--pc面包屑-->
 <div class="layout page-width pc-only">
-	<div class="bread-crumb"><a href="javascript:history.back();">{{sourcePageNamePC}}</a><a>|</a><a ng-click="nav2Clicked()" ui-sref="index.productList">{{currentDivisionName}}</a><a ng-show="isGroupNameShow">&gt;</a><a ng-show="isGroupNameShow" ng-click="nav3Clicked()" ui-sref="index.productList">{{currenGroupName}}</a><a>&gt;</a><a>{{Product.productName}}</a></div>
+	<div class="bread-crumb">
+    <a href="javascript:history.back();">{{sourcePageNamePC}}</a>
+    <a>|</a>
+    <a ng-click="nav2Clicked()" ui-sref="index.productList" ng-show="isNavShow">{{currentDivisionName}}</a>
+    <a ng-show="isNavShow && isGroupNameShow">&gt;</a>
+    <a ng-show="isNavShow && isGroupNameShow" ng-click="nav3Clicked()" ui-sref="index.productList">{{currenGroupName}}
+    </a>
+    <a ng-show="isNavShow">&gt;</a>
+    <a>{{Product.productName}}</a>
+  </div>
     
     <div class="clr"></div>
 </div>

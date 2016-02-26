@@ -43,7 +43,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 							$('#pcSeach').autocompleter({ 
 								highlightMatches: true,
 						        empty: false,
-						        limit: 5,
+						        limit: 10,
 								source: data
 							});
 							$('#pcSeach').focus()
