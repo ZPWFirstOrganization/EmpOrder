@@ -15,7 +15,7 @@ orderApp.controller('orderDetailCtrl',function($scope,$state,$stateParams,ApiSer
 		if (prodState == 1){
 
 		}else{
-			$state.go('index.product',{productCode:prodCode})
+			$state.go('index.product',{discountType:scopeData.discountType,productCode:prodCode})
 		}
 	}
 	
