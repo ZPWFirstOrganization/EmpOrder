@@ -41,7 +41,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		// if (!angular.isUndefined($stateParams.orderDate)){
 		// 	orderDate = $stateParams.orderDate
 		// }
-		apiCaller.getOrderListByPage({userAccount:'456456',orderDate:orderDate,pageNum:$scope.currentPage},function(res){
+		apiCaller.getOrderListByPage({userAccount:scopeData.userAccount,orderDate:orderDate,pageNum:$scope.currentPage},function(res){
 		// console.log(res)
 		$scope.pages = []
 		$scope.orderList = []
