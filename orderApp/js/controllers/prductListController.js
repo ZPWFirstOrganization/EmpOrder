@@ -227,6 +227,8 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 	}
 
 	$scope.nav2Clicked = function () {
+		scopeData.groupCode = '';
+        scopeData.currenGroupName = '';
 		scopeMethod.changeState('1',$scope.currentCategoryCode,'1');
 	}
 
