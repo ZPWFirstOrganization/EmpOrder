@@ -1,4 +1,4 @@
-orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
+﻿orderApp.value('baseUrl', 'http://182.92.110.219:8090/MLK/')
 //  http://wzdcbdeo01:8090/mlk/
 orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,scopeData,sessionStorage){
 	$('html,body').animate({scrollTop: '0px'},0)
@@ -33,12 +33,12 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
   		$scope.payAmount = (common.get('type')==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   	})
   	//初始化商品数量
-  	currentOrderServ.getCount({kind: 'Order',userAccount:'123123'},function(response){
+  	currentOrderServ.getCount({kind: 'Order'},function(response){
   		$scope.count = response.productCount
   	})
   	//获取秘书
   	if (scopeData.secretaryName == '' || scopeData.secretaryPhone == ''){
-		apiCaller.getSecretary({userAccount:'123123'},function(response){
+		apiCaller.getSecretary({},function(response){
 			scopeData.secretaryName = response[0].userName
 	  		$scope.secretary.userName = scopeData.secretaryName
 	  		scopeData.secretaryPhone = response[0].userPhone
@@ -49,7 +49,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 		$scope.secretary.userPhone = scopeData.secretaryPhone
 	}
   	//获取当月订单详细内容
-	currentOrderServ.getCurrentOrder({kind:'Order',userAccount:'123123',orderDate:''},function(response){
+	currentOrderServ.getCurrentOrder({kind:'Order',orderDate:''},function(response){
 	    
 	    $scope.currentOrderData = response[0];
 	    //无商品
@@ -82,7 +82,6 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 			currentOrderServ.putProduct(
 				{	
 					kind: 'Order',
-					userAccount:'123123',
 					productCode:$scope.currentOrderData.product[index].productCode,
 					count:parseInt(prodCount)
 				},
@@ -111,7 +110,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 	$scope.favClick = function(index){
 		if ($scope.currentOrderData.product[index].isFavorite == false){
 			currentOrderServ.postFav(
-			{kind:"Favorite",userAccount:'123123',productCode:$scope.currentOrderData.product[index].productCode}
+			{kind:"Favorite",productCode:$scope.currentOrderData.product[index].productCode}
 			 ,function(){
 
 			},function(){
@@ -119,7 +118,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 			})
 			showModal({msg:"添加到我的收藏"});
 		}else{
-			deleteServ("Favorite",{userAccount:123123,productCode:$scope.currentOrderData.product[index].productCode},
+			deleteServ("Favorite",{userAccount:scopeData.userAccount,productCode:$scope.currentOrderData.product[index].productCode},
 			function(response){
 			},
 			function(response){
@@ -133,7 +132,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 			msg:"确定删除该产品？",
 			confirmed:function(){
 				$("body").showLoading();
-				deleteServ("Order",{userAccount:123123,productCode:$scope.currentOrderData.product[index].productCode},
+				deleteServ("Order",{userAccount:scopeData.userAccount,productCode:$scope.currentOrderData.product[index].productCode},
 				function(response){
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance.toFixed(2)
@@ -166,7 +165,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$scope,common,s
 			msg:"确定取消该订单？",
 			confirmed:function(){
 				$("body").showLoading();
-				deleteServ("Order",{userAccount:123123},
+				deleteServ("Order",{userAccount:scopeData.userAccount},
 				function(response){
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance.toFixed(2)
@@ -204,7 +203,7 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
       getCurrentOrder:{
         method:'GET',
         params:{
-          userAccount:'@userAccount',
+          userAccount:scopeData.userAccount,
           orderDate:'@orderDate',
         },
         isArray:true
@@ -214,7 +213,7 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
         method:'PUT',
         params:{
           kind:'@kind',
-          userAccount:'@userAccount',
+          userAccount:scopeData.userAccount,
           productCode:'@productCode',
           count:'@count'
         }
@@ -233,21 +232,21 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
       	method:'POST',
       	params:{
       	  kind:'@kind',
-          userAccount:'@userAccount',
+          userAccount:scopeData.userAccount,
           productCode:'@productCode'
         }
       },
       getSecretary:{
       	method:'GET',
       	params:{
-          userAccount:'@userAccount'
+          userAccount:scopeData.userAccount
         },
         isArray:true
       },
       getCount:{
       	method:'GET',
       	params:{
-          userAccount:'@userAccount'
+          userAccount:scopeData.userAccount
         }
       }
     }

@@ -62,7 +62,7 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
     }
                             
 	//获取商品详情
-	productServ.getProductDetail({kind: 'Product',userAccount:'123123',productCode:$stateParams.productCode},function(response){
+	productServ.getProductDetail({kind: 'Product',userAccount:scopeData.userAccount,productCode:$stateParams.productCode},function(response){
 	    //console.log(response[0]);
         $scope.Product = response[0];
   	})    
@@ -71,7 +71,7 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
 	$scope.favoriteClicked = function(Product){
 		if (!Product.isFavorite){
 			currentOrderServ.postFav(
-			{kind:"Favorite",userAccount:'123123',productCode:Product.productCode}
+			{kind:"Favorite",userAccount:scopeData.userAccount,productCode:Product.productCode}
 			 ,function(){
                 showModal({msg:"添加到我的收藏"});
                 Product.isFavorite = true;
@@ -80,7 +80,7 @@ orderApp.controller('productCtrl',function($q,$scope,$stateParams,scopeData,scop
 			})
 			
 		}else{
-			deleteServ("Favorite",{userAccount:123123,productCode:Product.productCode},
+			deleteServ("Favorite",{userAccount:scopeData.userAccount,productCode:Product.productCode},
 			function(response){
 			   showModal({msg:"已取消收藏"});
                Product.isFavorite = false;

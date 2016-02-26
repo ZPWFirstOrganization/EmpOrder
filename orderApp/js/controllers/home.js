@@ -1,4 +1,4 @@
-orderApp.factory('scopeData',function() {
+﻿orderApp.factory('scopeData',function() {
 	return{
 		userAccount          :'123123',
 		discountType         :'2',
@@ -341,11 +341,16 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 	}
 });
 
-orderApp.factory('userProfile',function($state,apiCaller){
+orderApp.factory('userProfile',function($state,apiCaller,scopeData){
 	this.getProfile = function(type){
+		if (type == null || angular.isUndefined(type)){
+			type = 2
+		}
 		apiCaller.getUserProfile(type,function(response){
-			scopeData.userAccount = "xxxxxx"
+			alert(response.userAccount)
+			scopeData.userAccount = response.userAccount
 		},function(response){
+			alert(JSON.stringify(response))
 			// $state.go('regist')
 		})
 	}

@@ -1,10 +1,10 @@
-orderApp.controller('personInfoCtrl',function($scope,$state,ApiService,apiCaller,scopeData,baseUrl,common,personServ){
+﻿orderApp.controller('personInfoCtrl',function($scope,$state,ApiService,apiCaller,scopeData,baseUrl,common,personServ){
     //console.log("personInfoCtrl");	
     
     $scope.Person = {};
-    
+    	// alert(scopeData.userAccount)
 	//获取个人信息
-	personServ.getPersonInfo({kind: 'User',infoAccount:'123123'},function(response){
+	personServ.getPersonInfo({kind: 'User',infoAccount:scopeData.userAccount},function(response){
 	    console.log(response);
         $scope.Person = response;
   	})        
