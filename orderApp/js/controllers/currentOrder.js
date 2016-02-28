@@ -23,24 +23,24 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
     }
 	//获取下单日期范围
 	$("body").showLoading();
-	currentOrderServ.getDateGate({kind: 'Order'},function(response){
+	currentOrderServ.getDateGate({kind:scopeData.discountType+'/Order'},function(response){
 	    var arry = response.orderDate.split("-")
 	    $scope.isCanShop = response.allowOrder
 	    $scope.isCanShop = true
 	    $scope.lastData = parseInt(arry[1])
   	})
   	//初始化余额
-  	currentOrderServ.getResAmount({kind: 'User',myBalanceAccount:scopeData.userAccount},function(response){
+  	currentOrderServ.getResAmount({kind:scopeData.discountType+'/User',myBalanceAccount:scopeData.userID},function(response){
   		$scope.resAmount = parseFloat(response.myBalance).toFixed(2)
   		$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   	})
   	//初始化商品数量
-  	currentOrderServ.getCount({kind: 'Order'},function(response){
+  	currentOrderServ.getCount({kind: scopeData.discountType+'/Order'},function(response){
   		$scope.count = response.productCount
   	})
   	//获取秘书
   	if (scopeData.secretaryName == '' || scopeData.secretaryPhone == ''){
-		apiCaller.getSecretary({userAccount:scopeData.userAccount},function(response){
+		apiCaller.getSecretary({userID:scopeData.userID},function(response){
 			scopeData.secretaryName = response[0].userName
 	  		$scope.secretary.userName = scopeData.secretaryName
 	  		scopeData.secretaryPhone = response[0].userPhone
@@ -51,7 +51,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 		$scope.secretary.userPhone = scopeData.secretaryPhone
 	}
   	//获取当月订单详细内容
-	currentOrderServ.getCurrentOrder({kind:'Order',orderDate:''},function(response){
+	currentOrderServ.getCurrentOrder({kind:scopeData.discountType+'/Order',orderDate:''},function(response){
 	    
 	    $scope.currentOrderData = response[0];
 	    //无商品
@@ -83,8 +83,8 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 
 			currentOrderServ.putProduct(
 				{	
-					kind: 'Order',
-					userAccount:scopeData.userAccount,
+					kind: scopeData.discountType+'/Order',
+					userID:scopeData.userID,
 					productCode:$scope.currentOrderData.product[index].productCode,
 					count:parseInt(prodCount)
 				},
@@ -113,7 +113,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 	$scope.favClick = function(index){
 		if ($scope.currentOrderData.product[index].isFavorite == false){
 			currentOrderServ.postFav(
-			{kind:"Favorite",userAccount:scopeData.userAccount,productCode:$scope.currentOrderData.product[index].productCode}
+			{kind:scopeData.discountType+'/Favorite',userID:scopeData.userID,productCode:$scope.currentOrderData.product[index].productCode}
 			 ,function(){
 			 	$scope.currentOrderData.product[index].isFavorite = !$scope.currentOrderData.product[index].isFavorite
 			 	showModal({msg:"添加到我的收藏"});
@@ -122,7 +122,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 			})
 			
 		}else{
-			deleteServ("Favorite",{userAccount:scopeData.userAccount,productCode:$scope.currentOrderData.product[index].productCode},
+			deleteServ("Favorite",{userID:scopeData.userID,productCode:$scope.currentOrderData.product[index].productCode},
 			function(response){
 				$scope.currentOrderData.product[index].isFavorite = !$scope.currentOrderData.product[index].isFavorite
 				showModal({msg:"已取消收藏"});
@@ -138,7 +138,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 			msg:"确定删除该产品？",
 			confirmed:function(){
 				$("body").showLoading();
-				deleteServ("Order",{userAccount:scopeData.userAccount,productCode:$scope.currentOrderData.product[index].productCode},
+				deleteServ("Order",{userID:scopeData.userID,productCode:$scope.currentOrderData.product[index].productCode},
 				function(response){
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance.toFixed(2)
@@ -171,7 +171,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 			msg:"确定取消该订单？",
 			confirmed:function(){
 				$("body").showLoading();
-				deleteServ("Order",{userAccount:scopeData.userAccount},
+				deleteServ("Order",{userID:scopeData.userID},
 				function(response){
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance.toFixed(2)
@@ -202,14 +202,14 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 
 orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData){
 	return $resource(
-    baseUrl+scopeData.discountType+'/:kind',
+    baseUrl+'/:kind',
     {},
     {
       //获取当月订单
       getCurrentOrder:{
         method:'GET',
         params:{
-          userAccount:scopeData.userAccount,
+          userID:scopeData.userID,
           orderDate:'@orderDate',
         },
         isArray:true
@@ -219,7 +219,7 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
         method:'PUT',
         params:{
           kind:'@kind',
-          userAccount:'@userAccount',
+          userID:'@userID',
           productCode:'@productCode',
           count:'@count'
         }
@@ -238,21 +238,14 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
       	method:'POST',
       	params:{
       	  kind:'@kind',
-          userAccount:'@userAccount',
+          userID:'@userID',
           productCode:'@productCode'
         }
-      },
-      getSecretary:{
-      	method:'GET',
-      	params:{
-          userAccount:scopeData.userAccount
-        },
-        isArray:true
       },
       getCount:{
       	method:'GET',
       	params:{
-          userAccount:scopeData.userAccount
+          userID:scopeData.userID
         }
       }
     }
@@ -278,7 +271,7 @@ orderApp.factory('deleteServ',function(baseUrl,common,scopeData){
 	// 		    type: "delete",
 	// 		    url: "http://182.92.110.219:8090/MLK/"+type+"/"+kind,
 	// 		    data: {
-	// 		        userAccount:user,
+	// 		        userID:user,
 	// 		        productCode:prodCode
 	// 		    },
 	// 		    success:suc,
@@ -290,7 +283,7 @@ orderApp.factory('deleteServ',function(baseUrl,common,scopeData){
 	// 		    type: "delete",
 	// 		    url: "http://182.92.110.219:8090/MLK/"+type+"/"+kind,
 	// 		    data: {
-	// 		        userAccount:user
+	// 		        userID:user
 	// 		    },
 	// 		    success:suc,
 	// 		    error:err
@@ -301,7 +294,7 @@ orderApp.factory('deleteServ',function(baseUrl,common,scopeData){
 	// 		    type: "delete",
 	// 		    url: "http://182.92.110.219:8090/MLK/"+type+"/"+kind,
 	// 		    data: {
-	// 		        userAccount:user,
+	// 		        userID:user,
 	// 		        productCode:prodCode
 	// 		    },
 	// 		    success:suc,

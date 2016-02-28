@@ -5,7 +5,7 @@ orderApp.factory('ajaxService',function(baseUrl,scopeData){
 			    type: "delete",
 			    url: baseUrl + scopeData.discountType +'/Favorite',
 			    data: {
-			    	userAccount:'123123',
+			    	userID:'123123',
 					productCode:Product.productCode
 			    },
 			    success:suc,
@@ -33,7 +33,7 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 					code:'@code',//大类传大类的id,小类传小类的CONFIG_VALUE
 					productClass:'@productClass',//大类为1，小类为2
 					pageNum:'@pageNum',
-					userAccount:'@userAccount'
+					userID:'@userID'
 				},
 				isArray:false
 			},
@@ -41,7 +41,7 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 				// url:baseUrl+scopeData.discountType+'/User',
 				method:'GET',
 				params:{
-					userAccount:'@userAccount'
+					userID:'@userID'
 				},
 				isArray:true
 			},
@@ -49,7 +49,7 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 				// url:baseUrl+scopeData.discountType+'/Favorite',
 				method:'GET',
 				params:{
-					userAccount:'@userAccount',
+					userID:'@userID',
 					pageNum:'@pageNum'
 				}
 			},
@@ -64,7 +64,7 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 				// url:baseUrl+scopeData.discountType+'/Order',
 				method:'GET',
 				params:{
-					userAccount:'@userAccount'
+					userID:'@userID'
 				}
 			},
 			getOrderDate:{
@@ -76,7 +76,7 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 				// url:baseUrl+scopeData.discountType+'/Order',
 				method:'POST',
 				data:{
-					userAccount:'@userAccount',
+					userID:'@userID',
 					productCode:'@productCode',
 					count:'@count'
 				}
@@ -85,7 +85,7 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 				// url:baseUrl+scopeData.discountType+'/Favorite',
 		      	method:'POST',
 		      	data:{
-		          userAccount:'@userAccount',
+		          userID:'@userID',
 		          productCode:'@productCode'
 		        }
 		    },
@@ -93,7 +93,7 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 				// url:baseUrl+scopeData.discountType+'/Order',
 		      	method:'GET',
 		      	params:{
-		          userAccount:'@userAccount',
+		          userID:'@userID',
 		          orderDate:'@orderDate',
 		          pageNum:'@pageNum'
 		        }
@@ -120,7 +120,7 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 		    	params:{
 		          key:'@key',
 		          pageNum:'@pageNum',
-		          userAccount:'@userAccount'
+		          userID:'@userID'
 		        },
 		        isArray:false
 		    },

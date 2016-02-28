@@ -17,29 +17,32 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	$("#pcSeach").keyup(function(event){
 		if(event.keyCode != 38 && event.keyCode != 40){
 			clearTimeout(delayTime);
-			$('#pcSeach').autocompleter('destroy');
+			//忘了为什么以前要destroy了   先放这儿  别删
+			// $('#pcSeach').autocompleter('destroy');
 			if (event.keyCode == 13){
 				if($scope.searchKey != ""){
 					$state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
 					$('#pcSeach').autocompleter('close');
 				}
 			}else{
-				delayTime = setTimeout(function() {
-					apiCaller.getSearchTips($scope.searchKey,function(res){
-						$scope.DataForMatch = [];
-						for (var i = 0; i < res.length; i++) {
-							var tmp;
-							if(res[i].productCode){
-								tmp = {"value":res[i].productCode,"label":res[i].productCode}
-								$scope.DataForMatch.push(tmp)
-							}
-							if(res[i].productName){
-								tmp = {"value":res[i].productName,"label":res[i].productName}
-								$scope.DataForMatch.push(tmp)
-							}
-						};
-					})
-				},500);
+				if($scope.searchKey != ''){
+					delayTime = setTimeout(function() {
+						apiCaller.getSearchTips($scope.searchKey,function(res){
+							$scope.DataForMatch = [];
+							for (var i = 0; i < res.length; i++) {
+								var tmp;
+								if(res[i].productCode){
+									tmp = {"value":res[i].productCode,"label":res[i].productCode}
+									$scope.DataForMatch.push(tmp)
+								}
+								if(res[i].productName){
+									tmp = {"value":res[i].productName,"label":res[i].productName}
+									$scope.DataForMatch.push(tmp)
+								}
+							};
+						})
+					},500);
+				}
 			}
 		}
 	})
@@ -47,13 +50,15 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	$scope.$watch("DataForMatch",function(newValue,oldValue){
 		if(newValue != oldValue){
 			$('#pcSeach').blur()
-			$('#pcSeach').autocompleter({ 
-				highlightMatches: true,
-		        empty: false,
-		        limit: 10,
-				source: $scope.DataForMatch
-			});
-			$('#pcSeach').focus()
+			setTimeout(function(){
+				$('#pcSeach').autocompleter({ 
+					highlightMatches: true,
+			        empty: false,
+			        limit: 10,
+					source: $scope.DataForMatch
+				});
+				$('#pcSeach').focus()
+			},200);
 		}
 	},true);
 

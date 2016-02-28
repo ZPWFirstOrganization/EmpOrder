@@ -3,9 +3,9 @@ orderApp.controller('personInfoCtrl',function($scope,$state,$stateParams,ApiServ
     scopeData.discountType = $stateParams.discountType;
     $scope.discountType = scopeData.discountType;
     $scope.Person = {};
-    	// alert(scopeData.userAccount)
+    	// alert(scopeData.userID)
 	//获取个人信息
-	personServ.getPersonInfo({kind: 'User',infoAccount:scopeData.userAccount},function(response){
+	personServ.getPersonInfo({kind: 'User',infoAccount:scopeData.userID},function(response){
 	    console.log(response);
         $scope.Person = response;
   	})        

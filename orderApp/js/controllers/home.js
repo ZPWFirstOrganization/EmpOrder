@@ -1,6 +1,6 @@
 ﻿orderApp.factory('scopeData',function() {
 	return{
-		userAccount          :'123123',
+		userID          :'123123',
 		discountType         :'2',
 		noticePageRevert     :false,
 		categories           :[],
@@ -66,7 +66,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				code:$stateParams.productCode,//大类传大类的id,小类传小类的CONFIG_VALUE
 				productClass:$stateParams.productClass,//大类为1，小类为2
 				pageNum:$stateParams.page,
-				userAccount:scopeData.userAccount
+				userID:scopeData.userID
 			},
 			function(res){
 				if (suc) {
@@ -86,7 +86,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				code:$stateParams.productCode,//大类传大类的id,小类传小类的CONFIG_VALUE
 				productClass:$stateParams.productClass,//大类为1，小类为2
 				pageNum:page,
-				userAccount:scopeData.userAccount
+				userID:scopeData.userID
 			},
 			function(res){
 				if (suc) {
@@ -121,7 +121,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				Type:scopeData.discountType+"/Order"
 			},
 			{
-				userAccount:scopeData.userAccount,
+				userID:scopeData.userID,
 				productCode:Product.productCode,
 				count:count
 			},
@@ -139,7 +139,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getOrderCount:function(successFn) {
 			return ApiService.getOrderCount({
 				Type:scopeData.discountType+"/Order",
-				userAccount:scopeData.userAccount
+				userID:scopeData.userID
 			},
 			function (response) {
 				if (successFn) {
@@ -154,7 +154,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				Type:scopeData.discountType+"/Favorite"
 			},
 			{
-				userAccount:scopeData.userAccount,
+				userID:scopeData.userID,
 				productCode:Product.productCode
 			},
 			function(res){
@@ -175,7 +175,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 			return ApiService.getBalance(
 				{
 					Type:scopeData.discountType+"/User",
-					myBalanceAccount:scopeData.userAccount
+					myBalanceAccount:scopeData.userID
 				},
 				function(response){
 					if (callbackFn) {
@@ -203,7 +203,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getOrderListByPage:function(param,suc,err){
 			return ApiService.getOrderList({
 				Type:scopeData.discountType+"/Order",
-				userAccount:param.userAccount,
+				userID:param.userID,
 				orderDate:param.orderDate,
 				pageNum:param.pageNum
 			},
@@ -221,7 +221,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getSecretary:function(param,suc,err){
 			return ApiService.getSecretary({
 				Type:scopeData.discountType+"/User",
-				userAccount:param.userAccount
+				userID:param.userID
 			},
 			function(res){
 				if(suc){
@@ -254,7 +254,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 			return ApiService.getFavoriteList({
 				Type:scopeData.discountType+"/Favorite",
 				pageNum:Page,
-				userAccount:scopeData.userAccount
+				userID:scopeData.userID
 			},
 			function(res){
 				if(suc){
@@ -272,7 +272,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				Type:scopeData.discountType+"/Product",
 				key:searchKey,
 				pageNum:Page,
-				userAccount:scopeData.userAccount
+				userID:scopeData.userID
 			},
 			function(res){
 				if(suc){
@@ -352,8 +352,8 @@ orderApp.factory('userProfile',function($state,apiCaller,scopeData){
 			type = 2
 		}
 		apiCaller.getUserProfile(type,function(response){
-			// alert(response.userAccount)
-			scopeData.userAccount = response.userAccount
+			// alert(response.userID)
+			scopeData.userID = response.userID
 		},function(response){
 			// alert(JSON.stringify(response))
 			// $state.go('regist',{discountType:type})

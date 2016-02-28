@@ -42,7 +42,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		// if (!angular.isUndefined($stateParams.orderDate)){
 		// 	orderDate = $stateParams.orderDate
 		// }
-		apiCaller.getOrderListByPage({userAccount:scopeData.userAccount,orderDate:orderDate,pageNum:$scope.currentPage},function(res){
+		apiCaller.getOrderListByPage({userID:scopeData.userID,orderDate:orderDate,pageNum:$scope.currentPage},function(res){
 		console.log(res)
 		$scope.pages = []
 		$scope.orderList = []
@@ -135,7 +135,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	var currentYear = (new Date()).getFullYear()
 	//获取秘书
   	if (scopeData.secretaryName == '' || scopeData.secretaryPhone == ''){
-		apiCaller.getSecretary({userAccount:scopeData.userAccount},function(response){
+		apiCaller.getSecretary({userID:scopeData.userID},function(response){
 			if (response[0]){
 				currentYear = parseInt(response[0].currentYear)
 				scopeData.secretaryName = response[0].userName
@@ -355,7 +355,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 			$("body").showLoading()
 			$scope.currentPage = parseInt($scope.currentPage) + 1
 			apiCaller.getOrderListByPage(
-				{userAccount:'456456',orderDate:$stateParams.orderDate,pageNum:$scope.currentPage},
+				{userID:scopeData.userID,orderDate:$stateParams.orderDate,pageNum:$scope.currentPage},
 				function(res){
 					$("body").hideLoading()
 					if(res.order.length != 0){
