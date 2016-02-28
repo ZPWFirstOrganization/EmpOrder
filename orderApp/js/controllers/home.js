@@ -351,11 +351,14 @@ orderApp.factory('userProfile',function($state,apiCaller,scopeData){
 			type = 2
 		}
 		apiCaller.getUserProfile(type,function(response){
-			// alert(response.userID)
-			scopeData.userID = response.userID
+			// alert(JSON.stringify(response))
+			scopeData.userID = response.user.USER_ID
 		},function(response){
 			// alert(JSON.stringify(response))
-			// $state.go('regist',{discountType:type})
+			// setTimeout(function(){
+			// 	$state.go('regist',{discountType:type})
+			// },100)
+			
 		})
 	}
 	return this

@@ -5,23 +5,25 @@ orderApp.controller('personInfoCtrl',function($scope,$state,$stateParams,ApiServ
     $scope.Person = {};
     	// alert(scopeData.userID)
 	//获取个人信息
-	personServ.getPersonInfo({kind: 'User',infoAccount:scopeData.userID},function(response){
+	personServ.getPersonInfo({kind:scopeData.discountType +'/User',infoUserID:scopeData.userID},function(response){
 	    console.log(response);
         $scope.Person = response;
-  	})        
+  	},function(response){
+      
+    })        
 })
 
 
 orderApp.factory('personServ',function($resource,common,baseUrl){
 	return $resource(
-    baseUrl+common.get("type")+'/:kind',
+    baseUrl+':kind',
     {},
     {
       //获取个人信息
       getPersonInfo:{
         method:'GET',
         params:{
-          infoAccount:'@infoAccount'
+          infoUserID:'@infoUserID'
         }
       } 
     }

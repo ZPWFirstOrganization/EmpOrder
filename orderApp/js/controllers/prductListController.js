@@ -16,7 +16,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
     apiCaller.getOrderDate(function(res){
     	scopeData.isNotAllowOrder = (res.allowOrder);
     	scopeData.orderDate = res.orderDate.split('-');
-    	$scope.isNotAllowOrder = scopeData.isNotAllowOrder;
+    	$scope.isNotAllowOrder = !scopeData.isNotAllowOrder;
     	$scope.orderDate = scopeData.orderDate;
     })
 

@@ -12,10 +12,10 @@
     </div>
     
     <div class="my-list" >
-      <a class="list" ui-sref="index.currentOrder" ng-click="listItemClicked(1);$event.stopPropagation();">当月订单</a>
-      <a class="list" ui-sref="index.historyOrder" ng-click="listItemClicked(2);$event.stopPropagation();">历史订单</a>
-      <a class="list" ui-sref="index.personInfo" ng-click="listItemClicked(3);$event.stopPropagation();">个人信息</a>
-      <a class="list" ui-sref="index.notice" ng-click="listItemClicked(4);$event.stopPropagation();">公告</a>
+      <a class="list" ng-click="listItemClicked(1)">当月订单</a>
+      <a class="list" ng-click="listItemClicked(2)">历史订单</a>
+      <a class="list" ng-click="listItemClicked(3)">个人信息</a>
+      <a class="list" ng-click="listItemClicked(4)">公告</a>
     </div>
     
     <div class="mobile-onsale-list" ng-click="$event.stopPropagation();">

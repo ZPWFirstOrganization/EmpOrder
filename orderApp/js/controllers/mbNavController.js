@@ -3,24 +3,24 @@ orderApp.controller('mbNavController',function ($scope,$stateParams,apiCaller,sc
 	$scope.lit2Show=''
 	$scope.isDLShow = false;
 	$scope.isGLShow = false;
-	$scope.categories=apiCaller.getCategories(function () {
-		for(item in $scope.categories){
+	$scope.categories=apiCaller.getCategories(function (res) {
+		for(index in $scope.categories){
 			if($stateParams.productClass == 1){
-				if($stateParams.productCode == $scope.categories[item].categoryCode){
-					$scope.Division = $scope.categories[item];
-					$scope.Group = $scope.categories[item].series;
-					$scope.DivisionName = $scope.categories[item].categoryName;
+				if($stateParams.productCode == $scope.categories[index].categoryCode){
+					$scope.Division = $scope.categories[index];
+					$scope.Group = $scope.categories[index].series;
+					$scope.DivisionName = $scope.categories[index].categoryName;
 					$scope.GroupName = '系列';
 					break;
 				}
 			}
 			if($stateParams.productClass == 2){
-				for(it in $scope.categories[item].series){
-					if($stateParams.productCode == ($scope.categories[item].series)[it].seriesCode){
-						$scope.Division = $scope.categories[item];
-						$scope.Group = $scope.categories[item].series;
-						$scope.DivisionName = $scope.categories[item].categoryName;
-						$scope.GroupName = ($scope.categories[item].series)[it].seriesName;
+				for(it in $scope.categories[index].series){
+					if($stateParams.productCode == ($scope.categories[index].series)[it].seriesCode){
+						$scope.Division = $scope.categories[index];
+						$scope.Group = $scope.categories[index].series;
+						$scope.DivisionName = $scope.categories[index].categoryName;
+						$scope.GroupName = ($scope.categories[index].series)[it].seriesName;
 						break;
 					}
 				}
