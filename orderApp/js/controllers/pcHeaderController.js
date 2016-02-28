@@ -49,6 +49,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 
 	$scope.$watch("DataForMatch",function(newValue,oldValue){
 		if(newValue != oldValue){
+			$('#pcSeach').autocompleter('destroy');
 			$('#pcSeach').blur()
 			setTimeout(function(){
 				$('#pcSeach').autocompleter({ 
