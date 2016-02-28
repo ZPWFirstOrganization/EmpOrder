@@ -305,8 +305,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getUserProfile:function(type,suc,err){
 			return ApiService.postUserProfile(
 				{
-					Type:type+"/User",
-					loginMode:scopeData.isMobile
+					Type:type+"/User"
 				},
 				{
 					

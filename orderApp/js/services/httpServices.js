@@ -5,7 +5,7 @@ orderApp.factory('ajaxService',function(baseUrl,scopeData){
 			    type: "delete",
 			    url: baseUrl + scopeData.discountType +'/Favorite',
 			    data: {
-			    	userID:'123123',
+			    	userID:scopeData.userID,
 					productCode:Product.productCode
 			    },
 			    success:suc,
@@ -127,11 +127,10 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 		    postUserProfile:{
 		    	method:'POST',
 		    	params:{
-		    		loginMode:'@loginMode'
 		    	}
 		    },
 		    postRegist:{
-		    	method:'POST',
+		    	method:'PUT',
 		    	params:{
 		    	}
 		    }
