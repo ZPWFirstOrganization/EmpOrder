@@ -70,6 +70,14 @@
 .autocompleter-closed {
     display: none;
 }
+@media screen and (min-width: 801px) {
+.autocompleter-item {
+    padding: 12px 12px;
+    color: #444444;   
+    cursor: pointer;
+    border-bottom:1px solid #eee;
+}
+}
 
 @media screen and (max-width: 800px) { 
 .autocompleter {
@@ -82,7 +90,7 @@
 	
 }
 .autocompleter-item {
-    padding: 20px 12px;
+    padding: 10px 12px;
     color: #444444;   
     cursor: pointer;
 	border-bottom:1px solid #eee;
