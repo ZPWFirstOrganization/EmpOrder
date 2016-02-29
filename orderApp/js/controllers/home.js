@@ -175,7 +175,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 			return ApiService.getBalance(
 				{
 					Type:scopeData.discountType+"/User",
-					myBalanceAccount:scopeData.userID
+					myBalanceAccount:scopeData.userID 
 				},
 				function(response){
 					if (callbackFn) {
@@ -346,19 +346,22 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 });
 
 orderApp.factory('userProfile',function($state,apiCaller,scopeData){
-	this.getProfile = function(type){
+	this.getProfile = function(type,callback){
 		if (type == null || angular.isUndefined(type)){
 			type = 2
 		}
 		apiCaller.getUserProfile(type,function(response){
 			// alert(JSON.stringify(response))
 			scopeData.userID = response.user.USER_ID
+			if (typeof(callback) == "function"){  
+				return callback(response)
+			}
 		},function(response){
+			// console.log("login end")
 			// alert(JSON.stringify(response))
 			// setTimeout(function(){
 			// 	$state.go('regist',{discountType:type})
 			// },100)
-			
 		})
 	}
 	return this

@@ -76,6 +76,7 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
 	productServ.getProductDetail({kind: scopeData.discountType + '/Product',userID:scopeData.userID,productCode:$stateParams.productCode},function(response){
 	    //console.log(response[0]);
         $scope.Product = response[0];
+        $("#prodContent").html(response[0].productDescribe)
   	})    
 
     //添加取消收藏
