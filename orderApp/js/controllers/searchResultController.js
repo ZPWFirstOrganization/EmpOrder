@@ -68,6 +68,19 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
             }
     });
 
+    $scope.$watch('searchResult', function(newVal, oldVal) {
+        if (newVal !== oldVal) {
+            for (index in newVal ) {
+                $scope.inputTexts[newVal[index].productCode] = '1'
+            };
+            if(!scopeMethod.isEmptyObject(newVal)) {
+                for (index in newVal.products) {
+                   newVal[index].isNotAllowOrder = $scope.isNotAllowOrder;
+                };
+            }
+        }
+    }, true);
+
     $scope.toDetail = function(Product){
         if(Product.productStatus == 0){
             $state.go('index.product',{discountType:scopeData.discountType,productCode:Product.productCode});

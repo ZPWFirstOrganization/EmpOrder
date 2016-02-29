@@ -116,6 +116,7 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
          $('#mbSeach').blur();
          setTimeout(function(){
             $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1});
+            $('#mbSeach').autocompleter('close');
          },500);
 
     }
@@ -130,8 +131,8 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
                      $('#mbSeach').blur();
                      setTimeout(function(){
                         $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1});
+                        $('#mbSeach').autocompleter('close');
                      },500);
-                    $('#mbSeach').autocompleter('close');
                 }
             }else{
                 if($scope.searchKey != ''){
