@@ -120,44 +120,56 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
 
     }
 
-    var data = [];
+    $scope.DataForMatch = [];
+    
     $("#mbSeach").keyup(function(event){
-        clearTimeout(delayTime);
-        $('#mbSeach').autocompleter('destroy');
-        data = [];
-        if (event.keyCode == 13){
-            if($scope.searchKey != ""){
-                $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
-                $('#mbSeach').autocompleter('close');
+        if(event.keyCode != 38 && event.keyCode != 40){
+            clearTimeout(delayTime);
+            if (event.keyCode == 13){
+                if($scope.searchKey != ""){
+                     $('#mbSeach').blur();
+                     setTimeout(function(){
+                        $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1});
+                     },500);
+                    $('#mbSeach').autocompleter('close');
+                }
+            }else{
+                if($scope.searchKey != ''){
+                    delayTime = setTimeout(function() {
+                        apiCaller.getSearchTips($scope.searchKey,function(res){
+                            $scope.DataForMatch = [];
+                            for (var i = 0; i < res.length; i++) {
+                                var tmp;
+                                if(res[i].productCode){
+                                    tmp = {"value":res[i].productCode,"label":res[i].productCode}
+                                    $scope.DataForMatch.push(tmp)
+                                }
+                                if(res[i].productName){
+                                    tmp = {"value":res[i].productName,"label":res[i].productName}
+                                    $scope.DataForMatch.push(tmp)
+                                }
+                            };
+                        })
+                    },500);
+                }
             }
-        }else{
-            delayTime = setTimeout(function() {
-                apiCaller.getSearchTips($scope.searchKey,function(res){
-                    data = [];
-                    for (var i = 0; i < res.length; i++) {
-                        var tmp;
-                        if(res[i].productCode){
-                            tmp = {"value":res[i].productCode,"label":res[i].productCode}
-                            data.push(tmp)
-                        }
-                        if(res[i].productName){
-                            tmp = {"value":res[i].productName,"label":res[i].productName}
-                            data.push(tmp)
-                        }
-                    };
-                    $('#mbSeach').blur()
-                    setTimeout(function(){
-                        $('#mbSeach').autocompleter({ 
-                            highlightMatches: true,
-                            empty: false,
-                            limit: 5,
-                            source: data
-                        });
-                        $('#mbSeach').focus()
-                    },100)
-                })
-            },500);
         }
     })
+
+    $scope.$watch("DataForMatch",function(newValue,oldValue){
+        if(newValue != oldValue){
+            $('#mbSeach').autocompleter('destroy');
+            $('#mbSeach').blur()
+            setTimeout(function(){
+                $('#mbSeach').autocompleter({ 
+                    highlightMatches: true,
+                    empty: false,
+                    limit: 8,
+                    source: $scope.DataForMatch
+                });
+                $('#mbSeach').focus()
+            },200);
+        }
+    },true);
 
 });

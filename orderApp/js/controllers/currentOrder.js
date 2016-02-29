@@ -1,4 +1,4 @@
-﻿orderApp.value('baseUrl', 'http://wzdcbdeo01/mlk/')
+﻿orderApp.value('baseUrl', 'http://182.92.110.219:8090/mlk/')
 //  http://wzdcbdeo01:8090/mlk/
 orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,scopeData,sessionStorage){
 	$('html,body').animate({scrollTop: '0px'},0)

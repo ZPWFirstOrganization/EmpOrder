@@ -82,7 +82,7 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
 	$scope.favoriteClicked = function(Product){
 		if (!Product.isFavorite){
 			currentOrderServ.postFav(
-			{kind:"Favorite",userID:scopeData.userID,productCode:Product.productCode}
+			{kind:scopeData.discountType+'/Favorite',userID:scopeData.userID,productCode:Product.productCode}
 			 ,function(){
                 showModal({msg:"添加到我的收藏"});
                 Product.isFavorite = true;

@@ -17,8 +17,6 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	$("#pcSeach").keyup(function(event){
 		if(event.keyCode != 38 && event.keyCode != 40){
 			clearTimeout(delayTime);
-			//忘了为什么以前要destroy了   先放这儿  别删
-			// $('#pcSeach').autocompleter('destroy');
 			if (event.keyCode == 13){
 				if($scope.searchKey != ""){
 					$state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
