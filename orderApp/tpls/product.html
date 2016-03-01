@@ -45,7 +45,7 @@
             </div>
             <div class="proddtl-wrapper">
                 <div class="proddtl-photo">
-                 <div class="no-prod" ng-hide="Product.productStatus != 1"></div>
+                 <!-- <div class="no-prod" ng-hide="Product.productStatus != 1"></div> -->
                 <img ng-src="{{Product.imageUrl}}" onerror="this.src='res/null_img.jpg'" />
                 </div>
                 
@@ -84,7 +84,7 @@
                    <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
                    <input type="tel" class="number" id="{{Product.productCode}}" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" ng-blur="countBlur(inputTexts[Product.productCode],Product)" ng-focus="countFocus(inputTexts[Product.productCode],Product)" ng-click="numberClicked(Product)"/>
                    <a class="btn add" ng-click="countAdded(Product)" ></a>
-                   <a ng-class="{true:'button-s button-gray add-cart',false:'button-s button-gray button-disable add-cart'}[Product.productStatus=='0']" ng-click="addCartClicked(Product)">加入当月订单</a>
+                   <a ng-class="{true:'button-s button-gray add-cart',false:'button-s button-gray button-disable add-cart'}[!isNotAllowOrder]" ng-click="addCartClicked(Product)">加入当月订单</a>
                    </div>
                 </div>            
                 

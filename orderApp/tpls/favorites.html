@@ -28,9 +28,9 @@
                 </div>
 
             </div>
-            <div ng-if="!isFavEmpty" class="fav-product-wrapper" ng-repeat="Product in favList" ng-init="Product.productStatus=='0' && !Product.isNotAllowOrder?btnClass = 'button-s button-gray fav-add-cart':btnClass = 'button-s button-gray button-disable fav-add-cart'">
+            <div ng-if="!isFavEmpty" class="fav-product-wrapper" ng-repeat="Product in favList" ng-init="Product.onSale && !Product.isNotAllowOrder?btnClass = 'button-s button-gray fav-add-cart':btnClass = 'button-s button-gray button-disable fav-add-cart'">
                 <div class="fav-product-photo">
-                  <div class="fav-no-product" ng-show="Product.productStatus != 0"></div>
+                  <div class="fav-no-product" ng-show="!Product.onSale"></div>
                   <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ng-click="toDetail(Product)" style="cursor:pointer"/>
                 </div>
                 

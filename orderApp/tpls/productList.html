@@ -20,9 +20,9 @@
   <div class="home-content-wrapper">
     <div class="tips mobile-only" ng-if="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div>
     <div class="content-inner">
-    <div class="product-wrapper" ng-repeat="Product in pdList.products" ng-init="btnClass = (Product.productStatus=='0' && !Product.isNotAllowOrder)?'button-s button-gray add-cart':'button-s button-gray button-disable add-cart'";>
+    <div class="product-wrapper" ng-repeat="Product in pdList.products" ng-init="btnClass = (!Product.isNotAllowOrder)?'button-s button-gray add-cart':'button-s button-gray button-disable add-cart'";>
       <div class="product-photo">
-        <div class="no-product" ng-show="Product.productStatus != 0"></div>
+        <!-- <div class="no-product" ng-show="Product.productStatus != 0"></div> -->
         <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ng-click="toDetail(Product)" style="cursor:pointer"/>
       </div>
       <div class="product-info">

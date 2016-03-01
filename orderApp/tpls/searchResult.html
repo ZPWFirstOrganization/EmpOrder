@@ -31,9 +31,9 @@
             </div>
                 
                 
-            <div ng-if="!isResultEmpty" class="sr-product-wrapper" ng-repeat="Product in searchResult" ng-init="Product.productStatus=='0' && !Product.isNotAllowOrder?btnClass = 'button-s button-gray sr-add-cart':btnClass = 'button-s button-gray button-disable sr-add-cart'">
+            <div ng-if="!isResultEmpty" class="sr-product-wrapper" ng-repeat="Product in searchResult" ng-init="!Product.isNotAllowOrder?btnClass = 'button-s button-gray sr-add-cart':btnClass = 'button-s button-gray button-disable sr-add-cart'">
                 <div class="sr-product-photo">
-                  <div class="sr-no-product" ng-show="Product.productStatus != 0"></div>
+                 <!--  <div class="sr-no-product" ng-show="Product.productStatus != 0"></div> -->
                 <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ng-click="toDetail(Product)" style="cursor:pointer"/>
                 </div>
                 

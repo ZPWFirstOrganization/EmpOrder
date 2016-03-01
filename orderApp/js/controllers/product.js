@@ -6,6 +6,7 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
     $scope.Product = {};
     $scope.sourcePageNamePC = '';
     $scope.sourcePageNameMB = '';
+    $scope.isNotAllowOrder = scopeData.isNotAllowOrder;
     
     //判断是否为空
 	var isEmptyObject = function( obj ) {
@@ -101,7 +102,7 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
 
     //加入当月订单    
     $scope.addCartClicked = function(Product) {
-        if (Product.productStatus == 0){
+        if (!$scope.isNotAllowOrder){
             $("body").showLoading();
             var id = Product.productCode;
             var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[id],function(){

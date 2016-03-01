@@ -16,7 +16,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
     apiCaller.getOrderDate(function(res){
     	scopeData.isNotAllowOrder = (res.allowOrder);
     	scopeData.orderDate = res.orderDate.split('-');
-    	$scope.isNotAllowOrder = scopeData.isNotAllowOrder;
+    	$scope.isNotAllowOrder = !scopeData.isNotAllowOrder;
     	$scope.orderDate = scopeData.orderDate;
     })
 
@@ -165,7 +165,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 	}
 
     $scope.addCartClicked = function(Product) {
-    	if (Product.productStatus == 0 && !Product.isNotAllowOrder){
+    	if (!Product.isNotAllowOrder){
 	    	$("body").showLoading();
 	    	var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
 	    		showModal({msg:"已加入当月订单"});
@@ -213,9 +213,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 	});
 
 	$scope.toDetail = function(Product){
-		if(Product.productStatus == 0){
-			$state.go('index.product',{discountType:scopeData.discountType,productCode:Product.productCode});
-		}
+		$state.go('index.product',{discountType:scopeData.discountType,productCode:Product.productCode});
 	}
 
 	$scope.numberClicked = function(Product) {

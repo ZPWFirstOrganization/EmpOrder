@@ -82,9 +82,7 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     }, true);
 
     $scope.toDetail = function(Product){
-        if(Product.productStatus == 0){
-            $state.go('index.product',{discountType:scopeData.discountType,productCode:Product.productCode});
-        }
+        $state.go('index.product',{discountType:scopeData.discountType,productCode:Product.productCode});
     }
 
     $scope.pageNumClicked = function(page){
@@ -137,7 +135,7 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     }
 
     $scope.addCartClicked = function(Product) {
-        if (Product.productStatus == 0 && !Product.isNotAllowOrder){
+        if (!Product.isNotAllowOrder){
             $("body").showLoading();
             var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
                 showModal({msg:"已加当月订单"});

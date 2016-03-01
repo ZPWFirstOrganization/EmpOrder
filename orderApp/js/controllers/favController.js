@@ -8,6 +8,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
         scopeData.discountType = $stateParams.discountType;
         apiCaller.getFavoriteList($scope.currentPage,function(res) {
             $scope.favList = res.favorites;
+            console.log('--------------------------',res);
             $scope.pageNumCount = res.pageNumCount;
             for (var i = 0; i < res.pageNumCount; i++) {
                 $scope.pages.push(i+1)
@@ -76,7 +77,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     }, true);
 
     $scope.toDetail = function(Product){
-        if(Product.productStatus == 0){
+        if(Product.onSale){
             $state.go('index.product',{discountType:scopeData.discountType,productCode:Product.productCode});
         }
     }
@@ -128,7 +129,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     }
 
     $scope.addCartClicked = function(Product) {
-        if (Product.productStatus == 0 && !Product.isNotAllowOrder){
+        if (Product.onSale && !Product.isNotAllowOrder){
             $("body").showLoading();
             var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
                 showModal({msg:"已加当月订单"});

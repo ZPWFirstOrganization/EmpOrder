@@ -11,10 +11,8 @@ orderApp.controller('orderDetailCtrl',function($scope,$state,$stateParams,ApiSer
 		$scope.orderData = {product:{}}
 	})
 	$scope.prodClick = function(prodState,prodCode){
-		prodState = parseInt(prodState)
-		if (prodState == 1){
-
-		}else{
+		// prodState = parseInt(prodState)
+		if (product.onSale){
 			$state.go('index.product',{discountType:scopeData.discountType,productCode:prodCode})
 		}
 	}
