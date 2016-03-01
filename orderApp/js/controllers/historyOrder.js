@@ -130,6 +130,9 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
   			$scope.years.push(yearObj)
   		};
   		//初始化日期选择器
+  		if (angular.isUndefined($stateParams.orderDate)){
+  			$stateParams.orderDate = ""
+  		}
 		var dateArray = $stateParams.orderDate.split("-")
 		var yearHolder = "" 
 		var monthHolder = "" 

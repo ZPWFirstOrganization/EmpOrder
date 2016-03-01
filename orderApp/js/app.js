@@ -71,10 +71,17 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 		}).state('regist',{
 			url:'/regist/discountType={discountType}',
 			templateUrl:'tpls/regist.html',
+		}).state('login',{
+			url:'/login/discountType={discountType}',
+			templateUrl:'tpls/login.html',
 		})
 })
 
-orderApp.run(function(userProfile,scopeData,scopeMethod){
+orderApp.run(function($state,userProfile,scopeData,scopeMethod){
 	scopeData.isMobile = scopeMethod.isMobile();
-	userProfile.getProfile($.getUrlParam('discountType'));
+	setTimeout(function(){
+		$state.go('login',{discountType:$.getUrlParam('discountType')});
+	},100)
+	
+	// userProfile.getProfile($.getUrlParam('discountType'));
 })

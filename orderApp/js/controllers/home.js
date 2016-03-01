@@ -359,9 +359,9 @@ orderApp.factory('userProfile',function($state,apiCaller,scopeData){
 		},function(response){
 			// console.log("login end")
 			// alert(JSON.stringify(response))
-			// setTimeout(function(){
-			// 	$state.go('regist',{discountType:type})
-			// },100)
+			setTimeout(function(){
+				$state.go('regist',{discountType:type})
+			},100)
 		})
 	}
 	return this
