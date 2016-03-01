@@ -65,6 +65,20 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
     },function(){
     	$("body").hideLoading();
     });
+	
+	$scope.numberFocused = function(NumberID){
+		$("#"+NumberID).keyup(function(){
+			if(!(/(^[0-9]*$)/).test($scope.inputTexts[NumberID])){
+				$scope.inputTexts[NumberID] = 1;
+			}
+		});
+	}
+
+	$scope.numberBlured = function(NumberID){
+		if($scope.inputTexts[NumberID] == '' || parseInt($scope.inputTexts[NumberID]) <= 0){
+			$scope.inputTexts[NumberID] = 1;
+		}
+	}
 
 	$scope.$watch('pdList', function(newVal, oldVal) {
         if (newVal.products !== oldVal.products) {

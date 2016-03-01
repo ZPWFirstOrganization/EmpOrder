@@ -1,6 +1,7 @@
 ﻿orderApp.factory('scopeData',function() {
 	return{
-		userID          :'123123',
+		userID          	 :'123123',
+		roleID               :'1',
 		discountType         :'2',
 		noticePageRevert     :false,
 		categories           :[],
@@ -353,15 +354,16 @@ orderApp.factory('userProfile',function($state,apiCaller,scopeData){
 		apiCaller.getUserProfile(type,function(response){
 			// alert(JSON.stringify(response))
 			scopeData.userID = response.user.USER_ID
+			scopeData.roleID = response.user.ROLE_ID
 			if (typeof(callback) == "function"){  
 				return callback(response)
 			}
 		},function(response){
 			// console.log("login end")
 			// alert(JSON.stringify(response))
-			setTimeout(function(){
-				$state.go('regist',{discountType:type})
-			},100)
+			// setTimeout(function(){
+			// 	$state.go('regist',{discountType:type})
+			// },100)
 		})
 	}
 	return this

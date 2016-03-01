@@ -34,7 +34,7 @@
         </div>
         <div class="product-action" ng-init="falg = Product.productCode">
           <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
-          <input type="tel" class="number" id="{{Product.productCode}}" ng-click="numberClicked(Product)"  placeholder="数量" maxlength="3" ng-model="inputTexts[Product.productCode]" ></input>
+          <input type="tel" class="number" id="{{Product.productCode}}" ng-focus="numberFocused(Product.productCode)" ng-click="numberClicked(Product)" ng-blur="numberBlured(Product.productCode)" placeholder="数量" maxlength="3" ng-model="inputTexts[Product.productCode]" ></input>
           <a class="btn add" ng-click="countAdded(Product)"></a>
           <a class="{{btnClass}}" ng-click="addCartClicked(Product)">加入当月订单</a>
         </div>

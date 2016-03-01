@@ -74,6 +74,10 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	},true);
 
 	$scope.categories=apiCaller.getCategories(function(res){
+		//加一个系统管理，要做权限判断是否添加
+		if(scopeData.roleID == '1'){
+			res.push({categoryName: '系统管理'});
+		}
 		scopeData.categories = res;
 		if($stateParams.productClass == "" || $stateParams.productCode == "" || $stateParams.page == ""){
 			scopeData.discountType = "2";
@@ -89,11 +93,15 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 
 	$scope.divisionClicked=function(Division) {
 		if(!isGroupClicked){
-			scopeData.currentDivisionName = Division.categoryName;
-			scopeData.divisionCode = Division.categoryCode;
-			scopeData.currenGroupName = '';
-			scopeData.discountType = $stateParams.discountType;
-	        scopeMethod.changeState("1",Division.categoryCode,"1");
+			if(Division.categoryCode){
+				scopeData.currentDivisionName = Division.categoryName;
+				scopeData.divisionCode = Division.categoryCode;
+				scopeData.currenGroupName = '';
+				scopeData.discountType = $stateParams.discountType;
+		        scopeMethod.changeState("1",Division.categoryCode,"1");
+		    }else{
+		    	alert("链接到系统管理！")
+		    }
 	    }else{
 	    	isGroupClicked = false;
 	    }
