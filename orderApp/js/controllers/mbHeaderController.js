@@ -115,8 +115,11 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
     $scope.searchClicked = function(){
         $('#mbSeach').blur();
         to = setTimeout(function(){
-           $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1});
-           $('#mbSeach').autocompleter('close');
+            $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1});
+            $scope.searchKey='';
+            $('#mbSeach').autocompleter('close');
+            $('#mbSeach').blur();
+            $scope.DataForMatch = [];
         },500);
 
     }
@@ -128,11 +131,14 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
             clearTimeout(delayTime);
             if (event.keyCode == 13){
                 if($scope.searchKey != ""){
-                     $('#mbSeach').blur();
-                     setTimeout(function(){
+                    $('#mbSeach').blur();
+                    setTimeout(function(){
                         $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1});
+                        $scope.searchKey='';
                         $('#mbSeach').autocompleter('close');
-                     },500);
+                        $('#mbSeach').blur();
+                        $scope.DataForMatch = [];
+                    },500);
                 }
             }else{
                 if($scope.searchKey != ''){
@@ -166,7 +172,16 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
                     highlightMatches: true,
                     empty: false,
                     limit: 8,
-                    source: $scope.DataForMatch
+                    source: $scope.DataForMatch,
+                    itemClicked:function(){
+                        setTimeout(function(){
+                            $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
+                            $scope.searchKey='';
+                            $('#mbSeach').autocompleter('close');
+                            $('#mbSeach').blur();
+                            $scope.DataForMatch = [];
+                        },100);
+                    }
                 });
                 $('#mbSeach').focus()
             },200);

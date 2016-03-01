@@ -21,7 +21,8 @@
             'combine',
             'callback',
             'minLength',
-            'delay'
+            'delay',
+            'itemClicked'
         ],
         userAgent = (window.navigator.userAgent||window.navigator.vendor||window.opera),
         isFirefox = /Firefox/i.test(userAgent),
@@ -92,7 +93,8 @@
         template: false,
         offset: false,
         combine: $.noop,
-        callback: $.noop
+        callback: $.noop,
+        itemClicked:$.noop
     };
 
     var publics = {
@@ -780,6 +782,7 @@
         if (e.type === 'mousedown' && $(this).length) {
             data.$selected = $(this);
             data.index = data.$list.index(data.$selected);
+            data.itemClicked();
         }
 
         if (!data.$node.prop('disabled')) {

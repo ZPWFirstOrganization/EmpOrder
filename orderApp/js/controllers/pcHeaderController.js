@@ -20,7 +20,10 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 			if (event.keyCode == 13){
 				if($scope.searchKey != ""){
 					$state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
-					$('#pcSeach').autocompleter('close');
+					$scope.searchKey='';
+           			$('#pcSeach').autocompleter('close');
+           			$('#pcSeach').blur();
+           			$scope.DataForMatch = [];
 				}
 			}else{
 				if($scope.searchKey != ''){
@@ -54,7 +57,16 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 					highlightMatches: true,
 			        empty: false,
 			        limit: 10,
-					source: $scope.DataForMatch
+					source: $scope.DataForMatch,
+					itemClicked:function(){
+						setTimeout(function(){
+							$state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
+							$scope.searchKey='';
+		           			$('#pcSeach').autocompleter('close');
+		           			$('#pcSeach').blur();
+		           			$scope.DataForMatch = [];
+		           		},100);
+					}
 				});
 				$('#pcSeach').focus()
 			},200);
@@ -113,6 +125,10 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	$scope.searchClicked = function(){
 		if($scope.searchKey != ""){
 			$state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
+			$scope.searchKey='';
+           	$('#pcSeach').autocompleter('close');
+   			$('#pcSeach').blur();
+   			$scope.DataForMatch = [];
 		}
 	}
 	$scope.noticeClicked = function(){
