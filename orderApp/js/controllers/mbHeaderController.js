@@ -113,11 +113,11 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
     }
 
     $scope.searchClicked = function(){
-         $('#mbSeach').blur();
-         setTimeout(function(){
-            $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1});
-            $('#mbSeach').autocompleter('close');
-         },500);
+        $('#mbSeach').blur();
+        to = setTimeout(function(){
+           $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1});
+           $('#mbSeach').autocompleter('close');
+        },500);
 
     }
 

@@ -1,4 +1,5 @@
 orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
+	
 	if("2"==$stateParams.discountType){
 		$scope.currentType = "优惠价";
 		$scope.typeForChnage = "6折";

@@ -1,6 +1,6 @@
 <!--pc面包屑-->
 <div class="layout page-width pc-only">
-  <div class="bread-crumb"><a ui-sref="index.productList" ng-click="nav1Clicked()">首页</a><a>&gt;</a><a>搜索</a></div>
+  <div class="bread-crumb"><a style="cursor:pointer" ng-click="nav1Clicked()">首页</a><a>&gt;</a><a>搜索</a></div>
     <div class="tips" ng-if="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div>
     <div class="clr"></div>
 </div>
@@ -12,7 +12,7 @@
     
     <div class="sr-content-wrapper">
         <div class="sr-bread-crumb mobile-only">
-          <a class="back" ui-sref="index.productList" ng-click="nav1Clicked()">
+          <a class="back" ng-click="mbNav1Clicked()">
             <b>&lt;</b> 首页
           </a>
           <div class="title">搜索结果</div>

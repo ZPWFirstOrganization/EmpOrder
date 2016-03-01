@@ -193,6 +193,13 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
         scopeMethod.changeState('1','1','1');
     }
 
+    $scope.mbNav1Clicked = function () {
+        $("#mbSeach").blur()
+        setTimeout(function(){
+            scopeMethod.changeState('1','1','1');
+        },500);
+    }
+
     $scope.cartClicked = function(){
         $state.go('index.currentOrder',{discountType:scopeData.discountType});
     }

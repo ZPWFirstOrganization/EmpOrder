@@ -72,6 +72,11 @@ var Hook = {
 			myScroll.refresh();
 		}
 	});
-		//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+	var clickEventType=((document.ontouchstart!==null)?'click':'touchstart');
+	$(wrapperId).bind(clickEventType, function(e){
+		$("#mbSeach").blur();
+	});
+	
 	}
 }
