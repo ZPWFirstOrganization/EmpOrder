@@ -30,7 +30,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 	    $scope.lastData = parseInt(arry[1])
   	})
   	//初始化余额
-  	currentOrderServ.getResAmount({kind:scopeData.discountType+'/User',myBalanceAccount:scopeData.userID},function(response){
+  	currentOrderServ.getResAmount({kind:scopeData.discountType+'/User',myBalanceUserID:scopeData.userID},function(response){
   		$scope.resAmount = parseFloat(response.myBalance).toFixed(2)
   		$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   	})
@@ -65,16 +65,29 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
   	},function(response){
   		$("body").hideLoading();
   	})
-	var oldCount;
-    $scope.countFocus = function(prodCount,id){
-		oldCount = parseInt(prodCount)
+
+  	$scope.numberClicked = function(id) {
+		$("#"+id).focus();
 		$("#"+id).select();
+	}
+
+	var oldCount;
+    $scope.countFocus = function(prodCount,id,index){
+		oldCount = parseInt(prodCount)
+		$("#"+id).keyup(function(){
+			if(!(/(^[0-9]*$)/).test($scope.currentOrderData.product[index].requestQTY)){
+				$scope.currentOrderData.product[index].requestQTY = oldCount;
+			}
+		});
 	};
 	$scope.countBlur = function(prodCount,index){
-		prodCount = String(prodCount)
-		prodCount = prodCount.replace(/\D/g,'')
+		// if(prodCount == '' || parseInt(prodCount) <= 0){
+		// 	prodCount = oldCount;
+		// }
+		// prodCount = String(prodCount)
+		// prodCount = prodCount.replace(/\D/g,'')
 		if (prodCount == "" || parseInt(prodCount) <= 0 ){
-			$scope.currentOrderData.product[index].requestQTY = oldCount
+			$scope.currentOrderData.product[index].requestQTY = oldCount;
 			return
 		};
 		if (parseInt(prodCount) != oldCount){
@@ -231,7 +244,7 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
       getResAmount:{
         method:'GET',
         params:{
-        	myBalanceAccount:'@myBalanceAccount'
+        	myBalanceUserID:'@myBalanceUserID'
         }
       },
       postFav:{

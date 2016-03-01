@@ -1,13 +1,9 @@
 orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeData,scopeMethod,baseUrl,common,productServ,currentOrderServ,deleteServ,apiCaller,sessionStorage){
     $('html,body').animate({scrollTop: '0px'},0)
-    //console.log($stateParams.productCode);
-    //console.log("scopeData.sourcePageId "+ scopeData.sourcePageId);
     $scope.orderCount = apiCaller.getOrderCount();
     $scope.balance = apiCaller.getBalance();
     $scope.inputTexts = [];
     $scope.Product = {};
-	$scope.currentDivisionName;
-	$scope.currenGroupName = '';
     $scope.sourcePageNamePC = '';
     $scope.sourcePageNameMB = '';
     
@@ -28,55 +24,41 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
     case 0:
         $scope.sourcePageNamePC="返回首页";
         $scope.sourcePageNameMB="首页";
-        $scope.isNavShow = true;
         break;
 
     case 1:
         $scope.sourcePageNamePC="返回当月订单";
         $scope.sourcePageNameMB="当月订单";
-        $scope.isNavShow = false;
         break;
 
     case 2:
         $scope.sourcePageNamePC="返回订单详情";
         $scope.sourcePageNameMB="订单详情";
-        $scope.isNavShow = false;
         break;
 
     case 3:
         $scope.sourcePageNamePC="返回收藏";
         $scope.sourcePageNameMB="收藏";
-        $scope.isNavShow = false;
         break;
     case 4:
         $scope.sourcePageNamePC="返回搜索";
         $scope.sourcePageNameMB="搜索";
-        $scope.isNavShow = false;
         break;
 
     default:
         $scope.sourcePageNamePC="返回首页";
         $scope.sourcePageNameMB="首页";
-        $scope.isNavShow = true;
         break;
     }
                         
-    //获取大类            
-    if($scope.currentDivisionName != scopeData.currentDivisionName){
-        $scope.currentDivisionName = scopeData.currentDivisionName;
-    }
-   
-    //获取小类
-    if($scope.currenGroupName != scopeData.currenGroupName){
-        $scope.currenGroupName = scopeData.currenGroupName;
-        $scope.isGroupNameShow = ($scope.currenGroupName != '');
-    }
-                            
 	//获取商品详情
 	productServ.getProductDetail({kind: scopeData.discountType + '/Product',userID:scopeData.userID,productCode:$stateParams.productCode},function(response){
 	    //console.log(response[0]);
         $scope.Product = response[0];
-        $("#prodContent").html(response[0].productDescribe)
+        $scope.currenGroupName = $scope.Product.seriesName;
+        $scope.currentDivisionName = $scope.Product.categoryName;
+        $("#prodContent").html(response[0].productDescribe);
+        console.log('------------33333333333333333333------------',response)
   	})    
 
     //添加取消收藏
@@ -140,28 +122,35 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
     
     //点击大类
 	$scope.nav2Clicked = function () {
-        scopeData.groupCode = '';
-        scopeData.currenGroupName = '';
-		scopeMethod.changeState('1',scopeData.divisionCode,'1');
+		scopeMethod.changeState('1',$scope.Product.categoryCode,'1');
 	}
 
     //点击小类
 	$scope.nav3Clicked = function () {
-		scopeMethod.changeState('2',scopeData.groupCode,'1');
+		scopeMethod.changeState('2',$scope.Product.seriesCode,'1');
 	}    
     
+    //点击产品数量
+    $scope.numberClicked = function(Product) {
+        var id = Product.productCode;
+        $("#"+id).focus();
+        $("#"+id).select();
+    }
+
 	//产品数量得到焦点
 	var oldCount;
     $scope.countFocus = function(prodCount,Product){
 		var id = Product.productCode;
 		oldCount = parseInt(prodCount);
-		$("#"+id).select();
+        $("#"+id).keyup(function(){
+            if(!(/(^[0-9]*$)/).test($scope.inputTexts[id])){
+                $scope.inputTexts[id] = oldCount;
+            }
+        });
 	};
 
 	//产品数量失去焦点
 	$scope.countBlur = function(prodCount,Product){
-		prodCount = prodCount + "";
-		prodCount = prodCount.replace(/\D/g,'');
 		if (prodCount == "" || parseInt(prodCount) <= 0 ){
 			$scope.inputTexts[Product.productCode] = oldCount;
 			return

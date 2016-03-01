@@ -20,14 +20,6 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
     	$scope.orderDate = scopeData.orderDate;
     })
 
-    $scope.$watch('currentDivisionName', function(newVal, oldVal) {
-        scopeData.currentDivisionName = $scope.currentDivisionName;
-    }, true);
-
-    $scope.$watch('currenGroupName', function(newVal, oldVal) {
-       scopeData.currenGroupName = $scope.currenGroupName;
-    }, true);
-
     apiCaller.getProductListByStates(function(res){
     	$scope.pdList = res;
     	console.log('scopeData.categories',scopeData.categories)
@@ -249,8 +241,6 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 	}
 
 	$scope.nav2Clicked = function () {
-		scopeData.groupCode = '';
-        scopeData.currenGroupName = '';
 		scopeMethod.changeState('1',$scope.currentCategoryCode,'1');
 	}
 

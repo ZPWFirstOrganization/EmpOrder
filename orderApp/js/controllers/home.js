@@ -8,10 +8,6 @@
 		groupCode            :'',
 		isMobile             :0,
 		sourcePageId         : 0,          //0:代表productList页,1:代表currentOrder页
-		currentProductCode   :'',          //当前大类或小类的code
-		currentDivisionName  :'护肤',      //当前大类的名称(用于面包屑)
-		currenGroupName      :'',          //当前小类的名称，未显示小类时为空(用于面包屑)
-		currentPage          :'1',         //当前页数
 		secretaryName        :'',		   //秘书姓名		
 		secretaryPhone		 :'',          //秘书电话
 		currentOrderPage     : 1,		   //当前订单页数
@@ -176,7 +172,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 			return ApiService.getBalance(
 				{
 					Type:scopeData.discountType+"/User",
-					myBalanceAccount:scopeData.userID 
+					myBalanceUserID:scopeData.userID 
 				},
 				function(response){
 					if (callbackFn) {

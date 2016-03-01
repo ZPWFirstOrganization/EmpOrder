@@ -94,9 +94,6 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	$scope.divisionClicked=function(Division) {
 		if(!isGroupClicked){
 			if(Division.categoryCode){
-				scopeData.currentDivisionName = Division.categoryName;
-				scopeData.divisionCode = Division.categoryCode;
-				scopeData.currenGroupName = '';
 				scopeData.discountType = $stateParams.discountType;
 		        scopeMethod.changeState("1",Division.categoryCode,"1");
 		    }else{
@@ -109,10 +106,6 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 
 	$scope.groupClicked=function(Group,Division) {
 		isGroupClicked = true;
-		scopeData.currentDivisionName = Division.categoryName;
-		scopeData.divisionCode = Division.categoryCode;
-		scopeData.groupCode = Group.seriesCode;
-		scopeData.currenGroupName = Group.seriesName;
 		scopeData.discountType = $stateParams.discountType;
         scopeMethod.changeState("2",Group.seriesCode,"1");
 	}

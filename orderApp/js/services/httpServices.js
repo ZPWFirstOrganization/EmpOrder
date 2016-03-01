@@ -57,7 +57,7 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 				// url:baseUrl+scopeData.discountType+'/User',
 				method:'GET',
 				params:{
-					myBalanceAccount:'@myBalanceAccount'
+					myBalanceUserID:'@myBalanceUserID'
 				}
 			},
 			getOrderCount:{

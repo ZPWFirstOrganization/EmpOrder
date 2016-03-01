@@ -18,11 +18,11 @@
 	<div class="bread-crumb">
     <a href="javascript:history.back();">{{sourcePageNamePC}}</a>
     <a>|</a>
-    <a ng-click="nav2Clicked()" ui-sref="index.productList" ng-show="isNavShow">{{currentDivisionName}}</a>
-    <a ng-show="isNavShow && isGroupNameShow">&gt;</a>
-    <a ng-show="isNavShow && isGroupNameShow" ng-click="nav3Clicked()" ui-sref="index.productList">{{currenGroupName}}
+    <a ng-click="nav2Clicked()" ui-sref="index.productList">{{currentDivisionName}}</a>
+    <a>&gt;</a>
+    <a ng-click="nav3Clicked()" ui-sref="index.productList">{{currenGroupName}}
     </a>
-    <a ng-show="isNavShow">&gt;</a>
+    <a>&gt;</a>
     <a>{{Product.productName}}</a>
   </div>
     
@@ -82,8 +82,8 @@
     
                    <div class="product-action pc-only">
                    <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
-                   <input type="tel" class="number" id="{{Product.productCode}}" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" ng-blur="countBlur(inputTexts[Product.productCode],Product)" ng-focus="countFocus(inputTexts[Product.productCode],Product)" ng-keypress="enter($event)" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
-                   <a class="btn add" ng-click="countAdded(Product)"></a>
+                   <input type="tel" class="number" id="{{Product.productCode}}" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" ng-blur="countBlur(inputTexts[Product.productCode],Product)" ng-focus="countFocus(inputTexts[Product.productCode],Product)" ng-click="numberClicked(Product)"/>
+                   <a class="btn add" ng-click="countAdded(Product)" ></a>
                    <a ng-class="{true:'button-s button-gray add-cart',false:'button-s button-gray button-disable add-cart'}[Product.productStatus=='0']" ng-click="addCartClicked(Product)">加入当月订单</a>
                    </div>
                 </div>            
