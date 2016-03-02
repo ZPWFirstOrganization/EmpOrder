@@ -67,7 +67,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 	}
 
 	$scope.numberBlured = function(NumberID){
-		if($scope.inputTexts[NumberID] == '' || parseInt($scope.inputTexts[NumberID]) <= 0){
+		if(!(/(^[0-9]*$)/).test($scope.inputTexts[NumberID]) || $scope.inputTexts[NumberID] == '' || parseInt($scope.inputTexts[NumberID]) <= 0){
 			$scope.inputTexts[NumberID] = 1;
 		}
 	}
@@ -109,7 +109,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 					 $("body").hideLoading();
 				},function(){
 					$("body").hideLoading();
-					showModal({msg:"没有更多产品了!"});
+					showModal({msg:"没有更多商品了!"});
 				})
 			}
 	});

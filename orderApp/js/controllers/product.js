@@ -20,7 +20,7 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
         $scope.inputTexts[$stateParams.productCode] = '1';
     }
 
-    //判断是从哪个页面跳转到产品详情页面; 0:代表productList页,1:代表currentOrder页,2:代表historyOrder页
+    //判断是从哪个页面跳转到商品详情页面; 0:代表productList页,1:代表currentOrder页,2:代表historyOrder页
     switch (parseInt(sessionStorage.get("sourcePageId"))) {
     case 0:
         $scope.sourcePageNamePC="返回首页";
@@ -131,14 +131,14 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
 		scopeMethod.changeState('2',$scope.Product.seriesCode,'1');
 	}    
     
-    //点击产品数量
+    //点击商品数量
     $scope.numberClicked = function(Product) {
         var id = Product.productCode;
         $("#"+id).focus();
         $("#"+id).select();
     }
 
-	//产品数量得到焦点
+	//商品数量得到焦点
 	var oldCount;
     $scope.countFocus = function(prodCount,Product){
 		var id = Product.productCode;
@@ -150,9 +150,9 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
         });
 	};
 
-	//产品数量失去焦点
+	//商品数量失去焦点
 	$scope.countBlur = function(prodCount,Product){
-		if (prodCount == "" || parseInt(prodCount) <= 0 ){
+		if (!(/(^[0-9]*$)/).test($scope.inputTexts[Product.productCode]) || prodCount == "" || parseInt(prodCount) <= 0 ){
 			$scope.inputTexts[Product.productCode] = oldCount;
 			return
 		};

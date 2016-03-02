@@ -57,7 +57,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
                      $("body").hideLoading();
                 },function(){
                     $("body").hideLoading();
-                    showModal({msg:"没有更多产品了!"});
+                    showModal({msg:"没有更多商品了!"});
                 })
             }
     });

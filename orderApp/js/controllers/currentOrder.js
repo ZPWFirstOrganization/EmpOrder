@@ -86,7 +86,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 		// }
 		// prodCount = String(prodCount)
 		// prodCount = prodCount.replace(/\D/g,'')
-		if (prodCount == "" || parseInt(prodCount) <= 0 ){
+		if (!(/(^[0-9]*$)/).test($scope.currentOrderData.product[index].requestQTY) || prodCount == "" || parseInt(prodCount) <= 0 ){
 			$scope.currentOrderData.product[index].requestQTY = oldCount;
 			return
 		};
@@ -148,7 +148,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 	}
 	$scope.deleteProduct = function(index){
 		showConfirm({
-			msg:"确定删除该产品？",
+			msg:"确定删除该商品？",
 			confirmed:function(){
 				$("body").showLoading();
 				deleteServ("Order",{userID:scopeData.userID,productCode:$scope.currentOrderData.product[index].productCode},
@@ -227,7 +227,7 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
         },
         isArray:true
       },
-      //修改当月订单产品数量
+      //修改当月订单商品数量
       putProduct:{
         method:'PUT',
         params:{
