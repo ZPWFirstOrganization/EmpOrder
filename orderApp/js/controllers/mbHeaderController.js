@@ -1,5 +1,26 @@
 orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,scopeData,scopeMethod,apiCaller) {
 
+    function showModalBg(obj){
+    
+        top=45;
+        height=$(window).height()+100;
+        
+        modalBg=$('<div id="modalBg" style="background-color:#000; opacity:0.7; position:static; z-index:10; width:100%; height:'+height+'px; top:'+top+'"></div>');
+        obj.after(modalBg);
+        modalBg.bind('touchmove', function(e) {
+                e.preventDefault();
+        });
+        modalBg.click(function(){
+            $(this).remove();   
+        })
+    }
+    //隐藏 黑背景
+    function hideModalBg(){
+        
+        $("#modalBg").remove();
+        
+    }   
+
     if("2"==$stateParams.discountType){
         $scope.currentType = "优惠价";
     }else{

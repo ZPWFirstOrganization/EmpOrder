@@ -8,7 +8,7 @@
     <a ng-show="isGroupNameShow">&gt;</a>
     <a ng-show="isGroupNameShow">{{currenGroupName}}</a>
   </div>
-  <div class="tips" ng-if="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div>
+  <div class="tips" ng-show="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div>
   <div class="clr"></div>
 </div>
 
@@ -18,7 +18,7 @@
 <div class="layout page-width">
   
   <div class="home-content-wrapper">
-    <div class="tips mobile-only" ng-if="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div>
+    <div class="tips mobile-only" ng-show="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div>
     <div class="content-inner">
     <div class="product-wrapper" ng-repeat="Product in pdList.products" ng-init="btnClass = (!Product.isNotAllowOrder)?'button-s button-gray add-cart':'button-s button-gray button-disable add-cart'";>
       <div class="product-photo">

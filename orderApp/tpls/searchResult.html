@@ -1,7 +1,7 @@
 <!--pc面包屑-->
 <div class="layout page-width pc-only">
   <div class="bread-crumb"><a style="cursor:pointer" ng-click="nav1Clicked()">首页</a><a>&gt;</a><a>搜索</a></div>
-    <div class="tips" ng-if="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div>
+    <div class="tips" ng-show="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div>
     <div class="clr"></div>
 </div>
 
@@ -22,7 +22,7 @@
         <div class="sr-content-inner">
 
 
-            <div class="empty" ng-if="isResultEmpty">
+            <div class="empty" ng-show="isResultEmpty">
                 <div class="icon"></div>
                 <div class="wording">
                   <h1>未查询到此商品</h1>
@@ -31,7 +31,7 @@
             </div>
                 
                 
-            <div ng-if="!isResultEmpty" class="sr-product-wrapper" ng-repeat="Product in searchResult" ng-init="!Product.isNotAllowOrder?btnClass = 'button-s button-gray sr-add-cart':btnClass = 'button-s button-gray button-disable sr-add-cart'">
+            <div ng-show="!isResultEmpty" class="sr-product-wrapper" ng-repeat="Product in searchResult" ng-init="!Product.isNotAllowOrder?btnClass = 'button-s button-gray sr-add-cart':btnClass = 'button-s button-gray button-disable sr-add-cart'">
                 <div class="sr-product-photo">
                  <!--  <div class="sr-no-product" ng-show="Product.productStatus != 0"></div> -->
                 <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ng-click="toDetail(Product)" style="cursor:pointer"/>

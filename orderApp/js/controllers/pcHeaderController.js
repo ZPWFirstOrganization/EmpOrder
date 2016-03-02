@@ -97,7 +97,8 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 				scopeData.discountType = $stateParams.discountType;
 		        scopeMethod.changeState("1",Division.categoryCode,"1");
 		    }else{
-		    	alert("链接到系统管理！")
+		    	// alert("链接到系统管理！")
+		    	window.open("http://www.baidu.com"); 
 		    }
 	    }else{
 	    	isGroupClicked = false;

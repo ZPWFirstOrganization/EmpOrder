@@ -59,7 +59,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getProductListByStates:function(suc,err){
 			scopeData.ProductionList = ApiService.getProductList(
 			{
-				Type:scopeData.discountType+"/Product",
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Product",
 				code:$stateParams.productCode,//大类传大类的id,小类传小类的CONFIG_VALUE
 				productClass:$stateParams.productClass,//大类为1，小类为2
 				pageNum:$stateParams.page,
@@ -79,7 +79,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getProductListByPage:function(page,suc,err){
 			ApiService.getProductList(
 			{
-				Type:scopeData.discountType+"/Product",
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Product",
 				code:$stateParams.productCode,//大类传大类的id,小类传小类的CONFIG_VALUE
 				productClass:$stateParams.productClass,//大类为1，小类为2
 				pageNum:page,
@@ -99,7 +99,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getCategories:function(suc,err){
 			return ApiService.getCategories(
 				{
-					Type:scopeData.discountType+"/Product",
+					Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Product",
 				},
 				function(res){
 					if (suc) {
@@ -115,7 +115,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		postOrderedProduct:function(Product,count,suc,err) {
 			return ApiService.postOrderedProduct(
 			{
-				Type:scopeData.discountType+"/Order"
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Order"
 			},
 			{
 				userID:scopeData.userID,
@@ -135,7 +135,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getOrderCount:function(successFn) {
 			return ApiService.getOrderCount({
-				Type:scopeData.discountType+"/Order",
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Order",
 				userID:scopeData.userID
 			},
 			function (response) {
@@ -148,7 +148,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		postFav:function(Product,suc,err) {
 			return ApiService.postFav(
 			{
-				Type:scopeData.discountType+"/Favorite"
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Favorite"
 			},
 			{
 				userID:scopeData.userID,
@@ -171,7 +171,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getBalance:function(callbackFn) {
 			return ApiService.getBalance(
 				{
-					Type:scopeData.discountType+"/User",
+					Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/User",
 					myBalanceUserID:scopeData.userID 
 				},
 				function(response){
@@ -182,7 +182,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getSearchTips:function(keyWord,suc,err){
 			return ApiService.getSearchTips({
-					Type:scopeData.discountType+"/Product",
+					Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Product",
 					key:keyWord
 				},
 			function(res){
@@ -199,7 +199,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getOrderListByPage:function(param,suc,err){
 			return ApiService.getOrderList({
-				Type:scopeData.discountType+"/Order",
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Order",
 				userID:param.userID,
 				orderDate:param.orderDate,
 				pageNum:param.pageNum
@@ -217,7 +217,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getSecretary:function(param,suc,err){
 			return ApiService.getSecretary({
-				Type:scopeData.discountType+"/User",
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/User",
 				userID:param.userID
 			},
 			function(res){
@@ -233,7 +233,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getOrderDetailInfo:function(param,suc,err){
 			return ApiService.getOrderData({
-				Type:scopeData.discountType+"/Order",
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Order",
 				orderID:param.orderID
 			},
 			function(res){
@@ -249,7 +249,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getFavoriteList:function(Page,suc,err) {
 			return ApiService.getFavoriteList({
-				Type:scopeData.discountType+"/Favorite",
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Favorite",
 				pageNum:Page,
 				userID:scopeData.userID
 			},
@@ -266,7 +266,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		},
 		getSearchResult:function(searchKey,Page,suc,err) {
 			return ApiService.getSearchResult({
-				Type:scopeData.discountType+"/Product",
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Product",
 				key:searchKey,
 				pageNum:Page,
 				userID:scopeData.userID
@@ -285,7 +285,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getOrderDate:function(suc,err){
 			return ApiService.getOrderDate(
 				{
-					Type:scopeData.discountType+"/Order",
+					Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Order",
 				},
 				function(res){
 					if(suc){
@@ -302,7 +302,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getUserProfile:function(type,suc,err){
 			return ApiService.postUserProfile(
 				{
-					Type:type+"/User"
+					Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/User"
 				},
 				{
 					
@@ -322,7 +322,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		regist:function(suc,err){
 			return ApiService.postRegist(
 				{
-					Type:scopeData.discountType+"/User",
+					Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/User",
 				},
 				{
 
@@ -343,11 +343,11 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 });
 
 orderApp.factory('userProfile',function($state,apiCaller,scopeData){
-	this.getProfile = function(type,callback){
-		if (type == null || angular.isUndefined(type)){
-			type = 2
-		}
-		apiCaller.getUserProfile(type,function(response){
+	this.getProfile = function(callback){
+		// if (type == null || angular.isUndefined(type)){
+		// 	type = "types/"+scopeData.discountType+"/wap/"+scopeData.isMobile
+		// }
+		apiCaller.getUserProfile(function(response){
 			// alert(JSON.stringify(response))
 			scopeData.userID = response.user.USER_ID
 			scopeData.roleID = response.user.ROLE_ID

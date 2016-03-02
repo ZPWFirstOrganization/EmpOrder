@@ -3,7 +3,7 @@ orderApp.controller('registCtrl',function($scope,apiCaller,scopeData,scopeMethod
 	$scope.regist = function(){
 		apiCaller.regist(function(response){
 			alert("注册成功:"+JSON.stringify(response))
-			userProfile.getProfile(scopeData.discountType,function(){
+			userProfile.getProfile(function(){
 				scopeMethod.changeState('1','1','1');
 			})
 			

@@ -1,4 +1,4 @@
-﻿orderApp.value('baseUrl', 'http://182.92.110.219:8090/mlk/')
+﻿orderApp.value('baseUrl', 'http://182.92.110.219:8090/emporder/api/v1/')
 //  http://wzdcbdeo01:8090/mlk/
 orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,scopeData,sessionStorage){
 	$('html,body').animate({scrollTop: '0px'},0)
@@ -23,19 +23,19 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
     }
 	//获取下单日期范围
 	$("body").showLoading();
-	currentOrderServ.getDateGate({kind:scopeData.discountType+'/Order'},function(response){
+	currentOrderServ.getDateGate({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order'},function(response){
 	    var arry = response.orderDate.split("-")
 	    $scope.isCanShop = response.allowOrder
 	    $scope.isCanShop = true
 	    $scope.lastData = parseInt(arry[1])
   	})
   	//初始化余额
-  	currentOrderServ.getResAmount({kind:scopeData.discountType+'/User',myBalanceUserID:scopeData.userID},function(response){
+  	currentOrderServ.getResAmount({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/User',myBalanceUserID:scopeData.userID},function(response){
   		$scope.resAmount = parseFloat(response.myBalance).toFixed(2)
   		$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   	})
   	//初始化商品数量
-  	currentOrderServ.getCount({kind: scopeData.discountType+'/Order'},function(response){
+  	currentOrderServ.getCount({kind: "types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order'},function(response){
   		$scope.count = response.productCount
   	})
   	//获取秘书
@@ -51,7 +51,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 		$scope.secretary.userPhone = scopeData.secretaryPhone
 	}
   	//获取当月订单详细内容
-	currentOrderServ.getCurrentOrder({kind:scopeData.discountType+'/Order',orderDate:''},function(response){
+	currentOrderServ.getCurrentOrder({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order',orderDate:''},function(response){
 	    
 	    $scope.currentOrderData = response[0];
 	    //无商品
@@ -96,7 +96,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 
 			currentOrderServ.putProduct(
 				{	
-					kind: scopeData.discountType+'/Order',
+					kind: "types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order',
 					userID:scopeData.userID,
 					productCode:$scope.currentOrderData.product[index].productCode,
 					count:parseInt(prodCount)
@@ -126,7 +126,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 	$scope.favClick = function(index){
 		if ($scope.currentOrderData.product[index].isFavorite == false){
 			currentOrderServ.postFav(
-			{kind:scopeData.discountType+'/Favorite',userID:scopeData.userID,productCode:$scope.currentOrderData.product[index].productCode}
+			{kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Favorite',userID:scopeData.userID,productCode:$scope.currentOrderData.product[index].productCode}
 			 ,function(){
 			 	$scope.currentOrderData.product[index].isFavorite = !$scope.currentOrderData.product[index].isFavorite
 			 	showModal({msg:"添加到我的收藏"});
@@ -269,7 +269,7 @@ orderApp.factory('deleteServ',function(baseUrl,common,scopeData){
 	function del(kind,data,suc,err){	
 		return 	$.ajax({
 		    type: "delete",
-		    url: baseUrl+scopeData.discountType+"/"+kind,
+		    url: baseUrl+"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/"+kind,
 		    data: data,
 		    success:suc,
 		    error:err

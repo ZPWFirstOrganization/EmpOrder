@@ -3,7 +3,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     var initData = function(){
         $scope.balance = apiCaller.getBalance();
         $scope.orderCount = apiCaller.getOrderCount();
-        $scope.isNotAllowOrder = scopeData.isNotAllowOrder;
+        $scope.isNotAllowOrder = !scopeData.isNotAllowOrder;
         $scope.orderDate = scopeData.orderDate;
         scopeData.discountType = $stateParams.discountType;
         apiCaller.getFavoriteList($scope.currentPage,function(res) {

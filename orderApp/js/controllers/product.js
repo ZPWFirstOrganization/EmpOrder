@@ -53,7 +53,7 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
     }
                         
 	//获取商品详情
-	productServ.getProductDetail({kind: scopeData.discountType + '/Product',userID:scopeData.userID,productCode:$stateParams.productCode},function(response){
+	productServ.getProductDetail({kind: "types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Product',userID:scopeData.userID,productCode:$stateParams.productCode},function(response){
 	    //console.log(response[0]);
         $scope.Product = response[0];
         $scope.currenGroupName = $scope.Product.seriesName;
@@ -66,7 +66,7 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
 	$scope.favoriteClicked = function(Product){
 		if (!Product.isFavorite){
 			currentOrderServ.postFav(
-			{kind:scopeData.discountType+'/Favorite',userID:scopeData.userID,productCode:Product.productCode}
+			{kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Favorite',userID:scopeData.userID,productCode:Product.productCode}
 			 ,function(){
                 showModal({msg:"添加到我的收藏"});
                 Product.isFavorite = true;

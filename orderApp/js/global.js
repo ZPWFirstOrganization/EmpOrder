@@ -1,5 +1,5 @@
 $(document).ready(function(e) {
-
+	
 	//当月订单响应屏幕位置
 	window.onload = window.onresize =  function(){		
 	
@@ -10,6 +10,7 @@ $(document).ready(function(e) {
 			$(".cart").css({"right":10})     
 			  
 		  }
+		  $("#main").width($(window).width());
 	};
 	
 	//pc js--------------------------------------------------	

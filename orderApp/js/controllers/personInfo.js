@@ -5,7 +5,7 @@ orderApp.controller('personInfoCtrl',function($scope,$state,$stateParams,ApiServ
     $scope.Person = {};
     	// alert(scopeData.userID)
 	//获取个人信息
-	personServ.getPersonInfo({kind:scopeData.discountType +'/User',infoUserID:scopeData.userID},function(response){
+	personServ.getPersonInfo({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/User',infoUserID:scopeData.userID},function(response){
 	    console.log(response);
         $scope.Person = response;
   	},function(response){

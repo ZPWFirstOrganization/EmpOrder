@@ -3,7 +3,7 @@ orderApp.factory('ajaxService',function(baseUrl,scopeData){
 		deleteFav:function(Product,suc,err){
 			return 	$.ajax({
 			    type: "delete",
-			    url: baseUrl + scopeData.discountType +'/Favorite',
+			    url: baseUrl + "types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Favorite',
 			    data: {
 			    	userID:scopeData.userID,
 					productCode:Product.productCode
