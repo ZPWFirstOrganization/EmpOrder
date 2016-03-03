@@ -78,13 +78,7 @@ var Hook = {
 		$("#mbSeach").blur();
 	});
 
-	// window.addEventListener("DOMContentLoaded",function(){
-	// 	$("#mbSeach").focus();
-	// 	$("#mbSeach").blur();
-	// 	myScroll.refresh();
-	// },false);
 	$("#mbSeach").focus();
 	$("#mbSeach").blur();
-	myScroll.refresh();
 	}
 }

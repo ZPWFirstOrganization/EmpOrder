@@ -31,11 +31,12 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 			// console.log(res)
 			$scope.pages = []
 			$scope.orderList = []
+			// console.log("--------------------",res)
 			if (res.firstOrderDate) {
 				startYear = parseInt(res.firstOrderDate.split("-")[0])
 			}
 			currentYear = parseInt(res.currentYear)
-			if(res.order.length == 0){
+			if(!res.order){
 				$scope.isHaveData = false;
 			}else{
 				$scope.isHaveData = true;
