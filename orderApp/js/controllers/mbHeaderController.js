@@ -152,7 +152,6 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
             clearTimeout(delayTime);
             if (event.keyCode == 13){
                 if($scope.searchKey != ""){
-                    $('#mbSeach').blur();
                     setTimeout(function(){
                         $state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1});
                         $scope.searchKey='';
@@ -183,11 +182,33 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
             }
         }
     })
+    
+    document.getElementById('mbSeach').addEventListener('input', function(e){
+        clearTimeout(delayTime);
+        if($scope.searchKey != ''){
+            delayTime = setTimeout(function() {
+                apiCaller.getSearchTips($scope.searchKey,function(res){
+                    $scope.DataForMatch = [];
+                    for (var i = 0; i < res.length; i++) {
+                        var tmp;
+                        if(res[i].productCode){
+                            tmp = {"value":res[i].productCode,"label":res[i].productCode}
+                            $scope.DataForMatch.push(tmp)
+                        }
+                        if(res[i].productName){
+                            tmp = {"value":res[i].productName,"label":res[i].productName}
+                            $scope.DataForMatch.push(tmp)
+                        }
+                    };
+                })
+            },500);
+        }
+    });
 
     $scope.$watch("DataForMatch",function(newValue,oldValue){
         if(newValue != oldValue){
             $('#mbSeach').autocompleter('destroy');
-            $('#mbSeach').blur()
+            // $('#mbSeach').blur()
             setTimeout(function(){
                 $('#mbSeach').autocompleter({ 
                     highlightMatches: true,
