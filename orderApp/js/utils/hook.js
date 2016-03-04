@@ -78,6 +78,12 @@ var Hook = {
 		$("#mbSeach").blur();
 	});
 
+	window.onresize = function(){
+		// alert($(window).height())
+		// alert($(".mobile-header-wrapper").height())
+		$(wrapperId).height($(window).height())
+	}
+
 	$("#mbSeach").focus();
 	$("#mbSeach").blur();
 	}

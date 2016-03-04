@@ -1,4 +1,10 @@
 orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeData,scopeMethod,baseUrl,common,productServ,currentOrderServ,deleteServ,apiCaller,sessionStorage){
+    if($(window).width()>1300){
+        r=(parseInt($(window).width())-1000)/2 -180;
+        $(".cart").css({"right":r})       
+    }else{
+        $(".cart").css({"right":10})     
+    }
     $('html,body').animate({scrollTop: '0px'},0)
     $scope.orderCount = apiCaller.getOrderCount();
     $scope.balance = apiCaller.getBalance();

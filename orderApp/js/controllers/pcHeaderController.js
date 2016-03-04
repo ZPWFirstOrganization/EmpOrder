@@ -98,7 +98,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 		        scopeMethod.changeState("1",Division.categoryCode,"1");
 		    }else{
 		    	// alert("链接到系统管理！")
-		    	window.open('http://wzdcbdeo01:8820/UserLogin.aspx'); 
+		    	window.open("http://www.baidu.com"); 
 		    }
 	    }else{
 	    	isGroupClicked = false;

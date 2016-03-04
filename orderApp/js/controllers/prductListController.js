@@ -1,4 +1,10 @@
 orderApp.controller('prductListController',function($scope,$stateParams,$state,$http,scopeData,scopeMethod,apiCaller,sessionStorage) {
+    if($(window).width()>1300){
+        r=(parseInt($(window).width())-1000)/2 -180;
+        $(".cart").css({"right":r})       
+    }else{
+        $(".cart").css({"right":10})     
+    }
 	scopeData.discountType = $stateParams.discountType;
 	$scope.currentDivisionName = '';
 	$scope.currenGroupName = '';
@@ -19,6 +25,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
     	$scope.isNotAllowOrder = scopeData.isNotAllowOrder;
     	$scope.orderDate = scopeData.orderDate;
     })
+
 
     apiCaller.getProductListByStates(function(res){
     	$scope.pdList = res;
