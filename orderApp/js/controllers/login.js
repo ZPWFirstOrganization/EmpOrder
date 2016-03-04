@@ -1,9 +1,9 @@
 orderApp.controller('loginCtrl',function($scope,apiCaller,scopeData,scopeMethod,$stateParams,userProfile){
-	userProfile.getProfile($stateParams.discountType,function(){
+	userProfile.getProfile(function(){
 		history.go(-1);
 	});
-	setTimeout(function(){
-		history.go(-1);
-	},100)
+	// setTimeout(function(){
+	// 	history.go(-1);
+	// },100)
 	
 })

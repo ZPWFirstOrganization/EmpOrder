@@ -1,4 +1,4 @@
-﻿orderApp.value('baseUrl', 'http://182.92.110.219:8090/emporder/api/v1/')
+﻿orderApp.value('baseUrl', 'http://wzdcbdeo01/emporder/api/v1/')
 //  http://wzdcbdeo01:8090/mlk/
 orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,scopeData,sessionStorage){
 	$('html,body').animate({scrollTop: '0px'},0)
@@ -184,7 +184,7 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 			msg:"确定取消该订单？",
 			confirmed:function(){
 				$("body").showLoading();
-				deleteServ("Order",{userID:scopeData.userID},
+				deleteServ("Order",{userID:scopeData.userID,productCode:''},
 				function(response){
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance.toFixed(2)

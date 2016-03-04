@@ -49,7 +49,7 @@ orderApp.service('scopeMethod',function($state,$stateParams,scopeData,apiCaller,
 			bIsCE= sUserAgent.match(/windows ce/i) == "windows ce",
 			bIsWM= sUserAgent.match(/windows mobile/i) == "windows mobile",
 			bIsWebview = sUserAgent.match(/webview/i) == "webview";
-			return (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)?"0":"1";
+			return (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)?"1":"0";
 		}
 	}
 })
@@ -299,7 +299,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				}
 			)
 		},
-		getUserProfile:function(type,suc,err){
+		getUserProfile:function(suc,err){
 			return ApiService.postUserProfile(
 				{
 					Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/User"
@@ -357,9 +357,9 @@ orderApp.factory('userProfile',function($state,apiCaller,scopeData){
 		},function(response){
 			// console.log("login end")
 			// alert(JSON.stringify(response))
-			// setTimeout(function(){
-			// 	$state.go('regist',{discountType:type})
-			// },100)
+			setTimeout(function(){
+				$state.go('regist',{discountType:type})
+			},100)
 		})
 	}
 	return this

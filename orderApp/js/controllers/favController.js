@@ -3,7 +3,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     var initData = function(){
         $scope.balance = apiCaller.getBalance();
         $scope.orderCount = apiCaller.getOrderCount();
-        $scope.isNotAllowOrder = !scopeData.isNotAllowOrder;
+        $scope.isNotAllowOrder = scopeData.isNotAllowOrder;
         $scope.orderDate = scopeData.orderDate;
         scopeData.discountType = $stateParams.discountType;
         apiCaller.getFavoriteList($scope.currentPage,function(res) {
@@ -156,7 +156,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     }
 
     $scope.numberBlured = function(NumberID){
-        if($scope.inputTexts[NumberID] == '' || parseInt($scope.inputTexts[NumberID]) <= 0){
+        if(!(/(^[0-9]*$)/).test($scope.inputTexts[NumberID]) || $scope.inputTexts[NumberID] == '' || parseInt($scope.inputTexts[NumberID]) <= 0){
             $scope.inputTexts[NumberID] = 1;
         }
     }
