@@ -43,8 +43,8 @@
 .proddtl-content-inner{  padding:0px 1%;}
 
 .proddtl-mobile-product-name{ font-size:16px; padding:10px 12% 10px 0px;  display:block; color:#000; overflow:hidden; position:relative;}
-.proddtl-mobile-product-name .favorite{background-image:url(../img/icon_fav_border.png); background-repeat:no-repeat; background-position:50% 50%; background-size:100% 100%; position:absolute; right:10px; top:0px;width:35px; height:35px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff; text-indent:-9999px; overflow:hidden; z-index:10}
-.proddtl-mobile-product-name .cancelfavorite{background-image:url(../img/icon_fav.png); background-repeat:no-repeat; background-position:50% 50%;background-size:100% 100%; position:absolute; right:10px; top:0px;width:35px; height:35px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff; text-indent:-9999px; overflow:hidden; z-index:10}
+.proddtl-mobile-product-name .favorite{background-image:url(../img/icon_fav_border.png); background-repeat:no-repeat; background-position:50% 50%; background-size:100% 100%; position:absolute; right:10px; top:0px;width:40px; height:40px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff; text-indent:-9999px; overflow:hidden; z-index:10}
+.proddtl-mobile-product-name .cancelfavorite{background-image:url(../img/icon_fav.png); background-repeat:no-repeat; background-position:50% 50%;background-size:100% 100%; position:absolute; right:10px; top:0px;width:40px; height:40px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff; text-indent:-9999px; overflow:hidden; z-index:10}
 
 .proddtl-wrapper{ width:100%;  border-bottom:0px solid #ddd; padding:0px }
 .proddtl-wrapper .proddtl-photo{ width:100%;  text-align:center;position:relative; padding:10px 0px}
