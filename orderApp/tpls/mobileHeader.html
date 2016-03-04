@@ -9,7 +9,16 @@
 
       <a class="my" action="my"></a>
       <a class="fav" ng-click='favClicked()'></a> 
-      <div class="my-list" >
+         
+    </div>
+    
+    <div class="search-wrapper" ng-show="showSearch">
+      <!--<a class="button-s button-gray myFav" href="#">收藏（99）</a>-->
+        
+        <input type="text" class="search" id="mbSeach" ng-model="searchKey" placeholder="商品名称 或 货号" />
+        <a class="search-btn " ng-click="searchClicked()"></a>
+    </div>
+    <div class="my-list" >
         <a class="list" ng-click="listItemClicked(1)">当月订单</a>
         <a class="list" ng-click="listItemClicked(2)">历史订单</a>
         <a class="list" ng-click="listItemClicked(3)">个人信息</a>
@@ -19,14 +28,6 @@
       <div class="mobile-onsale-list" ng-click="$event.stopPropagation();">
         <a class="list" ng-click="changeDiscountType(2)">优惠价</a>
         <a class="list" ng-click="changeDiscountType(6)">6折</a>
-      </div>    
-    </div>
-    
-    <div class="search-wrapper" ng-show="showSearch">
-      <!--<a class="button-s button-gray myFav" href="#">收藏（99）</a>-->
-        
-        <input type="text" class="search" id="mbSeach" ng-model="searchKey" placeholder="商品名称 或 货号" />
-        <a class="search-btn " ng-click="searchClicked()"></a>
-    </div>
+      </div> 
 
 </div>
