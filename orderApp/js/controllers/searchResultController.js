@@ -1,4 +1,10 @@
 orderApp.controller('searchResultController',function ($scope,$state,$stateParams,apiCaller,scopeData,scopeMethod,sessionStorage) {
+    if($(window).width()>1300){
+        r=(parseInt($(window).width())-1000)/2 -180;
+        $(".cart").css({"right":r})       
+    }else{
+        $(".cart").css({"right":10})     
+    }
     $("body").showLoading();
     $scope.pages = [];
     $scope.inputTexts = [];

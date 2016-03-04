@@ -1,5 +1,11 @@
 orderApp.controller('favController',function ($scope,$stateParams,$state,apiCaller,scopeData,scopeMethod,sessionStorage) {
     sessionStorage.put("sourcePageId","3")
+    if($(window).width()>1300){
+        r=(parseInt($(window).width())-1000)/2 -180;
+        $(".cart").css({"right":r})       
+    }else{
+        $(".cart").css({"right":10})     
+    }
     var initData = function(){
         $scope.balance = apiCaller.getBalance();
         $scope.orderCount = apiCaller.getOrderCount();
