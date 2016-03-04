@@ -171,6 +171,8 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
         
         showConfirm({
             msg:"是否取消收藏？",
+            Ymsg:"确定",
+            Nmsg:"取消",
             confirmed:function(){
                 $("body").showLoading();
                 apiCaller.deleteFav(Product,function() {

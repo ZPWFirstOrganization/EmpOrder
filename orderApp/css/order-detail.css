@@ -54,7 +54,7 @@
 .order-detail .product-wrapper .product-photo img{  height:100%}
 .order-detail .product-wrapper .product-info{ float:right; width:70%; position:relative}
 .order-detail .product-wrapper .product-info .row1{ }
-.order-detail .product-wrapper .product-info .row1 .order-product-name{ font-size:16px; margin-top:0px; height:40px; width:83%; display:block; color:#000; overflow:hidden;}
+.order-detail .product-wrapper .product-info .row1 .order-product-name{ font-size:16px; margin-top:0px; height:45px; width:83%; display:block; color:#000; overflow:hidden;}
 .order-detail .product-wrapper .product-info .row2 .product-no{font-size:12px;margin-top:0px; display:inline-block;color:#666}
 .order-detail .product-wrapper .product-info .row2{ margin-top:5px;}
 .order-detail .product-wrapper .product-info .row2 .new-price{color:#000; font-size:16px; display:inline-block; width:125px;}

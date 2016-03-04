@@ -53,7 +53,7 @@
 .proddtl-wrapper .proddtl-info{  width:100%; position:relative; overflow:hidden}
 .proddtl-wrapper .proddtl-info .favorite{background-image:url(../img/icon_fav_border.png); background-repeat:no-repeat; background-position:50% 50%; background-size:100% 100%; position:absolute; right:10px; top:-5px;width:35px; height:35px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff; text-indent:-9999px; overflow:hidden; z-index:10}
 .proddtl-wrapper .proddtl-info .cancelfavorite{background-image:url(../img/icon_fav.png); background-repeat:no-repeat; background-position:50% 50%;background-size:100% 100%; position:absolute; right:10px; top:-5px;width:35px; height:35px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff; text-indent:-9999px; overflow:hidden; z-index:10}
-.proddtl-wrapper .proddtl-info .product-name{ font-size:16px; margin-top:0px; height:40px; width:83%; display:block; color:#000; overflow:hidden;}
+.proddtl-wrapper .proddtl-info .product-name{ font-size:16px; margin-top:0px; height:45px; width:83%; display:block; color:#000; overflow:hidden;}
 .proddtl-wrapper .proddtl-info .row2{ margin-top:0px; padding:20px; border-top:1px solid #eee;}
 .proddtl-wrapper .proddtl-info .row2 .new-price{color:#000; font-size:16px; display:inline-block; width:125px;}
 .proddtl-wrapper .proddtl-info .row2 .product-no{font-size:12px;margin-top:0px; display:inline-block;color:#666}

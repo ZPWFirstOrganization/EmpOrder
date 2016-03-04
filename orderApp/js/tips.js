@@ -49,12 +49,16 @@ function hideTopBtn(){
 //显示弹窗 依赖jquery.reveal.js
 function showConfirm(obj){
    var msg = obj.msg ? obj.msg : "确定要执行操作嘛？"; //黑块淡进
+   var Ymsg = obj.Ymsg ? obj.Ymsg : "去意已决";
+   var Nmsg = obj.Nmsg ? obj.Nmsg : "再看看"
    
 
   $("[popup='confirm']").reveal({
     dismissJqObject:$("[popup='confirm']").find("[action=cancel]")  
   });
   $("[popup='confirm']").find("[action=msg]").html(msg);
+  $("[popup='confirm']").find("[action=confirm]").html(Ymsg);
+  $("[popup='confirm']").find("[action=cancel]").html(Nmsg);
   $("[popup='confirm']").find("[action=confirm]")[0].onclick=function(){  
     if(obj.confirmed){obj.confirmed()};
     $("[popup='confirm']").closeModal();

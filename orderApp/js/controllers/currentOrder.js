@@ -148,7 +148,9 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 	}
 	$scope.deleteProduct = function(index){
 		showConfirm({
-			msg:"确定删除该商品？",
+			msg:"确定从购物车中删除吗？",
+			Ymsg:"确定",
+			Nmsg:"取消",
 			confirmed:function(){
 				$("body").showLoading();
 				deleteServ("Order",{userID:scopeData.userID,productCode:$scope.currentOrderData.product[index].productCode},
