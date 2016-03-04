@@ -50,7 +50,7 @@
 
 .order-detail .product-wrapper{ width:100%;  border-bottom:1px solid #ddd; padding:10px 0px }
 .order-detail .product-wrapper .product-photo{ width:30%; height:110px; float:left;text-align:center;position:relative;}
-.order-detail .product-wrapper .product-photo .no-product{ position:absolute; left:-10px; top:-5px; width:30px; height:30px; background-image:url(../img/icon_no_product.png);background-position:50% 50%; background-size:100% ; }
+.order-detail .product-wrapper .product-photo .no-product{ position:absolute; left:2px; top:0px; width:30px; height:30px; background-image:url(../img/icon_no_product.png);background-position:50% 50%; background-size:100% ; }
 .order-detail .product-wrapper .product-photo img{  height:100%}
 .order-detail .product-wrapper .product-info{ float:right; width:70%; position:relative}
 .order-detail .product-wrapper .product-info .row1{ }
