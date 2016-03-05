@@ -105,6 +105,9 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
                 case 4:
                     $state.go("index.notice",{discountType:scopeData.discountType});
                 break;
+                case 5:
+                    $state.go("index.chart",{discountType:scopeData.discountType});
+                break;
             }
         },250);
     }

@@ -1,0 +1,32 @@
+  <!--pc面包屑-->
+<div class="layout page-width pc-only">
+  <div class="bread-crumb"><a style="cursor:pointer" ng-click="nav1Clicked()">首页</a><a>&gt;</a><a>消费趋势</a></div>
+
+    <div class="clr"></div>
+</div>
+
+<!--pc mobile商品列表-->
+<div class="layout page-width">
+    <div class="content-wrapper">
+        <div class="left">
+            <div class="sider-menu-wrapper">
+            <a class="sider-menu " ui-sref="index.currentOrder({discountType:'{{discountType}}'})">当月订单</a>
+            <a class="sider-menu" ui-sref="index.historyOrder({discountType:'{{discountType}}',page:1,orderDate:''})">历史订单</a>
+            <a class="sider-menu" ui-sref="index.personInfo({discountType:'{{discountType}}'})">个人信息</a>
+            <a class="sider-menu active" ui-sref="index.chart({discountType:'{{discountType}}'})">消费趋势</a>
+            </div>
+        </div>
+        <div class="bread-crumb mobile-only">
+
+          <a ng-click="nav1Clicked()" class="back"><b>&lt;</b> 首页</a>
+          <div class="title">消费趋势</div>
+        </div>
+        <div class="right">
+            <!-- <div class="order-mid-wrapper"> -->
+                <div style="margin:20 auto;min-height:500px" id="col-chart"></div>
+            <!-- </div> -->
+            <div class="clr"></div> 
+        </div>
+         <div class="clr"></div> 
+    </div>
+</div>

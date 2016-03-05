@@ -74,6 +74,10 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 		}).state('login',{
 			url:'/login/discountType={discountType}',
 			templateUrl:'tpls/login.html',
+		}).state('index.chart',{
+			url:'/chart/discountType={discountType}',
+			templateUrl:'tpls/chart.html',
+			controller:'chartController'
 		})
 })
 

@@ -338,6 +338,23 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 					}
 				}
 			)
+		},
+		getChartData:function(suc,err){
+			return ApiService.getChartData(
+			{
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Chart",
+				userID:scopeData.userID
+			},
+			function(res){
+				if(suc){
+					return suc(res)
+				}
+			},
+			function(res){
+				if(err){
+					return err(res)
+				}
+			})
 		}
 	}
 });
