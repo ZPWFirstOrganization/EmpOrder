@@ -1,5 +1,4 @@
 orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
-	
 	if("2"==$stateParams.discountType){
 		$scope.currentType = "优惠价";
 		$scope.typeForChnage = "6折";
@@ -15,6 +14,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	$scope.DataForMatch = [];
 	
 	$("#pcSeach").keyup(function(event){
+		var inputText = $("#pcSeach")[0].value.replace(/'/gm,"")
 		if(event.keyCode != 38 && event.keyCode != 40){
 			clearTimeout(delayTime);
 			if (event.keyCode == 13){
@@ -26,20 +26,21 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
            			$scope.DataForMatch = [];
 				}
 			}else{
-				if($scope.searchKey != ''){
+				if(inputText != ''){
 					delayTime = setTimeout(function() {
-						apiCaller.getSearchTips($scope.searchKey,function(res){
+						apiCaller.getSearchTips(inputText,function(res){
 							$scope.DataForMatch = [];
 							for (var i = 0; i < res.length; i++) {
 								var tmp;
-								if(res[i].productCode){
-									tmp = {"value":res[i].productCode,"label":res[i].productCode}
-									$scope.DataForMatch.push(tmp)
-								}
 								if(res[i].productName){
 									tmp = {"value":res[i].productName,"label":res[i].productName}
 									$scope.DataForMatch.push(tmp)
 								}
+								else if(res[i].productCode){
+									tmp = {"value":res[i].productCode,"label":res[i].productCode}
+									$scope.DataForMatch.push(tmp)
+								}
+								
 							};
 						})
 					},500);
@@ -51,15 +52,17 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 	$scope.$watch("DataForMatch",function(newValue,oldValue){
 		if(newValue != oldValue){
 			$('#pcSeach').autocompleter('destroy');
-			$('#pcSeach').blur()
+			// $('#pcSeach').blur()
 			setTimeout(function(){
 				$('#pcSeach').autocompleter({ 
 					highlightMatches: true,
 			        empty: false,
 			        limit: 10,
+			        hint: false,
 					source: $scope.DataForMatch,
 					itemClicked:function(){
 						setTimeout(function(){
+							alert($scope.searchKey)
 							$state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
 							$scope.searchKey='';
 		           			$('#pcSeach').autocompleter('close');
@@ -69,7 +72,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 					}
 				});
 				$('#pcSeach').focus()
-			},200);
+			},100);
 		}
 	},true);
 
@@ -98,7 +101,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 		        scopeMethod.changeState("1",Division.categoryCode,"1");
 		    }else{
 		    	// alert("链接到系统管理！")
-		    	window.open("http://www.baidu.com"); 
+		    	window.open(""); 
 		    }
 	    }else{
 	    	isGroupClicked = false;

@@ -270,7 +270,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		distance:50,
 		callback:function(){
 			if($scope.currentPage >= $scope.pageCount){
-				showModal({msg:"没有更多历史订单"});
+				showModal({msg:"没有更多订单！"});
 				return
 			}
 			//下拉刷新
@@ -280,15 +280,18 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 				{userID:scopeData.userID,orderDate:$stateParams.orderDate,pageNum:$scope.currentPage},
 				function(res){
 					$("body").hideLoading()
-					if(res.order.length != 0){
+					if(res.order){
 						$.each(res.order, function(i,v){
 							$scope.orderList.push(v)
 					    });
+					}else{
+						showModal({msg:"没有更多订单！"});
+						$scope.currentPage = parseInt($scope.currentPage) - 1
 					}
 				},
 				function(res){
 					$("body").hideLoading()
-					showModal({msg:"加载失败"});
+					showModal({msg:"没有更多订单！"});
 					$scope.currentPage = parseInt($scope.currentPage) - 1
 				}
 			)

@@ -14,7 +14,6 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
         scopeData.discountType = $stateParams.discountType;
         apiCaller.getFavoriteList($scope.currentPage,function(res) {
             $scope.favList = res.favorites;
-            console.log('--------------------------',res);
             $scope.pageNumCount = res.pageNumCount;
             for (var i = 0; i < res.pageNumCount; i++) {
                 $scope.pages.push(i+1)

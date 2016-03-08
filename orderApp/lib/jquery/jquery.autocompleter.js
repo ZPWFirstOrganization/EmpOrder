@@ -226,7 +226,6 @@
         for (var i = 0, count = $items.length; i < count; i++) {
             _build($items.eq(i), opts);
         }
-
         return $items;
     }
 
@@ -314,33 +313,30 @@
         var response = [];
 
         query = query.toUpperCase();
-
         if (source.length) {
-            for (var i = 0; i < 2; i++) {
+            // for (var i = 0; i < 2; i++) {
                 for (var item in source) {
                     if (response.length < data.limit) {
                         var label = (data.customLabel && source[item][data.customLabel]) ? source[item][data.customLabel] : source[item].label;
-
-                        switch (i) {
-                        case 0:
-                            if (label.toUpperCase().search(query) === 0) {
+                        // switch (i) {
+                        // case 0:
+                            // if (label.toUpperCase().search(query) === 0) {
                                 response.push(source[item]);
                                 delete source[item];
-                            }
-                            break;
+                        //     }
+                        //     break;
 
-                        case 1:
-                            if (label.toUpperCase().search(query) !== -1) {
-                                response.push(source[item]);
-                                delete source[item];
-                            }
-                            break;
-                        }
+                        // case 1:
+                        //     if (label.toUpperCase().search(query) !== -1) {
+                        //         response.push(source[item]);
+                        //         delete source[item];
+                        //     }
+                        //     break;
+                        // }
                     }
                 }
-            }
+            // }
         }
-
         return response;
     }
 
@@ -475,7 +471,6 @@
      */
     function _buildList(list, data) {
         var menu = '';
-
         for (var item = 0, count = list.length; item < count; item++) {
             var classes = ['autocompleter-item'],
                 highlightReg = new RegExp(data.query, 'gi');

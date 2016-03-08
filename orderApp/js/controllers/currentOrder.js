@@ -1,14 +1,11 @@
-﻿orderApp.value('baseUrl', 'http://182.92.110.219:8090/emporder/api/v1/')
-//  http://182.92.110.219:8090/
-//  http://wzdcbdeo01:8090/mlk/
-orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,scopeData,sessionStorage){
+﻿orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,scopeData,sessionStorage){
 	$('html,body').animate({scrollTop: '0px'},0)
 	$scope.secretary = {userName:"",userPhone:""}
 	$scope.count = 0
 	$scope.resAmount = 0
 	$scope.isCanShop = false
 	$scope.currentOrderData = {};
-	$scope.lastData = 1
+	$scope.lastData = 18
 	$scope.isHaveData = true
 	scopeData.discountType = $stateParams.discountType;
 	$scope.discountType = scopeData.discountType;
@@ -56,26 +53,25 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 	    
 	    $scope.currentOrderData = response[0];
 	    //无商品
-	    if (angular.isUndefined($scope.currentOrderData)){
+	    if (!$scope.currentOrderData){
 	    	$scope.currentOrderData = {product:[]}
-	    }
-	    if ($scope.currentOrderData.product.length == 0 ){
 	    	$scope.isHaveData = false
-		}
+	    }
 	    $("body").hideLoading();
   	},function(response){
   		$("body").hideLoading();
   	})
 
-  	$scope.numberClicked = function(id) {
-		$("#"+id).focus();
-		$("#"+id).select();
-	}
+ //  	$scope.numberClicked = function(id) {
+	// 	$("#"+id).focus();
+	// 	$("#"+id).select();
+	// }
 
 	var oldCount;
 	var isFocus = false;
     $scope.countFocus = function(prodCount,id,index){
     	isFocus = true
+    	$("#"+id).select();
 		oldCount = parseInt(prodCount)
 		$("#"+id).keyup(function(){
 			if(!(/(^[0-9]*$)/).test($scope.currentOrderData.product[index].requestQTY)){
@@ -136,13 +132,12 @@ orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$s
 
 		submitCount(prodCount,index)
 	}
-	$scope.keydown = function(ev,index){
-		console.log(ev.keyCode)
-		setTimeout(function(){
-			console.log(($("#text"+index)[0].value).replace(/'/gm,""))
-		},100)
+	// $scope.keydown = function(ev,index){
+	// 	setTimeout(function(){
+	// 		console.log(($("#text"+index)[0].value).replace(/'/gm,""))
+	// 	},100)
 		
-	}
+	// }
 	// $scope.countBlur = function(prodCount,index){
 	// 	// if(prodCount == '' || parseInt(prodCount) <= 0){
 	// 	// 	prodCount = oldCount;

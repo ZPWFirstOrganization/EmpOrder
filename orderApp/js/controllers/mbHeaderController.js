@@ -170,12 +170,12 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
                             $scope.DataForMatch = [];
                             for (var i = 0; i < res.length; i++) {
                                 var tmp;
-                                if(res[i].productCode){
-                                    tmp = {"value":res[i].productCode,"label":res[i].productCode}
-                                    $scope.DataForMatch.push(tmp)
-                                }
                                 if(res[i].productName){
                                     tmp = {"value":res[i].productName,"label":res[i].productName}
+                                    $scope.DataForMatch.push(tmp)
+                                }
+                                else if(res[i].productCode){
+                                    tmp = {"value":res[i].productCode,"label":res[i].productCode}
                                     $scope.DataForMatch.push(tmp)
                                 }
                             };
@@ -194,12 +194,12 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
                     $scope.DataForMatch = [];
                     for (var i = 0; i < res.length; i++) {
                         var tmp;
-                        if(res[i].productCode){
-                            tmp = {"value":res[i].productCode,"label":res[i].productCode}
-                            $scope.DataForMatch.push(tmp)
-                        }
                         if(res[i].productName){
                             tmp = {"value":res[i].productName,"label":res[i].productName}
+                            $scope.DataForMatch.push(tmp)
+                        }
+                        else if(res[i].productCode){
+                            tmp = {"value":res[i].productCode,"label":res[i].productCode}
                             $scope.DataForMatch.push(tmp)
                         }
                     };

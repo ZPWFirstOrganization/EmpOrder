@@ -50,6 +50,12 @@ orderApp.service('scopeMethod',function($state,$stateParams,scopeData,apiCaller,
 			bIsWM= sUserAgent.match(/windows mobile/i) == "windows mobile",
 			bIsWebview = sUserAgent.match(/webview/i) == "webview";
 			return (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)?"1":"0";
+		},
+		getGate:function(){
+			apiCaller.getOrderDate(function(res){
+		    	scopeData.isNotAllowOrder = !(res.allowOrder);
+		    	scopeData.orderDate = res.orderDate.split('-');
+    		})
 		}
 	}
 })
@@ -375,7 +381,7 @@ orderApp.factory('userProfile',function($state,apiCaller,scopeData){
 			// console.log("login end")
 			// alert(JSON.stringify(response))
 			setTimeout(function(){
-				$state.go('regist',{discountType:type})
+				$state.go('regist',{discountType:scopeData.discountType})
 			},100)
 		})
 	}

@@ -2,6 +2,10 @@ var orderApp = angular.module('orderApp', [ "ui.router", "ngResource","sessionSt
 	
 });
 
+orderApp.value('baseUrl', 'http://182.92.110.219:8090/emporder/api/v1/')
+//  http://182.92.110.219:8090/
+//  http://wzdcbdeo01:8090/mlk/
+
 orderApp.config(function($stateProvider,$urlRouterProvider){
 	$urlRouterProvider.when("","/home/discountType=2&productClass=1&productCode=1&page=1");
 	// $urlRouterProvider.otherwise("/home/productClass=1&productCode=1&page=1");
@@ -83,9 +87,9 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 
 orderApp.run(function($state,userProfile,scopeData,scopeMethod){
 	scopeData.isMobile = scopeMethod.isMobile();
-	// setTimeout(function(){
-	// 	$state.go('login',{discountType:$.getUrlParam('discountType')});
-	// },100)
-	
+	scopeMethod.getGate()
+	setTimeout(function(){
+		$state.go('login',{discountType:$.getUrlParam('discountType')});
+	},100)
 	// userProfile.getProfile($.getUrlParam('discountType'));
 })

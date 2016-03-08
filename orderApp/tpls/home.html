@@ -1,63 +1,4 @@
 <script>
-
-//显示加载菊花
-jQuery.fn.showLoading = function(top) {
-    if(!top){top=0}
-    if(this.css("position")!="relative"){
-      this.css("position","relative");
-    };
-
-    w=$(window).width();
-    h=$(window).height();
-
-    if(!$(".loading-Bg")[0]){
-        var bg='';
-
-    }else{
-      var bg="";
-    }
-
-
-      if(this.find(".loading").length==0){
-      this.prepend('<div class="loading"></div>'+bg);
-    };
-
-    $(window).resize(function(e) {
-      w=$(window).width();
-        h=$(window).height();
-            $(".loading-Bg").css({"width":w+"px","height":h+"px"});
-        });
-    //屏幕太长时调整位置
-
-      // topPx=this.height()/2;
-      // this.find(".loading").css("top",topPx+top);
-
-    this.find(".loading").fadeIn(200);
-	$("#main").height(h);
-   $("#main").width(w);
-};
-//隐藏加载菊花
-jQuery.fn.hideLoading = function() {
-
-    this.find(".loading").fadeOut(200);
-    this.find(".loading-bg").remove();
-       setTimeout(function () {
-       $(this).remove(".loading");
-    }, 200);
-};
-
-
-
-//判断ajax返回类型 兼容ie7
-function ajaxType(val){
-  if(typeof(val)=='string'){
-    return JSON.parse(val);
-  }else{
-    return val;
-  }
-}
-
-
 $(document).ready(function(e) {
   //pc and mobile js--------------------------------------------------
    $("#main").height($(window).height());
@@ -110,27 +51,6 @@ $(document).ready(function(e) {
       hideLoading();
     }
   });
-  
-  //pc and mobile js--------------------------------------------------
-  
-/*  showConfirm({
-    msg:"confirm效果？",
-    confirmed:function(){
-      alert("确定回调");
-
-    },
-    cancel:function(){
-
-
-    }
-  });
-  
-  showAlert({msg:"alert效果"});*/
-  
-  //秀/藏菊花
-  $("body").showLoading(-150);
-  $("body").hideLoading();
-
 });
 
 </script>
