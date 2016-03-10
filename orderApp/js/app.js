@@ -85,11 +85,21 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 		})
 })
 
-orderApp.run(function($state,userProfile,scopeData,scopeMethod){
+orderApp.run(function($state,$rootScope,$location,userProfile,scopeData,scopeMethod){
 	scopeData.isMobile = scopeMethod.isMobile();
 	scopeMethod.getGate()
 	setTimeout(function(){
 		$state.go('login',{discountType:$.getUrlParam('discountType')});
 	},100)
 	// userProfile.getProfile($.getUrlParam('discountType'));
+	//监听路由事件
+
+    $rootScope.$on('$stateChangeStart',
+        function(event, toState, toParams, fromState, fromParams){
+        	if (toState.name == "index.productList" && toParams.productClass == "1" && toParams.productCode == "1" && toParams.page == "1"){
+        		scopeData.isHomePage = true
+        	}else{
+        		scopeData.isHomePage = false
+        	}
+    })
 })

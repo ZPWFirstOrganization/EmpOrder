@@ -1,14 +1,16 @@
 <!--pc面包屑-->
 <div class="layout page-width pc-only">
   <div class="bread-crumb"><a style="cursor:pointer" ng-click="nav1Clicked()">首页</a><a>&gt;</a><a>搜索</a></div>
-    <div class="tips" ng-show="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div>
-    <div class="clr"></div>
+<!--     <div class="tips" ng-show="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div> -->
+  <div class="sr-tips"> 一共搜索到<span class="pink06">{{totalCount}}</span>个<span class="pink06">{{searchKey}}</span>产品</div>
+  <div class="clr"></div>
+    
 </div>
 
 <div id="wrapper">
     <div id="scroller">
 
-<div class="layout page-width">
+<div class="layout page-width" name="scrollerView">
     
     <div class="sr-content-wrapper">
         <div class="sr-bread-crumb mobile-only">
@@ -31,25 +33,25 @@
             </div>
                 
                 
-            <div ng-show="!isResultEmpty" class="sr-product-wrapper" ng-repeat="Product in searchResult" ng-init="!Product.isNotAllowOrder?btnClass = 'button-s button-gray sr-add-cart':btnClass = 'button-s button-gray button-disable sr-add-cart'">
-                <div class="sr-product-photo">
-                 <!--  <div class="sr-no-product" ng-show="Product.productStatus != 0"></div> -->
+            <div ng-show="!isResultEmpty" class="product-wrapper" ng-repeat="Product in searchResult" ng-init="!Product.isNotAllowOrder?btnClass = 'button-s button-gray add-cart':btnClass = 'button-s button-gray button-disable add-cart'">
+                <div class="product-photo">
+                 <!--  <div class="no-product" ng-show="Product.productStatus != 0"></div> -->
                 <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ng-click="toDetail(Product)" style="cursor:pointer"/>
                 </div>
                 
-                <div class="sr-product-info">
-                   <a action="fav" ng-class="{true:'sr-cancelfavorite',false:'sr-favorite'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>
-                   <a class="sr-product-name" ng-click="toDetail(Product)" style="cursor:pointer">{{Product.productName}}</a>
-                   <div class="sr-row2">               
-                       <span class="sr-new-price">￥{{Product.productRetailPrice}}</span>
-                       <div class="sr-product-no">{{Product.productCode}}</div>               
+                <div class="product-info">
+                   <a action="fav" ng-class="{true:'cancelfavorite',false:'favorite'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>
+                   <a class="product-name" ng-click="toDetail(Product)" style="cursor:pointer">{{Product.productName}}</a>
+                   <div class="row2">               
+                       <span class="new-price">￥{{Product.productRetailPrice}}</span>
+                       <div class="product-no">{{Product.productCode}}</div>               
                    </div>
     
-                   <div class="sr-product-action">
-                   <a class="sr-btn sr-subtract" ng-click="countSubtracted(Product)"></a>
-                   <input type="tel" class="sr-number" id="{{Product.productCode}}" placeholder="数量"  value="1" maxlength="3" ng-click="numberClicked(Product)" ng-model="inputTexts[Product.productCode]" ng-focus="numberFocused(Product.productCode)" ng-click="numberClicked(Product)" ng-blur="numberBlured(Product.productCode)"/>
-                   <a class="sr-btn sr-add" ng-click="countAdded(Product)"></a>
-                   <a class="{{btnClass}}" ng-click="addCartClicked(Product)">加入当月订单</a>
+                   <div class="product-action">
+                   <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
+                   <input type="tel" class="number" id="{{Product.productCode}}" placeholder="数量"  value="1" maxlength="3" ng-click="numberClicked(Product)" ng-model="inputTexts[Product.productCode]" ng-focus="numberFocused(Product.productCode)" ng-click="numberClicked(Product)" ng-blur="numberBlured(Product.productCode)"/>
+                   <a class="btn add" ng-click="countAdded(Product)"></a>
+                   <a class="{{btnClass}}" ng-click="addCartClicked(Product)">加入订单</a>
                    </div>
                 </div>            
                 <div class="clr"></div>

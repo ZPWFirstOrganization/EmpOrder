@@ -1,4 +1,4 @@
-orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,scopeData,scopeMethod,apiCaller) {
+orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$window,scopeData,scopeMethod,apiCaller) {
 	if("2"==$stateParams.discountType){
 		$scope.currentType = "优惠价";
 		$scope.typeForChnage = "6折";
@@ -62,7 +62,6 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 					source: $scope.DataForMatch,
 					itemClicked:function(){
 						setTimeout(function(){
-							alert($scope.searchKey)
 							$state.go('index.searchResult',{discountType:scopeData.discountType,key:$scope.searchKey,page:1})
 							$scope.searchKey='';
 		           			$('#pcSeach').autocompleter('close');
@@ -116,7 +115,12 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,sc
 
 	$scope.logoClicked = function() {
 		scopeData.discountType = $stateParams.discountType;
-		scopeMethod.changeState("1","1","1");
+		if(!scopeData.isHomePage){
+			scopeMethod.changeState("1","1","1");
+		}else{
+			console.log("reload")
+			$window.location.reload();
+		}
 	}
 
 	$scope.favClicked = function() {

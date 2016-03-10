@@ -13,6 +13,7 @@
 		currentOrderPage     : 1,		   //当前订单页数
 		isNotAllowOrder      : true,       //当前是否为不可下单日期内
 		orderDate            :[],          //可下单日期范围
+		isHomePage			 : true,	   //当前是否处于首页且为最初状态
 	}
 });
 
@@ -348,8 +349,8 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		getChartData:function(suc,err){
 			return ApiService.getChartData(
 			{
-				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Chart",
-				userID:scopeData.userID
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Order",
+				reportuserid:scopeData.userID
 			},
 			function(res){
 				if(suc){

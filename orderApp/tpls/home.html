@@ -9,48 +9,6 @@ $(document).ready(function(e) {
    window.ys={};
    window.ys.ajax={};
    window.ys.ajax.urlMap= new Array();
-
-  $.ajaxSetup({
-    beforeSend:function(xhr){
-      //console.log(this.url);
-      if(ys.ajax.urlMap[this.url] && ys.ajax.urlMap[this.url] == 'lock'){
-        return false;
-      } else {
-        ys.ajax.urlMap[this.url] = 'lock';
-      }
-    },
-    complete:function(){
-      ys.ajax.urlMap[this.url] = 'unlock';
-      delete ys.ajax.urlMap[this.url];
-    },
-    error: function(xhr, status, err){
-      if(xhr.status  == "200" || xhr.status == 200){
-        return;
-      }
-      if(xhr.status  == "510" || xhr.status == 510){
-        showModal({
-          msg:"请先登录再操作",
-          callbackTime:1000,
-          end:function(){
-            avalon.vmodels.header.showLogin();
-          }
-        })
-      } else if(xhr.status  == "511" || xhr.status == 511){
-        showModal({
-          msg:"用户还未通过验证"
-        })
-      } else if(xhr.status  == "512" || xhr.status == 512){
-        showModal({
-          msg:"用户已经被冻结"
-        })
-      } else if(xhr.status  == "513" || xhr.status == 513){
-        showAlert({
-          msg:"您已被列入黑名单!<br/>请联系左木[微信635636]"
-        })
-      }
-      hideLoading();
-    }
-  });
 });
 
 </script>
@@ -64,7 +22,7 @@ $(document).ready(function(e) {
   <!--mobile头-->
   <div ui-view="mobileHeader"></div>
 
-  <!--pc mobile商品列表-->
+  <!--pc mobile产品列表-->
   <div ui-view="container"></div>
 
   <div ui-view="foot"></div>

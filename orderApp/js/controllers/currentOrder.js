@@ -32,7 +32,7 @@
   		$scope.resAmount = parseFloat(response.myBalance).toFixed(2)
   		$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
   	})
-  	//初始化商品数量
+  	//初始化产品数量
   	currentOrderServ.getCount({kind: "types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order'},function(response){
   		$scope.count = response.productCount
   	})
@@ -52,7 +52,7 @@
 	currentOrderServ.getCurrentOrder({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order',orderDate:''},function(response){
 	    
 	    $scope.currentOrderData = response[0];
-	    //无商品
+	    //无产品
 	    if (!$scope.currentOrderData){
 	    	$scope.currentOrderData = {product:[]}
 	    	$scope.isHaveData = false
@@ -108,7 +108,7 @@
 		  		function(response){
 		  			$scope.currentOrderData.product[index].requestQTY = oldCount
 		  			if (response.status == 404){
-		  				showModal({msg:"商品未找到"});
+		  				showModal({msg:"产品未找到"});
 		  			}else if(response.status == 400){
 		  				showModal({msg:"剩余额度不足"});
 		  			}
@@ -170,7 +170,7 @@
 	// 	  		function(response){
 	// 	  			$scope.currentOrderData.product[index].requestQTY = oldCount
 	// 	  			if (response.status == 404){
-	// 	  				showModal({msg:"商品未找到"});
+	// 	  				showModal({msg:"产品未找到"});
 	// 	  			}else if(response.status == 400){
 	// 	  				showModal({msg:"剩余额度不足"});
 	// 	  			}
@@ -283,7 +283,7 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
         },
         isArray:true
       },
-      //修改当月订单商品数量
+      //修改当月订单产品数量
       putProduct:{
         method:'PUT',
         params:{

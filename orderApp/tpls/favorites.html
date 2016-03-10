@@ -8,7 +8,7 @@
 <div id="wrapper">
     <div id="scroller">
       
-<div class="layout page-width">
+<div class="layout page-width" name="scrollerView">
     
     <div class="fav-content-wrapper">
         <div class="bread-crumb mobile-only">
@@ -20,33 +20,33 @@
             <div class="empty" ng-show="isFavEmpty">
                 <div class="icon"></div>
                 <div class="wording">
-                <h1>暂无收藏商品</h1>
-                <h3>您可以将喜欢的商品点击爱心收藏噢！</h3>
+                <h1>暂无收藏产品</h1>
+                <h3>您可以将喜欢的产品点击爱心收藏噢！</h3>
                 </div>
                 <div class="btn">
                 <a class="button button-gray w100" ng-click="nav1Clicked()">去购物</a>
                 </div>
 
             </div>
-            <div ng-show="!isFavEmpty" class="fav-product-wrapper" ng-repeat="Product in favList" ng-init="Product.onSale && !Product.isNotAllowOrder?btnClass = 'button-s button-gray fav-add-cart':btnClass = 'button-s button-gray button-disable fav-add-cart'">
-                <div class="fav-product-photo">
-                  <div class="fav-no-product" ng-show="!Product.onSale"></div>
+            <div ng-show="!isFavEmpty" class="product-wrapper" ng-repeat="Product in favList" ng-init="Product.onSale && !Product.isNotAllowOrder?btnClass = 'button-s button-gray add-cart':btnClass = 'button-s button-gray button-disable add-cart'">
+                <div class="product-photo">
+                  <div class="no-product" ng-show="!Product.onSale"></div>
                   <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ng-click="toDetail(Product)" style="cursor:pointer"/>
                 </div>
                 
-                <div class="fav-product-info">
-                   <a action="fav" class="fav-cancelfavorite" ng-click="favoriteClicked(Product)" ></a>
-                   <a class="fav-product-name" ng-click="toDetail(Product)" style="cursor:pointer">{{Product.productName}}</a>
-                   <div class="fav-row2">               
-                       <span class="fav-new-price">￥{{Product.productRetailPrice}}</span>
-                       <div class="fav-product-no">{{Product.productCode}}</div>               
+                <div class="product-info">
+                   <a action="fav" class="cancelfavorite" ng-click="favoriteClicked(Product)" ></a>
+                   <a class="product-name" ng-click="toDetail(Product)" style="cursor:pointer">{{Product.productName}}</a>
+                   <div class="row2">               
+                       <span class="new-price">￥{{Product.productRetailPrice}}</span>
+                       <div class="product-no">{{Product.productCode}}</div>               
                    </div>
     
-                   <div class="fav-product-action">
-                   <a class="fav-btn fav-subtract" ng-click="countSubtracted(Product)"></a>
-                   <input type="tel" class="fav-number" id="{{Product.productCode}}" placeholder="数量"  value="1" maxlength="3" ng-focus="numberFocused(Product.productCode)" ng-click="numberClicked(Product)" ng-blur="numberBlured(Product.productCode)" ng-click="numberClicked(Product)" ng-model="inputTexts[Product.productCode]" />
-                   <a class="fav-btn fav-add" ng-click="countAdded(Product)"></a>
-                   <a class="{{btnClass}}" ng-click="addCartClicked(Product)">加入当月订单</a>
+                   <div class="product-action">
+                   <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
+                   <input type="tel" class="number" id="{{Product.productCode}}" placeholder="数量"  value="1" maxlength="3" ng-focus="numberFocused(Product.productCode)" ng-click="numberClicked(Product)" ng-blur="numberBlured(Product.productCode)" ng-click="numberClicked(Product)" ng-model="inputTexts[Product.productCode]" />
+                   <a class="btn add" ng-click="countAdded(Product)"></a>
+                   <a class="{{btnClass}}" ng-click="addCartClicked(Product)">加入订单</a>
                    </div>
                 </div>            
                 <div class="clr"></div>

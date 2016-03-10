@@ -53,16 +53,18 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
                 "right":"0px",
                 overflow: "hidden"
             },
-            distance:50,
+            distance:70,
             callback:function(){
                 $("body").showLoading();
                 apiCaller.getFavoriteList(++$scope.currentPage,function(res){
+                    Hook.loadDown()
                     $scope.favList =
                      ($scope.favList).concat(res.favorites);
                      $("body").hideLoading();
                 },function(){
+                    Hook.loadDown()
                     $("body").hideLoading();
-                    showModal({msg:"没有更多商品了!"});
+                    showModal({msg:"没有更多产品了!"});
                 })
             }
     });
@@ -168,11 +170,11 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
 
     $scope.favoriteClicked = function(Product) {
         
-        showConfirm({
-            msg:"是否取消收藏？",
-            Ymsg:"确定",
-            Nmsg:"取消",
-            confirmed:function(){
+        // showConfirm({
+            // msg:"是否取消收藏？",
+            // Ymsg:"确定",
+            // Nmsg:"取消",
+            // confirmed:function(){
                 $("body").showLoading();
                 apiCaller.deleteFav(Product,function() {
                     showModal({msg:"已取消收藏"});
@@ -189,8 +191,8 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
                     }
                     $("body").hideLoading();
                 });
-            }
-        });
+            // }
+        // });
         
     }
 

@@ -1,7 +1,7 @@
 @media screen and (min-width: 801px) { 
 .fav-tips{ float:right; color:#e5a086;padding:20px;}
 
-.fav-content-wrapper{ min-height:700px;}
+.fav-content-wrapper{ min-height:630px;}
 .fav-content-inner{  padding:0px 10px;}
 .fav-product-wrapper{ width:50%; height:120px; border-bottom:1px solid #ddd; float:left; padding:15px 0px;}
 .fav-product-wrapper:nth-last-child(1){ width:50%}

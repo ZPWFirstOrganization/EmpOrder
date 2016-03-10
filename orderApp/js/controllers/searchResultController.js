@@ -60,16 +60,18 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
                 "right":"0px",
                 overflow: "hidden"
             },
-            distance:50,
+            distance:70,
             callback:function(){
                 $("body").showLoading();
                 apiCaller.getSearchResult($stateParams.key,++$scope.currentPage,function(res){
+                    Hook.loadDown()
                     $scope.searchResult =
                      ($scope.searchResult).concat(res.products);
                      $("body").hideLoading();
                 },function(){
+                    Hook.loadDown()
                     $("body").hideLoading();
-                    showModal({msg:"没有更多商品了!"});
+                    showModal({msg:"没有更多产品了!"});
                 })
             }
     });

@@ -107,16 +107,18 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 				"right":"0px",
 				overflow: "hidden"
 			},
-			distance:50,
+			distance:70,
 			callback:function(){
 				$("body").showLoading();
 				apiCaller.getProductListByPage(++$scope.currentPage,function(res){
+					Hook.loadDown()
 					scopeData.ProductionList.products =
 					 (scopeData.ProductionList.products).concat(res.products);
 					 $("body").hideLoading();
 				},function(){
+					Hook.loadDown()
 					$("body").hideLoading();
-					showModal({msg:"没有更多商品了!"});
+					showModal({msg:"没有更多产品了!"});
 				})
 			}
 	});

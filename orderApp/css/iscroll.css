@@ -24,7 +24,7 @@
 }
 
 .scroller-pullUp {
-display:none;
+	display:none;
     background: #fff;
     height: 50px;
     line-height: 50px;

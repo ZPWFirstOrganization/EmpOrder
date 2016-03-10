@@ -13,7 +13,7 @@ body{ background-color: #f3f3f3; color:#000; font-family:Arial, "微软雅黑"; 
 .pc-header-wrapper{  background-color:#E43B3E}
 .pc-header-wrapper .header{ background-color:#000;}
 .pc-header-wrapper .header .header-inner{ min-height:70px;}
-.pc-header-wrapper .header .header-inner .logo-wrapper{ width:40%; float:left; margin-top:10px;position:relative}
+.pc-header-wrapper .header .header-inner .logo-wrapper{ width:40%; float:left; top:21.5px;position:relative}
 .pc-header-wrapper .header .header-inner .logo-wrapper .logo{ background-image:url(../img/pc_logo.png); width:160px; height:27px; display:block; }
 .pc-header-wrapper .header .header-inner .logo-wrapper .title{ color:#fff;}
 
@@ -103,8 +103,8 @@ dataTables_paginate a:ntd-last-child(2)
 .button-s{ padding:0px 13px;line-height:30px;border-radius: 3px;height:30px; text-align: center; border: none; outline:none; cursor:pointer; font-size:14px;display:inline-block;}
 .button-pink{ background-color:#e5a086; color:#FFF;border:1px #e5a086 solid; transition: background-color 1s;}
 .button-pink:hover{ background-color:#c5775a; color:#FFF;transition: background-color 1s;}
-.button-gray{ background-color:#666; color:#FFF;border:1px #666 solid; transition: background-color 1s;}
-.button-gray:hover{ background-color:#333; color:#FFF;transition: background-color 1s;}
+.button-gray{ background-color:#d68263; color:#FFF;border:1px #d68263 solid; transition: background-color 1s;}
+.button-gray:hover{ background-color:#d68263; color:#FFF;transition: background-color 1s;}
 .button-border-gray{ background-color:#fff; color:#666; border:1px #eee solid;transition: background-color 1s;}
 .button-border-gray:hover{ background-color:#eee; transition: background-color 1s;}
 .button-disable{border:1px solid #ccc!important; background-color:#ccc!important; color:#fff!important; cursor: text;}
@@ -224,7 +224,7 @@ body{ background-color: #fff; color:#000; font-family:Arial, "微软雅黑"; mar
 
 
 /*页面布局*/
-.layout{ background-color:#FFFFFF; }
+.layout{ background-color:#FFFFFF}
 .layout .mid{min-height:700px;}
 .layout .left{ display:none;}
 .layout .right{ float: none; padding:0% 1%}
@@ -238,7 +238,7 @@ body{ background-color: #fff; color:#000; font-family:Arial, "微软雅黑"; mar
 .button-s{ padding:0px 13px;line-height:30px;border-radius: 3px;height:30px; text-align: center; border: none; outline:none; cursor:pointer; font-size:14px;display:inline-block;}
 .button-pink{ background-color:#e5a086; color:#FFF;border:1px #e5a086 solid; transition: background-color 1s;}
 .button-pink:hover{ background-color:#c5775a; color:#FFF;transition: background-color 1s;}
-.button-gray{ background-color:#666; color:#FFF;border:1px #666 solid; transition: background-color 1s;}
+.button-gray{ background-color:#d68263; color:#FFF;border:1px #d68263 solid; transition: background-color 1s;}
 .button-gray:hover{ background-color:#333; color:#FFF;transition: background-color 1s;}
 .button-border-gray{ background-color:#fff; color:#666; border:1px #eee solid;transition: background-color 1s;}
 .button-border-gray:hover{ background-color:#eee; transition: background-color 1s;}

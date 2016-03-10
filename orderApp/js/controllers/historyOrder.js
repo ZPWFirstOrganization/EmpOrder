@@ -267,7 +267,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 			"right":"0px",
 			overflow: "hidden"
 		},
-		distance:50,
+		distance:70,
 		callback:function(){
 			if($scope.currentPage >= $scope.pageCount){
 				showModal({msg:"没有更多订单！"});
@@ -279,6 +279,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 			apiCaller.getOrderListByPage(
 				{userID:scopeData.userID,orderDate:$stateParams.orderDate,pageNum:$scope.currentPage},
 				function(res){
+					Hook.loadDown()
 					$("body").hideLoading()
 					if(res.order){
 						$.each(res.order, function(i,v){
@@ -290,6 +291,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 					}
 				},
 				function(res){
+					Hook.loadDown()
 					$("body").hideLoading()
 					showModal({msg:"没有更多订单！"});
 					$scope.currentPage = parseInt($scope.currentPage) - 1

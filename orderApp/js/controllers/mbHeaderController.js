@@ -1,4 +1,4 @@
-orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,scopeData,scopeMethod,apiCaller) {
+orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$window,scopeData,scopeMethod,apiCaller) {
 
     function showModalBg(obj){
     
@@ -129,7 +129,12 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
     }
 
     $scope.nav1Clicked = function () {
-        scopeMethod.changeState('1','1','1');
+        if(!scopeData.isHomePage){
+            scopeMethod.changeState("1","1","1");
+        }else{
+            console.log("reload")
+            $window.location.reload();
+        }
     }
 
     $scope.favClicked = function() {
@@ -228,6 +233,7 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,sc
                         },100);
                     }
                 });
+                // showModalBg($("div[name='autocompleter']"))
                 $('#mbSeach').focus()
             },200);
         }

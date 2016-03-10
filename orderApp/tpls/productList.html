@@ -15,7 +15,7 @@
 <div id="wrapper">
     <div id="scroller">
 
-<div class="layout page-width">
+<div class="layout page-width" name="scrollerView">
   
   <div class="home-content-wrapper">
     <div class="tips mobile-only" ng-show="isNotAllowOrder">可下单日期为每月{{orderDate[0]}}到{{orderDate[1]}}日，您当前日期不可下单</div>
@@ -36,7 +36,7 @@
           <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
           <input type="tel" class="number" id="{{Product.productCode}}" ng-focus="numberFocused(Product.productCode)" ng-click="numberClicked(Product)" ng-blur="numberBlured(Product.productCode)" placeholder="数量" maxlength="3" ng-model="inputTexts[Product.productCode]" ></input>
           <a class="btn add" ng-click="countAdded(Product)"></a>
-          <a class="{{btnClass}}" ng-click="addCartClicked(Product)">加入当月订单</a>
+          <a class="{{btnClass}}" ng-click="addCartClicked(Product)">加入订单</a>
         </div>
       </div>
       <div class="clr"></div>

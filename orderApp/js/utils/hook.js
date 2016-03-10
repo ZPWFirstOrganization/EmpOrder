@@ -2,12 +2,15 @@
 var myScroll;
 var Hook = {
 	isRefresh:false,
+	isRefreshing:false,
 	destroy:function(){
 		myScroll.destroy();
 		myScroll = null;
 	},
 	init:function(param){
-		//console.log("hook init");
+		//总是能触发下拉刷新，设置滚动区域最小高度
+		var scrollMarginT = 130
+		$('div[name="scrollerView"]').css({"min-height":$(document.body).height()-(130-1)});
 		var wrapperId = param.wrapperId;
 		var scrollerId = param.scrollerId;
 		var dis = typeof(param.distance) == "undefined"? 50:param.distance;
@@ -21,8 +24,8 @@ var Hook = {
 			return;
 		}else{
 			$(scrollerId).append($('<div id="scroller-pullUp" class="scroller-pullUp mobile-only">'+
-				'<span id="up-icon" class="icon-double-angle-up pull-up-icon">»</span>'+
-				'<span id="pullUp-msg" class="pull-up-msg">上拉可以刷新</span>'+		
+				'<span id="up-icon" class="icon-double-angle-up pull-up-icon">»  </span>'+
+				'<span id="pullUp-msg" class="pull-up-msg">上拉可以加载更多</span>'+		
         	'</div>'));
 		}
 		$(scrollerId).addClass("scroller");
@@ -45,12 +48,14 @@ var Hook = {
 			
 			upHasClass = upIcon.hasClass("reverse_icon");
 		
-		if(maxY >= dis){
-			$("#pullUp-msg").text("松开后刷新");
+		if(maxY >= dis && !Hook.isRefreshing){
+			$("#pullUp-msg").text("松开后加载");
 			Hook.isRefresh = true;
 			!upHasClass && upIcon.addClass("reverse_icon");
 			return "";
-		}else if(maxY < dis && maxY >=0){
+		}else if(maxY < dis && maxY >=0 && !Hook.isRefreshing){
+			$("#pullUp-msg").text("上拉可以加载更多");
+			Hook.isRefresh = false;
 			upHasClass && upIcon.removeClass("reverse_icon");
 			return "";
 		}
@@ -59,13 +64,16 @@ var Hook = {
 	myScroll.on("slideUp",function(){
 								  
 		if(this.maxScrollY - this.y > dis){
-			
-			$("#pullUp-msg").text("刷新中...");
-			upIcon.removeClass("reverse_icon")
+			Hook.isRefreshing = true
+			console.log("loading...")
+			$("#scroller-pullUp").css({"bottom":"0px"});
+			$("#pullUp-msg").text("加载中...");
+			$("#up-icon").text("")
 		}
 	});
 	myScroll.on("scrollEnd",function(){
-		$("#pullUp-msg").text("上拉可以刷新");	
+		console.log("scrollEnd")
+		// $("#pullUp-msg").text("上拉可以加载更多");	
 		if(Hook.isRefresh){
 			callback();
 			Hook.isRefresh = false;
@@ -86,5 +94,13 @@ var Hook = {
 
 	$("#mbSeach").focus();
 	$("#mbSeach").blur();
+	},
+	loadDown:function(){
+		Hook.isRefreshing = false
+		$("#scroller-pullUp").css({"display":"none"});
+		$("#scroller-pullUp").css({"bottom":"-50px"});
+		$("#up-icon").text("»  ")
+		$("#pullUp-msg").text("上拉可以加载更多");
+		// console.log(myScroll.y,myScroll.maxScrollY,myScroll.currentPage)
 	}
 }

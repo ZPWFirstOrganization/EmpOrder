@@ -38,7 +38,7 @@
 .orderHistory .his-top-wrapper .his-tips{ padding-left:40px; padding-top:12px; padding-bottom:12px; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 50%; background-size: 7% auto ;   }
 .orderHistory .his-top-wrapper .his-select-wrapper{ float:right; padding-top:5px; width:100px; margin-left:5px;}
 
-.orderHistory .mid-wrapper{ min-height:400px;}
+.orderHistory .mid-wrapper{}
 .orderHistory .order{ padding:10px 10px;border-bottom:1px solid #eee; display:block; position:relative;   }
 .form-row{ padding:0px 0px; position: relative;}
 .form-row .field-key{width:150px;line-height:30px;float:left;position:relative;line-height:30px}
