@@ -1,10 +1,13 @@
 ﻿orderApp.controller('chartController',function($scope,$state,$stateParams,scopeData,scopeMethod,apiCaller){
 	$scope.discountType = $stateParams.discountType;
+	$scope.col_width = null;
 	scopeData.discountType = $stateParams.discountType;
 	apiCaller.getChartData(function(res){
 		$scope.years = getYears(res.report)
+		$scope.col_width = ($scope.years.length>2)? null:30;//需要多少像素宽在这里配置就可以了
 		$scope.amount = getAmount(res.report)
 		$scope.userName = res.reportuserid;
+
 		$('#col-chart').highcharts({
 	        chart: {
 	            type: 'column',
@@ -29,13 +32,18 @@
 	            column: {
 	                pointPadding: 0.2,
 	                borderWidth: 0,
+	                pointWidth : $scope.col_width//如果是null，就是原先的效果
+	            },
+	            series: {
+	                dataLabels: {
+	                    enabled: true,
+	                }
 	            }
 	        },
 	        series: [{
 	            color : '#EE3D11',
 	            name  : $scope.userName,
 	            data  : $scope.amount,
-	            width : '10px'
 	        }],
 	        credits : {
 	            enabled : false
