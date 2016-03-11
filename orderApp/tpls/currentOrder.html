@@ -25,7 +25,10 @@
         </div>
         <div class="right">
           <div class="order-top-wrapper">
-              <div class="order-tips">您的订单{{{true: '将', false: '已'}[isCanShop]}}在本月{{lastData}}日自动提交</div>
+              <div class="order-tips">您的订单{{{true: '将', false: '已'}[isCanShop]}}在本月{{lastData}}日自动提交<br>
+              <div class="f12">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div>
+              </div>
+
             </div>
             
             <div class="order-mid-wrapper">
@@ -72,6 +75,12 @@
                     <div class="clr"></div>
                 </div>        
             </div>
+            <div class="row1 mobile-only" ng-show="isHaveData">
+                我同意以上金额从我当月薪资中扣除<br>
+                我已了解，根据公司政策要求，员工不得以任何形式、价格转卖公司产品<br>
+                <!-- 部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}<br>     -->
+            
+            </div>
             <div class="order-bottom-wrapper pc-only" ng-show="isHaveData">
                 <div class="row1">
                 您的季度余额还剩:<font class="pink06">￥{{resAmount}}</font>  共 <font class="pink06">{{count}}</font> 件产品，实付金额:<font class="pink06">￥{{payAmount}}</font>
@@ -79,7 +88,6 @@
                 <div class="row2">
                 我同意以上金额从我当月薪资中扣除<br>
                 我已了解，根据公司政策要求，员工不得以任何形式、价格转卖公司产品<br>
-                部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}<br>
                 </div>
             </div>
             <div class="order-action-wrapper pc-only" ng-show="isHaveData">
@@ -99,12 +107,7 @@
 
 
 <div class="mobile-action-wrapper mobile-only" ng-show="isHaveData">
-    <div class="row1">
-        我同意以上金额从我当月薪资中扣除<br>
-        我已了解，根据公司政策要求，员工不得以任何形式、价格转卖公司产品<br>
-        部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}<br>    
-    
-    </div>
+   
     <div class="row2">
     <div class="left w50">
         <div style="font-size:16px">实付金额:￥{{payAmount}} </div>

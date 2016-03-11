@@ -1,7 +1,7 @@
 
 <div ng-controller='productCtrl'>
 
-<a class="cart animated" ng-click="cartClicked()">
+<a class="proddtl-cart" ng-click="cartClicked()">
 <div class="cart-inner">
 <div class="number"><b>{{{false: orderCount.productCount, true: '···'}[orderCount.productCount >= 100]}}</b></div>
 剩余额度:<br>
@@ -39,10 +39,7 @@
     
         <div class="bread-crumb mobile-only"><a href="javascript:history.back();" class="back"><b>&lt;</b>{{sourcePageNameMB}}</a><div class="title">产品详情</div></div>
         <div class="proddtl-content-inner">
-            <div class="mobile-only proddtl-mobile-product-name">
-            {{Product.productName}}
-            <a action="fav" ng-class="{true:'cancelfavorite mobile-only',false:'favorite mobile-only'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>
-            </div>
+            
             <div class="proddtl-wrapper">
                 <div class="proddtl-photo">
                  <!-- <div class="no-prod" ng-hide="Product.productStatus != 1"></div> -->
@@ -52,10 +49,14 @@
                 <div class="proddtl-info">
                    <a action="fav" ng-class="{true:'cancelfavorite pc-only',false:'favorite pc-only'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>                   
                    <a class="product-name pc-only" >{{Product.productName}}</a>
-                   <div class="row2">               
+                   <div class="row2">
+                    <div class="mobile-only proddtl-mobile-product-name">
+                    {{Product.productName}}
+                    <a action="fav" ng-class="{true:'cancelfavorite mobile-only',false:'favorite mobile-only'}[Product.isFavorite]" ng-click="favoriteClicked(Product)"></a>
+                    </div>           
                     <div class="proddtl-form-row">
                       <div class="field-key  ">零售价：</div>
-                      <div class="field-value ">￥{{Product.productRetailPrice}}</div>
+                      <div class="field-value pink08"><b>￥{{Product.productRetailPrice}}</b></div>
                       <div class="clr"> </div>
                     </div>
                     <div class="proddtl-form-row">
@@ -84,7 +85,7 @@
                    <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
                    <input type="tel" class="number" id="{{Product.productCode}}" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" ng-blur="countBlur(inputTexts[Product.productCode],Product)" ng-focus="countFocus(inputTexts[Product.productCode],Product)" ng-click="numberClicked(Product)"/>
                    <a class="btn add" ng-click="countAdded(Product)" ></a>
-                   <a ng-class="{false:'button-s button-gray add-cart',true:'button-s button-gray button-disable add-cart'}[isNotAllowOrder]" ng-click="addCartClicked(Product)">加入当月订单</a>
+                   <a ng-class="{false:'button-s button-pink2 add-cart',true:'button-s button-gray button-disable add-cart'}[isNotAllowOrder]" ng-click="addCartClicked(Product)">加入订单</a>
                    </div>
                 </div>            
                 
@@ -110,7 +111,7 @@
        <a class="btn add" ng-click="countAdded(Product)"></a>
     </div>
     <div class="right">
-        <a ng-class="{true:'button-s button-gray add-cart',false:'button-s button-gray button-disable add-cart'}[Product.productStatus=='1']" ng-click="addCartClicked(Product)">加入当月订单</a>
+        <a ng-class="{true:'w80 button-s button-gray add-cart',false:'w80 button-s button-gray button-disable add-cart'}[Product.productStatus=='1']" ng-click="addCartClicked(Product)">加入订单</a>
        
     </div> 
     <div class="clr"></div>

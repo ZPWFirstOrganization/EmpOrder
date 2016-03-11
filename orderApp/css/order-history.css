@@ -6,7 +6,7 @@
 
 .orderHistory .his-top-wrapper{ height:40px; }
 .orderHistory .his-top-wrapper .his-tips-line1{ line-height:40px;  padding-left:40px; float:left; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 50%; background-size: auto 60% ; }
-.orderHistory .his-top-wrapper .his-tips{   padding-left:40px; float:left; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 50%; background-size: auto 60% ; }
+.orderHistory .his-top-wrapper .his-tips{   padding-left:0px; float:left; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 50%; background-size: 0 ; line-height: 40px}
 .orderHistory .his-top-wrapper .his-select-wrapper{ float:right; padding-top:5px; width:100px; margin-left:5px;}
 
 .orderHistory .mid-wrapper{ min-height:400px;}
@@ -34,8 +34,8 @@
 .his-option-list .list:active{ background-color:#eee}
 
 .orderHistory{}
-.orderHistory .his-top-wrapper{ height:40px; }
-.orderHistory .his-top-wrapper .his-tips{ padding-left:40px; padding-top:12px; padding-bottom:12px; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 50%; background-size: 7% auto ;   }
+.orderHistory .his-top-wrapper{ height:40px; border-bottom: 1px solid #eee}
+.orderHistory .his-top-wrapper .his-tips{ padding-left:0px;background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 50%; background-size: 0;line-height: 40px }
 .orderHistory .his-top-wrapper .his-select-wrapper{ float:right; padding-top:5px; width:100px; margin-left:5px;}
 
 .orderHistory .mid-wrapper{}

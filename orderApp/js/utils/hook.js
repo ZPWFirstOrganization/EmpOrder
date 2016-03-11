@@ -9,8 +9,9 @@ var Hook = {
 	},
 	init:function(param){
 		//总是能触发下拉刷新，设置滚动区域最小高度
-		var scrollMarginT = 130
-		$('div[name="scrollerView"]').css({"min-height":$(document.body).height()-(130-1)});
+		//45对应选择器高度
+		var scrollMarginT = 130-45
+		$('div[name="scrollerView"]').css({"min-height":$(document.body).height()-(scrollMarginT-1)});
 		var wrapperId = param.wrapperId;
 		var scrollerId = param.scrollerId;
 		var dis = typeof(param.distance) == "undefined"? 50:param.distance;

@@ -1,4 +1,4 @@
-orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$window,scopeData,scopeMethod,apiCaller) {
+orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$window,scopeData,scopeMethod,apiCaller,baseSysUrl) {
 	if("2"==$stateParams.discountType){
 		$scope.currentType = "优惠价";
 		$scope.typeForChnage = "6折";
@@ -100,7 +100,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$w
 		        scopeMethod.changeState("1",Division.categoryCode,"1");
 		    }else{
 		    	// alert("链接到系统管理！")
-		    	window.open(""); 
+		    	window.open(baseSysUrl); 
 		    }
 	    }else{
 	    	isGroupClicked = false;

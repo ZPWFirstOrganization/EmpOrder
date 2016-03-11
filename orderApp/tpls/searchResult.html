@@ -33,7 +33,7 @@
             </div>
                 
                 
-            <div ng-show="!isResultEmpty" class="product-wrapper" ng-repeat="Product in searchResult" ng-init="!Product.isNotAllowOrder?btnClass = 'button-s button-gray add-cart':btnClass = 'button-s button-gray button-disable add-cart'">
+            <div ng-show="!isResultEmpty" class="product-wrapper" ng-repeat="Product in searchResult" ng-init="!Product.isNotAllowOrder?btnClass = 'button-s button-pink2 add-cart':btnClass = 'button-s button-gray button-disable add-cart'">
                 <div class="product-photo">
                  <!--  <div class="no-product" ng-show="Product.productStatus != 0"></div> -->
                 <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ng-click="toDetail(Product)" style="cursor:pointer"/>
@@ -57,6 +57,7 @@
                 <div class="clr"></div>
             </div>
             <div class="clr"></div>
+            <div class="h70 mobile-only"></div>
         </div>
     </div>
 

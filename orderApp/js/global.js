@@ -122,8 +122,8 @@ jQuery.fn.showLoading = function(top) {
         });
 		//屏幕太长时调整位置
 
-			topPx=this.height()/2;
-			this.find(".loading").css("top",topPx+top);
+		// topPx=this.height()/2;
+		// this.find(".loading").css("top",topPx+top);
 
 		this.find(".loading").fadeIn(200);
 

@@ -2,14 +2,14 @@
 	$('html,body').animate({scrollTop: '0px'},0)
 	$scope.secretary = {userName:"",userPhone:""}
 	$scope.count = 0
-	$scope.resAmount = 0
 	$scope.isCanShop = false
 	$scope.currentOrderData = {};
 	$scope.lastData = 18
 	$scope.isHaveData = true
 	scopeData.discountType = $stateParams.discountType;
 	$scope.discountType = scopeData.discountType;
-	$scope.payAmount = (scopeData.discountType==2) ? 5000 : 2000
+	$scope.resAmount = (scopeData.discountType==2) ? 5000 : 2000
+	$scope.payAmount = 0
 	sessionStorage.put("sourcePageId","1")
     // scopeData.sourcePageId = 1;
     $scope.isShowFoot = function(){
@@ -30,7 +30,7 @@
   	//初始化余额
   	currentOrderServ.getResAmount({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/User',myBalanceUserID:scopeData.userID},function(response){
   		$scope.resAmount = parseFloat(response.myBalance).toFixed(2)
-  		$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
+  		$scope.payAmount = parseFloat(response.myCurrentRealMount).toFixed(2)
   	})
   	//初始化产品数量
   	currentOrderServ.getCount({kind: "types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order'},function(response){
@@ -98,7 +98,7 @@
 				//success
 				function(response){
 			    	$scope.resAmount = response.myBalance.toFixed(2)
-  					$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
+  					$scope.payAmount = response.realMount.toFixed(2)
   					$scope.count = response.productCount
   					$("body").hideLoading();
   					$("#text"+index).blur()
@@ -215,7 +215,7 @@
 				function(response){
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance.toFixed(2)
-  						$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
+  						$scope.payAmount = response.realMount.toFixed(2)
   						$scope.count = response.productCount
 						$scope.currentOrderData.product.splice(index,1)
 						if($scope.currentOrderData.product.length == 0){
@@ -244,7 +244,7 @@
 				function(response){
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance.toFixed(2)
-  						$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
+  						$scope.payAmount = 0
   						$scope.count = response.productCount
 						$scope.currentOrderData.product = {}
 						$scope.isHaveData = false

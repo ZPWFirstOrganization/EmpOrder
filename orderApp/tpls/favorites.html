@@ -28,7 +28,7 @@
                 </div>
 
             </div>
-            <div ng-show="!isFavEmpty" class="product-wrapper" ng-repeat="Product in favList" ng-init="Product.onSale && !Product.isNotAllowOrder?btnClass = 'button-s button-gray add-cart':btnClass = 'button-s button-gray button-disable add-cart'">
+            <div ng-show="!isFavEmpty" class="product-wrapper" ng-repeat="Product in favList" ng-init="Product.onSale && !Product.isNotAllowOrder?btnClass = 'button-s button-pink2 add-cart':btnClass = 'button-s button-gray button-disable add-cart'">
                 <div class="product-photo">
                   <div class="no-product" ng-show="!Product.onSale"></div>
                   <img ng-src="{{Product.iconUrl}}" onerror="this.src='res/null_icon.jpg'" ng-click="toDetail(Product)" style="cursor:pointer"/>
@@ -54,6 +54,7 @@
           <div class="clr"></div>
         </div>
       <div class="clr"></div>
+      <div class="h70 mobile-only"></div>
     </div>
 
     </div>

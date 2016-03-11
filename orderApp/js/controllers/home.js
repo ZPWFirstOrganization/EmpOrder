@@ -14,6 +14,7 @@
 		isNotAllowOrder      : true,       //当前是否为不可下单日期内
 		orderDate            :[],          //可下单日期范围
 		isHomePage			 : true,	   //当前是否处于首页且为最初状态
+		isLogin				 : false,      //是否登录
 	}
 });
 
