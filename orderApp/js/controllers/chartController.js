@@ -4,7 +4,7 @@
 	scopeData.discountType = $stateParams.discountType;
 	apiCaller.getChartData(function(res){
 		$scope.years = getYears(res.report)
-		$scope.col_width = ($scope.years.length>2)? null:30;//需要多少像素宽在这里配置就可以了
+		$scope.col_width = ($scope.years.length>2)? null:85;//需要多少像素宽在这里配置就可以了
 		$scope.amount = getAmount(res.report)
 		$scope.userName = res.reportuserid;
 
