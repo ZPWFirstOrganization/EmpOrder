@@ -2,8 +2,12 @@ var orderApp = angular.module('orderApp', [ "ui.router", "ngResource","sessionSt
 	
 });
 
-orderApp.value('baseUrl', 'http://WJDCBUEO01/emporder/api/v1/')
-orderApp.value('baseSysUrl', 'http://WJDCBUEO01:8820/UserLogin.aspx')
+orderApp.value('baseUrl',
+ 'http://WJDCBUEO01/emporder/api/v1/'//后台服务url
+ )
+orderApp.value('baseSysUrl', 
+'http://WJDCBUEO01:8820/UserLogin.aspx'//系统管理的链接
+)
 //阿里云：  http://182.92.110.219:8090/
 //dev  		http://wzdcbdeo01/emporder/api/v1/
 //UAT  		http://WJDCBUEO01/emporder/api/v1/

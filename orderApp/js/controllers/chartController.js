@@ -71,9 +71,13 @@
 				total += v
 			}
 		})
-		amount.push(total)
+		amount.push(fomatFloat(total,1));
 		return amount;
 	}
+
+	function fomatFloat(src,pos){       
+		return Math.round(src*Math.pow(10, pos))/Math.pow(10, pos);       
+    }
 	// $scope.years = [ '2008', '2009', '2010', '2011', '2012', '2013',
  //                '2014', '2015', '2016', 'Grand Total' ];
 	//     $scope.amount = [928, 1184, 2671, 4937, 1100, 3104, 737, 1704, 1513, 17898];
