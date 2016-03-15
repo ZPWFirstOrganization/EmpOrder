@@ -3,16 +3,16 @@ var orderApp = angular.module('orderApp', [ "ui.router", "ngResource","sessionSt
 });
 
 orderApp.value('baseUrl',
- 'http://182.92.110.219:8090/emporder/api/v1/'//后台服务url
+ 'http://WJDCBUEO02/emporder/api/v1/'//后台服务url
  )
 orderApp.value('baseSysUrl', 
-'http://WJDCBUEO01:8820/UserLogin.aspx'//系统管理的链接
+'http://WJDCBUEO02:8820/UserLogin.aspx'//系统管理的链接
 )
 //阿里云：  http://182.92.110.219:8090/
 //dev  		http://wzdcbdeo01/emporder/api/v1/
-//UAT  		http://WJDCBUEO01/emporder/api/v1/
-//UAT 管理	http://WJDCBUEO01:8820/UserLogin.aspx
-//DEV 管理	http://wzdcbdeo01:8820/UserLogin.aspx
+//UAT  		http://WJDCBUEO02/emporder/api/v1/
+//UAT 管理	http://WJDCBUEO02:8820/UserLogin.aspx
+//DEV 管理	http://wzdcbdeo02:8820/UserLogin.aspx
 
 orderApp.config(function($stateProvider,$urlRouterProvider){
 	$urlRouterProvider.when("","/home/discountType=2&productClass=1&productCode=1&page=1");
@@ -96,20 +96,23 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 orderApp.run(function($state,$rootScope,$location,userProfile,scopeData,scopeMethod){
 	scopeData.isMobile = scopeMethod.isMobile();
 	scopeMethod.getGate()
-	// setTimeout(function(){
-	// 	$state.go('login',{discountType:$.getUrlParam('discountType')});
-	// },100)
-	// userProfile.getProfile($.getUrlParam('discountType'));
 	//监听路由事件
     $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams){
 			//判断是否需要登陆        	
-        	// if (!scopeData.isLogin && toState.name!="regist"){
-        	// 	setTimeout(function(){
-        	// 		$state.go('login',{discountType:$.getUrlParam('discountType')});
-        	// 	},100);
-        	// 	return;
-        	// }
+        	if (!scopeData.isLogin && toState.name!="regist"){
+        		setTimeout(function(){
+        			$state.go('login',{discountType:$.getUrlParam('discountType')});
+        		},100);
+        		return;
+        	}
+        	setTimeout(function(){
+        		if($('#main').height()<=($(window).height()-30)){
+				  	$('.footer-wrapper').addClass("footer-wrapper-scale")
+				}else{
+				  	$('.footer-wrapper').removeClass("footer-wrapper-scale")
+				}
+        	},100);
         	if (toState.name == "index.productList" && toParams.productClass == "1" && toParams.productCode == "1" && toParams.page == "1"){
         		scopeData.isHomePage = true
         	}else{

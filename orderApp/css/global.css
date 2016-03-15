@@ -74,7 +74,7 @@ body{ background-color: #f3f3f3; color:#000; font-family:Arial, "微软雅黑"; 
 /*页面布局*/
 .layout{ background-color:#FFFFFF; }
 .layout .mid{min-height:700px;}
-.layout .left{ float:left; width:18%; min-height:400px; padding:0% 1%}
+.layout .left{ float:left; width:18%; min-height:500px; padding:0% 1%}
 .layout .right{ float:right; width:78%;padding:0% 1%}
 
 .bread-crumb{ padding:20px; float:left; }

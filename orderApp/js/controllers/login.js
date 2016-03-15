@@ -4,8 +4,4 @@ orderApp.controller('loginCtrl',function($scope,apiCaller,scopeData,scopeMethod,
 		scopeData.isLogin = true;
 		history.go(-1);
 	});
-	// setTimeout(function(){
-	// scopeData.isLogin = true;
-	// history.go(-1);
-	// },100)
 })
