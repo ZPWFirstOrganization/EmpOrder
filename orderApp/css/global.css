@@ -7,7 +7,8 @@ input::-ms-clear { display: none; }
 
 
 @media screen and (min-width: 801px) { 
-body{ background-color: #f3f3f3; color:#000; font-family:Arial, "微软雅黑"; margin: 0px; padding: 0px;}
+html{ overflow-y:auto;height:100%}
+body{ background-color: #f3f3f3; color:#000; font-family:Arial, "微软雅黑"; margin: 0px; padding: 0px;height: 100%}
 .mobile-only{ display:none!important}
 .pc-only{ display: inherit}
 .pc-header-wrapper{  background-color:#E43B3E}
@@ -73,13 +74,13 @@ body{ background-color: #f3f3f3; color:#000; font-family:Arial, "微软雅黑"; 
 /*页面布局*/
 .layout{ background-color:#FFFFFF; }
 .layout .mid{min-height:700px;}
-.layout .left{ float:left; width:18%; min-height:700px; padding:0% 1%}
+.layout .left{ float:left; width:18%; min-height:400px; padding:0% 1%}
 .layout .right{ float:right; width:78%;padding:0% 1%}
 
 .bread-crumb{ padding:20px; float:left; }
 .bread-crumb a{ margin-right:10px;}
 .footer-wrapper{ line-height:40px; text-align:center; background-color:#333;color:#999;}
-
+.footer-wrapper-scale{position:absolute;bottom:0;width:100%}
 
 
 

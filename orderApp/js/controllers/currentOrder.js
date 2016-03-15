@@ -1,4 +1,4 @@
-﻿orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,scopeData,sessionStorage){
+﻿orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,sessionStorage){
 	$('html,body').animate({scrollTop: '0px'},0)
 	$scope.secretary = {userName:"",userPhone:""}
 	$scope.count = 0

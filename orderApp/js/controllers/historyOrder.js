@@ -275,26 +275,26 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 			}
 			//下拉刷新
 			$("body").showLoading()
-			$scope.currentPage = parseInt($scope.currentPage) + 1
 			apiCaller.getOrderListByPage(
-				{userID:scopeData.userID,orderDate:$stateParams.orderDate,pageNum:$scope.currentPage},
+				{userID:scopeData.userID,orderDate:$stateParams.orderDate,pageNum:++$scope.currentPage},
 				function(res){
 					Hook.loadDown()
 					$("body").hideLoading()
 					if(res.order){
-						$.each(res.order, function(i,v){
-							$scope.orderList.push(v)
-					    });
+						$scope.orderList.concat(res.order)
+						// $.each(res.order, function(i,v){
+						// 	$scope.orderList.push(v)
+					 	// });
 					}else{
 						showModal({msg:"没有更多订单！"});
-						$scope.currentPage = parseInt($scope.currentPage) - 1
+						--$scope.currentPage
 					}
 				},
 				function(res){
 					Hook.loadDown()
 					$("body").hideLoading()
 					showModal({msg:"没有更多订单！"});
-					$scope.currentPage = parseInt($scope.currentPage) - 1
+					--$scope.currentPage
 				}
 			)
 		}

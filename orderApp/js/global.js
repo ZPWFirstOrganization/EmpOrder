@@ -1,5 +1,11 @@
 $(document).ready(function(e) {
-	
+	setTimeout(function(){
+		if($('#main').height()<=$(window).height()){
+			$('.footer-wrapper').addClass("footer-wrapper-scale")
+		}else{
+		  	$('.footer-wrapper').removeClass("footer-wrapper-scale")
+		}
+	},100)
 	//当月订单响应屏幕位置
 	window.onload = window.onresize =  function(){		
 	
@@ -11,6 +17,11 @@ $(document).ready(function(e) {
 			  
 		  }
 		  $("#main").width($(window).width());
+		  if($('#main').height()<=$(window).height()){
+		  	$('.footer-wrapper').addClass("footer-wrapper-scale")
+		  }else{
+		  	$('.footer-wrapper').removeClass("footer-wrapper-scale")
+		  }
 	};
 	
 	//pc js--------------------------------------------------	

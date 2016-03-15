@@ -3,7 +3,7 @@ var orderApp = angular.module('orderApp', [ "ui.router", "ngResource","sessionSt
 });
 
 orderApp.value('baseUrl',
- 'http://WJDCBUEO01/emporder/api/v1/'//后台服务url
+ 'http://182.92.110.219:8090/emporder/api/v1/'//后台服务url
  )
 orderApp.value('baseSysUrl', 
 'http://WJDCBUEO01:8820/UserLogin.aspx'//系统管理的链接
@@ -104,12 +104,12 @@ orderApp.run(function($state,$rootScope,$location,userProfile,scopeData,scopeMet
     $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams){
 			//判断是否需要登陆        	
-        	if (!scopeData.isLogin && toState.name!="regist"){
-        		setTimeout(function(){
-        			$state.go('login',{discountType:$.getUrlParam('discountType')});
-        		},100);
-        		return;
-        	}
+        	// if (!scopeData.isLogin && toState.name!="regist"){
+        	// 	setTimeout(function(){
+        	// 		$state.go('login',{discountType:$.getUrlParam('discountType')});
+        	// 	},100);
+        	// 	return;
+        	// }
         	if (toState.name == "index.productList" && toParams.productClass == "1" && toParams.productCode == "1" && toParams.page == "1"){
         		scopeData.isHomePage = true
         	}else{
