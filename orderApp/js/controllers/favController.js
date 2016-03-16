@@ -71,7 +71,6 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
 
     $scope.$watch('favList', function(newVal, oldVal) {
         if (newVal !== oldVal) {
-            console.log("$watch(favList",newVal)
             for (index in newVal ) {
                 $scope.inputTexts[newVal[index].productCode] = '1'
             };

@@ -5,13 +5,11 @@ orderApp.controller('orderDetailCtrl',function($scope,$state,$stateParams,ApiSer
 	sessionStorage.put("sourcePageId","2")
 	$scope.orderData
 	apiCaller.getOrderDetailInfo({orderID:$stateParams.orderID},function(res){
-		console.log(res[0])
 		$scope.orderData = res[0]
 	},function(res){
 		$scope.orderData = {product:{}}
 	})
 	$scope.prodClick = function(prodState,prodCode){
-		// prodState = parseInt(prodState)
 		if (prodState){
 			$state.go('index.product',{discountType:scopeData.discountType,productCode:prodCode})
 		}

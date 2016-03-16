@@ -126,61 +126,12 @@
 		submitCount(prodCount,index)
 	}
 	$scope.countPress = function(ev,prodCount,index){
-		// console.log(ev.keyCode)
 		//回车事件
 		if (ev.keyCode !== 13) return;
 
 		submitCount(prodCount,index)
 	}
-	// $scope.keydown = function(ev,index){
-	// 	setTimeout(function(){
-	// 		console.log(($("#text"+index)[0].value).replace(/'/gm,""))
-	// 	},100)
 		
-	// }
-	// $scope.countBlur = function(prodCount,index){
-	// 	// if(prodCount == '' || parseInt(prodCount) <= 0){
-	// 	// 	prodCount = oldCount;
-	// 	// }
-	// 	// prodCount = String(prodCount)
-	// 	// prodCount = prodCount.replace(/\D/g,'')
-	// 	if (!(/(^[0-9]*$)/).test($scope.currentOrderData.product[index].requestQTY) || prodCount == "" || parseInt(prodCount) <= 0 ){
-	// 		$scope.currentOrderData.product[index].requestQTY = oldCount;
-	// 		return
-	// 	};
-	// 	if (parseInt(prodCount) != oldCount){
-	// 		$("body").showLoading();
-			
-
-	// 		currentOrderServ.putProduct(
-	// 			{	
-	// 				kind: "types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order',
-	// 				userID:scopeData.userID,
-	// 				productCode:$scope.currentOrderData.product[index].productCode,
-	// 				count:parseInt(prodCount)
-	// 			},
-	// 			//success
-	// 			function(response){
-	// 		    	$scope.resAmount = response.myBalance.toFixed(2)
- //  					$scope.payAmount = (scopeData.discountType==2) ? (5000-$scope.resAmount).toFixed(2) : (2000-$scope.resAmount).toFixed(2)
- //  					$scope.count = response.productCount
- //  					$("body").hideLoading();
-	// 	  		},
-	// 	  		//error
-	// 	  		function(response){
-	// 	  			$scope.currentOrderData.product[index].requestQTY = oldCount
-	// 	  			if (response.status == 404){
-	// 	  				showModal({msg:"产品未找到"});
-	// 	  			}else if(response.status == 400){
-	// 	  				showModal({msg:"剩余额度不足"});
-	// 	  			}
-	// 	  			$("body").hideLoading();
-	// 	  		}
-	// 	  	);
-	// 	}else{
-	// 		return
-	// 	};
-	// };
 	$scope.favClick = function(index){
 		if ($scope.currentOrderData.product[index].isFavorite == false){
 			currentOrderServ.postFav(

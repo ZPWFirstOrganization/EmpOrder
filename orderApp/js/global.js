@@ -35,7 +35,6 @@ $(document).ready(function(e) {
 
 	$.ajaxSetup({
 		beforeSend:function(xhr){
-			//console.log(this.url);
 			if(ys.ajax.urlMap[this.url] && ys.ajax.urlMap[this.url] == 'lock'){
 				return false;
 			} else {

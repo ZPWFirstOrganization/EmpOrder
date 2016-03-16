@@ -17,11 +17,9 @@ var Hook = {
 		var dis = typeof(param.distance) == "undefined"? 50:param.distance;
 		var callback = typeof(param.callback)=="function"?param.callback:function(){};
 		if($(wrapperId).length == 0){
-			console.log("there is no element id named " + wrapperId);
 			return;
 		}
 		if($(scrollerId).length == 0){
-			console.log("there is no element id named " + scrollerId);
 			return;
 		}else{
 			$(scrollerId).append($('<div id="scroller-pullUp" class="scroller-pullUp mobile-only">'+
@@ -66,14 +64,12 @@ var Hook = {
 								  
 		if(this.maxScrollY - this.y > dis){
 			Hook.isRefreshing = true
-			console.log("loading...")
 			$("#scroller-pullUp").css({"bottom":"0px"});
 			$("#pullUp-msg").text("加载中...");
 			$("#up-icon").text("")
 		}
 	});
 	myScroll.on("scrollEnd",function(){
-		console.log("scrollEnd")
 		// $("#pullUp-msg").text("上拉可以加载更多");	
 		if(Hook.isRefresh){
 			callback();
@@ -88,8 +84,6 @@ var Hook = {
 	});
 
 	window.onresize = function(){
-		// alert($(window).height())
-		// alert($(".mobile-header-wrapper").height())
 		$(wrapperId).height($(window).height())
 	}
 
@@ -102,6 +96,5 @@ var Hook = {
 		$("#scroller-pullUp").css({"bottom":"-50px"});
 		$("#up-icon").text("»  ")
 		$("#pullUp-msg").text("上拉可以加载更多");
-		// console.log(myScroll.y,myScroll.maxScrollY,myScroll.currentPage)
 	}
 }

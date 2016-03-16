@@ -28,10 +28,8 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	//获取订单信息
 	function queryOrderInfo(orderDate){
 		apiCaller.getOrderListByPage({userID:scopeData.userID,orderDate:orderDate,pageNum:$scope.currentPage},function(res){
-			// console.log(res)
 			$scope.pages = []
 			$scope.orderList = []
-			// console.log("--------------------",res)
 			if (res.firstOrderDate) {
 				startYear = parseInt(res.firstOrderDate.split("-")[0])
 			}

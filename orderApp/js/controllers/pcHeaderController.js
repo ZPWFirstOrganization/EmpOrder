@@ -118,7 +118,6 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$w
 		if(!scopeData.isHomePage){
 			scopeMethod.changeState("1","1","1");
 		}else{
-			console.log("reload")
 			$window.location.reload();
 		}
 	}

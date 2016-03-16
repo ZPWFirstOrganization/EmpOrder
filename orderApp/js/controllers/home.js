@@ -38,7 +38,6 @@ orderApp.service('scopeMethod',function($state,$stateParams,scopeData,apiCaller,
 				discountType = 2
 			}
 			sessionStorage.put('discountType',discountType)
-			console.log(sessionStorage.get('discountType'))
 		},
 		isMobile:function(){
 			var sUserAgent= navigator.userAgent.toLowerCase(),
@@ -369,19 +368,13 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 
 orderApp.factory('userProfile',function($state,apiCaller,scopeData){
 	this.getProfile = function(callback){
-		// if (type == null || angular.isUndefined(type)){
-		// 	type = "types/"+scopeData.discountType+"/wap/"+scopeData.isMobile
-		// }
 		apiCaller.getUserProfile(function(response){
-			// alert(JSON.stringify(response))
 			scopeData.userID = response.user.USER_ID
 			scopeData.roleID = response.user.ROLE_ID
 			if (typeof(callback) == "function"){  
 				return callback(response)
 			}
 		},function(response){
-			// console.log("login end")
-			// alert(JSON.stringify(response))
 			setTimeout(function(){
 				$state.go('regist',{discountType:scopeData.discountType})
 			},100)

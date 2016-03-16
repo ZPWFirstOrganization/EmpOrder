@@ -29,7 +29,6 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 
     apiCaller.getProductListByStates(function(res){
     	$scope.pdList = res;
-    	console.log('scopeData.categories',scopeData.categories)
 		for (var i = 0; i < $scope.pdList.pageNumCount; i++) {
 			$scope.pages.push(i+1)
 		};

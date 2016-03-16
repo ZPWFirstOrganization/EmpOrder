@@ -132,7 +132,6 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$w
         if(!scopeData.isHomePage){
             scopeMethod.changeState("1","1","1");
         }else{
-            console.log("reload")
             $window.location.reload();
         }
     }

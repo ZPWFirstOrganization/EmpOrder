@@ -60,12 +60,10 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
                         
 	//获取产品详情
 	productServ.getProductDetail({kind: "types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Product',userID:scopeData.userID,productCode:$stateParams.productCode},function(response){
-	    //console.log(response[0]);
         $scope.Product = response[0];
         $scope.currenGroupName = $scope.Product.seriesName;
         $scope.currentDivisionName = $scope.Product.categoryName;
         $("#prodContent").html(response[0].productDescribe);
-        console.log('------------33333333333333333333------------',response)
   	})    
 
     //添加取消收藏
