@@ -24,7 +24,6 @@
 	currentOrderServ.getDateGate({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order'},function(response){
 	    var arry = response.orderDate.split("-")
 	    $scope.isCanShop = response.allowOrder
-	    $scope.isCanShop = true
 	    $scope.lastData = parseInt(arry[1])
   	})
   	//初始化余额
