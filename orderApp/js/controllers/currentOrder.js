@@ -166,7 +166,7 @@
 				function(response){
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance.toFixed(2)
-  						$scope.payAmount = response.realMount.toFixed(2)
+  						$scope.payAmount = response.realMount ? response.realMount.toFixed(2) : 0
   						$scope.count = response.productCount
 						$scope.currentOrderData.product.splice(index,1)
 						if($scope.currentOrderData.product.length == 0){
