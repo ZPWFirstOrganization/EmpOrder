@@ -89,8 +89,8 @@ var Hook = {
 
 	$("#mbSeach").focus();
 	$("#mbSeach").blur();
-	$("#main").width($(window).width());
-	$("#main").height($(window).height());
+	$(wrapperId).width($(window).width());
+	$(wrapperId).height($(window).height());
 	},
 	loadDown:function(){
 		Hook.isRefreshing = false

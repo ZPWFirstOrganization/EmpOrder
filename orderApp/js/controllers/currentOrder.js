@@ -48,20 +48,18 @@
 		$scope.secretary.userPhone = scopeData.secretaryPhone
 	}
   	//获取当月订单详细内容
-  	if (scopeData.userID){
-		currentOrderServ.getCurrentOrder({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order',userID:scopeData.userID},function(response){
-		    
-		    $scope.currentOrderData = response[0];
-		    //无产品
-		    if (!$scope.currentOrderData){
-		    	$scope.currentOrderData = {product:[]}
-		    	$scope.isHaveData = false
-		    }
-		    $("body").hideLoading();
-	  	},function(response){
-	  		$("body").hideLoading();
-	  	})
-	}
+	currentOrderServ.getCurrentOrder({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order',userID:scopeData.userID},function(response){
+	    
+	    $scope.currentOrderData = response[0];
+	    //无产品
+	    if (!$scope.currentOrderData){
+	    	$scope.currentOrderData = {product:[]}
+	    	$scope.isHaveData = false
+	    }
+	    $("body").hideLoading();
+  	},function(response){
+  		$("body").hideLoading();
+  	})
 
   	$scope.numberClicked = function(id) {
 		$("#"+id).focus();

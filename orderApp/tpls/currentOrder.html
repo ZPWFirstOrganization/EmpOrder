@@ -26,7 +26,8 @@
         <div class="right">
           <div class="order-top-wrapper">
               <div class="order-tips">您的订单{{{true: '将', false: '已'}[isCanShop]}}在本月{{lastData}}日自动提交<br>
-              <div class="f12">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div>
+              <div class="f12 mobile-only">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:{{secretary.userPhone}}" style="color:blue">{{secretary.userPhone}}</a></div>
+              <div class="f12 pc-only">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div>
               </div>
 
             </div>

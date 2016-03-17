@@ -9,9 +9,9 @@ $(document).ready(function(e) {
 			$(".cart").css({"right":10})     
 		}
 		$("#main").width($(window).width());
-		if($(window).width()<801){
-			$("#main").height($(window).height());
-		}
+		// if($(window).width()<801){
+		// 	$("#main").height($(window).height());
+		// }
 		if($('#main').height()<=($(window).height()-30)){
 			$('.footer-wrapper').addClass("footer-wrapper-scale")
 		}else{

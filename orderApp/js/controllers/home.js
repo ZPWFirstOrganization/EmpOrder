@@ -1,6 +1,6 @@
 ﻿orderApp.factory('scopeData',function() {
 	return{
-		userID          	 :null,
+		userID          	 :'',
 		roleID               :'1',
 		discountType         :'2',
 		noticePageRevert     :false,
