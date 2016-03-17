@@ -2,19 +2,21 @@ $(document).ready(function(e) {
 	//当月订单响应屏幕位置
 	window.onload = window.onresize =  function(){		
 	
-		  if($(window).width()>1300){
+		if($(window).width()>1300){
 			r=(parseInt($(window).width())-1000)/2 -180;
 			$(".cart").css({"right":r})       
-		  }else{
+		}else{
 			$(".cart").css({"right":10})     
-			  
-		  }
-		  $("#main").width($(window).width());
-		  if($('#main').height()<=($(window).height()-30)){
-		  	$('.footer-wrapper').addClass("footer-wrapper-scale")
-		  }else{
-		  	$('.footer-wrapper').removeClass("footer-wrapper-scale")
-		  }
+		}
+		$("#main").width($(window).width());
+		if($(window).width()<801){
+			$("#main").height($(window).height());
+		}
+		if($('#main').height()<=($(window).height()-30)){
+			$('.footer-wrapper').addClass("footer-wrapper-scale")
+		}else{
+			$('.footer-wrapper').removeClass("footer-wrapper-scale")
+		}
 	};
 	
 	//pc js--------------------------------------------------	
