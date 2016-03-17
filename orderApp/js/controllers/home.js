@@ -52,10 +52,13 @@ orderApp.service('scopeMethod',function($state,$stateParams,scopeData,apiCaller,
 			bIsWebview = sUserAgent.match(/webview/i) == "webview";
 			return (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)?"1":"0";
 		},
-		getGate:function(){
+		getGate:function(callback){
 			apiCaller.getOrderDate(function(res){
 		    	scopeData.isNotAllowOrder = !(res.allowOrder);
 		    	scopeData.orderDate = res.orderDate.split('-');
+		    	return callback()
+    		},function(res){
+    			
     		})
 		}
 	}

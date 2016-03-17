@@ -2,6 +2,9 @@ orderApp.controller('loginCtrl',function($scope,apiCaller,scopeData,scopeMethod,
 	scopeData.discountType = $stateParams.discountType
 	userProfile.getProfile(function(){
 		scopeData.isLogin = true;
-		history.go(-1);
+		scopeMethod.getGate(function(){
+			history.go(-1);
+		})
+		
 	});
 })

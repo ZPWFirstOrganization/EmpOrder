@@ -95,7 +95,7 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 
 orderApp.run(function($state,$rootScope,$location,userProfile,scopeData,scopeMethod){
 	scopeData.isMobile = scopeMethod.isMobile();
-	scopeMethod.getGate()
+	
 	//监听路由事件
     $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams){

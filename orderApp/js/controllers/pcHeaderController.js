@@ -12,7 +12,15 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$w
 	var delayTime;
 	var isGroupClicked = false;
 	$scope.DataForMatch = [];
-	
+
+	styleIterval = setInterval(function(){
+		if($('#main').height()<=($(window).height()-30)){
+		  	$('.footer-wrapper').addClass("footer-wrapper-scale")
+		}else{
+		  	$('.footer-wrapper').removeClass("footer-wrapper-scale")
+		}
+	},100);
+
 	$("#pcSeach").keyup(function(event){
 		var inputText = $("#pcSeach")[0].value.replace(/'/gm,"")
 		if(event.keyCode != 38 && event.keyCode != 40){

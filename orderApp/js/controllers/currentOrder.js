@@ -1,4 +1,4 @@
-﻿orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,$scope,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,sessionStorage){
+﻿orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,sessionStorage){
 	$('html,body').animate({scrollTop: '0px'},0)
 	$scope.secretary = {userName:"",userPhone:""}
 	$scope.count = 0
@@ -32,7 +32,7 @@
   		$scope.payAmount = parseFloat(response.myCurrentRealMount).toFixed(2)
   	})
   	//初始化产品数量
-  	currentOrderServ.getCount({kind: "types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order'},function(response){
+  	currentOrderServ.getCount({kind: "types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order',userID:scopeData.userID},function(response){
   		$scope.count = response.productCount
   	})
   	//获取秘书
@@ -48,23 +48,25 @@
 		$scope.secretary.userPhone = scopeData.secretaryPhone
 	}
   	//获取当月订单详细内容
-	currentOrderServ.getCurrentOrder({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order',orderDate:''},function(response){
-	    
-	    $scope.currentOrderData = response[0];
-	    //无产品
-	    if (!$scope.currentOrderData){
-	    	$scope.currentOrderData = {product:[]}
-	    	$scope.isHaveData = false
-	    }
-	    $("body").hideLoading();
-  	},function(response){
-  		$("body").hideLoading();
-  	})
+  	if (scopeData.userID){
+		currentOrderServ.getCurrentOrder({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order',userID:scopeData.userID},function(response){
+		    
+		    $scope.currentOrderData = response[0];
+		    //无产品
+		    if (!$scope.currentOrderData){
+		    	$scope.currentOrderData = {product:[]}
+		    	$scope.isHaveData = false
+		    }
+		    $("body").hideLoading();
+	  	},function(response){
+	  		$("body").hideLoading();
+	  	})
+	}
 
- //  	$scope.numberClicked = function(id) {
-	// 	$("#"+id).focus();
-	// 	$("#"+id).select();
-	// }
+  	$scope.numberClicked = function(id) {
+		$("#"+id).focus();
+		$("#"+id).select();
+	}
 
 	var oldCount;
 	var isFocus = false;
@@ -228,8 +230,8 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
       getCurrentOrder:{
         method:'GET',
         params:{
-          userID:scopeData.userID,
-          orderDate:'@orderDate',
+          userID:'@userID',
+          orderDate:'',
         },
         isArray:true
       },
@@ -264,7 +266,7 @@ orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData)
       getCount:{
       	method:'GET',
       	params:{
-          userID:scopeData.userID
+          userID:'@userID'
         }
       }
     }
