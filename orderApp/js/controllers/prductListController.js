@@ -19,12 +19,12 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 	$scope.currentPage=$stateParams.page;
     // scopeData.sourcePageId = 0;
     sessionStorage.put("sourcePageId","0")
-    apiCaller.getOrderDate(function(res){
-    	scopeData.isNotAllowOrder = !(res.allowOrder);
-    	scopeData.orderDate = res.orderDate.split('-');
-    	$scope.isNotAllowOrder = scopeData.isNotAllowOrder;
-    	$scope.orderDate = scopeData.orderDate;
-    })
+    // apiCaller.getOrderDate(function(res){
+    // 	scopeData.isNotAllowOrder = !(res.allowOrder);
+    // 	scopeData.orderDate = res.orderDate.split('-');
+	$scope.isNotAllowOrder = scopeData.isNotAllowOrder;
+	$scope.orderDate = scopeData.orderDate;
+    // })
 
 
     apiCaller.getProductListByStates(function(res){

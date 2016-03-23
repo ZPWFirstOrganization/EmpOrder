@@ -8,3 +8,22 @@ orderApp.controller('loginCtrl',function($scope,apiCaller,scopeData,scopeMethod,
 		
 	});
 })
+
+orderApp.factory('userProfile',function($state,apiCaller,scopeData){
+	this.getProfile = function(callback){
+		apiCaller.getUserProfile(function(response){
+			// alert(JSON.stringify(response))
+			scopeData.userID = response.user.USER_ID
+			scopeData.roleID = response.user.ROLE_ID
+			if (typeof(callback) == "function"){  
+				return callback(response)
+			}
+		},function(response){
+			// alert(JSON.stringify(response))
+			setTimeout(function(){
+				$state.go('regist',{discountType:scopeData.discountType})
+			},100)
+		})
+	}
+	return this
+})

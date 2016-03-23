@@ -130,3 +130,70 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 		}
 	);
 });
+
+orderApp.factory('currentOrderServ',function($resource,baseUrl,scopeData){
+	return $resource(
+    baseUrl+'/:kind',
+    {},
+    {
+      //获取当月订单
+      getCurrentOrder:{
+        method:'GET',
+        params:{
+          userID:'@userID',
+          orderDate:'',
+        },
+        isArray:true
+      },
+      //修改当月订单产品数量
+      putProduct:{
+        method:'PUT',
+        params:{
+          kind:'@kind',
+          userID:'@userID',
+          productCode:'@productCode',
+          count:'@count'
+        }
+      },
+      //获取下单日期范围
+      getDateGate:{
+        method:'GET'
+      },
+      getResAmount:{
+        method:'GET',
+        params:{
+        	myBalanceUserID:'@myBalanceUserID'
+        }
+      },
+      postFav:{
+      	method:'POST',
+      	params:{
+      	  kind:'@kind',
+          userID:'@userID',
+          productCode:'@productCode'
+        }
+      },
+      getCount:{
+      	method:'GET',
+      	params:{
+          userID:'@userID'
+        }
+      }
+    }
+  );
+})
+
+orderApp.factory('deleteServ',function(baseUrl,scopeData){
+	function del(kind,data,suc,err){	
+		return 	$.ajax({
+		    type: "delete",
+		    url: baseUrl+"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/"+kind,
+		    data: data,
+		    success:suc,
+		    error:err
+  		});
+	}
+	return function(kind,data,suc,err){
+		del(kind,data,suc,err)
+	}
+})

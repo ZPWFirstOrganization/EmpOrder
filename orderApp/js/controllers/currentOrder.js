@@ -1,10 +1,10 @@
-﻿orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,common,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,sessionStorage){
+﻿orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,sessionStorage){
 	$('html,body').animate({scrollTop: '0px'},0)
 	$scope.secretary = {userName:"",userPhone:""}
 	$scope.count = 0
 	$scope.isCanShop = false
 	$scope.currentOrderData = {};
-	$scope.lastData = 18
+	$scope.lastData = 1
 	$scope.isHaveData = true
 	scopeData.discountType = $stateParams.discountType;
 	$scope.discountType = scopeData.discountType;
@@ -21,11 +21,11 @@
     }
 	//获取下单日期范围
 	$("body").showLoading();
-	currentOrderServ.getDateGate({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order'},function(response){
-	    var arry = response.orderDate.split("-")
-	    $scope.isCanShop = response.allowOrder
-	    $scope.lastData = parseInt(arry[1])
-  	})
+	// currentOrderServ.getDateGate({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order'},function(response){
+	//     var arry = response.orderDate.split("-")
+    $scope.isCanShop = !scopeData.isNotAllowOrder
+    $scope.lastData = scopeData.orderDate[1]
+  	// })
   	//初始化余额
   	currentOrderServ.getResAmount({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/User',myBalanceUserID:scopeData.userID},function(response){
   		$scope.resAmount = parseFloat(response.myBalance).toFixed(2)
@@ -61,10 +61,6 @@
   		$("body").hideLoading();
   	})
 
-  	$scope.numberClicked = function(id) {
-		$("#"+id).focus();
-		$("#"+id).select();
-	}
 
 	var oldCount;
 	var isFocus = false;
@@ -218,124 +214,3 @@
 	}
 
 });
-
-orderApp.factory('currentOrderServ',function($resource,common,baseUrl,scopeData){
-	return $resource(
-    baseUrl+'/:kind',
-    {},
-    {
-      //获取当月订单
-      getCurrentOrder:{
-        method:'GET',
-        params:{
-          userID:'@userID',
-          orderDate:'',
-        },
-        isArray:true
-      },
-      //修改当月订单产品数量
-      putProduct:{
-        method:'PUT',
-        params:{
-          kind:'@kind',
-          userID:'@userID',
-          productCode:'@productCode',
-          count:'@count'
-        }
-      },
-      //获取下单日期范围
-      getDateGate:{
-        method:'GET'
-      },
-      getResAmount:{
-        method:'GET',
-        params:{
-        	myBalanceUserID:'@myBalanceUserID'
-        }
-      },
-      postFav:{
-      	method:'POST',
-      	params:{
-      	  kind:'@kind',
-          userID:'@userID',
-          productCode:'@productCode'
-        }
-      },
-      getCount:{
-      	method:'GET',
-      	params:{
-          userID:'@userID'
-        }
-      }
-    }
-  );
-})
-
-orderApp.factory('deleteServ',function(baseUrl,common,scopeData){
-	function del(kind,data,suc,err){	
-		return 	$.ajax({
-		    type: "delete",
-		    url: baseUrl+"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/"+kind,
-		    data: data,
-		    success:suc,
-		    error:err
-  		});
-	}
-	return function(kind,data,suc,err){
-		del(kind,data,suc,err)
-	}
-	// return {
-	// 	deleteOneProd : function(type,kind,user,prodCode,suc,err){
-	// 	return $.ajax({
-	// 		    type: "delete",
-	// 		    url: "http://182.92.110.219:8090/MLK/"+type+"/"+kind,
-	// 		    data: {
-	// 		        userID:user,
-	// 		        productCode:prodCode
-	// 		    },
-	// 		    success:suc,
-	// 		    error:err
-	// 	  	});
-	// 	},
-	// 	deleteOrder : function(type,kind,user,suc,err){
-	// 	return $.ajax({
-	// 		    type: "delete",
-	// 		    url: "http://182.92.110.219:8090/MLK/"+type+"/"+kind,
-	// 		    data: {
-	// 		        userID:user
-	// 		    },
-	// 		    success:suc,
-	// 		    error:err
-	// 	  	});
-	// 	},
-	// 	deleteFav : function(type,kind,user,prodCode,suc,err){
-	// 	return $.ajax({
-	// 		    type: "delete",
-	// 		    url: "http://182.92.110.219:8090/MLK/"+type+"/"+kind,
-	// 		    data: {
-	// 		        userID:user,
-	// 		        productCode:prodCode
-	// 		    },
-	// 		    success:suc,
-	// 		    error:err
-	// 	  	});
-	// 	}
-	// }
-})
-
-orderApp.factory('common', function(){
-	//初始化type
-	this.type = 2
-	this.set = function (k,v){
-		this[k] = v
-	}
-	this.get = function (k){
-		return this[k]
-	}
-	return this
-})
-
-orderApp.factory('utils',function(){
-	return this
-})
-

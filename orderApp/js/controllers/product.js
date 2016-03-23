@@ -1,4 +1,4 @@
-orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeData,scopeMethod,baseUrl,common,productServ,currentOrderServ,deleteServ,apiCaller,sessionStorage){
+orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeData,scopeMethod,baseUrl,productServ,currentOrderServ,deleteServ,apiCaller,sessionStorage){
     if($(window).width()>1300){
         r=(parseInt($(window).width())-1000)/2 -180;
         $(".cart").css({"right":r})       
@@ -63,7 +63,7 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
         $scope.Product = response[0];
         $scope.currenGroupName = $scope.Product.seriesName;
         $scope.currentDivisionName = $scope.Product.categoryName;
-        $("#prodContent").html(response[0].productDescribe);
+        response[0].productDescribe ? $("#prodContent").html(response[0].productDescribe) : $("#prodContent").html("无");
   	})    
 
     //添加取消收藏
@@ -124,7 +124,13 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
             });
         }
     }
-    
+     $scope.nav1Clicked = function(){
+        if (sessionStorage.get("sourcePageId") == 0){
+            scopeMethod.changeState('1','1','1');
+        }else{
+            history.back();
+        }
+    }
     //点击大类
 	$scope.nav2Clicked = function () {
 		scopeMethod.changeState('1',$scope.Product.categoryCode,'1');
@@ -135,12 +141,6 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
 		scopeMethod.changeState('2',$scope.Product.seriesCode,'1');
 	}    
     
-    //点击产品数量
-    $scope.numberClicked = function(Product) {
-        var id = Product.productCode;
-        $("#"+id).focus();
-        $("#"+id).select();
-    }
 
 	//产品数量得到焦点
 	var oldCount;
@@ -174,7 +174,7 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
 });   
 
 
-orderApp.factory('productServ',function($resource,common,baseUrl){
+orderApp.factory('productServ',function($resource,baseUrl){
 	return $resource(
     baseUrl+'/:kind',
     {},

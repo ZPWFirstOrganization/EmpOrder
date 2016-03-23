@@ -65,7 +65,7 @@
                        <div class="order-product-action">
                            <div  class="order-number-label">数量：</div>
 
-                           <input type="tel" class="order-number"  placeholder="数量" id="{{'text'+$index}}" ng-model="product.requestQTY" maxlength="3" ng-blur="countBlur(product.requestQTY,$index)" ng-focus="countFocus(product.requestQTY,'text'+$index,$index)" ng-show="isCanShop" ng-click="numberClicked('text'+$index)" ng-keypress="countPress($event,product.requestQTY,$index)"  ng-keydown="keydown($event,$index)"/> 
+                           <input type="tel" class="order-number"  placeholder="数量" id="{{'text'+$index}}" ng-model="product.requestQTY" maxlength="3" ng-blur="countBlur(product.requestQTY,$index)" ng-focus="countFocus(product.requestQTY,'text'+$index,$index)" ng-show="isCanShop" ng-keypress="countPress($event,product.requestQTY,$index)"  ng-keydown="keydown($event,$index)"/> 
                            <div class="order-number-label" ng-show="!isCanShop">{{this.product.requestQTY}}</div>
                            <a action="del" class="order-action trush" ng-click="deleteProduct($index)" ng-show="isCanShop"></a>                       
                            <a action="fav" ng-class="{true: 'order-action order-favorite', false: 'order-action order-cancelfavorite'}[!product.isFavorite]" ng-click="favClick($index)"></a>

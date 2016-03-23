@@ -11,6 +11,7 @@ html{ overflow-y:auto;height:100%}
 body{ background-color: #f3f3f3; color:#000; font-family:Arial, "微软雅黑"; margin: 0px; padding: 0px;height: 100%}
 .mobile-only{ display:none!important}
 .pc-only{ display: inherit}
+.login-loading{}
 .pc-header-wrapper{  background-color:#E43B3E}
 .pc-header-wrapper .header{ background-color:#000;}
 .pc-header-wrapper .header .header-inner{ min-height:70px;}
@@ -169,7 +170,7 @@ dataTables_paginate a:ntd-last-child(2)
 body{ background-color: #fff; color:#000; font-family:Arial, "微软雅黑"; margin: 0px; padding: 0px;}
 .pc-only{display:none!important}
 .mobile-only{ display: inherit}
-
+.login-loading{position: fixed;top: 0;left: 0;right: 0;bottom: 0;margin: auto;text-align: center;height: 20px}
 .mobile-header-wrapper{ position:fixed; width:100%; z-index:100; top:0px; }
 .mobile-header-wrapper .mobile-header-inner{ position:fixed; width:50%; top:0px; height: 45px; right: 25%; left: 25%;}
 .mobile-header-wrapper .header{ background-color:#000; height:45px; background-image:url(../img/pc_logo.png); background-position:50% 50%; background-repeat:no-repeat;background-size: 40% auto}

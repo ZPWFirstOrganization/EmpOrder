@@ -1,4 +1,4 @@
-orderApp.controller('personInfoCtrl',function($scope,$state,$stateParams,ApiService,apiCaller,scopeData,baseUrl,common,personServ){
+orderApp.controller('personInfoCtrl',function($scope,$state,$stateParams,ApiService,apiCaller,scopeData,baseUrl,personServ){
     scopeData.discountType = $stateParams.discountType;
     $scope.discountType = scopeData.discountType;
     $scope.Person = {};
@@ -11,7 +11,7 @@ orderApp.controller('personInfoCtrl',function($scope,$state,$stateParams,ApiServ
 })
 
 
-orderApp.factory('personServ',function($resource,common,baseUrl){
+orderApp.factory('personServ',function($resource,baseUrl){
 	return $resource(
     baseUrl+':kind',
     {},

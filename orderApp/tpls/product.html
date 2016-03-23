@@ -16,7 +16,7 @@
 <!--pc面包屑-->
 <div class="layout page-width pc-only">
 	<div class="bread-crumb">
-    <a href="javascript:history.back();">{{sourcePageNamePC}}</a>
+    <a ng-click="nav1Clicked()" style="cursor:pointer">{{sourcePageNamePC}}</a>
     <a>|</a>
     <a ng-click="nav2Clicked()" style="cursor:pointer">{{currentDivisionName}}</a>
     <a>&gt;</a>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="proddtl-form-row">
                       <div class="field-key  ">规　格：</div>
-                      <div class="field-value ">{{Product.productVolume}}</div>
+                      <div class="field-value ">{{{true:Product.productVolume,false:"无"}[Product.productVolume!=null]}}</div>
                       <div class="clr"> </div>
                     </div>                                      
                     <div class="proddtl-form-row">
@@ -76,14 +76,14 @@
                     </div -->                     
                     <div class="proddtl-form-row">
                       <div class="field-key  ">功　效：</div>
-                      <div class="field-value ">{{Product.productBenifit}}</div>
+                      <div class="field-value ">{{{true:Product.productBenifit,false:"无"}[Product.productBenifit!=null]}}</div>
                       <div class="clr"> </div>
                     </div> 
                    </div>
     
                    <div class="product-action pc-only">
                    <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
-                   <input type="tel" class="number" id="{{Product.productCode}}" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" ng-blur="countBlur(inputTexts[Product.productCode],Product)" ng-focus="countFocus(inputTexts[Product.productCode],Product)" ng-click="numberClicked(Product)"/>
+                   <input type="tel" class="number" id="{{Product.productCode}}" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" ng-blur="countBlur(inputTexts[Product.productCode],Product)" ng-focus="countFocus(inputTexts[Product.productCode],Product)"/>
                    <a class="btn add" ng-click="countAdded(Product)" ></a>
                    <a ng-class="{false:'button-s button-pink2 add-cart',true:'button-s button-gray button-disable add-cart'}[isNotAllowOrder]" ng-click="addCartClicked(Product)">加入订单</a>
                    </div>
@@ -107,7 +107,7 @@
     <div class="row1">
     <div class="left">
        <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
-       <input type="tel" class="number" id="{{Product.productCode}}" ng-click="numberClicked(Product)" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" />
+       <input type="tel" class="number" id="{{Product.productCode}}" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" ng-blur="countBlur(inputTexts[Product.productCode],Product)" ng-focus="countFocus(inputTexts[Product.productCode],Product)"/>
        <a class="btn add" ng-click="countAdded(Product)"></a>
     </div>
     <div class="right">

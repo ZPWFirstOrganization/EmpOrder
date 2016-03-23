@@ -368,20 +368,3 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 		}
 	}
 });
-
-orderApp.factory('userProfile',function($state,apiCaller,scopeData){
-	this.getProfile = function(callback){
-		apiCaller.getUserProfile(function(response){
-			scopeData.userID = response.user.USER_ID
-			scopeData.roleID = response.user.ROLE_ID
-			if (typeof(callback) == "function"){  
-				return callback(response)
-			}
-		},function(response){
-			setTimeout(function(){
-				$state.go('regist',{discountType:scopeData.discountType})
-			},100)
-		})
-	}
-	return this
-})
