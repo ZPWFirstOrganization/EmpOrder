@@ -125,7 +125,9 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$w
         $(".mobile-onsale-list").fadeOut(200);
         $("#typeArrow").removeClass("mobile-onsale-arrow-up");
         hideModalBg();
-        scopeMethod.changeState("1","1","1");
+        scopeMethod.getGate(function(){
+            scopeMethod.changeState("1","1","1");
+        }) 
     }
 
     $scope.nav1Clicked = function () {

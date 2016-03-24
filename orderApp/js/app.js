@@ -3,13 +3,13 @@ var orderApp = angular.module('orderApp', [ "ui.router", "ngResource","sessionSt
 });
 
 orderApp.value('baseUrl',
- 'http://wzdcbdeo01/emporder/api/v1/'//后台服务url
+ 'http://wzdcbdeo01/h5/emporder/api/v1/'//后台服务url
  )
 orderApp.value('baseSysUrl', 
 'http://wzdcbdeo01:8820/UserLogin.aspx'//系统管理的链接
 )
 //阿里云：  http://182.92.110.219:8090/
-//dev  		http://wzdcbdeo01/emporder/api/v1/
+//dev  		http://wzdcbdeo01/h5/emporder/api/v1/
 //UAT  		http://WJDCBUEO02/emporder/api/v1/
 //UAT 管理	http://WJDCBUEO02:8820/UserLogin.aspx
 //DEV 管理	http://wzdcbdeo02:8820/UserLogin.aspx

@@ -162,7 +162,9 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$w
 			scopeData.discountType = "2"
 		}
 		$(".pc-onsale-list-wrapper").fadeOut(200);  
-		scopeMethod.changeState("1","1","1");
+		scopeMethod.getGate(function(){
+            scopeMethod.changeState("1","1","1");
+        }) 
 	}
 
 	//展开/闭合优惠价
