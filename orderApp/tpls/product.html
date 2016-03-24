@@ -37,7 +37,7 @@
   	
     <div class="proddtl-content-wrapper">
     
-        <div class="bread-crumb mobile-only"><a href="javascript:history.back();" class="back"><b>&lt;</b>{{sourcePageNameMB}}</a><div class="title">产品详情</div></div>
+        <div class="bread-crumb mobile-only"><a href="javascript:history.back();" class="back"><b>&lt;</b> {{sourcePageNameMB}}</a><div class="title">产品详情</div></div>
         <div class="proddtl-content-inner">
             
             <div class="proddtl-wrapper">
@@ -111,7 +111,7 @@
        <a class="btn add" ng-click="countAdded(Product)"></a>
     </div>
     <div class="right">
-        <a ng-class="{true:'w80 button-s button-gray add-cart',false:'w80 button-s button-gray button-disable add-cart'}[Product.productStatus=='1']" ng-click="addCartClicked(Product)">加入订单</a>
+        <a ng-class="{false:'w80 button-s button-pink2 add-cart',true:'w80 button-s button-gray button-disable add-cart'}[isNotAllowOrder]" ng-click="addCartClicked(Product)">加入订单</a>
        
     </div> 
     <div class="clr"></div>

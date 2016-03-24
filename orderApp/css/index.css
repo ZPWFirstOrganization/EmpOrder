@@ -13,7 +13,7 @@
 .product-wrapper .product-info .cancelfavorite{ width:30px; height:30px;  background-image:url(../img/icon_fav.png);background-size:100%;background-size:100% 100%; background-position:50% 50%; background-repeat:no-repeat;  position:absolute; right:10px; top:0px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff}
 .product-wrapper .product-info .product-name{ font-size:16px; margin-top:5px; height:45px; width:85%; display:block; color:#000;cursor:pointer;}
 .product-wrapper .product-info .row2{}
-.product-wrapper .product-info .row2 .new-price{color:#d68263; font-size:15px; display:inline-block; width:123px;font-weight: bold;}
+.product-wrapper .product-info .row2 .new-price{color:#d68263; font-size:16px; display:inline-block; width:123px;font-weight: bold;}
 .product-wrapper .product-info .row2 .product-no{font-size:12px;margin-top:0px; display:inline-block}
 .product-wrapper .product-info .product-action{margin-top:8px}
 .product-wrapper .product-info .product-action .btn{width:30px; height:30px; border:1px solid #eee; display:inline-block ; float:left; cursor:pointer; background-size:auto 80%;background-position:50% 50%; background-repeat:no-repeat;  }
@@ -52,7 +52,7 @@
 .product-wrapper .product-info .cancelfavorite{background-image:url(../img/icon_fav.png); background-repeat:no-repeat; background-position:50% 50%;background-size:100% 100%; position:absolute; right:10px; top:-5px;width:40px; height:40px; line-height:30px; color:#e5a086; cursor:pointer; background-color:#fff; text-indent:-9999px; overflow:hidden; z-index:10}
 .product-wrapper .product-info .product-name{ font-size:16px; margin-top:0px; height:45px; width:83%; cursor:pointer; display:block; color:#000; overflow:hidden;}
 .product-wrapper .product-info .row2{ margin-top:5px;}
-.product-wrapper .product-info .row2 .new-price{color:#d68263; font-size:15px; display:inline-block; width:125px;font-weight: bold;}
+.product-wrapper .product-info .row2 .new-price{color:#d68263; font-size:16px; display:inline-block; width:125px;font-weight: bold;}
 .product-wrapper .product-info .row2 .product-no{font-size:12px;margin-top:0px; display:inline-block;color:#666}
 .product-wrapper .product-info .product-action{margin-top:8px; margin-right:-100px;}
 .product-wrapper .product-info .product-action .btn{width:30px; height:30px; border:1px solid #eee; display:inline-block ; float:left; cursor:pointer; background-size:auto 80%;background-position:50% 50%; background-repeat:no-repeat;  }

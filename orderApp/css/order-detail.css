@@ -23,7 +23,7 @@
 .order-detail .product-wrapper .product-info .row1 .order-product-name{ font-size:16px;  display:block; color:#000; }
 .order-detail .product-wrapper .product-info .row1 .product-no{font-size:12px;margin-top:0px; display:inline-block;color:#666}
 .order-detail .product-wrapper .product-info .row2{ float:left; width:25%; padding-top:45px;}
-.order-detail .product-wrapper .product-info .row2 .new-price{color:#d68263; font-size:15px; display:inline-block; width:129px;font-weight: bold;line-height: 32px}
+.order-detail .product-wrapper .product-info .row2 .new-price{color:#d68263; font-size:16px; display:inline-block; width:129px;font-weight: bold;line-height: 32px}
 
 .order-detail .product-wrapper .product-info .product-action{padding-top:40px;float:left;width:20%}
 .order-detail .product-wrapper .product-info .product-action .number-label{ float:left; color:#000;line-height: 32px }
@@ -60,7 +60,7 @@
 .order-detail .product-wrapper .product-info .row1 .order-product-name{ font-size:16px; margin-top:0px; height:40px; width:83%; display:block; color:#000; overflow:hidden;}
 .order-detail .product-wrapper .product-info .row2 .product-no{font-size:12px;margin-top:0px; display:inline-block;color:#666}
 .order-detail .product-wrapper .product-info .row2{ margin-top:5px;}
-.order-detail .product-wrapper .product-info .row2 .new-price{color:#d68263; font-size:15px; display:inline-block; width:125px;font-weight: bold;}
+.order-detail .product-wrapper .product-info .row2 .new-price{color:#d68263; font-size:16px; display:inline-block; width:125px;font-weight: bold;}
 
 .order-detail .product-wrapper .product-info .product-action{margin-top:8px; }
 .order-detail .product-wrapper .product-info .product-action .number-label{ line-height:32px; float:left; color:#000; }
