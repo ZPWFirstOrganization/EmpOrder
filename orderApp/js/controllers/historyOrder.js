@@ -9,8 +9,8 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	$scope.discountType = scopeData.discountType;
 	$scope.pcSelectYear = null
     $scope.pcSelectMonth = null
-	$scope.years = [{name:"选择年",value:""}]
-	$scope.months = [{name:"选择月",value:""},
+	$scope.years = [{name:"全部",value:""}]
+	$scope.months = [{name:"全部",value:""},
 					{name:"1月",value:"01"},{name:"2月",value:"02"},
 					{name:"3月",value:"03"},{name:"4月",value:"04"},
 					{name:"5月",value:"05"},{name:"6月",value:"06"},
@@ -157,11 +157,11 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
         });
         if (yearHolder==""){
         	$scope.pcSelectYear=$scope.years[0];
-        	yearHolder = "选择年"
+        	yearHolder = "全部"
         }
         if (monthHolder==""){
         	$scope.pcSelectMonth=$scope.months[0];
-        	monthHolder = "选择月"
+        	monthHolder = "全部"
         }
 		$("#pcYearSelecter").select2({
 		    width: '100%',
@@ -234,6 +234,15 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
  				{
  					page:1,
  					orderDate:"",
+ 					orderParam:{}
+ 				})
+ 			//查询指定年份所有订单
+ 			}else if($scope.pcSelectYear.value != "" && $scope.pcSelectMonth.value == ""){
+ 				var date = $scope.pcSelectYear.value +"-"
+ 				$state.go('index.historyOrder',
+ 				{
+ 					page:1,
+ 					orderDate:date,
  					orderParam:{}
  				})
  			}
