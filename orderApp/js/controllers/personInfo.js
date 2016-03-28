@@ -1,4 +1,5 @@
-orderApp.controller('personInfoCtrl',function($scope,$state,$stateParams,ApiService,apiCaller,scopeData,baseUrl,personServ){
+orderApp.controller('personInfoCtrl',function($scope,$state,$stateParams,ApiService,apiCaller,scopeData,baseUrl,personServ,scopeMethod){
+    scopeMethod.setMinHeight();
     scopeData.discountType = $stateParams.discountType;
     $scope.discountType = scopeData.discountType;
     $scope.Person = {};

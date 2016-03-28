@@ -1,4 +1,5 @@
 ﻿orderApp.controller('chartController',function($scope,$state,$stateParams,scopeData,scopeMethod,apiCaller){
+	scopeMethod.setMinHeight();
 	$scope.discountType = $stateParams.discountType;
 	$scope.col_width = null;
 	scopeData.discountType = $stateParams.discountType;

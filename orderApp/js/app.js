@@ -3,20 +3,23 @@ var orderApp = angular.module('orderApp', [ "ui.router", "ngResource","sessionSt
 });
 
 orderApp.value('baseUrl',
- 'http://wzdcbdeo01/h5/emporder/api/v1/'//后台服务url
- )
-orderApp.value('baseSysUrl', 
-'http://wzdcbdeo01:8820/UserLogin.aspx'//系统管理的链接
+'http://WJDCBUEO02/h5/emporder/api/v1/'			//		后台服务url
 )
-//阿里云：  http://182.92.110.219:8090/
+orderApp.value('baseSysUrl2', 
+'http://WJDCBUEO02/admin/Default.aspx'			//		系统管理的2折链接
+)
+orderApp.value('baseSysUrl6', 
+'http://WJDCBUEO02/admin/employee-6/Default.aspx'// 	系统管理的6折链接
+)
 //dev  		http://wzdcbdeo01/h5/emporder/api/v1/
-//UAT  		http://WJDCBUEO02/emporder/api/v1/
-//UAT 管理	http://WJDCBUEO02:8820/UserLogin.aspx
-//DEV 管理	http://wzdcbdeo02:8820/UserLogin.aspx
+//UAT  		http://WJDCBUEO02/h5/emporder/api/v1/
+//UAT 管理2折	http://WJDCBUEO02/admin/Default.aspx
+//UAT 管理6折	http://WJDCBUEO02/admin/employee-6/Default.aspx
+//DEV 管理2折	http://wzdcbdeo01/admin/Default.aspx
+//DEV 管理6折	http://wzdcbdeo01/admin/employee-6/Default.aspx
 
 orderApp.config(function($stateProvider,$urlRouterProvider){
 	$urlRouterProvider.when("","/home/discountType=2&productClass=1&productCode=1&page=1");
-	// $urlRouterProvider.otherwise("/home/productClass=1&productCode=1&page=1");
 	$stateProvider.state('index',{
 			url:'/home',
 			templateUrl:'tpls/home.html',
@@ -98,8 +101,8 @@ orderApp.run(function($state,$rootScope,$location,userProfile,scopeData,scopeMet
 	
 	//监听路由事件
     $rootScope.$on('$stateChangeStart',
-        function(event, toState, toParams, fromState, fromParams){
-			//判断是否需要登陆        	
+        function(event,toState,toParams,fromState,fromParams){
+			//判断是否需要登陆       	
         	if (!scopeData.isLogin && toState.name!="regist"){
         		setTimeout(function(){
         			$state.go('login',{discountType:$.getUrlParam('discountType')});

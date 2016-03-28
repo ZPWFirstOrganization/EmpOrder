@@ -1,4 +1,5 @@
-orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiService,apiCaller,scopeData){
+orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiService,apiCaller,scopeData,scopeMethod){
+	scopeMethod.setMinHeight()
 	$('html,body').animate({scrollTop: '0px'},0)
 	$("body").showLoading();
 	$scope.isHaveData = true;
@@ -22,7 +23,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	if (angular.isUndefined($stateParams.page)){
 		$stateParams.page = 1
 	}
-	$scope.secretary = {userName:"",userPhone:""}
+	$scope.secretary = []
 	var startYear = 2008
 	var currentYear = (new Date()).getFullYear()
 	//获取订单信息
@@ -99,24 +100,11 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	}
 	
 	//获取秘书
-  	if (scopeData.secretaryName == '' || scopeData.secretaryPhone == ''){
-		apiCaller.getSecretary({userID:scopeData.userID},function(response){
-			if (response[0]){
-				
-				scopeData.secretaryName = response[0].userName
-		  		$scope.secretary.userName = scopeData.secretaryName
-		  		scopeData.secretaryPhone = response[0].userPhone
-		  		$scope.secretary.userPhone = scopeData.secretaryPhone
-	  		}
-	  		
-	  	},function(response){
-	  		// initLizeSelecter()
-	  	})
-	}else{
-		$scope.secretary.userName = scopeData.secretaryName
-		$scope.secretary.userPhone = scopeData.secretaryPhone
-		// initLizeSelecter()
-	}
+  	apiCaller.getSecretary({userID:scopeData.userID},function(response){
+  		$scope.secretary = response
+  	},function(response){
+
+  	})
 	// var mobileSelectYear = ""
  //    var mobileSelectMonth = ""
 	function initLizeSelecter(){

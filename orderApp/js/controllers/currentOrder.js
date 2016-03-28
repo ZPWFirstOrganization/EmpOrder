@@ -1,6 +1,7 @@
 ﻿orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,sessionStorage){
+	scopeMethod.setMinHeight()
 	$('html,body').animate({scrollTop: '0px'},0)
-	$scope.secretary = {userName:"",userPhone:""}
+	$scope.secretary = []
 	$scope.count = 0
 	$scope.isCanShop = false
 	$scope.currentOrderData = {};
@@ -36,17 +37,10 @@
   		$scope.count = response.productCount
   	})
   	//获取秘书
-  	if (scopeData.secretaryName == '' || scopeData.secretaryPhone == ''){
-		apiCaller.getSecretary({userID:scopeData.userID},function(response){
-			scopeData.secretaryName = response[0].userName
-	  		$scope.secretary.userName = scopeData.secretaryName
-	  		scopeData.secretaryPhone = response[0].userPhone
-	  		$scope.secretary.userPhone = scopeData.secretaryPhone
-	  	})
-	}else{
-		$scope.secretary.userName = scopeData.secretaryName
-		$scope.secretary.userPhone = scopeData.secretaryPhone
-	}
+	apiCaller.getSecretary({userID:scopeData.userID},function(response){
+  		$scope.secretary = response
+  	},function(response){
+  	})
   	//获取当月订单详细内容
 	currentOrderServ.getCurrentOrder({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/Order',userID:scopeData.userID},function(response){
 	    
@@ -152,7 +146,7 @@
 	}
 	$scope.deleteProduct = function(index){
 		showConfirm({
-			msg:"确定从购物车中删除吗？",
+			msg:"确定从当月订单中删除吗？",
 			Ymsg:"确定",
 			Nmsg:"取消",
 			confirmed:function(){

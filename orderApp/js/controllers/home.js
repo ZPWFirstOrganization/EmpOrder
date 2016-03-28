@@ -60,6 +60,21 @@ orderApp.service('scopeMethod',function($state,$stateParams,scopeData,apiCaller,
     		},function(res){
     			
     		})
+		},
+		setMinHeight:function(){
+			if(scopeData.isMobile == 0){
+				//设置left height
+				$(".left").css({"min-height":$(window).height()-200})
+				//设置当月订单内容 height
+				if(!scopeData.isNotAllowOrder){
+					$(".order-mid-wrapper").css({"min-height":$(window).height()-210-180})
+				}else{
+					$(".order-mid-wrapper").css({"min-height":$(window).height()-210-120})
+					$(".order-action-wrapper").css({"padding":0})
+				}
+				//设置历史订单内容 height
+				$(".mid-wrapper").css({"min-height":$(window).height()-210-100})
+			}
 		}
 	}
 })
