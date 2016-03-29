@@ -1,4 +1,4 @@
-orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$window,scopeData,scopeMethod,apiCaller,baseSysUrl2,baseSysUrl6) {
+orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$window,scopeData,scopeMethod,apiCaller,baseSysUrl2,baseSysUrl6,userProfile) {
 	if("2"==$stateParams.discountType){
 		$scope.currentType = "优惠价";
 		$scope.typeForChnage = "6折";
@@ -161,10 +161,16 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$w
 			$scope.typeForChnage = "6折";
 			scopeData.discountType = "2"
 		}
-		$(".pc-onsale-list-wrapper").fadeOut(200);  
-		scopeMethod.getGate(function(){
-            scopeMethod.changeState("1","1","1");
-        }) 
+		$(".pc-onsale-list-wrapper").fadeOut(200);
+		// scopeData.isLogin = false;
+		// userProfile.getProfile(function(){
+		// 	scopeData.isLogin = true;
+		// 	scopeMethod.getGate(function(){
+	            scopeMethod.changeState("1","1","1");
+	            //切换折扣后刷新
+	            // $window.location.reload();
+	    //     })
+	    // })
 	}
 
 	//展开/闭合优惠价

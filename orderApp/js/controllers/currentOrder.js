@@ -1,6 +1,6 @@
 ﻿orderApp.controller('currentOrderCtrl',function($q,$scope,$state,$stateParams,scopeData,scopeMethod,currentOrderServ,deleteServ,apiCaller,sessionStorage){
 	scopeMethod.setMinHeight()
-	$('html,body').animate({scrollTop: '0px'},0)
+	$(window).scrollTop(0);
 	$scope.secretary = []
 	$scope.count = 0
 	$scope.isCanShop = false

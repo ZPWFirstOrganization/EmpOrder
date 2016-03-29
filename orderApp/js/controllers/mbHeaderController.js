@@ -1,4 +1,4 @@
-orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$window,scopeData,scopeMethod,apiCaller) {
+orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$window,scopeData,scopeMethod,apiCaller,userProfile) {
 
     function showModalBg(obj){
     
@@ -125,8 +125,12 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$w
         $(".mobile-onsale-list").fadeOut(200);
         $("#typeArrow").removeClass("mobile-onsale-arrow-up");
         hideModalBg();
-        scopeMethod.getGate(function(){
-            scopeMethod.changeState("1","1","1");
+        scopeData.isLogin = false;
+        userProfile.getProfile(function(){
+            scopeData.isLogin = true;
+            scopeMethod.getGate(function(){
+                scopeMethod.changeState("1","1","1");
+            })
         }) 
     }
 

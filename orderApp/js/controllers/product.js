@@ -5,7 +5,7 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
     }else{
         $(".cart").css({"right":10})     
     }
-    $('html,body').animate({scrollTop: '0px'},0)
+    $(window).scrollTop(0);
     $scope.orderCount = apiCaller.getOrderCount();
     $scope.balance = apiCaller.getBalance();
     $scope.inputTexts = [];

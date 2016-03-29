@@ -35,7 +35,7 @@
                 </div>
                 
                 <div class="product-info">
-                   <a action="fav" class="cancelfavorite" ng-click="favoriteClicked(Product)" ></a>
+                   <a action="fav" class="cancelfavorite" ng-click="favoriteClicked(Product,$index)" ></a>
                    <a class="product-name" ng-click="toDetail(Product)" style="cursor:pointer">{{Product.productName}}</a>
                    <div class="row2">               
                        <span class="new-price">￥{{Product.productRetailPrice}}</span>

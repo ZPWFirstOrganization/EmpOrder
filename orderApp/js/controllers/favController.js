@@ -40,34 +40,34 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     $("body").showLoading();
     initData();
     //手机上拉刷新
-    if($(window).width()<801)
-        Hook.init({
-            wrapperId:"#wrapper",
-            scrollerId:"#scroller",
-            wrapperCss:{
-                "position": "absolute",
-                "z-index": 1,
-                "top": "0px",
-                "bottom": "0px",
-                "left": "0px",
-                "right":"0px",
-                overflow: "hidden"
-            },
-            distance:70,
-            callback:function(){
-                $("body").showLoading();
-                apiCaller.getFavoriteList(++$scope.currentPage,function(res){
-                    Hook.loadDown()
-                    $scope.favList =
-                     ($scope.favList).concat(res.favorites);
-                     $("body").hideLoading();
-                },function(){
-                    Hook.loadDown()
-                    $("body").hideLoading();
-                    showModal({msg:"没有更多产品了!"});
-                })
-            }
-    });
+    // if($(window).width()<801)
+    //     Hook.init({
+    //         wrapperId:"#wrapper",
+    //         scrollerId:"#scroller",
+    //         wrapperCss:{
+    //             "position": "absolute",
+    //             "z-index": 1,
+    //             "top": "0px",
+    //             "bottom": "0px",
+    //             "left": "0px",
+    //             "right":"0px",
+    //             overflow: "hidden"
+    //         },
+    //         distance:70,
+    //         callback:function(){
+    //             $("body").showLoading();
+    //             apiCaller.getFavoriteList(++$scope.currentPage,function(res){
+    //                 Hook.loadDown()
+    //                 $scope.favList =
+    //                  ($scope.favList).concat(res.favorites);
+    //                  $("body").hideLoading();
+    //             },function(){
+    //                 Hook.loadDown()
+    //                 $("body").hideLoading();
+    //                 showModal({msg:"没有更多产品了!"});
+    //             })
+    //         }
+    // });
 
     $scope.$watch('favList', function(newVal, oldVal) {
         if (newVal !== oldVal) {
@@ -167,7 +167,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
         }
     }
 
-    $scope.favoriteClicked = function(Product) {
+    $scope.favoriteClicked = function(Product,index) {
         
         // showConfirm({
             // msg:"是否取消收藏？",
@@ -177,16 +177,20 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
                 $("body").showLoading();
                 apiCaller.deleteFav(Product,function() {
                     showModal({msg:"已取消收藏"});
-                    if($scope.favList[1]){
-                        $state.go('index.favorites',{discountType:scopeData.discountType,page:$scope.currentPage});
-                        initData();
-                    }else{
-                        if($scope.currentPage > 1){
-                            $state.go('index.favorites',{discountType:scopeData.discountType,page:($scope.currentPage-1)});
-                        }else{
+                    if(scopeData.isMobile == 0){
+                        if($scope.favList[1]){
                             $state.go('index.favorites',{discountType:scopeData.discountType,page:$scope.currentPage});
+                            initData();
+                        }else{
+                            if($scope.currentPage > 1){
+                                $state.go('index.favorites',{discountType:scopeData.discountType,page:($scope.currentPage-1)});
+                            }else{
+                                $state.go('index.favorites',{discountType:scopeData.discountType,page:$scope.currentPage});
+                            }
+                            initData();
                         }
-                        initData();
+                    }else{
+                        $scope.favList.splice(index,1)
                     }
                     $("body").hideLoading();
                 });
