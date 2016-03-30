@@ -52,6 +52,18 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$w
 							};
 						})
 					},500);
+				}else{
+					clearTimeout(delayTime);
+					//消除自动匹配
+					setTimeout(function() {
+
+					// $("div[name$='autocompleter']").css("display","none")
+					if (!$(".autocompleter").hasClass('autocompleter-closed')){
+						$(".autocompleter").addClass('autocompleter-closed')
+					}
+					// $(".autocompleter").css("display","none")
+					},250)
+					// removeClass('autocompleter-closed').addClass('autocompleter-show');
 				}
 			}
 		}
@@ -78,6 +90,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$w
 		           		},100);
 					}
 				});
+				// $('#pcSeach').autocompleter('open')
 				$('#pcSeach').focus()
 			},100);
 		}

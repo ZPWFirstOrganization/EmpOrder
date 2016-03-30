@@ -107,7 +107,7 @@
     <div class="row1">
     <div class="left">
        <a class="btn subtract" ng-click="countSubtracted(Product)"></a>
-       <input type="tel" class="number" id="{{Product.productCode}}" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" ng-blur="countBlur(inputTexts[Product.productCode],Product)" ng-focus="countFocus(inputTexts[Product.productCode],Product)"/>
+       <input type="tel" class="number" id="{{Product.productCode}}" placeholder="数量" ng-model="inputTexts[Product.productCode]" maxlength="3" ng-blur="countBlur(inputTexts[Product.productCode],Product)" ng-focus="countFocus(inputTexts[Product.productCode],Product)" ng-keypress="countPress()"/>
        <a class="btn add" ng-click="countAdded(Product)"></a>
     </div>
     <div class="right">

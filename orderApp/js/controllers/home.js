@@ -75,6 +75,16 @@ orderApp.service('scopeMethod',function($state,$stateParams,scopeData,apiCaller,
 				//设置历史订单内容 height
 				$(".mid-wrapper").css({"min-height":$(window).height()-210-100})
 			}
+		},
+		isPositiveInt:function(input){
+			var s= String(input);
+            var type = /^[0-9]*[1-9][0-9]*$/;
+            var re = new RegExp(type);
+            if (s.match(re) == null) {
+                return false;
+            }else{
+            	return true;
+            }
 		}
 	}
 })

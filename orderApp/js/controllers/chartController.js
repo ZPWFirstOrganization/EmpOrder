@@ -8,13 +8,12 @@
 		$scope.col_width = ($scope.years.length>2)? null:85;//需要多少像素宽在这里配置就可以了
 		$scope.amount = getAmount(res.report)
 		$scope.userName = res.username;
-
 		$('#col-chart').highcharts({
 	        chart: {
 	            type: 'column',
 	        },
 	        title: {
-	            text: '消费趋势'
+	            text: ''
 	        },
 	        xAxis: {
 	            categories: $scope.years,
@@ -23,7 +22,7 @@
 	        yAxis: {
 	            min: 0,
 	            title: {
-	                text: '消费总额'
+	                text: '消费总额（折后价）'
 	            }
 	        },
 	        tooltip : {
@@ -38,13 +37,16 @@
 	            series: {
 	                dataLabels: {
 	                    enabled: true,
+	                    formatter : function(){
+	                		return Highcharts.numberFormat(parseFloat(this.y),1,".","")
+	            		}
 	                }
 	            }
 	        },
 	        series: [{
 	            color : '#EE3D11',
 	            name  : $scope.userName,
-	            data  : $scope.amount,
+	            data  : $scope.amount
 	        }],
 	        credits : {
 	            enabled : false
@@ -75,7 +77,6 @@
 		amount.push(fomatFloat(total,1));
 		return amount;
 	}
-
 	function fomatFloat(src,pos){       
 		return Math.round(src*Math.pow(10, pos))/Math.pow(10, pos);       
     }

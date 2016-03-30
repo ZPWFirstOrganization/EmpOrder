@@ -106,6 +106,10 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
 
     //加入当月订单    
     $scope.addCartClicked = function(Product) {
+        if(!scopeMethod.isPositiveInt($scope.inputTexts[Product.productCode])){
+            showModal({msg:"请输入正确数量"});
+            return;
+        }
         if (!$scope.isNotAllowOrder){
             $("body").showLoading();
             var id = Product.productCode;
@@ -145,7 +149,7 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
 	//产品数量得到焦点
 	var oldCount;
     $scope.countFocus = function(prodCount,Product){
-		var id = Product.productCode;
+ 		var id = Product.productCode;
 		oldCount = parseInt(prodCount);
         $("#"+id).keyup(function(){
             if(!(/(^[0-9]*$)/).test($scope.inputTexts[id])){

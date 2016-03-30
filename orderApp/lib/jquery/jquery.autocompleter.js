@@ -261,7 +261,7 @@
 
             html += '<ul class="autocompleter-list"></ul>';
             if (opts.source.length >= opts.limit){
-                html += '<div class="autocompleter-tip">点击确认将显示全部搜索结果</div>';
+                html += '<div class="autocompleter-tip">点击搜索按钮将显示全部搜索结果</div>';
             }
             html += '</div>';
             // console.log("bulid")
@@ -271,7 +271,7 @@
 
             // Set autocomplete to off for warn overlay
             var originalAutocomplete = $node.attr('autocomplete');
-            $node.attr('autocomplete', 'off');
+            // $node.attr('autocomplete', 'off');
 
             // Store plugin data
             var data = $.extend({

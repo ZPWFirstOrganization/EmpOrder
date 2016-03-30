@@ -143,6 +143,10 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     }
 
     $scope.addCartClicked = function(Product) {
+        if(!scopeMethod.isPositiveInt($scope.inputTexts[Product.productCode])){
+            showModal({msg:"请输入正确数量"});
+            return;
+        }
         if (!Product.isNotAllowOrder){
             $("body").showLoading();
             var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
