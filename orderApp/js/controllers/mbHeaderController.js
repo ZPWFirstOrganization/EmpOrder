@@ -130,17 +130,17 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$w
             scopeData.isLogin = true;
             scopeMethod.getGate(function(){
                 scopeMethod.changeState("1","1","1");
-                //切换折扣后刷新
                 // $window.location.reload();
             })
-        })
+        }) 
     }
 
     $scope.nav1Clicked = function () {
         if(!scopeData.isHomePage){
             scopeMethod.changeState("1","1","1");
         }else{
-            $window.location.reload();
+            $state.go('login',{discountType:scopeData.discountType,firstLogin:1})
+            // $window.location.reload();
         }
     }
 

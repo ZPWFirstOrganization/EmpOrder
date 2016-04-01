@@ -1,13 +1,13 @@
 var orderApp = angular.module('orderApp', [ "ui.router", "ngResource","sessionStorageService"]);
 
 orderApp.value('baseUrl',
-'http://wzdcbdeo01/h5/emporder/api/v1/'			//		后台服务url
+'http://WJDCBUEO02/h5/emporder/api/v1/'			//		后台服务url
 )
 orderApp.value('baseSysUrl2', 
-'http://wzdcbdeo01/admin/Default.aspx'			//		系统管理的2折链接
+'http://WJDCBUEO02/admin/Default.aspx'			//		系统管理的2折链接
 )
 orderApp.value('baseSysUrl6', 
-'http://wzdcbdeo01/admin/employee-6/Default.aspx'// 	系统管理的6折链接
+'http://WJDCBUEO02/admin/employee-6/Default.aspx'// 	系统管理的6折链接
 )
 
 //dev  			http://wzdcbdeo01/h5/emporder/api/v1/
@@ -18,7 +18,7 @@ orderApp.value('baseSysUrl6',
 //DEV 管理6折	http://wzdcbdeo01/admin/employee-6/Default.aspx
 
 orderApp.config(function($stateProvider,$urlRouterProvider){
-	$urlRouterProvider.when("","/home/discountType=2&productClass=1&productCode=1&page=1");
+	$urlRouterProvider.when("","/login/discountType=2&firstLogin=1");
 	$stateProvider.state('index',{
 			url:'/home',
 			templateUrl:'tpls/home.html',
@@ -86,7 +86,7 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 			url:'/regist/discountType={discountType}',
 			templateUrl:'tpls/regist.html',
 		}).state('login',{
-			url:'/login/discountType={discountType}',
+			url:'/login/discountType={discountType}&firstLogin={firstLogin}',
 			templateUrl:'tpls/login.html',
 		}).state('index.chart',{
 			url:'/chart/discountType={discountType}',
@@ -101,13 +101,13 @@ orderApp.run(function($state,$rootScope,$location,userProfile,scopeData,scopeMet
 	//监听路由事件
     $rootScope.$on('$stateChangeStart',
         function(event,toState,toParams,fromState,fromParams){
-			//判断是否需要登陆       	
-        	if (!scopeData.isLogin && toState.name!="regist"){
-        		setTimeout(function(){
-        			$state.go('login',{discountType:$.getUrlParam('discountType')});
-        		},100);
-        		return;
-        	}
+			// //判断是否需要登陆       	
+   //      	if (!scopeData.isLogin && toState.name!="regist" && toState.name!="login"){
+   //      		// setTimeout(function(){
+   //      			$state.go('login',{discountType:$.getUrlParam('discountType')});
+   //      		// },100);
+   //      		return;
+   //      	}
         	setTimeout(function(){
         		if($('#main').height()<=($(window).height()-30)){
 				  	$('.footer-wrapper').addClass("footer-wrapper-scale")
@@ -119,6 +119,18 @@ orderApp.run(function($state,$rootScope,$location,userProfile,scopeData,scopeMet
         		scopeData.isHomePage = true
         	}else{
         		scopeData.isHomePage = false
+        	}
+    })
+    $rootScope.$on('$stateChangeSuccess',
+        function(event,toState,toParams,fromState,fromParams){
+			//判断是否需要登陆       	
+        	if (!scopeData.isLogin && toState.name!="regist" && toState.name!="login"){
+        		// setTimeout(function(){
+        			// alert("login")
+        			// alert($.getUrlParam('discountType'))
+        			$state.go('login',{discountType:$.getUrlParam('discountType'),firstLogin:0});
+        		// },100);
+        		return;
         	}
     })
 })

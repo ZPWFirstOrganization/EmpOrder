@@ -139,7 +139,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$w
 		if(!scopeData.isHomePage){
 			scopeMethod.changeState("1","1","1");
 		}else{
-			$window.location.reload();
+			$state.go('login',{discountType:scopeData.discountType,firstLogin:1})
 		}
 	}
 
@@ -176,14 +176,15 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$w
 		}
 		$(".pc-onsale-list-wrapper").fadeOut(200);
 		scopeData.isLogin = false;
-		userProfile.getProfile(function(){
-			scopeData.isLogin = true;
-			scopeMethod.getGate(function(){
-	            scopeMethod.changeState("1","1","1");
+		$state.go('login',{discountType:scopeData.discountType,firstLogin:1})
+		// userProfile.getProfile(function(){
+		// 	scopeData.isLogin = true;
+		// 	scopeMethod.getGate(function(){
+	            // scopeMethod.changeState("1","1","1");
 	            //切换折扣后刷新
-	            $window.location.reload();
-	        })
-	    })
+	            // $window.location.reload();
+	    //     })
+	    // })
 	}
 
 	//展开/闭合优惠价

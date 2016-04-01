@@ -1,12 +1,17 @@
-orderApp.controller('loginCtrl',function($scope,apiCaller,scopeData,scopeMethod,$stateParams,userProfile){
+orderApp.controller('loginCtrl',function($scope,$state,apiCaller,scopeData,scopeMethod,$stateParams,userProfile){
 	scopeData.discountType = $stateParams.discountType
 	userProfile.getProfile(function(){
 		scopeData.isLogin = true;
 		scopeMethod.getGate(function(){
-			history.go(-1);
+			if($stateParams.firstLogin == 1){
+				scopeMethod.changeState("1","1","1");
+			}else{
+				history.go(-1);
+			}
 		})
 		
 	});
+	
 })
 
 orderApp.factory('userProfile',function($state,apiCaller,scopeData){
