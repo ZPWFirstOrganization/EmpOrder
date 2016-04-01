@@ -26,7 +26,7 @@
         <div class="right">
           <div class="order-top-wrapper">
               <div class="order-tips">
-              <a ng-show="isCanShop">当月订单内的所有产品将于本月<font class="pink06"><b>{{lastData-1}}日23:59</b></font>由系统<font class="pink06"><b>自动提交</b></font></a>
+              <a ng-show="isCanShop">当月订单内的所有产品将于本月<font class="pink06"><b>{{lastData}}日23:59</b></font>由系统<font class="pink06"><b>自动提交</b></font></a>
               <a ng-show="!isCanShop">当月订单<font class="pink06"><b>已提交</b></font></a>
               <br>
               <div class="f12 mobile-only" ng-repeat="s in secretary">部门秘书：{{s.userName}}&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:{{s.userPhone}}" style="color:blue">{{s.userPhone}}</a></div>

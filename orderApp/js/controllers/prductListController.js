@@ -117,7 +117,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 				},function(){
 					Hook.loadDown()
 					$("body").hideLoading();
-					showModal({msg:"没有更多产品了!"});
+					showModal({msg:"没有更多产品!"});
 				})
 			}
 	});

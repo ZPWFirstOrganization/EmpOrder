@@ -175,15 +175,15 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$w
 			scopeData.discountType = "2"
 		}
 		$(".pc-onsale-list-wrapper").fadeOut(200);
-		// scopeData.isLogin = false;
-		// userProfile.getProfile(function(){
-		// 	scopeData.isLogin = true;
-		// 	scopeMethod.getGate(function(){
+		scopeData.isLogin = false;
+		userProfile.getProfile(function(){
+			scopeData.isLogin = true;
+			scopeMethod.getGate(function(){
 	            scopeMethod.changeState("1","1","1");
 	            //切换折扣后刷新
-	            // $window.location.reload();
-	    //     })
-	    // })
+	            $window.location.reload();
+	        })
+	    })
 	}
 
 	//展开/闭合优惠价

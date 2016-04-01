@@ -64,7 +64,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     //             },function(){
     //                 Hook.loadDown()
     //                 $("body").hideLoading();
-    //                 showModal({msg:"没有更多产品了!"});
+    //                 showModal({msg:"没有更多产品!"});
     //             })
     //         }
     // });
@@ -195,6 +195,11 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
                         }
                     }else{
                         $scope.favList.splice(index,1)
+                        if($scope.favList[0]){
+                            $scope.isFavEmpty = false;
+                        }else{
+                            $scope.isFavEmpty = true;
+                        }
                     }
                     $("body").hideLoading();
                 });

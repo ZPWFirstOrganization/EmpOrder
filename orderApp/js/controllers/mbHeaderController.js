@@ -130,8 +130,10 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$w
             scopeData.isLogin = true;
             scopeMethod.getGate(function(){
                 scopeMethod.changeState("1","1","1");
+                //切换折扣后刷新
+                // $window.location.reload();
             })
-        }) 
+        })
     }
 
     $scope.nav1Clicked = function () {

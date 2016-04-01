@@ -5,6 +5,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	$scope.isHaveData = true;
 	$scope.orderList = [];
 	$scope.pages = [];
+	$scope.pageCount = 0
 	$scope.currentPage = parseInt($stateParams.page);
 	scopeData.discountType = $stateParams.discountType;
 	$scope.discountType = scopeData.discountType;
@@ -29,6 +30,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 	//获取订单信息
 	function queryOrderInfo(orderDate){
 		apiCaller.getOrderListByPage({userID:scopeData.userID,orderDate:orderDate,pageNum:$scope.currentPage},function(res){
+			$scope.pageCount = res.pageCount;
 			$scope.pages = []
 			$scope.orderList = []
 			if (res.firstOrderDate) {
@@ -261,6 +263,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		distance:70,
 		callback:function(){
 			if($scope.currentPage >= $scope.pageCount){
+				Hook.loadDown()
 				showModal({msg:"没有更多订单！"});
 				return
 			}
@@ -272,10 +275,10 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 					Hook.loadDown()
 					$("body").hideLoading()
 					if(res.order){
-						$scope.orderList.concat(res.order)
-						// $.each(res.order, function(i,v){
-						// 	$scope.orderList.push(v)
-					 	// });
+						// $scope.orderList.concat(res.order)
+						$.each(res.order, function(i,v){
+							$scope.orderList.push(v)
+					 	});
 					}else{
 						showModal({msg:"没有更多订单！"});
 						--$scope.currentPage
