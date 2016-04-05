@@ -1,13 +1,13 @@
 var orderApp = angular.module('orderApp', [ "ui.router", "ngResource","sessionStorageService"]);
 
 orderApp.value('baseUrl',
-'http://WJDCBUEO02/h5/emporder/api/v1/'			//		后台服务url
+'http://wzdcbdeo01/h5/emporder/api/v1/'			//		后台服务url
 )
 orderApp.value('baseSysUrl2', 
-'http://WJDCBUEO02/admin/Default.aspx'			//		系统管理的2折链接
+'http://wzdcbdeo01/admin/Default.aspx'			//		系统管理的2折链接
 )
 orderApp.value('baseSysUrl6', 
-'http://WJDCBUEO02/admin/employee-6/Default.aspx'// 	系统管理的6折链接
+'http://wzdcbdeo01/admin/employee-6/Default.aspx'// 	系统管理的6折链接
 )
 
 //dev  			http://wzdcbdeo01/h5/emporder/api/v1/

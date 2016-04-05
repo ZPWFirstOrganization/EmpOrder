@@ -32,7 +32,7 @@ orderApp.controller('mbNavController',function ($scope,$stateParams,apiCaller,sc
 	});
 
 	$("body").click(function(event){ 
-        if(event.target!=$('.select-content')[0] && event.target!=$('.select-arrow')[0] && event.target!=$('.select-content')[1] && event.target!=$('.select-arrow')[1] ){
+        if(event.target!=$('.select-content')[0] && event.target!=$('.select-arrow')[0] && event.target!=$('.select-content')[1] && event.target!=$('.select-arrow')[1] && event.target!=$('.select-text')[0] && event.target!=$('.select-text')[1] ){
             if($("#DivisionList").css("display")!="none"){
 				$("#DivisionList").slideUp(300);
 				$("#DivisionArrow").removeClass("select-arrow-up")
