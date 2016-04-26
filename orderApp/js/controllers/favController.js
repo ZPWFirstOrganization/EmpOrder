@@ -64,7 +64,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
     //             },function(){
     //                 Hook.loadDown()
     //                 $("body").hideLoading();
-    //                 showModal({msg:"没有更多产品!"});
+    //                 showModal({msg:"没有更多产品"});
     //             })
     //         }
     // });
