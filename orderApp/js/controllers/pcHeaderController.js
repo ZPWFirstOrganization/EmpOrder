@@ -98,7 +98,7 @@ orderApp.controller('pcHeaderController', function($scope,$stateParams,$state,$w
 
 	$scope.categories=apiCaller.getCategories(function(res){
 		//加一个系统管理，要做权限判断是否添加
-		if(scopeData.roleID != '3' || scopeData.roleID != '4'){
+		if(scopeData.roleID != '3' && scopeData.roleID != '4'){
 			res.push({categoryName: '系统管理'});
 		}
 		scopeData.categories = res;
