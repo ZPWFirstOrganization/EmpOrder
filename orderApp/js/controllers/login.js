@@ -31,7 +31,7 @@ orderApp.factory('userProfile',function($state,apiCaller,scopeData){
 					$state.go('regist',{discountType:scopeData.discountType})
 				},100)
 			}else if(response.status == 400 || response.status == 404){
-				alert(response.Message? response.Message : "网络异常，请刷新页面或重启应用！")
+				alert(response.data.Message? response.data.Message : "网络异常，请刷新页面或重启应用！")
 			}else{
 				alert("网络异常，请刷新页面或重启应用！")
 			}

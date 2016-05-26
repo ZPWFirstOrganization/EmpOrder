@@ -96,7 +96,9 @@
 		  		//error
 		  		function(response){
 		  			$scope.currentOrderData.product[index].requestQTY = oldCount
-		  			if (response.status == 404){
+		  			if(response.status == -1 || response.status == 412){
+		  				showModal({msg:scopeData.timeoutMsg});
+		  			}else if (response.status == 404){
 		  				showModal({msg:"产品未找到"});
 		  			}else if(response.status == 400){
 		  				showModal({msg:"剩余额度不足"});
@@ -128,8 +130,10 @@
 			 ,function(){
 			 	$scope.currentOrderData.product[index].isFavorite = !$scope.currentOrderData.product[index].isFavorite
 			 	showModal({msg:"添加到我的收藏"});
-			},function(){
-
+			},function(response){
+				if(response.status == -1 || response.status == 412){
+                    showModal({msg:scopeData.timeoutMsg});
+                }
 			})
 			
 		}else{
@@ -139,6 +143,9 @@
 				showModal({msg:"已取消收藏"});
 			},
 			function(response){
+				if(response.status == 0 || response.status == 412){
+                    showModal({msg:scopeData.timeoutMsg});
+                }
 			});
 			
 		}
@@ -167,6 +174,9 @@
 				function(response){
 					// showModal({msg:"删除失败！"});
 					$("body").hideLoading();
+					if(response.status == 0 || response.status == 412){
+						showModal({msg:scopeData.timeoutMsg});
+					}
 				})
 			},
 			cancel:function(){
@@ -194,6 +204,9 @@
 				function(response){
 					// showModal({msg:"删除失败！"});
 					$("body").hideLoading();
+					if(response.status == 0 || response.status == 412){
+						showModal({msg:scopeData.timeoutMsg});
+					}
 				})
 			},
 			cancel:function(){

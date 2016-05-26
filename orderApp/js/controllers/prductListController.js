@@ -171,13 +171,18 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 
 		scopeMethod.changeState($stateParams.productClass,$stateParams.productCode,$scope.currentPage);
 	}
-
+	var isCanShop = true;
     $scope.addCartClicked = function(Product) {
+    	//上次添加没完成，不会再次发起请求
+    	if (!isCanShop) {
+    		return;
+    	}
     	if(!scopeMethod.isPositiveInt($scope.inputTexts[Product.productCode])){
     		showModal({msg:"请输入正确数量"});
     		return;
     	}
     	if (!Product.isNotAllowOrder){
+    		isCanShop = false;
 	    	$("body").showLoading();
 	    	var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
 	    		showModal({msg:"已加入当月订单"});
@@ -188,9 +193,15 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 				$scope.balance = apiCaller.getBalance();
 				$scope.orderCount = apiCaller.getOrderCount();
 				$("body").hideLoading();
-	    	},function(){
+				isCanShop = true;
+	    	},function(response){
 	    		$("body").hideLoading();
-	    		showModal({msg:"剩余额度不足"});
+	    		if(response.status == -1 || response.status == 412){
+	  				showModal({msg:scopeData.timeoutMsg});
+	  			}else if(response.status == 400){
+	  				showModal({msg:"剩余额度不足"});
+	  			}
+	    		isCanShop = true;
 	    	});
 		}
     }
@@ -202,17 +213,24 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
     			showModal({msg:"添加到我的收藏"});
     			Product.isFavorite = true
     			$("body").hideLoading();
-    		},function(){
-    			$("body").hideLoading();
-    		})
+    		},function(res){
+    			// alert(JSON.stringify(res))
+                $("body").hideLoading();
+                if(res.status == -1 || res.status == 412){
+                    showModal({msg:scopeData.timeoutMsg});
+                }
+            })
     	}else{
-			Product.isFavorite = false;
     		apiCaller.deleteFav(Product,function() {
+    			Product.isFavorite = false;
     			showModal({msg:"已取消收藏"});
     			$("body").hideLoading();
-    		},function(){
-    			$("body").hideLoading();
-    		})
+    		},function(res){
+                $("body").hideLoading();
+                if(res.status == 0 || res.status == 412){
+                    showModal({msg:scopeData.timeoutMsg});
+                }
+            })
     	}
     }
 

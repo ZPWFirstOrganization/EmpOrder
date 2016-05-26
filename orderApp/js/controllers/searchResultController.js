@@ -141,13 +141,18 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
         }
         $state.go('index.searchResult',{key:$stateParams.key,page:$scope.currentPage})
     }
-
+    var isCanShop = true;
     $scope.addCartClicked = function(Product) {
+        //上次添加没完成，不会再次发起请求
+        if (!isCanShop) {
+            return;
+        }
         if(!scopeMethod.isPositiveInt($scope.inputTexts[Product.productCode])){
             showModal({msg:"请输入正确数量"});
             return;
         }
         if (!Product.isNotAllowOrder){
+            isCanShop = false;
             $("body").showLoading();
             var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[Product.productCode],function(){
                 showModal({msg:"已加当月订单"});
@@ -158,9 +163,15 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
                 $scope.balance = apiCaller.getBalance();
                 $scope.orderCount = apiCaller.getOrderCount();
                 $("body").hideLoading();
-            },function(){
+                isCanShop = true;
+            },function(response){
                 $("body").hideLoading();
-                showModal({msg:"剩余额度不足"});
+                if(response.status == -1 || response.status == 412){
+                    showModal({msg:scopeData.timeoutMsg});
+                }else if(response.status == 400){
+                    showModal({msg:"剩余额度不足"});
+                }
+                isCanShop = true;
             });
         }
     }
@@ -186,12 +197,22 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
                 showModal({msg:"添加到我的收藏"});
                 Product.isFavorite = true
                 $("body").hideLoading();
+            },function(res){
+                $("body").hideLoading();
+                if(res.status == -1 || res.status == 412){
+                    showModal({msg:scopeData.timeoutMsg});
+                }
             })
         }else{
-            Product.isFavorite = false;
             apiCaller.deleteFav(Product,function() {
+                Product.isFavorite = false;
                 showModal({msg:"已取消收藏"});
                 $("body").hideLoading();
+            },function(res){
+                $("body").hideLoading();
+                if(res.status == 0 || res.status == 412){
+                    showModal({msg:scopeData.timeoutMsg});
+                }
             })
         }
     }

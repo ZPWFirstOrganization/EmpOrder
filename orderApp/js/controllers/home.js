@@ -15,6 +15,7 @@
 		orderDate            :[],          //可下单日期范围
 		isHomePage			 : true,	   //当前是否处于首页且为最初状态
 		isLogin				 : false,      //是否登录
+		timeoutMsg			 : "网络不佳",
 	}
 });
 
@@ -159,12 +160,12 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 			},
 			function(response){
 				if (suc) {
-					suc();
+					suc(response);
 				}
 			},
 			function(response){
 				if (err) {
-					err();
+					err(response);
 				}
 			});
 		},

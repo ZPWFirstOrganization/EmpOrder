@@ -74,8 +74,10 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
 			 ,function(){
                 showModal({msg:"添加到我的收藏"});
                 Product.isFavorite = true;
-			},function(){
-
+			},function(response){
+                if(response.status == -1 || response.status == 412){
+                    showModal({msg:scopeData.timeoutMsg});
+                }
 			})
 			
 		}else{
@@ -85,6 +87,9 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
                Product.isFavorite = false;
             },
 			function(response){
+                if(response.status == 0 || response.status == 412){
+                    showModal({msg:scopeData.timeoutMsg});
+                }
 			});
 			
 		}
@@ -103,14 +108,19 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
 		if($scope.inputTexts[id] < 999)
 			$scope.inputTexts[id] = parseInt($scope.inputTexts[id]) + 1;
 	}
-
+    var isCanShop = true;
     //加入当月订单    
     $scope.addCartClicked = function(Product) {
+        //上次添加没完成，不会再次发起请求
+        if (!isCanShop) {
+            return;
+        }
         if(!scopeMethod.isPositiveInt($scope.inputTexts[Product.productCode])){
             showModal({msg:"请输入正确数量"});
             return;
         }
         if (!$scope.isNotAllowOrder){
+            isCanShop = false;
             $("body").showLoading();
             var id = Product.productCode;
             var result = apiCaller.postOrderedProduct(Product,$scope.inputTexts[id],function(){
@@ -122,9 +132,15 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
                 $scope.balance = apiCaller.getBalance();
                 $scope.orderCount = apiCaller.getOrderCount();
                 $("body").hideLoading();
-            },function(){
+                isCanShop = true;
+            },function(response){
                 $("body").hideLoading();
-                showModal({msg:"剩余额度不足"});
+                if(response.status == -1 || response.status == 412){
+                    showModal({msg:scopeData.timeoutMsg});
+                }else if(response.status == 400){
+                    showModal({msg:"剩余额度不足"});
+                }
+                isCanShop = true;
             });
         }
     }
