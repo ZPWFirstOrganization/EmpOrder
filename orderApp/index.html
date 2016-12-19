@@ -83,9 +83,9 @@
 <script>
 (function ($) {
     $.getUrlParam = function (name) {
-        var reg = new RegExp(name + "=([^&]*)(&|$)");
-        var urlObj=new String(window.location.href)
-        var r = urlObj.match(reg);
+        var reg = new RegExp(name.toLowerCase() + "=([^&#]*)(&|$|#)");
+        var urlObj=new String(window.location.href);
+        var r = urlObj.toLowerCase().match(reg);
         if (r != null) return unescape(r[1]); return null;
     }
 })(jQuery);

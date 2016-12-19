@@ -3,6 +3,9 @@ var orderApp = angular.module('orderApp', [ "ui.router", "ngResource","sessionSt
 orderApp.value('baseUrl',
 'http://WJDCBUEO02/h5/emporder/api/v1/'			//		后台服务url
 )
+orderApp.value('baseAuthUrl',
+'http://WJDCBUEO02/Authentication/api/'			//		auth url
+)
 orderApp.value('baseSysUrl2', 
 'http://WJDCBUEO02/admin/Default.aspx'			//		系统管理的2折链接
 )
@@ -101,13 +104,10 @@ orderApp.run(function($state,$rootScope,$location,userProfile,scopeData,scopeMet
 	//监听路由事件
     $rootScope.$on('$stateChangeStart',
         function(event,toState,toParams,fromState,fromParams){
-			// //判断是否需要登陆       	
-   //      	if (!scopeData.isLogin && toState.name!="regist" && toState.name!="login"){
-   //      		// setTimeout(function(){
-   //      			$state.go('login',{discountType:$.getUrlParam('discountType')});
-   //      		// },100);
-   //      		return;
-   //      	}
+        	//手机端将ad存到scopeData中
+   			if(scopeMethod.isAndOrIosMobile()){
+        		scopeData.ad = $.getUrlParam('domainAccount') ? $.getUrlParam('domainAccount'):"";
+        	}
         	setTimeout(function(){
         		if($('#main').height()<=($(window).height()-30)){
 				  	$('.footer-wrapper').addClass("footer-wrapper-scale")

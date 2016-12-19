@@ -1,16 +1,44 @@
 orderApp.controller('loginCtrl',function($scope,$state,apiCaller,scopeData,scopeMethod,$stateParams,userProfile){
 	scopeData.discountType = $stateParams.discountType
-	userProfile.getProfile(function(){
-		scopeData.isLogin = true;
-		scopeMethod.getGate(function(){
-			if($stateParams.firstLogin == 1){
-				scopeMethod.changeState("1","1","1");
-			}else{
-				history.go(-1);
-			}
+	if(!scopeData.ad && scopeData.ad == ""){
+		apiCaller.getDomainAccount(function(res){
+				scopeData.ad = res.user
+				userProfile.getProfile(function(){
+					scopeData.isLogin = true;
+					scopeMethod.getGate(function(){
+						if($stateParams.firstLogin == 1){
+							scopeMethod.changeState("1","1","1");
+						}else{
+							history.go(-1);
+						}
+					})
+				});
+		},function(res){
+			alert("未获取到信息，请稍后再试")
 		})
+	}else{
+		userProfile.getProfile(function(){
+			scopeData.isLogin = true;
+			scopeMethod.getGate(function(){
+				if($stateParams.firstLogin == 1){
+					scopeMethod.changeState("1","1","1");
+				}else{
+					history.go(-1);
+				}
+			})
+		});
+	}
+	// userProfile.getProfile(function(){
+	// 	scopeData.isLogin = true;
+	// 	scopeMethod.getGate(function(){
+	// 		if($stateParams.firstLogin == 1){
+	// 			scopeMethod.changeState("1","1","1");
+	// 		}else{
+	// 			history.go(-1);
+	// 		}
+	// 	})
 		
-	});
+	// });
 	
 })
 

@@ -16,6 +16,7 @@
 		isHomePage			 : true,	   //当前是否处于首页且为最初状态
 		isLogin				 : false,      //是否登录
 		timeoutMsg			 : "网络不佳",
+		ad                   : "",		   //存储安卓账号
 	}
 });
 
@@ -52,6 +53,12 @@ orderApp.service('scopeMethod',function($state,$stateParams,scopeData,apiCaller,
 			bIsWM= sUserAgent.match(/windows mobile/i) == "windows mobile",
 			bIsWebview = sUserAgent.match(/webview/i) == "webview";
 			return (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)?"1":"0";
+		},
+		isAndOrIosMobile:function(){
+			var sUserAgent= navigator.userAgent.toLowerCase()
+			var bIsIphoneOs= sUserAgent.match(/iphone os/i) == "iphone os",
+			bIsAndroid= sUserAgent.match(/android/i) == "android"
+			return (bIsAndroid || bIsIphoneOs);
 		},
 		getGate:function(callback){
 			apiCaller.getOrderDate(function(res){
@@ -90,7 +97,7 @@ orderApp.service('scopeMethod',function($state,$stateParams,scopeData,apiCaller,
 	}
 })
 
-orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,scopeData) {
+orderApp.factory('apiCaller',function($stateParams,$http,ApiService,AuthApiService,ajaxService,scopeData) {
 	return{
 		getProductListByStates:function(suc,err){
 			scopeData.ProductionList = ApiService.getProductList(
@@ -335,10 +342,31 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 				}
 			)
 		},
+		getDomainAccount:function(suc,err){
+			return AuthApiService.getDomainAccount(
+				{
+					Type:"user",
+				},
+				{
+					
+				},
+				function(res){
+					if(suc){
+						return suc(res)
+					}
+				},
+				function(res){
+					if(err){
+						return err(res)
+					}
+				}
+			)
+		},
 		getUserProfile:function(suc,err){
 			return ApiService.postUserProfile(
 				{
-					Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/User"
+					Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/User",
+					ad:scopeData.ad,
 				},
 				{
 					
@@ -359,6 +387,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,ajaxService,
 			return ApiService.postRegist(
 				{
 					Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/User",
+					ad:scopeData.ad,
 				},
 				{
 

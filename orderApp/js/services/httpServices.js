@@ -15,6 +15,19 @@ orderApp.factory('ajaxService',function(baseUrl,scopeData){
 	}
 });
 
+
+orderApp.factory('AuthApiService',function($resource,baseAuthUrl,scopeData){
+	return $resource(
+		baseAuthUrl+":Type",
+		{},
+		{
+			getDomainAccount:{
+				method:'GET',
+			}
+		}
+	)
+})
+
 orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 	
 	return $resource(
@@ -114,11 +127,13 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 		    postUserProfile:{
 		    	method:'POST',
 		    	params:{
+		    		ad:'@ad',
 		    	}
 		    },
 		    postRegist:{
 		    	method:'PUT',
 		    	params:{
+		    		ad:'@ad',
 		    	}
 		    },
 		    getChartData:{
