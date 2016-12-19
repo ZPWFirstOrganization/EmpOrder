@@ -1,16 +1,21 @@
-1 配置IIS
+﻿1 配置IIS
 2 将web工程拷贝到IIS配置目录
 3 访问index.html
 
 url配置：
-orderApp\js\app.js文件的第6和第9行
+orderApp\js\app.js文件的第4行、第7行、第10行和第13行（重要！！！）
 
 orderApp.value('baseUrl',
- 'http://WJDCBUEO01/emporder/api/v1/'          //后台服务url
+'http://WJDCBUEO02/h5/emporder/api/v1/'		//		后台服务url
 )
-
-orderApp.value('baseSysUrl', 
-'http://WJDCBUEO01:8820/UserLogin.aspx'        //系统管理的链接
+orderApp.value('baseAuthUrl',
+'http://WJDCBUEO02/Authentication/api/'		//		auth url
+)
+orderApp.value('baseSysUrl2', 
+'http://WJDCBUEO02/admin/Default.aspx'		//		系统管理的2折链接
+)
+orderApp.value('baseSysUrl6', 
+'http://WJDCBUEO02/admin/employee-6/Default.aspx'// 	系统管理的6折链接
 )
 
 公告配置：
