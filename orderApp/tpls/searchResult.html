@@ -77,10 +77,16 @@
   
 </div>
 
-<a class="cart animated" ng-click="cartClicked()">
+<a ng-class="{true:'cart',false:'cart-style2'}[discountType==2]" class="animated" ng-click="cartClicked()">
   <div class="cart-inner">
   <div class="number" id="numbercircle"><b>{{{false: orderCount.productCount, true: '···'}[orderCount.productCount >= 100]}}</b></div>
     剩余额度：</br>
+    <span style="font-size: 10px">
     {{balance.myBalance}}
+    </span>
+    <span style="font-size: 10px" ng-show="discountType==2">
+      </br>
+    {{balance.myBalanceEx}}<span style="font-size: 10px">(调养品)</span>
+    </span>
   </div>
 </a>

@@ -13,6 +13,7 @@ orderApp.controller('searchResultController',function ($scope,$state,$stateParam
     $scope.totalCount = 0;
     $scope.searchKey = $stateParams.key;
     scopeData.discountType = $stateParams.discountType;
+    $scope.discountType = scopeData.discountType;
     sessionStorage.put("sourcePageId","4")
     // scopeData.sourcePageId = 4;
     var initData = function(){

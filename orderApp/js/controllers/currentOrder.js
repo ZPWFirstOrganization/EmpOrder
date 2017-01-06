@@ -9,7 +9,8 @@
 	$scope.isHaveData = true
 	scopeData.discountType = $stateParams.discountType;
 	$scope.discountType = scopeData.discountType;
-	$scope.resAmount = (scopeData.discountType==2) ? 5000 : 2000
+	$scope.resAmount = 0
+	$scope.resAmountEx = 0
 	$scope.payAmount = 0
 	sessionStorage.put("sourcePageId","1")
     // scopeData.sourcePageId = 1;
@@ -30,6 +31,7 @@
   	//初始化余额
   	currentOrderServ.getResAmount({kind:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+'/User',myBalanceUserID:scopeData.userID},function(response){
   		$scope.resAmount = parseFloat(response.myBalance).toFixed(2)
+  		$scope.resAmountEx = parseFloat(response.myBalanceEx).toFixed(2)
   		$scope.payAmount = parseFloat(response.myCurrentRealMount).toFixed(2)
   	})
   	//初始化产品数量
@@ -87,6 +89,7 @@
 				//success
 				function(response){
 			    	$scope.resAmount = response.myBalance.toFixed(2)
+			    	$scope.resAmountEx = response.myBalanceEx.toFixed(2)
   					$scope.payAmount = response.realMount.toFixed(2)
   					$scope.count = response.productCount
   					$("body").hideLoading();
@@ -162,6 +165,7 @@
 				function(response){
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance.toFixed(2)
+						$scope.resAmountEx = response.myBalanceEx.toFixed(2)
   						$scope.payAmount = response.realMount ? response.realMount.toFixed(2) : 0
   						$scope.count = response.productCount
 						$scope.currentOrderData.product.splice(index,1)
@@ -194,6 +198,7 @@
 				function(response){
 					$scope.$apply(function () {
 						$scope.resAmount = response.myBalance.toFixed(2)
+						$scope.resAmountEx = response.myBalanceEx.toFixed(2)
   						$scope.payAmount = 0
   						$scope.count = response.productCount
 						$scope.currentOrderData.product = {}

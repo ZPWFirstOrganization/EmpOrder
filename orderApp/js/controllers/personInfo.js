@@ -8,7 +8,7 @@ orderApp.controller('personInfoCtrl',function($scope,$state,$stateParams,ApiServ
         $scope.Person = response;
   	},function(response){
       
-    })        
+    })
 })
 
 

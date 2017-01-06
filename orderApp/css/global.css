@@ -45,7 +45,8 @@ body{ background-color: #f3f3f3; color:#000; font-family:Arial, "微软雅黑"; 
 .pc-header-wrapper .nav .nav-inner .notice{ line-height:40px; width:10%; text-align:center; display:block; float:right; list-style:none; cursor:pointer; padding-left:20px; background-image:url(../img/pc_icon_notice.png); background-repeat:no-repeat; background-position:10px 50%}
 .pc-header-wrapper .nav .nav-inner .notice:hover{background-color:#c5775a;color:#fff!important}
 
-.cart{ width:130px; height:65px; position:fixed; z-index:60; right:10px; top:120px; background-color:#000;  opacity:0.8; display:block;  background-repeat:no-repeat;  background-position:15% 50%; cursor:pointer; background-image:url(../img/pc_icon_cart.png); border-radius:3px;box-shadow:1px 1px 2px #eee;}
+.cart{ width:130px; height:80px; position:fixed; z-index:60; right:10px; top:120px; background-color:#000;  opacity:0.8; display:block;  background-repeat:no-repeat;  background-position:15% 50%; cursor:pointer; background-image:url(../img/pc_icon_cart.png); border-radius:3px;box-shadow:1px 1px 2px #eee;}
+.cart-style2{ width:130px; height:65px; position:fixed; z-index:60; right:10px; top:120px; background-color:#000;  opacity:0.8; display:block;  background-repeat:no-repeat;  background-position:15% 50%; cursor:pointer; background-image:url(../img/pc_icon_cart.png); border-radius:3px;box-shadow:1px 1px 2px #eee;}
 .cart-inner{ position:relative; color:#fff; padding-left:55px; margin-top:15px;}
 .cart-inner .number{ width:20px; height:20px; line-height:20px; text-align:center; border:2px solid #fff; background-color:#FF5558; position:absolute; border-radius:50% 50%; top:-5px; left:30px; font-size:10px;}
 
@@ -203,7 +204,8 @@ body{ background-color: #fff; color:#000; font-family:Arial, "微软雅黑"; mar
 .mobile-header-wrapper .search-wrapper .myFav{ width:30%; padding:0px ; text-indent:11px; background-image:url(../img/pc_icon_fav.png); background-repeat:no-repeat; background-position:3px 50%  ;}
 .mobile-header-wrapper .search-wrapper .search{ height:32px; border:none; border-radius:3px; width:100%; text-indent:10px; }
 .mobile-header-wrapper .search-wrapper .search-btn{ width:50px; height:100%; display:inline-block; position:absolute; right:0; top:0; background-image:url(../img/pc_icon_search.png); background-repeat:no-repeat; background-position:50% 50%; cursor:pointer}
-.cart{ width:130px; height:55px; position:fixed; z-index:60; left:5px; bottom:5px; background-color:#000;  opacity:0.8; display:block;  background-repeat:no-repeat;  background-position:15% 50%; cursor:pointer; background-image:url(../img/pc_icon_cart.png); border-radius:3px;}
+.cart{ width:130px; height:70px; position:fixed; z-index:60; left:5px; bottom:5px; background-color:#000;  opacity:0.8; display:block;  background-repeat:no-repeat;  background-position:15% 50%; cursor:pointer; background-image:url(../img/pc_icon_cart.png); border-radius:3px;}
+.cart-style2{ width:130px; height:55px; position:fixed; z-index:60; left:5px; bottom:5px; background-color:#000;  opacity:0.8; display:block;  background-repeat:no-repeat;  background-position:15% 50%; cursor:pointer; background-image:url(../img/pc_icon_cart.png); border-radius:3px;}
 .cart-inner{ position:relative; color:#fff; padding-left:55px; margin-top:10px;}
 .cart-inner .number{ width:20px; height:20px; line-height:20px; text-align:center; border:2px solid #fff; background-color:#FF5558; position:absolute; border-radius:50% 50%; top:-5px; left:30px; font-size:10px;}
 

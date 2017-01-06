@@ -87,7 +87,7 @@
             </div>
             <div class="order-bottom-wrapper pc-only" ng-show="isHaveData">
                 <div class="row1">
-                您的季度余额还剩:<font class="pink06">￥{{resAmount}}</font>  共 <font class="pink06">{{count}}</font> 件产品，实付金额:<font class="pink06">￥{{payAmount}}</font>
+                您的季度余额还剩:<font class="pink06">￥{{resAmount}}</font><span ng-show="discountType==2">和<font class="pink06">￥{{resAmountEx}}(调养品)</font></span> 共 <font class="pink06">{{count}}</font> 件产品，实付金额:<font class="pink06">￥{{payAmount}}</font>
                 </div> 
                 <div class="row2">
                 我同意以上金额从我当月薪资中扣除。<br>
@@ -115,7 +115,7 @@
     <div class="row2">
     <div class="left w50">
         <div style="font-size:16px">实付金额:￥{{payAmount}} </div>
-        <div style="font-size:12px">季度余额:￥{{resAmount}} </div>
+        <div style="font-size:12px">季度余额:￥{{resAmount}} <span style="font-size:inherit;" ng-show="discountType==2">￥{{resAmountEx}}(调养品)</span></div>
     </div>
     <div class="right w50">
         <a action="cancel" class=" button button-gray w45 secondary" ng-show="isCanShop" ng-click="orderCancel()">取消订单</a>

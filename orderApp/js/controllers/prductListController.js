@@ -6,6 +6,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
         $(".cart").css({"right":10})     
     }
 	scopeData.discountType = $stateParams.discountType;
+	$scope.discountType = scopeData.discountType;
 	$scope.currentDivisionName = '';
 	$scope.currenGroupName = '';
 	$scope.currentCategoryCode = '1'

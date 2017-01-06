@@ -13,7 +13,8 @@ orderApp.controller('productCtrl',function($q,$scope,$state,$stateParams,scopeDa
     $scope.sourcePageNamePC = '';
     $scope.sourcePageNameMB = '';
     $scope.isNotAllowOrder = scopeData.isNotAllowOrder;
-    
+    scopeData.discountType = $stateParams.discountType;
+    $scope.discountType = scopeData.discountType;
     //判断是否为空
 	var isEmptyObject = function( obj ) {
 	    for ( var name in obj ) {

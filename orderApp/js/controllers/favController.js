@@ -12,6 +12,7 @@ orderApp.controller('favController',function ($scope,$stateParams,$state,apiCall
         $scope.isNotAllowOrder = scopeData.isNotAllowOrder;
         $scope.orderDate = scopeData.orderDate;
         scopeData.discountType = $stateParams.discountType;
+        $scope.discountType = scopeData.discountType;
         apiCaller.getFavoriteList($scope.currentPage,function(res) {
             $scope.favList = res.favorites;
             $scope.pageNumCount = res.pageNumCount;

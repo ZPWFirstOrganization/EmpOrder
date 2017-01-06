@@ -1,13 +1,18 @@
 
 <div ng-controller='productCtrl'>
 
-<a class="proddtl-cart" ng-click="cartClicked()">
+<a ng-class="{true:'proddtl-cart-style2',false:'proddtl-cart'}[discountType==2]" ng-click="cartClicked()">
 <div class="cart-inner">
 <div class="number"><b>{{{false: orderCount.productCount, true: '···'}[orderCount.productCount >= 100]}}</b></div>
 剩余额度:<br>
+<span style="font-size: 10px">
 {{balance.myBalance}}
+</span>
+<span ng-show="discountType==2" style="font-size: 10px">
+</br>
+{{balance.myBalanceEx}}<span style="font-size: 10px">(调养品)</span>
+</span>
 </div>
-
 </a>
 
 

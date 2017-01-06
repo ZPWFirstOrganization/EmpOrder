@@ -12,13 +12,13 @@ orderApp.value('baseSysUrl2',
 orderApp.value('baseSysUrl6', 
 'http://WJDCBUEO02/admin/employee-6/Default.aspx'// 	系统管理的6折链接
 )
-
-//dev  			http://wzdcbdeo01/h5/emporder/api/v1/
+//TEST			http://114.215.97.19:1133/h5/emporder/api/v1/
+//dev  			http://wjdcbdeo01/h5/emporder/api/v1/
 //UAT  			http://WJDCBUEO02/h5/emporder/api/v1/
 //UAT 管理2折	http://WJDCBUEO02/admin/Default.aspx
 //UAT 管理6折	http://WJDCBUEO02/admin/employee-6/Default.aspx
-//DEV 管理2折	http://wzdcbdeo01/admin/Default.aspx
-//DEV 管理6折	http://wzdcbdeo01/admin/employee-6/Default.aspx
+//DEV 管理2折	http://wjdcbdeo01/admin/Default.aspx
+//DEV 管理6折	http://wjdcbdeo01/admin/employee-6/Default.aspx
 
 orderApp.config(function($stateProvider,$urlRouterProvider){
 	$urlRouterProvider.when("","/login/discountType=2&firstLogin=1");
