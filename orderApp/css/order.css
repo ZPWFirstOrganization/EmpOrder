@@ -1,11 +1,11 @@
-@media screen and (min-width: 801px) { 
+@media screen and (min-width: 801px) {
 .content-wrapper{ min-height:400px;}
 .sider-menu-wrapper{ background-color:#f9f9f9; border:1px solid #eee; border-radius:3px; overflow:hidden}
 .sider-menu-wrapper .sider-menu{ padding:5% 5%; display:block;}
 .sider-menu-wrapper .active{ background-color:#666;color:#fff; margin:0px -1px}
 
-.order-top-wrapper{ min-height:40px; background-color:#f9f9f9; border-top:1px solid #eee; border-bottom:1px solid #eee; }
-.order-top-wrapper .order-tips{padding-left:40px; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 0px; background-size: auto 60% ; float: left;}
+.order-top-wrapper{position: relative;min-height:40px; background-color:#f9f9f9; border-top:1px solid #eee; border-bottom:1px solid #eee; }
+.order-top-wrapper .order-tips{position: absolute;padding-left:40px; background-image:url(../img/icon_tips_exclamation.png); background-repeat:no-repeat;background-position:10px 0px; background-size: auto 60% ; float: left;}
 .order-mid-wrapper{ min-height:500px;}
 .order-product-wrapper{ width:100%; height:120px; border-bottom:1px solid #ddd; padding:0px 0px;}
 .order-product-wrapper:nth-last-child(1){ width:100%}
@@ -36,7 +36,7 @@
 .order-action-wrapper{ text-align:right; padding:10px 0px;}
 
 }
-@media screen and (max-width: 800px) { 
+@media screen and (max-width: 800px) {
 .category-wrapper{ height:45px; border-bottom:1px solid #eee;position:fixed; width:100%; z-index:50; top:86px; background-color:#fff }
 .content-wrapper{ margin-top:50px; padding-bottom:130px; }
 .option-list{ position:absolute; width:100%; top:46px;  z-index:500; background-color:#fff; border-bottom:1px solid #eee; box-shadow:0px 2px 5px  rgba(0,0,0,0.7); display:none}

@@ -1,6 +1,6 @@
 ﻿orderApp.factory('scopeData',function() {
 	return{
-		userID          	 :'',
+		userID         		 	 :'',
 		roleID               :'1',
 		discountType         :'2',
 		noticePageRevert     :false,
@@ -8,14 +8,14 @@
 		groupCode            :'',
 		isMobile             :0,
 		sourcePageId         : 0,          //0:代表productList页,1:代表currentOrder页
-		secretaryName        :'',		   //秘书姓名		
-		secretaryPhone		 :'',          //秘书电话
+		secretaryName        :'',		   //秘书姓名
+		secretaryPhone		 	 :'',          //秘书电话
 		currentOrderPage     : 1,		   //当前订单页数
 		isNotAllowOrder      : true,       //当前是否为不可下单日期内
 		orderDate            :[],          //可下单日期范围
-		isHomePage			 : true,	   //当前是否处于首页且为最初状态
-		isLogin				 : false,      //是否登录
-		timeoutMsg			 : "网络不佳",
+		isHomePage			 		 : true,	   //当前是否处于首页且为最初状态
+		isLogin				 			 : false,      //是否登录
+		timeoutMsg			 		 : "网络不佳",
 		ad                   : "",		   //存储安卓账号
 	}
 });
@@ -66,7 +66,7 @@ orderApp.service('scopeMethod',function($state,$stateParams,scopeData,apiCaller,
 		    	scopeData.orderDate = res.orderDate.split('-');
 		    	return callback()
     		},function(res){
-    			
+
     		})
 		},
 		setMinHeight:function(){
@@ -215,7 +215,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,AuthApiServi
 			return ApiService.getBalance(
 				{
 					Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/User",
-					myBalanceUserID:scopeData.userID 
+					myBalanceUserID:scopeData.userID
 				},
 				function(response){
 					if (callbackFn) {
@@ -348,7 +348,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,AuthApiServi
 					Type:"user",
 				},
 				{
-					
+
 				},
 				function(res){
 					if(suc){
@@ -369,7 +369,7 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,AuthApiServi
 					ad:scopeData.ad,
 				},
 				{
-					
+
 				},
 				function(res){
 					if(suc){
@@ -409,6 +409,26 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,AuthApiServi
 			{
 				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Order",
 				reportuserid:scopeData.userID
+			},
+			function(res){
+				if(suc){
+					return suc(res)
+				}
+			},
+			function(res){
+				if(err){
+					return err(res)
+				}
+			})
+		},
+		postDonation:function(amount,suc,err){
+			return ApiService.postDonation(
+			{
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Donation",
+			},
+			{
+				userID:scopeData.userID,
+				amount:amount,
 			},
 			function(res){
 				if(suc){

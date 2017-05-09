@@ -29,7 +29,7 @@ orderApp.factory('AuthApiService',function($resource,baseAuthUrl,scopeData){
 })
 
 orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
-	
+
 	return $resource(
 		baseUrl+":Type",
 		{},
@@ -138,10 +138,17 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 		    },
 		    getChartData:{
 		    	method:'GET',
-		    	params:{
-					userID:'@userID'
-				}
-		    }
+		    		params:{
+						userID:'@userID'
+					}
+		    },
+		    postDonation:{
+		    	method:'POST',
+		    	data:{
+		    		userID:'@userID',
+		    		amount:'@amount',
+		    	}
+		    },
 		}
 	);
 });
@@ -199,7 +206,7 @@ orderApp.factory('currentOrderServ',function($resource,baseUrl,scopeData){
 })
 
 orderApp.factory('deleteServ',function(baseUrl,scopeData){
-	function del(kind,data,suc,err){	
+	function del(kind,data,suc,err){
 		return 	$.ajax({
 		    type: "delete",
 		    url: baseUrl+"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/"+kind,

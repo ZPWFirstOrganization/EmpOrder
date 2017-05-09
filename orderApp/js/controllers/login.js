@@ -37,9 +37,9 @@ orderApp.controller('loginCtrl',function($scope,$state,apiCaller,scopeData,scope
 	// 			history.go(-1);
 	// 		}
 	// 	})
-		
+
 	// });
-	
+
 })
 
 orderApp.factory('userProfile',function($state,apiCaller,scopeData){
@@ -48,7 +48,7 @@ orderApp.factory('userProfile',function($state,apiCaller,scopeData){
 			// alert(JSON.stringify(response))
 			scopeData.userID = response.user.USER_ID
 			scopeData.roleID = response.user.ROLE_ID
-			if (typeof(callback) == "function"){  
+			if (typeof(callback) == "function"){
 				return callback(response)
 			}
 		},function(response){

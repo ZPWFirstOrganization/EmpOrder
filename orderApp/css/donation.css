@@ -1,0 +1,296 @@
+@media screen and (min-width: 801px) {
+	.btn-donation-ctrl{
+		position: absolute;
+		background-image: url(../img/heart.png);
+		background-size: 20px 16px;
+		background-repeat: no-repeat;
+		background-position: 60px 50%;
+		background-repeat: no-repeat;
+		text-indent: 0px;
+		padding-right: 30px;
+		margin-top: 5px;
+		right:10px;
+		color: white;
+	}
+	.donation-cover{
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		/*background-color: rgba(0,0,0,0.7);*/
+	}
+	.donation-cover .donation-container{
+		width: 500px;
+		height: 270px;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right:0;
+		margin:auto;
+		background-color: #FACAB8;
+		padding:20px 20px;
+		border-radius: 3px;
+	}
+	.donation-container .radio-container{
+		width: 100%;
+		height: 80px;
+		color: #666;
+	}
+	.donation-container .close-btn{
+		width: 35px;
+    height: 35px;
+    right: -20px;
+    top: -20px;
+    text-align: center;
+    line-height: 35px;
+    color: white;
+    font-size: 30px;
+    border-radius: 50%;
+    /* background-color: #d68263; */
+    position: absolute;
+    /* z-index: -1000; */
+    /*box-shadow: 0px 0px 5px #000;*/
+    box-sizing: border-box;
+    cursor: pointer;
+	}
+	.radio-container .input-box-1{
+		width: 100px;
+		height: 80px;
+		background-color: white;
+		float: left;
+		margin-left: 20px;
+		cursor: pointer;
+	}
+	.radio-container .input-box-2{
+		width: 100px;
+		height: 80px;
+		background-color: white;
+		float: left;
+		margin-left: 20px;
+		cursor: pointer;
+	}
+	.text-box{
+		text-align: center;
+		margin-top: 17px;
+		float: right;
+		margin-right: 15px;
+	}
+	.text-box .amount{
+		font-size: 38px;
+		font-style: italic;
+		font-weight: bold;
+		color: inherit;
+		float: left;
+		cursor: inherit;
+	}
+	.text-box .unit{
+		float: left;
+		padding-top: 18px;
+		margin-left: 10px;
+		font-style: italic;
+		color: inherit;
+		cursor: inherit;
+	}
+	.input-amount{
+		width: 100%;
+		height:45px;
+		border:1px solid #d7d7d7;
+		border-radius: 3px;
+		padding-left: 10px;
+		font-size: 16px;
+		color:#d68263;
+		outline: none;
+	}
+	.btn-donation{
+		width: 100%;
+		height: 45px;
+		margin-top: 5px;
+	}
+	.ml-pc-0{
+		margin-left: 0 !important;
+	}
+}
+@media screen and (max-width: 800px) {
+	.btn-donation-ctrl{
+		background-image: url(../img/heart.png);
+		background-size: 20px 16px;
+		background-repeat: no-repeat;
+		background-position: 60px 50%;
+		background-repeat: no-repeat;
+		padding-right: 30px;
+		margin-top: 6.5px;
+		float: right;
+		right:10px;
+		color: white;
+		position: absolute;
+	}
+	.donation-cover{
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		/*background-color: rgba(0,0,0,0.7);*/
+		z-index: 1000
+	}
+	.donation-cover .donation-container{
+		width: 80%;
+		max-width: 320px;
+		height: 390px;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right:0;
+		margin:auto;
+		background-color: #FACAB8;
+		padding:20px 20px;
+		border-radius: 3px;
+	}
+	.donation-container .radio-container{
+		width: 100%;
+		height: 180px;
+		color: #666;
+	}
+	.donation-container .close-btn{
+		width: 35px;
+    height: 35px;
+    right: -20px;
+    top: -20px;
+    text-align: center;
+    line-height: 35px;
+    color: white;
+    font-size: 30px;
+    border-radius: 50%;
+    /* background-color: #d68263; */
+    position: absolute;
+    /* z-index: -1000; */
+    /*box-shadow: 0px 0px 5px #000;*/
+    box-sizing: border-box;
+    cursor: pointer;
+	}
+	.radio-container .input-box-1{
+		width: 100px;
+		max-width: 40%;
+		height: 80px;
+		background-color: white;
+		float: left;
+		margin-left: 5%;
+		cursor: pointer;
+	}
+	.radio-container .input-box-2{
+		width: 100px;
+		max-width: 40%;
+		height: 80px;
+		background-color: white;
+		float: right;
+		margin-right: 5%;
+		cursor: pointer;
+	}
+	.text-box{
+		text-align: center;
+		margin-top: 24px;
+		float: right;
+		margin-right: 15px;
+	}
+	.text-box .amount{
+		font-size: 30px;
+		font-style: italic;
+		font-weight: bold;
+		color: inherit;
+		float: left;
+		cursor: inherit;
+	}
+	.text-box .unit{
+		float: left;
+		padding-top: 12px;
+		margin-left: 10px;
+		font-style: italic;
+		color: inherit;
+		cursor: inherit;
+	}
+	.input-amount{
+		width: 100%;
+		height:45px;
+		border:1px solid #d7d7d7;
+		border-radius: 3px;
+		padding-left: 10px;
+		font-size: 16px;
+		color:#d68263;
+		outline: none;
+	}
+	.btn-donation{
+		width: 100%;
+		height: 45px;
+		margin-top: 5px;
+	}
+	.ml-mobile-0{
+		margin-left: 0 !important;
+	}
+	.mt-mobile-20{
+		margin-top: 20px;
+	}
+}
+
+/*----------公共样式-----------*/
+.mt-20{
+	margin-top: 20px;
+}
+
+.fs-13{
+	font-size: 13px;
+}
+
+.anim{
+	transition: all 0.4s cubic-bezier(.25,.8,.25,1);
+	-webkit-transition: all 0.4s cubic-bezier(.25,.8,.25,1);
+}
+
+.model-hide{
+	transform: scale(0.6);
+  opacity: 0;
+}
+
+.model-show{
+	transform: scale(1);
+  opacity: 1;
+}
+
+.donation-bg{
+	height: 100%;
+	top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -webkit-transition: opacity .4s cubic-bezier(.25,.8,.25,1);
+  transition: opacity .4s cubic-bezier(.25,.8,.25,1);
+  background-color: rgba(0,0,0,.6);
+  opacity: 0;
+}
+
+.model-bg-hide{
+  opacity: 0;
+}
+
+.model-bg-show{
+  opacity: .68;
+}
+
+.input-amount-active{
+	outline: 5px solid #d68263;
+	border-radius: 0;
+}
+
+.radio-container-selected{
+	outline: 5px solid #d68263;
+	color:#d68263;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+    margin: 0;
+}
+input[type="number"]{-moz-appearance:textfield;}

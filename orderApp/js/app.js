@@ -1,24 +1,31 @@
 var orderApp = angular.module('orderApp', [ "ui.router", "ngResource","sessionStorageService"]);
-
+//		后台服务url
 orderApp.value('baseUrl',
-'http://WJDCBUEO02/h5/emporder/api/v1/'			//		后台服务url
+'http://WJDCBUEO02/h5/emporder/api/v1/'
 )
+//		auth url
 orderApp.value('baseAuthUrl',
-'http://WJDCBUEO02/Authentication/api/'			//		auth url
+'http://WJDCBUEO02/Authentication/api/'
 )
-orderApp.value('baseSysUrl2', 
-'http://WJDCBUEO02/admin/Default.aspx'			//		系统管理的2折链接
+//		系统管理的2折链接
+orderApp.value('baseSysUrl2',
+'http://WJDCBUEO02/admin/Default.aspx'
 )
-orderApp.value('baseSysUrl6', 
-'http://WJDCBUEO02/admin/employee-6/Default.aspx'// 	系统管理的6折链接
+// 	系统管理的6折链接
+orderApp.value('baseSysUrl6',
+'http://WJDCBUEO02/admin/employee-6/Default.aspx'
 )
-//TEST			http://114.215.97.19:1133/h5/emporder/api/v1/
-//dev  			http://wjdcbdeo01/h5/emporder/api/v1/
-//UAT  			http://WJDCBUEO02/h5/emporder/api/v1/
-//UAT 管理2折	http://WJDCBUEO02/admin/Default.aspx
-//UAT 管理6折	http://WJDCBUEO02/admin/employee-6/Default.aspx
-//DEV 管理2折	http://wjdcbdeo01/admin/Default.aspx
-//DEV 管理6折	http://wjdcbdeo01/admin/employee-6/Default.aspx
+
+/*
+AUTH              http://xxx/Authentication/api/
+TEST							http://114.215.97.19:1133/h5/emporder/api/v1/
+dev  							http://wjdcbdeo01/h5/emporder/api/v1/
+UAT  							http://WJDCBUEO02/h5/emporder/api/v1/
+UAT 管理2折				http://WJDCBUEO02/admin/Default.aspx
+UAT 管理6折				http://WJDCBUEO02/admin/employee-6/Default.aspx
+DEV 管理2折				http://wjdcbdeo01/admin/Default.aspx
+DEV 管理6折				http://wjdcbdeo01/admin/employee-6/Default.aspx
+ */
 
 orderApp.config(function($stateProvider,$urlRouterProvider){
 	$urlRouterProvider.when("","/login/discountType=2&firstLogin=1");
@@ -100,17 +107,17 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 
 orderApp.run(function($state,$rootScope,$location,userProfile,scopeData,scopeMethod){
 	scopeData.isMobile = scopeMethod.isMobile();
-	
+
 	//监听路由事件
     $rootScope.$on('$stateChangeStart',
         function(event,toState,toParams,fromState,fromParams){
         	//手机端将ad存到scopeData中
    			if(scopeMethod.isAndOrIosMobile()){
-        		scopeData.ad = $.getUrlParam('domainAccount') ? $.getUrlParam('domainAccount'):"";
-        	}
-        	setTimeout(function(){
-        		if($('#main').height()<=($(window).height()-30)){
-				  	$('.footer-wrapper').addClass("footer-wrapper-scale")
+      		scopeData.ad = $.getUrlParam('domainAccount') ? $.getUrlParam('domainAccount'):"";
+      	}
+      	setTimeout(function(){
+      		if($('#main').height()<=($(window).height()-30)){
+			  	$('.footer-wrapper').addClass("footer-wrapper-scale")
 				}else{
 				  	$('.footer-wrapper').removeClass("footer-wrapper-scale")
 				}
@@ -123,7 +130,7 @@ orderApp.run(function($state,$rootScope,$location,userProfile,scopeData,scopeMet
     })
     $rootScope.$on('$stateChangeSuccess',
         function(event,toState,toParams,fromState,fromParams){
-			//判断是否需要登陆       	
+			//判断是否需要登陆
         	if (!scopeData.isLogin && toState.name!="regist" && toState.name!="login"){
         		// setTimeout(function(){
         			// alert("login")

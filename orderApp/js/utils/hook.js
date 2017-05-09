@@ -22,29 +22,38 @@ var Hook = {
 		}else{
 			$(scrollerId).append($('<div id="scroller-pullUp" class="scroller-pullUp mobile-only">'+
 				'<span id="up-icon" class="icon-double-angle-up pull-up-icon">»  </span>'+
-				'<span id="pullUp-msg" class="pull-up-msg">上拉可以加载更多</span>'+		
+				'<span id="pullUp-msg" class="pull-up-msg">上拉可以加载更多</span>'+
         	'</div>'));
 		}
 		$(scrollerId).addClass("scroller");
 		$(wrapperId).css(param.wrapperCss);
-		
+
 		var upIcon = $("#up-icon");
-		
+
 	myScroll = new IScroll(wrapperId, { probeType: 3, mouseWheel: true,click:true });
-	
+	var wrapperDomId = wrapperId.replace(/#/g,"");
+	document.getElementById(wrapperDomId).addEventListener('touchmove', function(event) {
+	    // 判断默认行为是否可以被禁用
+	    if (event.cancelable) {
+	        // 判断默认行为是否已经被禁用
+	        if (!event.defaultPrevented) {
+	            event.preventDefault();
+	        }
+	    }
+	},{passive:false});
 	myScroll.on("beforeScrollStart",function(){
 		myScroll.refresh();
-											 
+
 	});
 	myScroll.on("scroll",function(){
 		if(this.y!=0){
 			$("#scroller-pullUp").css({"display":"block"});
-		}					  
+		}
 		var y = this.y,
 			maxY = this.maxScrollY - y,
-			
+
 			upHasClass = upIcon.hasClass("reverse_icon");
-		
+
 		if(maxY >= dis && !Hook.isRefreshing){
 			$("#pullUp-msg").text("松开后加载");
 			Hook.isRefresh = true;
@@ -57,9 +66,9 @@ var Hook = {
 			return "";
 		}
 	});
-	
+
 	myScroll.on("slideUp",function(){
-								  
+
 		if(this.maxScrollY - this.y > dis){
 			Hook.isRefreshing = true
 			$("#scroller-pullUp").css({"bottom":"0px"});
@@ -68,7 +77,7 @@ var Hook = {
 		}
 	});
 	myScroll.on("scrollEnd",function(){
-		// $("#pullUp-msg").text("上拉可以加载更多");	
+		// $("#pullUp-msg").text("上拉可以加载更多");
 		if(Hook.isRefresh){
 			callback();
 			Hook.isRefresh = false;
