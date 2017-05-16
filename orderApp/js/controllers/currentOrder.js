@@ -275,7 +275,9 @@
 		})
 		$scope.donationOptions[idx].isSelected = true;
 		$scope.userDonation = $scope.donationOptions[idx].amount
-		$scope.otherAmount = $scope.donationOptions[idx].amount
+		$(".input-amount").val($scope.donationOptions[idx].amount);
+		oldValue = $scope.donationOptions[idx].amount;
+		// $scope.otherAmount = $scope.donationOptions[idx].amount
 	}
 	$scope.amountFocused = function(){
 		// $scope.userDonation = null;
@@ -287,24 +289,55 @@
 	var oldValue = '';
 	var reg = /(^([1-9]\d{0,9}|0)([.]?|(\.\d{1,2})?)$)/;
 	$scope.amountChange = function(){
-		// console.log("change")
-		if(reg.test($(".input-amount").val())){
-			$scope.userDonation = $(".input-amount").val();
-			oldValue = $(".input-amount").val();
+		var val = $(".input-amount").val();
+		if(reg.test(val)){
+			$scope.userDonation = val;
+			oldValue = val;
 		}else{
-			if(!$(".input-amount").val()){
-				oldValue = '';
-				$scope.userDonation = null;
+			if (val != ""){
+				$(".input-amount").val(oldValue);
+			}else{
+				$(".input-amount").val(val);
+				$scope.userDonation = val;
+				oldValue = val;
 			}
-			$scope.otherAmount = oldValue;
-			$(".input-amount").val(oldValue);
-
 		}
-		//$scope.userDonation = parseFloat($scope.otherAmount);
-		//console.log($scope.otherAmount,"---------",oldValue)
-		// console.log("change:--------",$scope.otherAmount)
-		// console.log(reg.test($scope.otherAmount))
 	}
+	// $(".input-amount").on("keyup",function(){
+	// 	console.log("up");
+	// 	var val = $(".input-amount").val();
+	// 	if(reg.test(val)){
+	// 		$scope.userDonation = val;
+	// 		oldValue = val;
+	// 	}else{
+	// 		if (val != "") {
+	// 			$(".input-amount").val(oldValue);
+	// 		}else{
+	// 			$(".input-amount").val(val);
+	// 			$scope.userDonation = val;
+	// 			oldValue = val;
+	// 		}
+	// 	}
+	// })
+	// $scope.amountChange = function(){
+	// 	// console.log("change")
+	// 	if(reg.test($(".input-amount").val())){
+	// 		$scope.userDonation = $(".input-amount").val();
+	// 		oldValue = $(".input-amount").val();
+	// 	}else{
+	// 		if(!$(".input-amount").val()){
+	// 			oldValue = '';
+	// 			$scope.userDonation = null;
+	// 		}
+	// 		$scope.otherAmount = oldValue;
+	// 		$(".input-amount").val(oldValue);
+
+	// 	}
+	// 	//$scope.userDonation = parseFloat($scope.otherAmount);
+	// 	//console.log($scope.otherAmount,"---------",oldValue)
+	// 	// console.log("change:--------",$scope.otherAmount)
+	// 	// console.log(reg.test($scope.otherAmount))
+	// }
 	$scope.submitDonation = function(){
 		if(!reg.test($scope.userDonation)){
 			alert("请输入有效的金额");
@@ -312,7 +345,6 @@
 			// $("body").showLoading();
 			apiCaller.postDonation(parseFloat($scope.userDonation),function(response){
 				// $("body").hideLoading();
-				console.log(response)
 				$scope.hideDonation();
 				// alert("捐款成功")
 				$scope.donationAmount = response.myDonation.toFixed(2);

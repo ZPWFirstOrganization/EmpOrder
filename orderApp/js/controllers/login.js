@@ -15,7 +15,7 @@ orderApp.controller('loginCtrl',function($scope,$state,apiCaller,scopeData,scope
 				});
 		},function(res){
 			alert("未获取到信息，请稍后再试")
-		})
+		});
 	}else{
 		userProfile.getProfile(function(){
 			scopeData.isLogin = true;

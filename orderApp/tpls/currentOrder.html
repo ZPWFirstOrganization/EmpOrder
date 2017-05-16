@@ -155,7 +155,7 @@
       </div>
     </div>
     <div class="mt-20" style="">
-      <input class="box input-amount" placeholder="请输入金额" ng-focus="amountFocused()" ng-class="{'input-amount-active':isOtherInput}" type="number" ng-model="otherAmount" ng-change="amountChange()">
+      <input class="box input-amount" placeholder="请输入金额" ng-focus="amountFocused()" ng-class="{'input-amount-active':isOtherInput}" type="number" ng-model="otherAmount" ng-keyup="amountChange()">
     </div>
     <div class="mt-20" style="">
       <label class="fs-13">选择在此平台捐款即默认为委托玫琳凯公司代为向上海宋庆龄基金会捐款</label>
