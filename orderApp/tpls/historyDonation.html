@@ -1,9 +1,9 @@
-<div ng-controller="historyOrderCtrl">
+<div ng-controller="historyDonationCtrl">
 <!--主体-->
 
 <!--pc面包屑-->
 <div class="layout page-width pc-only">
-	<div class="bread-crumb"><a ui-sref="index.productList({discountType:'{{discountType}}',productClass:1,productCode:1,page:1})">首页</a><a>&gt;</a><a>历史订单</a></div>
+	<div class="bread-crumb"><a ui-sref="index.productList({discountType:'{{discountType}}',productClass:1,productCode:1,page:1})">首页</a><a>&gt;</a><a>历史捐款</a></div>
 
     <div class="clr"></div>
 </div>
@@ -36,7 +36,7 @@
 
 
 <!--pc mobile产品列表-->
-<div class="bread-crumb mobile-only"><a ui-sref="index.productList({discountType:'{{discountType}}',productClass:1,productCode:1,page:1})" class="back"><b>&lt;</b> 首页</a><div class="title">历史订单</div></div>
+<div class="bread-crumb mobile-only"><a ui-sref="index.productList({discountType:'{{discountType}}',productClass:1,productCode:1,page:1})" class="back"><b>&lt;</b> 首页</a><div class="title">历史捐款</div></div>
 <div id="wrapper">
     <div id="scroller">
 <div class="layout page-width" name="scrollerView">
@@ -44,10 +44,10 @@
         <div class="left">
             <div class="sider-menu-wrapper">
             <a class="sider-menu " ui-sref="index.currentOrder({discountType:'{{discountType}}'})">当月订单</a>
-            <a class="sider-menu active" ui-sref="index.historyOrder({discountType:'{{discountType}}',page:1,orderDate:'',orderParam:{}})">历史订单</a>
+            <a class="sider-menu" ui-sref="index.historyOrder({discountType:'{{discountType}}',page:1,orderDate:'',orderParam:{}})">历史订单</a>
             <a class="sider-menu" ui-sref="index.personInfo({discountType:'{{discountType}}'})">个人信息</a>
             <a class="sider-menu" ui-sref="index.chart({discountType:'{{discountType}}'})">消费趋势</a>
-            <a class="sider-menu" ui-sref="index.historyDonation({discountType:'{{discountType}}',page:1,orderDate:''})">历史捐款</a>
+            <a class="sider-menu active" ui-sref="index.historyDonation({discountType:'{{discountType}}',page:1,orderDate:''})">历史捐款</a>
             </div>
 
         </div>
@@ -63,33 +63,16 @@
                 <!-- <br> -->
                 <div class="f12">部门秘书：<a ng-repeat="s in secretary">{{s.userName}}&nbsp;&nbsp;{{s.userPhone}}&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
                 </div>
-<!--                 <div class="his-tips-line1">此价格仅表示下单当月价格   </div>
-            	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}}</div> -->
                 <div class="his-select-wrapper">
                     <select class="select2" id="pcMonthSelecter" ng-model="pcSelectMonth" ng-change="pcSelectDate()" ng-options="m.name for m in months">
-                        <!-- <option ng-selected="pcSelectMonth" value="pcSelectYear.value">{{pcSelectMonth.value}}</option> -->
                         <option value=""></option>
                     </select>
-                    <!-- <select class="select2">
-                    <option value="">选择月</option>
-                    <option value="1">1月</option>
-                    <option value="2">2月</option>
-                    <option ng-repeat="month in months" value="month.value" ng-click="choice()">{{month.name}}</option>
-                    </select> -->
+
                 </div>
                 <div class="his-select-wrapper">
                     <select class="select2" id="pcYearSelecter" ng-model="pcSelectYear" ng-change="pcSelectDate()" ng-options="y.name for y in years">
-                        <!-- <option ng-selected="pcSelectYear" value="">{{pcSelectYear.name}}</option> -->
                         <option value=""></option>
-
                     </select>
-
-<!--                     <select class="select2">
-                    <option value="">选择年</option>
-                    <option value="2016">2016</option>
-                    <option ng-repeat="year in years" value="year.value">{{year.name}}</option>
-
-                    </select> -->
                 </div>
                 <div class="clr"></div>
             </div>
@@ -99,11 +82,11 @@
                 <div class="empty" ng-show="!isHaveData">
                         <div class="icon"></div>
                         <div class="wording">
-                        <h1>暂无历史订单</h1>
-                        <h3>您还没有开始购物产品，去购物吧</h3>
+                        <h1>暂未获得证书</h1>
+                        <h3>您还没有获取证书，去捐款吧</h3>
                         </div>
                         <div class="btn">
-                        <a class="button button-gray w100" ui-sref="index.productList({discountType:'{{discountType}}',productClass:1,productCode:1,page:1})">去购物</a>
+                        <a class="button button-gray w100" ui-sref="index.currentOrder({discountType:'{{discountType}}'})">去捐款</a>
                         </div>
 
                     </div>
@@ -112,18 +95,18 @@
                     <div class="th" ng-show="isHaveData">
                         <!-- <div class="td w20 text-center"><span class="text-center">订单编号</span></div> -->
                         <div class="td w25 text-center"><span class="text-center">订单时间</span></div>
-                        <div class="td w25 text-center"><span class="text-center">应付金额</span></div>
+                        <div class="td w25 text-center"><span class="text-center">捐款金额</span></div>
                         <div class="td w25 text-center"><span class="text-center">订单状态</span></div>
                         <div class="td w25 text-center"><span class="text-center">操作</span></div>
 
                         <div class="clr"></div>
                     </div>
-                    <div class="tr" ng-repeat="order in orderList track by $index" ng-show="isHaveData">
+                    <div class="tr" ng-repeat="donation in donationList track by $index" ng-show="isHaveData">
                     	 <!-- <div class="td w20"><span class="">{{order.orderID}}</span></div> -->
-                         <div class="td w25"><span class="">{{order.orderYearMonth}}</span></div>
-                         <div class="td w25"><span class="">￥{{order.orderRealAmount}}</span></div>
-                         <div class="td w25"><span class="">{{order.orderState | stateFilter }}</span></div>
-                         <div class="td w25"><a class=""  ui-sref="index.orderDetail({discountType:discountType,orderID:order.orderID})">查看</a></div>
+                         <div class="td w25"><span class="">{{donation.donationYearMonth}}</span></div>
+                         <div class="td w25"><span class="">￥{{donation.amount}}</span></div>
+                         <div class="td w25"><span class="">{{donation.orderState | stateFilter }}</span></div>
+                         <div class="td w25"><a ng-class="{true:'look-able',false:'look-disable'}[donation.isEnable]" ng-click="showCertificate(donation)">查看</a></div>
 
                          <div class="clr"></div>
                     </div>
@@ -168,28 +151,28 @@
                 <div class="empty" ng-show="!isHaveData">
                         <div class="icon"></div>
                         <div class="wording">
-                        <h1>暂无历史订单</h1>
-                        <h3>您还没有开始购物产品，去购物吧</h3>
+                        <h1>暂未获得证书</h1>
+                        <h3>您还没有获取证书，去捐款吧</h3>
                         </div>
                         <div class="btn">
-                        <a class="button button-gray w100" ui-sref="index.productList({discountType:'{{discountType}}',productClass:1,productCode:1,page:1})">去购物</a>
+                        <a class="button button-gray w100" ui-sref="index.currentOrder({discountType:'{{discountType}}'})">去购物</a>
                         </div>
 
                     </div>
 
-                <a class="order" ng-repeat="order in orderList track by $index" ng-show="isHaveData">
-                    <div class="form-row" ui-sref="index.orderDetail({discountType:discountType,orderID:order.orderID})">
+                <a class="order" ng-repeat="donation in donationList track by $index" ng-show="isHaveData" ng-click="showCertificate(donation)">
+                    <div class="form-row">
 <!--                       <div class="field-key w25 gray10">订单编号：</div>
                       <div class="field-value w25">{{order.orderID}}</div> -->
                       <div class="field-key w25 gray10">订单时间：</div>
-                      <div class="field-value w20 ">{{order.orderYearMonth}}</div>
+                      <div class="field-value w20 ">{{donation.donationYearMonth}}</div>
                       <div class="field-key w25 gray10">订单状态：</div>
-                      <div class="field-value w20 ">{{order.orderState | stateFilter }}</div>
+                      <div class="field-value w20 ">{{donation.orderState | stateFilter }}</div>
                       <div class="clr"> </div>
                     </div>
-                    <div class="form-row" ui-sref="index.orderDetail({discountType:discountType,orderID:order.orderID})">
-                      <div class="field-key w25 gray10">应付金额：</div>
-                      <div class="field-value w25">￥{{order.orderRealAmount}}</div>
+                    <div class="form-row">
+                      <div class="field-key w25 gray10">捐款金额：</div>
+                      <div class="field-value w25">￥{{donation.amount}}</div>
                       <div class="clr"> </div>
                     </div>
                 </a>
@@ -207,7 +190,11 @@
 </div>
     </div>
 </div>
+<div class="donation-cover" ng-hide="!isShowCertificate">
+    <div class="donation-bg" ng-class="{true:'model-bg-show',false:'model-bg-hide'}[isShowCertificateContainer]" ng-click="hideCertificate()">
+    </div>
+    <div class="box box-shadow-15 certificate-container anim" ng-class="{true:'model-transY-show',false:'model-transY-hide'}[isShowCertificateContainer]">
+    <div class="certificate-name" style="">{{donationShowName}}</div>
+    </div>
 </div>
-<script>
-
-</script>
+</div>

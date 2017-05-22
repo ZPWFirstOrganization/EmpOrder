@@ -19,43 +19,44 @@
             <a class="sider-menu" ui-sref="index.historyOrder({discountType:'{{discountType}}',page:1,orderDate:''})">历史订单</a>
             <a class="sider-menu active" ui-sref="index.personInfo({discountType:'{{discountType}}'})">个人信息</a>
             <a class="sider-menu" ui-sref="index.chart({discountType:'{{discountType}}'})">消费趋势</a>
+             <a class="sider-menu" ui-sref="index.historyDonation({discountType:'{{discountType}}',page:1,orderDate:''})">历史捐款</a>
             </div>
-        
+
         </div>
         <div class="bread-crumb mobile-only"><a ui-sref="index.productList({discountType:'{{discountType}}',productClass:1,productCode:1,page:1})" class="back"><b>&lt;</b> 首页</a><div class="title">个人信息</div></div>
         <div class="right">
-            
-            
+
+
             <div class="top-wrapper pc-only">
                 <div class="person-tips">个人信息</div>
             </div>
-            
+
             <div class="mid-wrapper">
-            
+
                 <!--<div class="empty"></div>-->
-                
+
                 <div class="form-row">
                   <div class="field-key  gray10">季度余额：</div>
                   <div class="field-value">￥{{Person.myBalance}}<span ng-show="discountType==2">和￥{{Person.myBalanceEx}}(调养品) </span></div>
                   <div class="clr"> </div>
-                </div> 
-                <div class="split-dot"></div>   
+                </div>
+                <div class="split-dot"></div>
                 <div class="form-row">
                   <div class="field-key  gray10">用户名：</div>
                   <div class="field-value">{{Person.userName}} </div>
                   <div class="clr"> </div>
-                </div>      
+                </div>
                 <div class="form-row">
                   <div class="field-key  gray10">角色名：</div>
                   <div class="field-value">{{Person.roleName}} </div>
                   <div class="clr"> </div>
-                </div>     
-                 
+                </div>
+
                 <div class="form-row">
                   <div class="field-key  gray10">部门名称：</div>
                   <div class="field-value">{{Person.depName}} </div>
                   <div class="clr"> </div>
-                </div> 
+                </div>
 
                 <div class="form-row">
                   <div class="field-key  gray10">下单部门：</div>
@@ -67,31 +68,31 @@
                   <div class="field-value">若对下单部门有疑义，请联系<a href="Mailto:HelpdeskChina@mkcorp.com" style="color:blue;display:inline;" class="pc-only">Helpdesk</a><a class="mobile-only" style="display:inline;">Helpdesk</a>（<a class="mobile-only" style="color:blue;display:inline;" href="tel:22084499">2208 4499</a><a class="pc-only" style="display:inline;">2208 4499</a>）</div>
                   <div class="clr"> </div>
                 </div>
-                <div class="split-dot"></div>    
+                <div class="split-dot"></div>
                 <div class="form-row">
                   <div class="field-key  gray10">年消费额：</div>
                   <div class="field-value">￥{{Person.currentOrderSum}} </div>
                   <div class="clr"> </div>
-                </div> 
+                </div>
 
                 <div class="form-row">
                   <div class="field-key  gray10">总消费额：</div>
                   <div class="field-value">￥{{Person.totalOrderSum}} </div>
                   <div class="clr"> </div>
-                </div>    
-                
-                <div class="split-dot"></div>                                 
-                            
-            </div>           
-            
-       
-            
-        
+                </div>
+
+                <div class="split-dot"></div>
+
+            </div>
+
+
+
+
         </div>
-        
-        <div class="clr"></div> 
-        
-    
+
+        <div class="clr"></div>
+
+
     </div>
 </div>
 

@@ -1,25 +1,25 @@
 orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$window,scopeData,scopeMethod,apiCaller,userProfile) {
 
     function showModalBg(obj){
-    
+
         top=45;
         height=$(window).height()+100;
-        
+
         modalBg=$('<div id="modalBg" style="background-color:#000; opacity:0.7; position:static; z-index:10; width:100%; height:'+height+'px; top:'+top+'"></div>');
         obj.after(modalBg);
         modalBg.bind('touchmove', function(e) {
                 e.preventDefault();
         });
         modalBg.click(function(){
-            $(this).remove();   
+            $(this).remove();
         })
     }
     //隐藏 黑背景
     function hideModalBg(){
-        
+
         $("#modalBg").remove();
-        
-    }   
+
+    }
 
     if("2"==$stateParams.discountType){
         $scope.currentType = "优惠价";
@@ -45,37 +45,37 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$w
     })
 
     //展开我的
-    $('[action="my"]').click(function(){        
+    $('[action="my"]').click(function(){
         if($(".my-list").css("display")=="none"){
             $(".my-list").slideDown(300);
             showModalBg($(".my-list"));
         }else{
-            $(".my-list").slideUp(300); 
+            $(".my-list").slideUp(300);
             hideModalBg();
-        }   
+        }
     });
-    
+
     //闭合我的
     $("body").click(function(event){
         if(event.target!=$('[action="my"]')[0]){
             if($(".my-list").css("display")=="block"){
-                $(".my-list").slideUp(200); 
+                $(".my-list").slideUp(200);
                 hideModalBg();
             }
         }
-    });     
+    });
 
     //展开优惠价
-    $('[action="mobile-select-onsale"]').click(function(){      
+    $('[action="mobile-select-onsale"]').click(function(){
         if($(".mobile-onsale-list").css("display")=="none"){
-            $(".mobile-onsale-list").fadeIn(200);   
+            $(".mobile-onsale-list").fadeIn(200);
             showModalBg($(".mobile-onsale-list"));
             $("#typeArrow").addClass("mobile-onsale-arrow-up");
         }else{
             $(".mobile-onsale-list").fadeOut(200);
             $("#typeArrow").removeClass("mobile-onsale-arrow-up");
-            hideModalBg();  
-        }   
+            hideModalBg();
+        }
     });
     //闭合优惠价
     $("body").click(function(event){
@@ -83,13 +83,13 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$w
             if($(".mobile-onsale-list").css("display")=="block"){
                 $(".mobile-onsale-list").fadeOut(200);
                 $("#typeArrow").removeClass("mobile-onsale-arrow-up");
-                hideModalBg();      
+                hideModalBg();
             }
         }
     });
 
     $scope.listItemClicked = function(type){
-        $(".my-list").slideUp(200); 
+        $(".my-list").slideUp(200);
         hideModalBg();
         setTimeout(function(){
             switch(type){
@@ -107,6 +107,9 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$w
                 break;
                 case 5:
                     $state.go("index.chart",{discountType:scopeData.discountType});
+                break;
+                case 6:
+                    $state.go("index.historyDonation",{discountType:scopeData.discountType,page:1,orderDate:'',orderParam:{}});
                 break;
             }
         },250);
@@ -132,7 +135,7 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$w
                 scopeMethod.changeState("1","1","1");
                 // $window.location.reload();
             })
-        }) 
+        })
     }
 
     $scope.nav1Clicked = function () {
@@ -161,7 +164,7 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$w
     }
 
     $scope.DataForMatch = [];
-    
+
     $("#mbSeach").keyup(function(event){
         if(event.keyCode != 38 && event.keyCode != 40){
             clearTimeout(delayTime);
@@ -197,7 +200,7 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$w
             }
         }
     })
-    
+
     document.getElementById('mbSeach').addEventListener('input', function(e){
         clearTimeout(delayTime);
         if($scope.searchKey != ''){
@@ -225,7 +228,7 @@ orderApp.controller('mbHeaderController',function ($scope,$state,$stateParams,$w
             $('#mbSeach').autocompleter('destroy');
             // $('#mbSeach').blur()
             setTimeout(function(){
-                $('#mbSeach').autocompleter({ 
+                $('#mbSeach').autocompleter({
                     highlightMatches: true,
                     empty: false,
                     limit: 8,

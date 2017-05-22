@@ -102,6 +102,12 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 			url:'/chart/discountType={discountType}',
 			templateUrl:'tpls/chart.html',
 			controller:'chartController'
+		}).state('index.historyDonation',{
+			url:'/historyDonation/discountType={discountType}&page={page}&orderDate={orderDate}',
+			templateUrl:'tpls/historyDonation.html',
+			params:{
+				orderParam:{}
+			}
 		})
 })
 

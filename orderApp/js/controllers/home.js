@@ -440,6 +440,24 @@ orderApp.factory('apiCaller',function($stateParams,$http,ApiService,AuthApiServi
 					return err(res)
 				}
 			})
-		}
+		},
+		getDonationListByPage:function(param,suc,err){
+			return ApiService.getDonationList({
+				Type:"types/"+scopeData.discountType+"/wap/"+scopeData.isMobile+"/Donation",
+				userID:param.userID,
+				donationDate:param.donationDate,
+				pageNum:param.pageNum
+			},
+			function(res){
+				if(suc){
+					return suc(res)
+				}
+			},
+			function(res){
+				if(err){
+					return err(res)
+				}
+			})
+		},
 	}
 });

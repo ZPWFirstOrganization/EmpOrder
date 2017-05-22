@@ -1,9 +1,9 @@
-orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiService,apiCaller,scopeData,scopeMethod){
+orderApp.controller('historyDonationCtrl',function($scope,$state,$stateParams,ApiService,apiCaller,scopeData,scopeMethod){
 	scopeMethod.setMinHeight()
 	$(window).scrollTop(0);
 	$("body").showLoading();
 	$scope.isHaveData = true;
-	$scope.orderList = [];
+	$scope.donationList = [];
 	$scope.pages = [];
 	$scope.pageCount = 0
 	$scope.currentPage = parseInt($stateParams.page);
@@ -20,31 +20,34 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 					{name:"9月",value:"09"},{name:"10月",value:"10"},
 					{name:"11月",value:"11"},{name:"12月",value:"12"}
 					]
-
+	$scope.isShowCertificate = false;
+	$scope.isShowCertificateContainer = false;
 	if (angular.isUndefined($stateParams.page)){
 		$stateParams.page = 1
 	}
-	$scope.secretary = []
+	$scope.secretary = [];
+	$scope.userName = "";
 	var startYear = 2008
 	var currentYear = (new Date()).getFullYear()
 	//获取订单信息
 	function queryOrderInfo(orderDate){
-		apiCaller.getOrderListByPage({userID:scopeData.userID,orderDate:orderDate,pageNum:$scope.currentPage},function(res){
+		apiCaller.getDonationListByPage({userID:scopeData.userID,donationDate:orderDate,pageNum:$scope.currentPage},function(res){
+			$scope.userName = res.userName;
 			$scope.pageCount = res.pageCount;
 			$scope.pages = []
-			$scope.orderList = []
+			$scope.donationList = []
 			if (res.firstOrderDate) {
 				startYear = parseInt(res.firstOrderDate.split("-")[0])
 			}
 			currentYear = parseInt(res.currentYear)
-			if(!res.order){
+			if(!res.donation){
 				$scope.isHaveData = false;
 			}else{
 				$scope.isHaveData = true;
 				for (var i = 0; i < res.pageCount; i++) {
 					$scope.pages.push(i+1)
 				};
-				$scope.orderList = res.order;
+				$scope.donationList = res.donation;
 			}
 			$("body").hideLoading();
 			initLizeSelecter()
@@ -63,7 +66,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		if('next' == page){
 			if($scope.currentPage < $scope.pages.length){
 				$scope.currentPage = parseInt($stateParams.page) + 1
-				$state.go('index.historyOrder',{page:$scope.currentPage});
+				$state.go('index.historyDonation',{page:$scope.currentPage});
 			}else{
 				return;
 			}
@@ -72,7 +75,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		else if('previous' == page){
 			if($scope.currentPage > 1){
 				$scope.currentPage = parseInt($stateParams.page) - 1
-				$state.go('index.historyOrder',{page:$scope.currentPage});
+				$state.go('index.historyDonation',{page:$scope.currentPage});
 			}else{
 				return;
 			}
@@ -81,7 +84,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		else if('first' == page){
 			if($scope.currentPage != 1){
 				$scope.currentPage = 1
-				$state.go('index.historyOrder',{page:1});
+				$state.go('index.historyDonation',{page:1});
 			}else{
 				return;
 			}
@@ -90,14 +93,14 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		else if('last' == page){
 			if($scope.currentPage != $scope.pages.length){
 				$scope.currentPage = $scope.pages.length
-				$state.go('index.historyOrder',{page:$scope.pages.length});
+				$state.go('index.historyDonation',{page:$scope.pages.length});
 			}else{
 				return;
 			}
 		}
 		//点击页码
 		else{
-			$state.go('index.historyOrder',{page:page});
+			$state.go('index.historyDonation',{page:page});
 		}
 	}
 
@@ -223,7 +226,7 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
  			}else if($scope.pcSelectYear.value == "" && $scope.pcSelectMonth.value != ""){
  				date = "-"+$scope.pcSelectMonth.value
  			}
- 			$state.go('index.historyOrder',
+ 			$state.go('index.historyDonation',
 			{
 				page:1,
 				orderDate:date,
@@ -264,35 +267,91 @@ orderApp.controller('historyOrderCtrl',function($scope,$state,$stateParams,ApiSe
 		callback:function(){
 			if($scope.currentPage >= $scope.pageCount){
 				Hook.loadDown()
-				showModal({msg:"没有更多订单！"});
+				showModal({msg:"没有更多捐款！"});
 				return
 			}
 			//下拉刷新
 			$("body").showLoading()
-			apiCaller.getOrderListByPage(
-				{userID:scopeData.userID,orderDate:$stateParams.orderDate,pageNum:++$scope.currentPage},
+			apiCaller.getDonationListByPage(
+				{userID:scopeData.userID,donationDate:$stateParams.orderDate,pageNum:++$scope.currentPage},
 				function(res){
 					Hook.loadDown()
 					$("body").hideLoading()
-					if(res.order){
-						// $scope.orderList.concat(res.order)
-						$.each(res.order, function(i,v){
-							$scope.orderList.push(v)
+					if(res.donation){
+						$.each(res.donation, function(i,v){
+							$scope.donationList.push(v)
 					 	});
 					}else{
-						showModal({msg:"没有更多订单！"});
+						showModal({msg:"没有更多捐款！"});
 						--$scope.currentPage
 					}
 				},
 				function(res){
 					Hook.loadDown()
 					$("body").hideLoading()
-					showModal({msg:"没有更多订单！"});
+					showModal({msg:"没有更多捐款！"});
 					--$scope.currentPage
 				}
 			)
 		}
 	});
+	// var isLoading = true;
+	// 消失动画结束之前不会再出现。
+	$scope.isCanShow = true;
+	$scope.isCanHide = false;
+	$scope.donationShowName = "";
+	$scope.showCertificate = function(donation){
+		function show(){
+			// isLoading = true;
+			$scope.isShowCertificate = true;
+			setTimeout(function(){
+				$scope.isShowCertificateContainer = true;
+			},0);
+		}
+		if (donation.isEnable && $scope.isCanShow){
+			show();
+			$scope.isCanShow = false;
+			$scope.isCanHide = true;
+			// isLoading = true;
+			var img = new Image();
+			img.src = donation.certificatePath;
+			if(img.complete){
+				$(".certificate-container").css("background-image","url("+donation.certificatePath+")");
+				$scope.donationShowName = $scope.userName;
+			  return;
+			}else{
+				setTimeout(function(){$("body").showLoading()},0)
+			}
+		  img.onload = function () {
+		  	$("body").hideLoading();
+		  	$(".certificate-container").css("background-image","url("+donation.certificatePath+")");
+		  	$scope.donationShowName = $scope.userName;
+			};
+			img.onerror = function(){
+				// isLoading = false;
+				$("body").hideLoading();
+				alert("未获取到证书");
+			}
+		}
+	}
+	$scope.hideCertificate = function(){
+
+		if ($scope.isCanHide){
+			$scope.isCanHide = false;
+			$scope.donationShowName = "";
+			$(".certificate-container").css("background-image","");
+			$("body").hideLoading();
+			$scope.isShowCertificateContainer = false;
+			setTimeout(function(){
+				$scope.isCanShow = true;
+				$scope.isShowCertificate && ($scope.isShowCertificate = false);
+			},400);
+		}
+	}
+	var pressType = scopeData.isMobile!=0 ? "touchend" : "click";
+	$(".certificate-container").on(pressType,function(){
+		$scope.hideCertificate();
+	})
 })
 
  orderApp.filter('stateFilter',function(){

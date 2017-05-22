@@ -149,6 +149,14 @@ orderApp.factory('ApiService',function($resource,baseUrl,scopeData){
 		    		amount:'@amount',
 		    	}
 		    },
+		    getDonationList:{
+		      	method:'GET',
+		      	params:{
+		          userID:'@userID',
+		          donationDate:'@donationDate',
+		          pageNum:'@pageNum'
+		        }
+		    },
 		}
 	);
 });
