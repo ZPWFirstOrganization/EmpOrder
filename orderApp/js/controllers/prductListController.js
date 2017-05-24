@@ -1,9 +1,9 @@
 orderApp.controller('prductListController',function($scope,$stateParams,$state,$http,scopeData,scopeMethod,apiCaller,sessionStorage) {
     if($(window).width()>1300){
         r=(parseInt($(window).width())-1000)/2 -180;
-        $(".cart").css({"right":r})       
+        $(".cart").css({"right":r})
     }else{
-        $(".cart").css({"right":10})     
+        $(".cart").css({"right":10})
     }
 	scopeData.discountType = $stateParams.discountType;
 	$scope.discountType = scopeData.discountType;
@@ -29,11 +29,12 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
 
 
     apiCaller.getProductListByStates(function(res){
+    	console.log(res);
     	$scope.pdList = res;
 		for (var i = 0; i < $scope.pdList.pageNumCount; i++) {
 			$scope.pages.push(i+1)
 		};
-		
+
 		if($stateParams.productClass == '1'){
 			$scope.isGroupNameShow = false;
 			for(index in scopeData.categories){
@@ -64,7 +65,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
     },function(){
     	$("body").hideLoading();
     });
-	
+
 	$scope.numberFocused = function(NumberID){
 		$("#"+NumberID).keyup(function(){
 			if(!(/(^[0-9]*$)/).test($scope.inputTexts[NumberID])){
@@ -90,7 +91,7 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
                 };
             }
         }
-        
+
     }, true);
 
 	//手机上拉刷新
@@ -236,11 +237,11 @@ orderApp.controller('prductListController',function($scope,$stateParams,$state,$
     }
 
     $(document).on("click",".list",function(){
-	    $(".option-list").fadeOut(200); 
+	    $(".option-list").fadeOut(200);
 	});
-	  
+
 	$('.layout,.mobile-header-wrapper').click(function(){
-	    $(".option-list").fadeOut(200); 
+	    $(".option-list").fadeOut(200);
 	});
 
 	$scope.toDetail = function(Product){

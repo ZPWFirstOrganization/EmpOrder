@@ -32,6 +32,7 @@ orderApp.controller('historyDonationCtrl',function($scope,$state,$stateParams,Ap
 	//获取订单信息
 	function queryOrderInfo(orderDate){
 		apiCaller.getDonationListByPage({userID:scopeData.userID,donationDate:orderDate,pageNum:$scope.currentPage},function(res){
+			console.log(res);
 			$scope.userName = res.userName;
 			$scope.pageCount = res.pageCount;
 			$scope.pages = []
@@ -299,7 +300,9 @@ orderApp.controller('historyDonationCtrl',function($scope,$state,$stateParams,Ap
 	// 消失动画结束之前不会再出现。
 	$scope.isCanShow = true;
 	$scope.isCanHide = false;
-	$scope.donationShowName = "";
+	// $scope.donationShowName = "";
+	$scope.donationImg = "";
+	var showImgSrc = "";
 	$scope.showCertificate = function(donation){
 		function show(){
 			// isLoading = true;
@@ -309,26 +312,41 @@ orderApp.controller('historyDonationCtrl',function($scope,$state,$stateParams,Ap
 			},0);
 		}
 		if (donation.isEnable && $scope.isCanShow){
+			$("body").showLoading();
 			show();
 			$scope.isCanShow = false;
 			$scope.isCanHide = true;
-			// isLoading = true;
 			var img = new Image();
-			img.src = donation.certificatePath;
-			if(img.complete){
-				$(".certificate-container").css("background-image","url("+donation.certificatePath+")");
-				$scope.donationShowName = $scope.userName;
-			  return;
-			}else{
-				setTimeout(function(){$("body").showLoading()},0)
-			}
+			// img.src = donation.certificatePath+"?time="+(new Date()).getTime();
+			img.src = "imgDonation/"+donation.certificatePath;
+			// console.log(img.src);
+			img.crossOrigin = "Anonymous";
 		  img.onload = function () {
+		  	// alert("onload");
+		  	var canvas = document.createElement('canvas');
+				canvas.width = img.width;
+				canvas.height = img.height;
+				var pen = canvas.getContext("2d");
+				pen.drawImage(img,0,0,img.width,img.height,0,0,canvas.width,canvas.height);
+				pen.font = "normal 80px arial bold";
+			  pen.fillStyle = "#565656";
+		    pen.textAlign = 'center';
+		    var showName = "";
+		    $.each($scope.userName.split(""),function(i,v){
+		    	if(i!=$scope.userName.length-1){
+		    		showName += v + "  ";
+		    	}else{
+		    		showName += v;
+		    	}
+		    })
+		    pen.fillText(showName,canvas.width/2,canvas.height*0.79);
+		    $("#donationImg").attr("src",canvas.toDataURL("image/jpeg",1));
+		    // $scope.donationImg = canvas.toDataURL("image/jpg",1);
 		  	$("body").hideLoading();
-		  	$(".certificate-container").css("background-image","url("+donation.certificatePath+")");
-		  	$scope.donationShowName = $scope.userName;
 			};
 			img.onerror = function(){
 				// isLoading = false;
+				hideCertificate();
 				$("body").hideLoading();
 				alert("未获取到证书");
 			}
@@ -338,8 +356,10 @@ orderApp.controller('historyDonationCtrl',function($scope,$state,$stateParams,Ap
 
 		if ($scope.isCanHide){
 			$scope.isCanHide = false;
-			$scope.donationShowName = "";
-			$(".certificate-container").css("background-image","");
+			// $scope.donationShowName = "";
+			// $scope.donationImg = "";
+			// showImgSrc =
+			$("#donationImg").attr("src","");
 			$("body").hideLoading();
 			$scope.isShowCertificateContainer = false;
 			setTimeout(function(){

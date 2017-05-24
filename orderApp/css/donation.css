@@ -374,11 +374,13 @@
 
 .model-transY-hide{
 	transform: translateY(40px);
+	-webkit-transform: translateY(40px);
   opacity: 0;
 }
 
 .model-transY-show{
 	transform: translateY(0);
+	-webkit-transform: translateY(0);
   opacity: 1;
 }
 

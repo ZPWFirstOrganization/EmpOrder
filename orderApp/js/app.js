@@ -104,7 +104,7 @@ orderApp.config(function($stateProvider,$urlRouterProvider){
 			controller:'chartController'
 		}).state('index.historyDonation',{
 			url:'/historyDonation/discountType={discountType}&page={page}&orderDate={orderDate}',
-			templateUrl:'tpls/historyDonation.html',
+			templateUrl:'tpls/historyDonation.html?v1.0.0',
 			params:{
 				orderParam:{}
 			}
