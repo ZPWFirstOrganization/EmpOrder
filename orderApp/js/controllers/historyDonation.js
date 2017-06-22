@@ -106,11 +106,11 @@ orderApp.controller('historyDonationCtrl',function($scope,$state,$stateParams,Ap
 	}
 
 	//获取秘书
-  	apiCaller.getSecretary({userID:scopeData.userID},function(response){
-  		$scope.secretary = response
-  	},function(response){
+  	// apiCaller.getSecretary({userID:scopeData.userID},function(response){
+  	// 	$scope.secretary = response
+  	// },function(response){
 
-  	})
+  	// })
 	// var mobileSelectYear = ""
  //    var mobileSelectMonth = ""
 	function initLizeSelecter(){
@@ -319,43 +319,42 @@ orderApp.controller('historyDonationCtrl',function($scope,$state,$stateParams,Ap
 			$scope.isCanHide = true;
 			var img = new Image();
 			// // img.src = donation.certificatePath+"?time="+(new Date()).getTime();
-			img.src = donation.certificatePath;
-			img.onload = function(){
-				$scope.donationImg = donation.certificatePath;
-				$scope.donationShowName = $scope.userName;
-				$("body").hideLoading();
-			}
+			img.src = "imgDonation/"+donation.certificatePath;
+			// img.onload = function(){
+			// 	$scope.donationImg = donation.certificatePath;
+			// 	$scope.donationShowName = $scope.userName;
+			// 	$("body").hideLoading();
+			// }
 			img.onerror = function(){
 				// isLoading = false;
-				hideCertificate();
+				$scope.hideCertificate();
 				$("body").hideLoading();
 				alert("未获取到证书");
 			}
 			// // console.log(img.src);
 			// img.crossOrigin = "Anonymous";
-		 //  img.onload = function () {
-		 //  	// alert("onload");
-		 //  	canvas = document.createElement('canvas');
-			// 	canvas.width = img.width;
-			// 	canvas.height = img.height;
-			// 	var pen = canvas.getContext("2d");
-			// 	pen.drawImage(img,0,0,img.width,img.height,0,0,canvas.width,canvas.height);
-			// 	pen.font = "normal 80px arial bold";
-			//   pen.fillStyle = "#565656";
-		 //    pen.textAlign = 'center';
-		 //    var showName = "";
-		 //    $.each($scope.userName.split(""),function(i,v){
-		 //    	if(i!=$scope.userName.length-1){
-		 //    		showName += v + "  ";
-		 //    	}else{
-		 //    		showName += v;
-		 //    	}
-		 //    })
-		 //    pen.fillText(showName,canvas.width/2,canvas.height*0.79);
-		 //    $("#donationImg").attr("src",canvas.toDataURL("image/jpeg"));
-		 //    // $scope.donationImg = canvas.toDataURL("image/jpg",1);
-		 //  	$("body").hideLoading();
-			// };
+		  img.onload = function () {
+		  	// alert("onload");
+		  	canvas = document.createElement('canvas');
+				canvas.width = img.width;
+				canvas.height = img.height;
+				var pen = canvas.getContext("2d");
+				pen.drawImage(img,0,0,img.width,img.height,0,0,canvas.width,canvas.height);
+				pen.font = "normal 80px arial bold";
+			  pen.fillStyle = "#565656";
+		    pen.textAlign = 'center';
+		    var showName = "";
+		    $.each($scope.userName.split(""),function(i,v){
+		    	if(i!=$scope.userName.length-1){
+		    		showName += v + "  ";
+		    	}else{
+		    		showName += v;
+		    	}
+		    })
+		    pen.fillText(showName,canvas.width/2,canvas.height*0.79);
+		    $scope.donationImg = canvas.toDataURL("image/jpeg");
+		  	$("body").hideLoading();
+			};
 		}
 	}
 	// function base64Img2Blob(code){
@@ -372,20 +371,18 @@ orderApp.controller('historyDonationCtrl',function($scope,$state,$stateParams,Ap
  //    console.log(uInt8Array.buffer);
  //    return new Blob([uInt8Array.buffer]);
  //  }
- //  function downloadFile(fileName, content){
- //    var aLink = document.createElement('a');
- //    var blob = base64Img2Blob(content);
- //    // base64Img2Blob(content); //new Blob([content]);
+  // function downloadFile(fileName, content){
+  //   var aLink = document.createElement('a');
+  //   var blob = base64Img2Blob(content);
+  //   // base64Img2Blob(content); //new Blob([content]);
 
- //    var evt = document.createEvent("HTMLEvents");
- //    evt.initEvent("click", false, false);//initEvent 不加后两个参数在FF下会报错
- //    // evt.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
- //    // alert(fileName);
- //    aLink.download = fileName;
- //    aLink.href = URL.createObjectURL(blob);
+  //   var evt = document.createEvent("HTMLEvents");
+  //   evt.initEvent("click", false, false);//initEvent 不加后两个参数在FF下会报错
+  //   aLink.download = fileName;
+  //   aLink.href = URL.createObjectURL(blob);
 
- //    aLink.dispatchEvent(evt);
- //  }
+  //   aLink.dispatchEvent(evt);
+  // }
 	//图片下载操作,指定图片类型
 	// $scope.download = function() {
 	// 	alert("download 7");
@@ -418,7 +415,6 @@ orderApp.controller('historyDonationCtrl',function($scope,$state,$stateParams,Ap
 			$scope.isCanHide = false;
 			$scope.donationShowName = "";
 			$scope.donationImg = "";
-			// showImgSrc =
 			$("#donationImg").attr("src","");
 			$("body").hideLoading();
 			$scope.isShowCertificateContainer = false;

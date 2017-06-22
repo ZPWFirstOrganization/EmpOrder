@@ -20,8 +20,9 @@
             <a class="sider-menu active" ui-sref="index.historyOrder({discountType:discountType,page:1,orderDate:'',orderParam:{}})">历史订单</a>
             <a class="sider-menu" ui-sref="index.personInfo({discountType:discountType})">个人信息</a>
             <a class="sider-menu" ui-sref="index.chart({discountType:'{{discountType}}'})">消费趋势</a>
+            <a class="sider-menu" ui-sref="index.historyDonation({discountType:'{{discountType}}',page:1,orderDate:''})">捐赠证书</a>
             </div>
-        
+
         </div>
         <div class="bread-crumb mobile-only"><a onClick="history.back()" class="back"><b>&lt;</b> 历史订单</a><div class="title">订单详情</div></div>
         <div class="right">
@@ -55,16 +56,16 @@
                   <div class="field-key w25 gray10">订单状态：</div>
                   <div class="field-value w20 ">{{orderData.orderState | stateFilter }}</div>
                   <div class="clr"> </div>
-                </div>            
+                </div>
                 <div class="form-row">
                   <div class="field-key w25 gray10">应付金额：</div>
                   <div class="field-value w20">￥{{orderData.orderRealAmount}}</div>
                   <div class="clr"> </div>
-                </div>             
+                </div>
 
-            </div>            
+            </div>
             <div class="order-detail mid-wrapper">
-            
+
                 <!--<div class="empty"></div>-->
                 <div class="product-wrapper" ng-repeat="product in orderData.product">
                     <div class="product-photo">
@@ -72,37 +73,37 @@
                     <img ng-src="{{product.imageUrl}}" onerror="this.src='res/null_img.jpg'" ng-click="prodClick(product.onSale,product.productCode)" style="cursor:pointer"/>
                     </div>
                     <div class="product-info">
-                       
-                       <div class="row1"> 
+
+                       <div class="row1">
                            <a class="order-product-name" ng-click="prodClick(product.onSale,product.productCode)" style="cursor:pointer">{{product.productName}}</a>
-                           <div class="product-no pc-only">货号：{{product.productCode}}</div> 
+                           <div class="product-no pc-only">货号：{{product.productCode}}</div>
                        </div>
-                       <div class="row2">               
+                       <div class="row2">
                            <span class="new-price">￥{{product.productRetailPrice}}</span>
-                           <div class="product-no mobile-only">{{product.productCode}}</div>               
+                           <div class="product-no mobile-only">{{product.productCode}}</div>
                        </div>
-        
+
                        <div class="product-action">
-                           <div  class="number-label">数量：{{product.finalQTY}}</div>                      
-                          
-                          
-                           <div class="clr"></div>                
+                           <div  class="number-label">数量：{{product.finalQTY}}</div>
+
+
+                           <div class="clr"></div>
                        </div>
                        <div class="clr"></div>
                     </div>
                     <div class="clr"></div>
                 </div>
-                         
-            </div>           
 
-         
-            
-        
+            </div>
+
+
+
+
         </div>
-        
-        <div class="clr"></div> 
-        
-    
+
+        <div class="clr"></div>
+
+
     </div>
 </div>
 </div>

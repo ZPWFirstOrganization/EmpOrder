@@ -58,11 +58,9 @@
 
 
         	<div class="his-top-wrapper">
-                <div class="his-tips">
-                <!-- 此价格仅表示下单当月价格 -->
-                <!-- <br> -->
+<!--                 <div class="his-tips">
                 <div class="f12">部门秘书：<a ng-repeat="s in secretary">{{s.userName}}&nbsp;&nbsp;{{s.userPhone}}&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
-                </div>
+                </div> -->
                 <div class="his-select-wrapper">
                     <select class="select2" id="pcMonthSelecter" ng-model="pcSelectMonth" ng-change="pcSelectDate()" ng-options="m.name for m in months">
                         <option value=""></option>
@@ -94,19 +92,19 @@
 
                     <div class="th" ng-show="isHaveData">
                         <!-- <div class="td w20 text-center"><span class="text-center">订单编号</span></div> -->
-                        <div class="td w25 text-center"><span class="text-center">订单时间</span></div>
-                        <div class="td w25 text-center"><span class="text-center">捐款金额</span></div>
-                        <div class="td w25 text-center"><span class="text-center">订单状态</span></div>
-                        <div class="td w25 text-center"><span class="text-center">操作</span></div>
+                        <div class="td w33 text-center"><span class="text-center">捐款时间</span></div>
+                        <div class="td w33 text-center"><span class="text-center">捐款金额</span></div>
+                        <!-- <div class="td w25 text-center"><span class="text-center">订单状态</span></div> -->
+                        <div class="td w33 text-center"><span class="text-center">操作</span></div>
 
                         <div class="clr"></div>
                     </div>
                     <div class="tr" ng-repeat="donation in donationList track by $index" ng-show="isHaveData">
                     	 <!-- <div class="td w20"><span class="">{{order.orderID}}</span></div> -->
-                         <div class="td w25"><span class="">{{donation.donationYearMonth}}</span></div>
-                         <div class="td w25"><span class="">￥{{donation.amount}}</span></div>
-                         <div class="td w25"><span class="">{{donation.orderState | stateFilter }}</span></div>
-                         <div class="td w25"><a ng-class="{true:'look-able',false:'look-disable'}[donation.isEnable]" ng-click="showCertificate(donation)">查看</a></div>
+                         <div class="td w33"><span class="">{{donation.donationYearMonth}}</span></div>
+                         <div class="td w33"><span class="">￥{{donation.amount}}</span></div>
+                         <!-- <div class="td w25"><span class="">{{donation.orderState | stateFilter }}</span></div> -->
+                         <div class="td w33"><a ng-class="{true:'look-able',false:'look-disable'}[donation.isEnable]" ng-click="showCertificate(donation)">查看</a></div>
 
                          <div class="clr"></div>
                     </div>
@@ -138,11 +136,9 @@
 
 
         	<div class="his-top-wrapper">
-                <div class="his-tips">
-<!--                 此价格仅表示下单当月价格
-                <br> -->
+                <!-- <div class="his-tips">
                 <div class="f12" ng-repeat="s in secretary">部门秘书：{{s.userName}}&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:{{secretary.userPhone}}" style="color:blue">{{s.userPhone}}</a></div>
-                </div>
+                </div> -->
 <!--             	<div class="his-tips">部门秘书：{{secretary.userName}}&nbsp;&nbsp;&nbsp;&nbsp;{{secretary.userPhone}} </div> -->
             </div>
 
@@ -155,7 +151,7 @@
                         <h3>您还没有获取证书，去捐款吧</h3>
                         </div>
                         <div class="btn">
-                        <a class="button button-gray w100" ui-sref="index.currentOrder({discountType:'{{discountType}}'})">去购物</a>
+                        <a class="button button-gray w100" ui-sref="index.currentOrder({discountType:'{{discountType}}'})">去捐款</a>
                         </div>
 
                     </div>
@@ -164,10 +160,10 @@
                     <div class="form-row">
 <!--                       <div class="field-key w25 gray10">订单编号：</div>
                       <div class="field-value w25">{{order.orderID}}</div> -->
-                      <div class="field-key w25 gray10">订单时间：</div>
+                      <div class="field-key w25 gray10">捐款时间：</div>
                       <div class="field-value w20 ">{{donation.donationYearMonth}}</div>
-                      <div class="field-key w25 gray10">订单状态：</div>
-                      <div class="field-value w20 ">{{donation.orderState | stateFilter }}</div>
+<!--                       <div class="field-key w25 gray10">订单状态：</div>
+                      <div class="field-value w20 ">{{donation.orderState | stateFilter }}</div> -->
                       <div class="clr"> </div>
                     </div>
                     <div class="form-row">
@@ -195,7 +191,7 @@
     </div>
     <div class="box box-shadow-15 certificate-container anim" ng-class="{true:'model-transY-show',false:'model-transY-hide'}[isShowCertificateContainer]">
     <img id="donationImg" ng-src="{{donationImg}}" style="width: 100%;height: 100%"></img>
-    <div class="certificate-name" style="">{{donationShowName}}</div>
+    <!-- <div class="certificate-name" style="">{{donationShowName}}</div> -->
     </div>
 </div>
 </div>
